@@ -1,40 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Domain;
+using Microsoft.Its.Domain;
 
 namespace Api.Controllers
 {
-    [Authorize]
+//    [Authorize]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private static ClaimDraft draft = new ClaimDraft();
+        private readonly IEventSourcedRepository<ClaimDraft> repository;
+
+        public ValuesController(IEventSourcedRepository<ClaimDraft> repository)
         {
-            return new string[] { "value1", "value2" };
+            this.repository = repository;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        [Route("make")]
+        public Guid Make(string name)
         {
-            return "value";
+            var claim = new ClaimDraft();
+            repository.Save(claim);
+
+            return claim.Id;
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [Route("punch"), HttpGet]
+        public void Punch(Guid id)
         {
-        }
+            Debug.WriteLine("Punches");
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+            repository.GetLatest(id).EnactCommand(new ClaimDraft.Approve());
         }
     }
 }

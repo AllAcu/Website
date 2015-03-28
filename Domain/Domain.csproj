@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67EDE9E1-4BF7-42F6-8E7C-E7CD54D4B5A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Its.Validation">
+      <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Its.Domain">
+      <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Its.EventStore">
+      <HintPath>..\packages\Its.EventStore.0.10.5-beta\lib\net45\Microsoft.Its.EventStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CareProvider.cs" />
+    <Compile Include="ClaimDraft\ClaimDraft.cs" />
+    <Compile Include="ClaimDraft\ClaimDraft.EnactCommands.cs" />
+    <Compile Include="ClaimDraft\ClaimId.cs" />
+    <Compile Include="ClaimDraft\Commands\Approve.cs" />
+    <Compile Include="ClaimDraft\Commands\Deny.cs" />
+    <Compile Include="ClaimDraft\Commands\Submit.cs" />
+    <Compile Include="ClaimDraft\Events\Approved.cs" />
+    <Compile Include="ClaimDraft\Events\Denied.cs" />
+    <Compile Include="ClaimDraft\Events\Submitted.cs" />
+    <Compile Include="Claim\Claim.cs" />
+    <Compile Include="Claim\Claim.EnactCommands.cs" />
+    <Compile Include="Claim\Commands\CheckStatus.cs" />
+    <Compile Include="Claim\Commands\SubmitToInsurance.cs" />
+    <Compile Include="Claim\Events\StatusChecked.cs" />
+    <Compile Include="Claim\Events\SubmittedToInsurance.cs" />
+    <Compile Include="InsuranceCall.cs" />
+    <Compile Include="Patient.cs" />
+    <Compile Include="Procedure.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ClaimRepository.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Verification\Verification.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Denials\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
