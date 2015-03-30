@@ -3,7 +3,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Domain;
 using Microsoft.Its.Domain;
+using Microsoft.Its.Domain.Sql;
 using Pocket;
 
 namespace Api
@@ -13,6 +15,10 @@ namespace Api
         protected void Application_Start()
         {
             var container = new PocketContainer();
+
+            EventStoreDbContext.NameOrConnectionString = "EventStore";
+            //container.RegisterGeneric(typeof (IEventSourcedRepository<>), typeof (SqlEventSourcedRepository<>));
+            container.Register(typeof(IEventSourcedRepository<ClaimDraft>), c => Configuration.Current.Repository<ClaimDraft>());
 
             GlobalConfiguration.Configuration
                                .ResolveDependenciesUsing(container);

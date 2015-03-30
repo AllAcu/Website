@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider.cs" />
     <Compile Include="ClaimDraft\ClaimDraft.cs" />
     <Compile Include="ClaimDraft\ClaimDraft.EnactCommands.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Patient.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ClaimRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Verification\Verification.cs" />
   </ItemGroup>

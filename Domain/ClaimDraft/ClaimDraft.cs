@@ -14,6 +14,15 @@ namespace Domain
         public DateTimeOffset DateOfService { get; set; }
         public IList<Procedure> Procedures { get; set; }
 
+        public ClaimDraft()
+        {
+            
+        }
+
+        public ClaimDraft(Guid id, IEnumerable<IEvent> events) : base(id, events)
+        {
+            
+        }
 
         // TODO : Note sure I like this... can history handle that?
         private IList<Submission> submissions = new List<Submission>();
