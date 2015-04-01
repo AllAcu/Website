@@ -33,6 +33,12 @@ namespace Api.Controllers
         public Guid Make(string name)
         {
             var claim = new ClaimDraft();
+
+            claim.EnactCommand(new ClaimDraft.Create
+            {
+                Diagnosis = "Bum knee"
+            });
+
             repository.Save(claim);
 
             return claim.Id;

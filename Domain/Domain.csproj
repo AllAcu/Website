@@ -33,10 +33,12 @@
     <Reference Include="Its.Validation">
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain">
+    <Reference Include="Microsoft.Its.Domain, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.EventStore">
+    <Reference Include="Microsoft.Its.EventStore, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Its.EventStore.0.10.5-beta\lib\net45\Microsoft.Its.EventStore.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -69,9 +71,11 @@
     <Compile Include="ClaimDraft\ClaimDraft.EnactCommands.cs" />
     <Compile Include="ClaimDraft\ClaimId.cs" />
     <Compile Include="ClaimDraft\Commands\Approve.cs" />
+    <Compile Include="ClaimDraft\Commands\CreateClaim.cs" />
     <Compile Include="ClaimDraft\Commands\Deny.cs" />
     <Compile Include="ClaimDraft\Commands\Submit.cs" />
     <Compile Include="ClaimDraft\Events\Approved.cs" />
+    <Compile Include="ClaimDraft\Events\Created.cs" />
     <Compile Include="ClaimDraft\Events\Denied.cs" />
     <Compile Include="ClaimDraft\Events\Submitted.cs" />
     <Compile Include="Claim\Claim.cs" />

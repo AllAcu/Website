@@ -17,7 +17,6 @@ namespace Api
             var container = new PocketContainer();
 
             EventStoreDbContext.NameOrConnectionString = "EventStore";
-            //container.RegisterGeneric(typeof (IEventSourcedRepository<>), typeof (SqlEventSourcedRepository<>));
             container.Register(typeof(IEventSourcedRepository<ClaimDraft>), c => Configuration.Current.Repository<ClaimDraft>());
 
             GlobalConfiguration.Configuration

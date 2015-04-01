@@ -18,5 +18,10 @@ namespace Domain
         {
             RecordEvent(new Denied());
         }
+
+        public void EnactCommand(Create command)
+        {
+            RecordEvent(new Created(command.Diagnosis));
+        }
     }
 }
