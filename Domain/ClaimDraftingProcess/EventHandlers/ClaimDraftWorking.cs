@@ -20,11 +20,7 @@ namespace Domain
 
         public void UpdateProjection(ClaimFilingProcess.ClaimInitiated @event)
         {
-            using (var update = this.Update())
-            {
-                repository.StartDraft(@event.Claim);
-                update.VoteCommit();
-            }
+            repository.StartDraft(@event.Claim);
         }
     }
 }

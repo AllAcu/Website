@@ -21,6 +21,7 @@ namespace Domain.Repository
         public void StartDraft(ClaimDraft draft)
         {
             Drafts.Add(draft);
+            this.SaveChanges();
         }
 
         public IEnumerable<ClaimDraft> GetDrafts()
@@ -39,9 +40,6 @@ namespace Domain.Repository
 
             modelBuilder.Entity<ClaimDraft>()
                 .HasKey(x => new { x.Id });
-
-            modelBuilder.Entity<ClaimDraft>()
-                .Ignore(x => x.Patient);
 
             modelBuilder.Entity<ClaimDraft>()
                 .Ignore(x => x.Procedures);

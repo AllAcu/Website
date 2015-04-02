@@ -38,7 +38,7 @@ namespace Api.Controllers
             {
                 Claim = new ClaimDraft
                 {
-                    Patient = new Patient { Name = name },
+                    Patient = name,
                     Diagnosis = "Bum knee"
                 }
             });

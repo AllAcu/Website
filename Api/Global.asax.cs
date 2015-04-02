@@ -17,13 +17,25 @@ namespace Api
         {
             var container = new PocketContainer();
 
-            EventStoreDbContext.NameOrConnectionString = "EventStore";
-            ClaimDraftRepository.NameOrConnectionString = "ClaimDrafts";
+            EventStoreDbContext.NameOrConnectionString = 
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
+            ReadModelDbContext.NameOrConnectionString =
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ReadModels";
+
+            using (var db = new ClaimDraftRepository())
+            {
+                new ReadModelDatabaseInitializer<ClaimDraftRepository>().InitializeDatabase(db);
+            }
+
+            using (var eventStore = new EventStoreDbContext())
+            {
+                new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
+            }
+
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Configuration.Current.Repository<ClaimFilingProcess>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
 
-            GlobalConfiguration.Configuration
-                               .ResolveDependenciesUsing(container);
+            GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
