@@ -30,12 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Its.Validation">
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Its.Domain, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Its.Domain.Sql">
+      <HintPath>..\packages\Its.Domain.Sql.0.10.5-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Its.EventStore, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -45,6 +54,7 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
@@ -67,17 +77,19 @@
   <ItemGroup>
     <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider.cs" />
-    <Compile Include="ClaimDraft\ClaimDraft.cs" />
-    <Compile Include="ClaimDraft\ClaimDraft.EnactCommands.cs" />
-    <Compile Include="ClaimDraft\ClaimId.cs" />
-    <Compile Include="ClaimDraft\Commands\Approve.cs" />
-    <Compile Include="ClaimDraft\Commands\CreateClaim.cs" />
-    <Compile Include="ClaimDraft\Commands\Deny.cs" />
-    <Compile Include="ClaimDraft\Commands\Submit.cs" />
-    <Compile Include="ClaimDraft\Events\Approved.cs" />
-    <Compile Include="ClaimDraft\Events\Created.cs" />
-    <Compile Include="ClaimDraft\Events\Denied.cs" />
-    <Compile Include="ClaimDraft\Events\Submitted.cs" />
+    <Compile Include="ClaimDraft.cs" />
+    <Compile Include="ClaimDraftingProcess\ClaimFilingProcess.cs" />
+    <Compile Include="ClaimDraftingProcess\ClaimDraft.EnactCommands.cs" />
+    <Compile Include="ClaimDraftingProcess\ClaimId.cs" />
+    <Compile Include="ClaimDraftingProcess\Commands\Approve.cs" />
+    <Compile Include="ClaimDraftingProcess\Commands\CreateClaim.cs" />
+    <Compile Include="ClaimDraftingProcess\Commands\Deny.cs" />
+    <Compile Include="ClaimDraftingProcess\Commands\Submit.cs" />
+    <Compile Include="ClaimDraftingProcess\EventHandlers\ClaimDraftWorking.cs" />
+    <Compile Include="ClaimDraftingProcess\Events\Approved.cs" />
+    <Compile Include="ClaimDraftingProcess\Events\ClaimInitiated.cs" />
+    <Compile Include="ClaimDraftingProcess\Events\Denied.cs" />
+    <Compile Include="ClaimDraftingProcess\Events\Submitted.cs" />
     <Compile Include="Claim\Claim.cs" />
     <Compile Include="Claim\Claim.EnactCommands.cs" />
     <Compile Include="Claim\Commands\CheckStatus.cs" />
@@ -88,6 +100,7 @@
     <Compile Include="Patient.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ClaimDraftRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Verification\Verification.cs" />

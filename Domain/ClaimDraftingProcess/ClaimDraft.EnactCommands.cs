@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace Domain
+﻿namespace Domain
 {
-    public partial class ClaimDraft
+    public partial class ClaimFilingProcess
     {
+        public void EnactCommand(StartClaim command)
+        {
+            RecordEvent(new ClaimInitiated(command.Claim));
+        }
+
         public void EnactCommand(SubmitForApproval command)
         {
             RecordEvent(new Submitted());
@@ -17,11 +20,6 @@ namespace Domain
         public void EnactCommand(Deny command)
         {
             RecordEvent(new Denied());
-        }
-
-        public void EnactCommand(Create command)
-        {
-            RecordEvent(new Created(command.Diagnosis));
         }
     }
 }

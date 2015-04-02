@@ -11,9 +11,9 @@ namespace Api.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEventSourcedRepository<ClaimDraft> store;
+        private readonly IEventSourcedRepository<ClaimFilingProcess> store;
 
-        public HomeController(IEventSourcedRepository<ClaimDraft> store)
+        public HomeController(IEventSourcedRepository<ClaimFilingProcess> store)
         {
             this.store = store;
         }

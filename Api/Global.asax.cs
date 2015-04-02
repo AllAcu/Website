@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Domain;
+using Domain.Repository;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
@@ -17,7 +18,9 @@ namespace Api
             var container = new PocketContainer();
 
             EventStoreDbContext.NameOrConnectionString = "EventStore";
-            container.Register(typeof(IEventSourcedRepository<ClaimDraft>), c => Configuration.Current.Repository<ClaimDraft>());
+            ClaimDraftRepository.NameOrConnectionString = "ClaimDrafts";
+            container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Configuration.Current.Repository<ClaimFilingProcess>());
+            Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
 
             GlobalConfiguration.Configuration
                                .ResolveDependenciesUsing(container);

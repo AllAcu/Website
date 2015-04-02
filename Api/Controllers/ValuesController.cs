@@ -11,16 +11,16 @@ using Microsoft.Its.Domain.Sql;
 
 namespace Api.Controllers
 {
-//    [Authorize]
+    //    [Authorize]
     public class ValuesController : ApiController
     {
-        private static ClaimDraft draft = new ClaimDraft();
-        private readonly IEventSourcedRepository<ClaimDraft> repository;
+        private static ClaimFilingProcess process = new ClaimFilingProcess();
+        private readonly IEventSourcedRepository<ClaimFilingProcess> draftEvents;
         //private readonly SqlEventSourcedRepository<ClaimDraft> repository;
 
-        public ValuesController(IEventSourcedRepository<ClaimDraft> repository)
+        public ValuesController(IEventSourcedRepository<ClaimFilingProcess> draftEvents)
         {
-            this.repository = repository;
+            this.draftEvents = draftEvents;
         }
 
         //public ValuesController()
@@ -32,16 +32,29 @@ namespace Api.Controllers
         [Route("make"), HttpGet]
         public Guid Make(string name)
         {
-            var claim = new ClaimDraft();
+            var claim = new ClaimFilingProcess();
 
-            claim.EnactCommand(new ClaimDraft.Create
+            claim.EnactCommand(new ClaimFilingProcess.StartClaim
             {
-                Diagnosis = "Bum knee"
+                Claim = new ClaimDraft
+                {
+                    Patient = new Patient { Name = name },
+                    Diagnosis = "Bum knee"
+                }
             });
 
-            repository.Save(claim);
+            draftEvents.Save(claim);
 
             return claim.Id;
+        }
+
+        [Route(""), HttpGet]
+        public ClaimDraft Get(Guid id)
+        {
+            Debug.WriteLine("Git it");
+
+            var draft = draftEvents.GetLatest(id);
+            return draft.Claim;
         }
 
         [Route("punch"), HttpGet]
@@ -49,8 +62,8 @@ namespace Api.Controllers
         {
             Debug.WriteLine("Punches");
 
-            var draft = repository.GetLatest(id);
-            draft.EnactCommand(new ClaimDraft.Approve());
+            var draft = draftEvents.GetLatest(id);
+            draft.EnactCommand(new ClaimFilingProcess.Approve());
         }
     }
 }
