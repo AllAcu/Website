@@ -1,7 +1,4 @@
-﻿@using Microsoft.Its.Domain.Serialization
-@model Api.Models.ClaimsIndex
-
-@{
+﻿@{
     Layout = "../Shared/_Minimal.cshtml";
     ViewBag.Title = "Claims";
 }
@@ -9,35 +6,24 @@
 @Scripts.Render("~/Scripts/Claims/App.js")
 @Scripts.Render("~/Scripts/Claims/ClaimsRepository.js")
 
-    <script>
-        $(function () {
-            var draftsz = [
-                @foreach (var draft in Model.Claims)
-            {
-                @Html.Raw(draft.ToJson())
-                <text>,</text>
-            }
-            ];
+<div ng-app="claimsApp">
+    <div ng-controller="claimsList">
+        <table st-table="drafts" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Diagnosis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="draft in drafts">
+                    <td>{{draft.patient}}</td>
+                    <td>{{draft.diagnosis}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-
-
-        });
-
-    </script>
-
-
-    <div ng-app="claimsApp">
-        <div ng-controller="claimsList">
-            <ul>
-                <li ng-repeat="draft in drafts">
-                    <span>{{draft.patient}}</span>
-                    <p>{{draft.diagnosis}}</p>
-                </li>
-            </ul>
-
-            <button ng-click="grab()">Grab</button>
-        </div>
-
+        <button ng-click="grab()">Grab</button>
     </div>
 
-
+</div>

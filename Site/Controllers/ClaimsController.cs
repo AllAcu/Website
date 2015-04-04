@@ -1,45 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Api.Models;
-using Domain.Repository;
+﻿using System.Web.Mvc;
 
 namespace Api.Controllers
 {
     public class ClaimsController : Controller
     {
-        private readonly ClaimDraftRepository claims = AllAcuWebApplication.Container.Resolve<ClaimDraftRepository>();
-
         // GET: Claims
         public ActionResult Index()
         {
-            var drafts = claims.GetDrafts();
-
-            return View("Claims", new ClaimsIndex
-            {
-                Claims = drafts.ToArray()
-            });
+            return View("Claims");
         }
-
-        // GET: Claims/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Claims/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // GET: Claims/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
     }
 }
