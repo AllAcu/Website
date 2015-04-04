@@ -17,7 +17,7 @@ namespace Api.Controllers
         {
             var drafts = claims.GetDrafts();
 
-            return View(new ClaimsIndex
+            return View("Claims", new ClaimsIndex
             {
                 Claims = drafts.ToArray()
             });

@@ -51,11 +51,11 @@ namespace Api.Controllers
             return claim.Id;
         }
 
-        //[Route("claims"), HttpGet]
-        //public IEnumerable<ClaimDraft> GetAll()
-        //{
-        //    return Claims.GetDrafts();
-        //}
+        [Route("api/claims"), HttpGet]
+        public IEnumerable<ClaimDraft> GetAll()
+        {
+            return Claims.GetDrafts();
+        }
 
         [Route("claim"), HttpGet]
         public ClaimDraft Get(Guid id)

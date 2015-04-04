@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.js")
+    @Scripts.Render("~/Scripts/smart-table.js")
+@Scripts.Render("~/bundles/jquery")
+</head>
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - All Acu</p>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>
