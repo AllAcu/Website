@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Domain;
+using Domain.Repository;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 
@@ -17,10 +18,12 @@ namespace Api.Controllers
         private static ClaimFilingProcess process = new ClaimFilingProcess();
         private readonly IEventSourcedRepository<ClaimFilingProcess> draftEvents;
         //private readonly SqlEventSourcedRepository<ClaimDraft> repository;
+        private readonly ClaimDraftRepository Claims;
 
-        public ValuesController(IEventSourcedRepository<ClaimFilingProcess> draftEvents)
+        public ValuesController(IEventSourcedRepository<ClaimFilingProcess> draftEvents, ClaimDraftRepository claims)
         {
             this.draftEvents = draftEvents;
+            this.Claims = claims;
         }
 
         //public ValuesController()
@@ -46,6 +49,12 @@ namespace Api.Controllers
             draftEvents.Save(claim);
 
             return claim.Id;
+        }
+
+        [Route("claims"), HttpGet]
+        public IEnumerable<ClaimDraft> GetAll()
+        {
+            return Claims.GetDrafts();
         }
 
         [Route(""), HttpGet]
