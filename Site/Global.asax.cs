@@ -11,11 +11,14 @@ using Pocket;
 
 namespace Api
 {
-    public class WebApiApplication : HttpApplication
+    public class AllAcuWebApplication : HttpApplication
     {
+        internal static PocketContainer Container;
+
         protected void Application_Start()
         {
             var container = new PocketContainer();
+            Container = container;
 
             EventStoreDbContext.NameOrConnectionString = 
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
@@ -36,7 +39,7 @@ namespace Api
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
 
             GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
-
+            
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

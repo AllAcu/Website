@@ -51,13 +51,13 @@ namespace Api.Controllers
             return claim.Id;
         }
 
-        [Route("claims"), HttpGet]
-        public IEnumerable<ClaimDraft> GetAll()
-        {
-            return Claims.GetDrafts();
-        }
+        //[Route("claims"), HttpGet]
+        //public IEnumerable<ClaimDraft> GetAll()
+        //{
+        //    return Claims.GetDrafts();
+        //}
 
-        [Route(""), HttpGet]
+        [Route("claim"), HttpGet]
         public ClaimDraft Get(Guid id)
         {
             Debug.WriteLine("Git it");

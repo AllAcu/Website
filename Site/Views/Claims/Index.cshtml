@@ -1,0 +1,13 @@
+﻿@model Api.Models.ClaimsIndex
+
+@{
+    ViewBag.Title = "Claims";
+}
+
+
+<h2>Index</h2>
+
+@foreach (var draft in Model.Claims)
+{
+    <div>@draft.Patient - @draft.Diagnosis</div>
+}
