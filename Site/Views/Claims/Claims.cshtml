@@ -6,24 +6,8 @@
 @Scripts.Render("~/Scripts/Claims/App.js")
 @Scripts.Render("~/Scripts/Claims/ClaimsRepository.js")
 
+
 <div ng-app="claimsApp">
-    <div ng-controller="claimsList">
-        <table st-table="drafts" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Patient</th>
-                    <th>Diagnosis</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="draft in drafts">
-                    <td>{{draft.patient}}</td>
-                    <td>{{draft.diagnosis}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <button ng-click="grab()">Grab</button>
-    </div>
-
+    <div ng-view></div>
 </div>
+
