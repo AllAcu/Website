@@ -19,7 +19,5 @@ namespace Domain
         }
 
         public ClaimDraft Claim { get; private set; }
-
-
     }
 }

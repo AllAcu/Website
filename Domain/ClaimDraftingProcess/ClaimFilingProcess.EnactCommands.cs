@@ -6,6 +6,7 @@ namespace Domain
     {
         public void EnactCommand(StartClaim command)
         {
+            command.Claim.Id = Id;
             RecordEvent(new ClaimInitiated(command.Claim));
         }
 

@@ -51,9 +51,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpPut]
-        public Guid Update(ClaimDraft draft)
+        public void Update(ClaimDraft draft)
         {
-            var claim = new ClaimFilingProcess();
+            var claim = draftEvents.GetLatest(draft.Id);
 
             claim.EnactCommand(new ClaimFilingProcess.UpdateClaim
             {
@@ -61,14 +61,12 @@ namespace AllAcu.Controllers.api
             });
 
             draftEvents.Save(claim);
-
-            return claim.Id;
         }
 
         [Route("{claimId}/approve"), HttpPost]
         public void Approve(Guid id)
         {
-            Debug.WriteLine("Punches");
+            Debug.WriteLine("Approving");
 
             var draft = draftEvents.GetLatest(id);
             draft.EnactCommand(new ClaimFilingProcess.Approve());

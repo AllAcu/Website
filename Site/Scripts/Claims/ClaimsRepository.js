@@ -8,6 +8,9 @@
             find: function (id) {
                 return $http.get("/api/claim/" + id);
             },
+            create: function (draft) {
+                return $http.post("/api/claim", draft);
+            },
             update: function (draft) {
                 return $http.put("/api/claim/", draft);
             }

@@ -16,6 +16,10 @@
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimEdit'
                 }).
+                when('/create', {
+                    templateUrl: '/Templates/Claims/claimEdit.html',
+                    controller: 'claimCreate'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });
@@ -35,15 +39,30 @@
     ]);
 
     controllers.controller('claimEdit', [
-            "$scope", "$routeParams", "claimsRepository", function ($scope, $routeParams, $claims) {
+            "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
 
                 $scope.draft = {};
                 $claims.find($routeParams["id"]).success(function (data) {
                     $scope.draft = data;
                 });
 
-                $scope.save = function() {
-                    $claims.update($scope.draft);
+                $scope.save = function () {
+                    $claims.update($scope.draft).success(function () {
+                        $location.path("/");
+                    });
+                }
+            }
+    ]);
+
+    controllers.controller('claimCreate', [
+            "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
+
+                $scope.draft = {};
+
+                $scope.save = function () {
+                    $claims.create($scope.draft).success(function() {
+                        $location.path("/");
+                    });
                 }
             }
     ]);
