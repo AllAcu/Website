@@ -33,7 +33,10 @@
                 $scope.drafts = [];
 
                 $claims.findAll().success(function (data) {
-                    $scope.drafts = data;
+                    $scope.drafts = data.map(function(item) {
+                        item.dateOfService = new Date(item.dateOfService);
+                        return item;
+                    });
                 });
             }
     ]);
@@ -43,6 +46,7 @@
 
                 $scope.draft = {};
                 $claims.find($routeParams["id"]).success(function (data) {
+                    data.dateOfService = new Date(data.dateOfService);
                     $scope.draft = data;
                 });
 

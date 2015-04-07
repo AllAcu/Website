@@ -40,6 +40,7 @@ namespace Domain.Repository
 
             draft.Patient = updated.Patient;
             draft.Diagnosis = updated.Diagnosis;
+            draft.DateOfService = updated.DateOfService;
 
             SaveChanges();
         }

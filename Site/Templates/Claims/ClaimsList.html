@@ -4,12 +4,14 @@
         <tr>
             <th>Patient</th>
             <th>Diagnosis</th>
+            <th>Date Of Service</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="draft in drafts">
             <td><a href="#edit/{{draft.id}}">{{draft.patient}}</a></td>
             <td>{{draft.diagnosis}}</td>
+            <td>{{draft.dateOfService}}</td>
         </tr>
         </tbody>
     </table>
