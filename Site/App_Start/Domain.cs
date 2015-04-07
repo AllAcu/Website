@@ -3,7 +3,7 @@ using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
 
-namespace Api.App_Start
+namespace AllAcu.App_Start
 {
     public class Domain
     {

@@ -3,11 +3,14 @@ using Microsoft.Its.Domain;
 
 namespace Domain
 {
-    public class Denied : Event<ClaimFilingProcess>
+    public partial class ClaimFilingProcess
     {
-        public override void Update(ClaimFilingProcess aggregate)
+        public class Denied : Event<ClaimFilingProcess>
         {
-            throw new NotImplementedException();
+            public override void Update(ClaimFilingProcess aggregate)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

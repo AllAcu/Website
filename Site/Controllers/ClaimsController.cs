@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Api.Controllers
+namespace AllAcu.Controllers
 {
     public class ClaimsController : Controller
     {

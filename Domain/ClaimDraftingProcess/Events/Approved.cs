@@ -1,14 +1,16 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Its.Domain;
 
 namespace Domain
 {
-    public class Approved : Event<ClaimFilingProcess>
+    public partial class ClaimFilingProcess
     {
-        public override void Update(ClaimFilingProcess aggregate)
+        public class Approved : Event<ClaimFilingProcess>
         {
-            Debug.WriteLine("Approved that claim");
+            public override void Update(ClaimFilingProcess aggregate)
+            {
+                Debug.WriteLine("Approved that claim");
+            }
         }
     }
 }

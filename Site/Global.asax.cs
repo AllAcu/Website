@@ -9,7 +9,7 @@ using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
 
-namespace Api
+namespace AllAcu
 {
     public class AllAcuWebApplication : HttpApplication
     {

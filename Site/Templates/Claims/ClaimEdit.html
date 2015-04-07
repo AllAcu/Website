@@ -1,5 +1,8 @@
 ﻿<div ng-controller="claimEdit">
-    <div>Patient: {{draft.patient}}</div>
-    <div>Diagnosis: {{draft.diagnosis}}</div>
+    <div>Patient: <input type="text" ng-model="draft.patient"/></div>
+    <div>Diagnosis: <input type="text" ng-model="draft.diagnosis"/></div>
 
+    <button ng-click="save()">Save</button>
+
+    <div><a href="/Claims">Home</a></div>
 </div>

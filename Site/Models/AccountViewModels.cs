@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Api.Models
+namespace AllAcu.Models
 {
     // Models returned by AccountController actions.
 

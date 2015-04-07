@@ -9,7 +9,10 @@ using Microsoft.Its.Domain.Sql;
 
 namespace Domain
 {
-    public class ClaimDraftWorking : IUpdateProjectionWhen<ClaimFilingProcess.ClaimInitiated>
+    public class ClaimDraftWorking : 
+        IUpdateProjectionWhen<ClaimFilingProcess.ClaimInitiated>,
+        IUpdateProjectionWhen<ClaimFilingProcess.ClaimUpdated>
+
     {
         private readonly ClaimDraftRepository repository;
 
@@ -21,6 +24,11 @@ namespace Domain
         public void UpdateProjection(ClaimFilingProcess.ClaimInitiated @event)
         {
             repository.StartDraft(@event.Claim);
+        }
+
+        public void UpdateProjection(ClaimFilingProcess.ClaimUpdated @event)
+        {
+            repository.Update(@event.Claim);
         }
     }
 }

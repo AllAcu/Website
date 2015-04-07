@@ -41,6 +41,10 @@
                 $claims.find($routeParams["id"]).success(function (data) {
                     $scope.draft = data;
                 });
+
+                $scope.save = function() {
+                    $claims.update($scope.draft);
+                }
             }
     ]);
 

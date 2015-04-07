@@ -21,7 +21,7 @@ namespace Domain.Repository
         public void StartDraft(ClaimDraft draft)
         {
             Drafts.Add(draft);
-            this.SaveChanges();
+            SaveChanges();
         }
 
         public IEnumerable<ClaimDraft> GetDrafts()
@@ -32,6 +32,16 @@ namespace Domain.Repository
         public ClaimDraft GetDraft(Guid id)
         {
             return Drafts.Find(id);
+        }
+
+        public void Update(ClaimDraft updated)
+        {
+            var draft = Drafts.Find(updated.Id);
+
+            draft.Patient = updated.Patient;
+            draft.Diagnosis = updated.Diagnosis;
+
+            SaveChanges();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

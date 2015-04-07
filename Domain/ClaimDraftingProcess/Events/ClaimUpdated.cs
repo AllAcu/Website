@@ -4,11 +4,11 @@ namespace Domain
 {
     public partial class ClaimFilingProcess
     {
-        public class ClaimInitiated : Event<ClaimFilingProcess>
+        public class ClaimUpdated : Event<ClaimFilingProcess>
         {
             public ClaimDraft Claim { get; }
 
-            public ClaimInitiated(ClaimDraft claim)
+            public ClaimUpdated(ClaimDraft claim)
             {
                 Claim = claim;
             }

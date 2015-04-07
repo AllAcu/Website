@@ -3,7 +3,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Api
+namespace AllAcu
 {
     public static class WebApiConfig
     {

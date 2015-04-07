@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
 using Domain.Repository;
 
-namespace Api.Controllers
+namespace AllAcu.Controllers
 {
     public class HomeController : Controller
     {
-        private Domain.Repository.ClaimDraftRepository claims = AllAcuWebApplication.Container.Resolve<ClaimDraftRepository>();
+        private ClaimDraftRepository claims = AllAcuWebApplication.Container.Resolve<ClaimDraftRepository>();
 
         public ActionResult Index()
         {

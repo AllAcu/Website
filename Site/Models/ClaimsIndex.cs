@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain;
 
-namespace Api.Models
+namespace AllAcu.Models
 {
     public class ClaimsIndex
     {
