@@ -4,7 +4,7 @@ namespace Api.Controllers
 {
     public class ClaimsController : Controller
     {
-        public ActionResult Index(string[] anything)
+        public ActionResult Index()
         {
             return View("Claims");
         }

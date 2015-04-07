@@ -287,8 +287,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
-    <Content Include="Claims\Templates\ClaimEdit.html" />
-    <Content Include="Claims\Templates\ClaimsList.html" />
+    <Content Include="Templates\Claims\ClaimEdit.html" />
+    <Content Include="Templates\Claims\ClaimsList.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -12,10 +12,12 @@ namespace Api
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute(".htm");
+            routes.IgnoreRoute(".html");
 
             routes.MapRoute(
                 name: "claims",
-                url: "claims/{*anything}",
+                url: "Claims/",
                 defaults: new { controller = "Claims", action = "Index" }
             );
 

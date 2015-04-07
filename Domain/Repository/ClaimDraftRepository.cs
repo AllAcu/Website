@@ -29,6 +29,11 @@ namespace Domain.Repository
             return Drafts.Take(10);
         }
 
+        public ClaimDraft GetDraft(Guid id)
+        {
+            return Drafts.Find(id);
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

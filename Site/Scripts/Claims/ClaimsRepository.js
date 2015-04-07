@@ -4,6 +4,9 @@
         var claimRepository = {
             findAll: function () {
                 return $http.get("/api/claims");
+            },
+            find: function(id) {
+                return $http.get("/api/claim/" + id);
             }
         }
 

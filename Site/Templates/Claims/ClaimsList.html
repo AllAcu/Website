@@ -7,8 +7,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="draft in drafts" ng-click="edit(this)">
-                <td>{{draft.patient}}</td>
+            <tr ng-repeat="draft in drafts">
+                <td><a href="#edit/{{draft.id}}">{{draft.patient}}</a></td>
                 <td>{{draft.diagnosis}}</td>
             </tr>
         </tbody>

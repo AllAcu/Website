@@ -8,16 +8,16 @@
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.
-                when('/claims', {
-                    templateUrl: 'Templates/claimsList.html',
+                when('/', {
+                    templateUrl: '/Templates/Claims/claimsList.html',
                     controller: 'claimsList'
                 }).
-                when('/claims/edit', {
-                    templateUrl: 'Templates/claimEdit.html',
+                when('/edit/:id', {
+                    templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimEdit'
                 }).
                 otherwise({
-                    redirectTo: '/claims'
+                    redirectTo: '/'
                 });
         }
     ]);
@@ -26,29 +26,23 @@
 
     controllers.controller('claimsList', [
             "$scope", "claimsRepository", function ($scope, $claims) {
-                $scope.drafts = [
-                    {
-                        'patient': 'John Q. Public',
-                        'diagnosis': 'Sad'
-                    }
-                ];
+                $scope.drafts = [];
 
-                $scope.grab = function () {
-                    $claims.findAll().success(function (data) {
-                        $scope.drafts = data;
-                    });
-                }
-
-                $scope.edit = function (item) {
-                    console.log("editing: " + JSON.stringify(item.draft));
-                }
+                $claims.findAll().success(function (data) {
+                    $scope.drafts = data;
+                });
             }
     ]);
 
-    controllers.controller('claimEdit', function ($scope) {
-            $scope.testValue = "value number 1";
-        }
-    );
+    controllers.controller('claimEdit', [
+            "$scope", "$routeParams", "claimsRepository", function ($scope, $routeParams, $claims) {
+
+                $scope.draft = {};
+                $claims.find($routeParams["id"]).success(function (data) {
+                    $scope.draft = data;
+                });
+            }
+    ]);
 
     exports.app = app;
     exports.controllers = controllers;

@@ -12,7 +12,7 @@ using Microsoft.Its.Domain.Sql;
 
 namespace Api.Controllers
 {
-    //    [Authorize]
+    [RoutePrefix("api")]
     public class ValuesController : ApiController
     {
         private static ClaimFilingProcess process = new ClaimFilingProcess();
@@ -51,19 +51,19 @@ namespace Api.Controllers
             return claim.Id;
         }
 
-        [Route("api/claims"), HttpGet]
+        [Route("claims"), HttpGet]
         public IEnumerable<ClaimDraft> GetAll()
         {
             return Claims.GetDrafts();
         }
 
-        [Route("claim"), HttpGet]
-        public ClaimDraft Get(Guid id)
+        [Route("claim/{claimId}"), HttpGet]
+        public ClaimDraft Get(Guid claimId)
         {
             Debug.WriteLine("Git it");
 
-            var draft = draftEvents.GetLatest(id);
-            return draft.Claim;
+            var draft = Claims.GetDraft(claimId);
+            return draft;
         }
 
         [Route("punch"), HttpGet]
