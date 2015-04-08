@@ -93,12 +93,6 @@
     <Compile Include="ClaimDraftingProcess\Events\ClaimUpdated.cs" />
     <Compile Include="ClaimDraftingProcess\Events\Denied.cs" />
     <Compile Include="ClaimDraftingProcess\Events\Submitted.cs" />
-    <Compile Include="Claim\Claim.cs" />
-    <Compile Include="Claim\Claim.EnactCommands.cs" />
-    <Compile Include="Claim\Commands\CheckStatus.cs" />
-    <Compile Include="Claim\Commands\SubmitToInsurance.cs" />
-    <Compile Include="Claim\Events\StatusChecked.cs" />
-    <Compile Include="Claim\Events\SubmittedToInsurance.cs" />
     <Compile Include="InsuranceCall.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Procedure.cs" />
@@ -107,11 +101,8 @@
     <Compile Include="Repository\ClaimsReadModelDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="Verification\Verification.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Denials\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
