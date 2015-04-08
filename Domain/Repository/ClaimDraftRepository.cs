@@ -1,69 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Its.Domain.Sql;
 
 namespace Domain.Repository
 {
-    public class ClaimDraftRepository : ReadModelDbContext
+    public class ClaimDraftRepository
     {
-        public ClaimDraftRepository()
-            : base(NameOrConnectionString)
+        private readonly ClaimsReadModelDbContext context;
+
+        public ClaimDraftRepository(ClaimsReadModelDbContext context)
         {
-
+            this.context = context;
         }
-
-        public DbSet<ClaimDraft> Drafts { get; set; }
 
         public void StartDraft(ClaimDraft draft)
         {
-            Drafts.Add(draft);
-            SaveChanges();
+            context.Drafts.Add(draft);
+            context.SaveChanges();
         }
 
         public IEnumerable<ClaimDraft> GetDrafts()
         {
-            return Drafts.Take(10);
+            return context.Drafts.Take(10);
         }
 
         public ClaimDraft GetDraft(Guid id)
         {
-            return Drafts.Find(id);
+            return context.Drafts.Find(id);
         }
 
         public void Update(ClaimDraft updated)
         {
-            var draft = Drafts.Find(updated.Id);
+            var draft = context.Drafts.Find(updated.Id);
 
             draft.Patient = updated.Patient;
             draft.Diagnosis = updated.Diagnosis;
             draft.DateOfService = updated.DateOfService;
 
-            SaveChanges();
+            context.SaveChanges();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public void Submit(ClaimDraft claim)
         {
+            context.Drafts.Remove(claim);
+            context.SubmittedClaims.Add(new SubmittedClaim
+            {
+                Id = claim.Id,
+                Patient = claim.Patient,
+                Diagnosis = claim.Diagnosis,
+                DateOfService = claim.DateOfService
+            });
+            context.SaveChanges();
+        }
 
-            //modelBuilder.ComplexType<Address>();
-            //modelBuilder.ComplexType<PaymentInstrument>();
-
-            //modelBuilder.Entity<ActiveCart>()
-            //    .HasOptional(x => x.PaymentInstrument);
-
-            modelBuilder.Entity<ClaimDraft>()
-                .HasKey(x => new { x.Id });
-
-            modelBuilder.Entity<ClaimDraft>()
-                .Ignore(x => x.Procedures);
-
-            modelBuilder.Entity<ClaimDraft>()
-                .Ignore(x => x.Provider);
-
-            base.OnModelCreating(modelBuilder);
+        public void Remove(ClaimDraft draft)
+        {
+            context.Drafts.Remove(draft);
+            context.SaveChanges();
         }
     }
 }

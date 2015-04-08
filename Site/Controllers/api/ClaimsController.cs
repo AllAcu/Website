@@ -63,6 +63,16 @@ namespace AllAcu.Controllers.api
             draftEvents.Save(claim);
         }
 
+        [Route("submit/{claimId}"), HttpPost]
+        public void Submit(Guid claimId)
+        {
+            var claim = draftEvents.GetLatest(claimId);
+
+            claim.EnactCommand(new ClaimFilingProcess.SubmitForApproval());
+
+            draftEvents.Save(claim);
+        }
+
         [Route("{claimId}/approve"), HttpPost]
         public void Approve(Guid id)
         {

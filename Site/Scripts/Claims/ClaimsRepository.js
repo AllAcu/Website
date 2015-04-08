@@ -13,6 +13,9 @@
             },
             update: function (draft) {
                 return $http.put("/api/claim/", draft);
+            },
+            submit: function(draft) {
+                return $http.post("/api/claim/submit/" + draft.id);
             }
         }
 

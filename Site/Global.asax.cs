@@ -25,9 +25,9 @@ namespace AllAcu
             ReadModelDbContext.NameOrConnectionString =
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ReadModels";
 
-            using (var db = new ClaimDraftRepository())
+            using (var db = new ClaimsReadModelDbContext())
             {
-                new ReadModelDatabaseInitializer<ClaimDraftRepository>().InitializeDatabase(db);
+                new ReadModelDatabaseInitializer<ClaimsReadModelDbContext>().InitializeDatabase(db);
             }
 
             using (var eventStore = new EventStoreDbContext())

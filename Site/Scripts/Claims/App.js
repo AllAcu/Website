@@ -55,6 +55,12 @@
                         $location.path("/");
                     });
                 }
+
+                $scope.submit = function () {
+                    $claims.submit($scope.draft).success(function () {
+                        $location.path("/");
+                    });
+                }
             }
     ]);
 
