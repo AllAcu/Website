@@ -33,9 +33,8 @@ namespace Domain.Repository
         {
             var draft = context.Drafts.Find(updated.Id);
 
-            draft.Patient = updated.Patient;
-            draft.Diagnosis = updated.Diagnosis;
-            draft.DateOfService = updated.DateOfService;
+            draft.Visit.Diagnosis = updated.Visit.Diagnosis;
+            draft.Visit.DateOfService = updated.Visit.DateOfService;
 
             context.SaveChanges();
         }
@@ -47,8 +46,8 @@ namespace Domain.Repository
             {
                 Id = claim.Id,
                 Patient = claim.Patient,
-                Diagnosis = claim.Diagnosis,
-                DateOfService = claim.DateOfService
+                Diagnosis = claim.Visit.Diagnosis,
+                DateOfService = claim.Visit.DateOfService
             });
             context.SaveChanges();
         }

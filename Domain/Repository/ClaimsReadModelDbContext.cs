@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using Microsoft.Its.Domain.Sql;
 
 namespace Domain.Repository
@@ -8,7 +9,7 @@ namespace Domain.Repository
         public ClaimsReadModelDbContext()
             : base(NameOrConnectionString)
         {
-            
+
         }
 
         public DbSet<ClaimDraft> Drafts { get; set; }
@@ -16,21 +17,19 @@ namespace Domain.Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-            //modelBuilder.ComplexType<Address>();
-            //modelBuilder.ComplexType<PaymentInstrument>();
-
-            //modelBuilder.Entity<ActiveCart>()
-            //    .HasOptional(x => x.PaymentInstrument);
-
             modelBuilder.Entity<ClaimDraft>()
                 .HasKey(x => new { x.Id });
 
             modelBuilder.Entity<ClaimDraft>()
-                .Ignore(x => x.Procedures);
+                .Property(x => x.Visit.Diagnosis).HasColumnName("Diagnosis");
+            modelBuilder.Entity<ClaimDraft>()
+                .Property(x => x.Visit.DateOfService).HasColumnName("DateOfService");
 
             modelBuilder.Entity<ClaimDraft>()
                 .Ignore(x => x.Provider);
+
+            modelBuilder.ComplexType<Visit>()
+                .Ignore(x => x.Procedures);
 
             modelBuilder.Entity<SubmittedClaim>()
                 .HasKey(x => new { x.Id });

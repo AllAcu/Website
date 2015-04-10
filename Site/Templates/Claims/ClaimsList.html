@@ -10,8 +10,8 @@
         <tbody>
         <tr ng-repeat="draft in drafts">
             <td><a href="#edit/{{draft.id}}">{{draft.patient}}</a></td>
-            <td>{{draft.diagnosis}}</td>
-            <td>{{draft.dateOfService}}</td>
+            <td>{{draft.visit.diagnosis}}</td>
+            <td>{{draft.visit.dateOfService}}</td>
         </tr>
         </tbody>
     </table>

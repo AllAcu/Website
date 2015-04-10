@@ -101,6 +101,7 @@
     <Compile Include="Repository\ClaimsReadModelDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Visit.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
