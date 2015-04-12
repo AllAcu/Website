@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider.cs" />
-    <Compile Include="SubmittedClaim.cs" />
+    <Compile Include="ClaimSubmissionRequest.cs" />
     <Compile Include="ClaimDraft.cs" />
     <Compile Include="ClaimDraftingProcess\ClaimFilingProcess.cs" />
     <Compile Include="ClaimDraftingProcess\ClaimFilingProcess.EnactCommands.cs" />

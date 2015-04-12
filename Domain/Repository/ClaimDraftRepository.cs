@@ -42,7 +42,7 @@ namespace Domain.Repository
         public void Submit(ClaimDraft claim)
         {
             context.Drafts.Remove(claim);
-            context.SubmittedClaims.Add(new SubmittedClaim
+            context.SubmittedClaims.Add(new ClaimSubmissionRequest
             {
                 Id = claim.Id,
                 Patient = claim.Patient,

@@ -19,5 +19,6 @@ namespace Domain
         }
 
         public ClaimDraft Claim { get; private set; }
+        public bool HasBeenSubmitted { get; private set; } = false;
     }
 }

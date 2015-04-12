@@ -7,12 +7,9 @@ namespace Domain
     {
         public class Submitted : Event<ClaimFilingProcess>
         {
-            public override void Update(ClaimFilingProcess aggregate)
+            public override void Update(ClaimFilingProcess process)
             {
-                //aggregate.submissions.Add(new Submission
-                //{
-                //    SubmissionDate = Now()
-                //});
+                process.HasBeenSubmitted = true;
             }
         }
     }

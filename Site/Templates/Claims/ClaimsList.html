@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="draft in drafts">
-            <td><a href="#edit/{{draft.id}}">{{draft.patient}}</a></td>
+            <td><a href="#edit/{{draft.id}}">{{draft.patient.name}}</a></td>
             <td>{{draft.visit.diagnosis}}</td>
             <td>{{draft.visit.dateOfService}}</td>
         </tr>
