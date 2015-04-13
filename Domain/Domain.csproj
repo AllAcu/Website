@@ -43,8 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain.Sql">
-      <HintPath>..\packages\Its.Domain.Sql.0.10.5-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Its.Domain.Sql.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>

@@ -33,7 +33,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Its.Domain">
-      <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+      <HintPath>..\packages\Its.Domain.0.11.0-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Its.Domain.Sql.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Its.Domain.Testing">
+      <HintPath>..\packages\Its.Domain.Testing.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Testing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
