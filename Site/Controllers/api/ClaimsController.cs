@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Http;
 using Domain;
+using Domain.CareProvider;
+using Domain.ClaimFiling;
 using Domain.Repository;
 using Microsoft.Its.Domain;
 
@@ -11,75 +13,53 @@ namespace AllAcu.Controllers.api
     [RoutePrefix("api/claim")]
     public class ClaimsController : ApiController
     {
-        private readonly IEventSourcedRepository<ClaimFilingProcess> draftEvents;
-        private readonly ClaimDraftRepository Claims;
+        private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
+        private readonly ClaimDraftRepository claimDrafts;
 
-        public ClaimsController(IEventSourcedRepository<ClaimFilingProcess> draftEvents, ClaimDraftRepository claims)
+        public ClaimsController(IEventSourcedRepository<CareProvider> careProviderEventRepository, ClaimDraftRepository claimDrafts)
         {
-            this.draftEvents = draftEvents;
-            Claims = claims;
+            this.careProviderEventRepository = careProviderEventRepository;
+            this.claimDrafts = claimDrafts;
         }
 
         [Route(""), HttpGet]
         public IEnumerable<ClaimDraft> GetAll()
         {
-            return Claims.GetDrafts();
+            return claimDrafts.GetDrafts();
         }
 
         [Route("{claimId}"), HttpGet]
         public ClaimDraft Get(Guid claimId)
         {
-            Debug.WriteLine("Git it");
-
-            var draft = Claims.GetDraft(claimId);
-            return draft;
+            return claimDrafts.GetDraft(claimId);
         }
 
         [Route(""), HttpPost]
         public Guid Create(ClaimDraft draft)
         {
-            var claim = new ClaimFilingProcess();
+            var provider = careProviderEventRepository.GetLatest(CareProvider.HardCodedId);
 
-            claim.EnactCommand(new ClaimFilingProcess.StartClaim
+            provider.EnactCommand(new CareProvider.StartClaim
             {
                 Claim = draft
             });
 
-            draftEvents.Save(claim);
+            careProviderEventRepository.Save(provider);
 
-            return claim.Id;
+            return provider.Id;
         }
 
         [Route(""), HttpPut]
         public void Update(ClaimDraft draft)
         {
-            var claim = draftEvents.GetLatest(draft.Id);
+            var claim = careProviderEventRepository.GetLatest(draft.Id);
 
-            claim.EnactCommand(new ClaimFilingProcess.UpdateClaim
+            claim.EnactCommand(new CareProvider.UpdateClaim
             {
                 Claim = draft
             });
 
-            draftEvents.Save(claim);
-        }
-
-        [Route("submit/{claimId}"), HttpPost]
-        public void Submit(Guid claimId)
-        {
-            var claim = draftEvents.GetLatest(claimId);
-
-            claim.EnactCommand(new ClaimFilingProcess.SubmitForApproval());
-
-            draftEvents.Save(claim);
-        }
-
-        [Route("{claimId}/approve"), HttpPost]
-        public void Approve(Guid id)
-        {
-            Debug.WriteLine("Approving");
-
-            var draft = draftEvents.GetLatest(id);
-            draft.EnactCommand(new ClaimFilingProcess.Approve());
+            careProviderEventRepository.Save(claim);
         }
     }
 }

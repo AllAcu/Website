@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.CareProvider;
+using Domain.ClaimFiling;
 
 namespace Domain.Repository
 {
     public class ClaimDraftRepository
     {
-        private readonly ClaimsReadModelDbContext context;
+        private readonly CareProviderReadModelDbContext context;
 
-        public ClaimDraftRepository(ClaimsReadModelDbContext context)
+        public ClaimDraftRepository(CareProviderReadModelDbContext context)
         {
             this.context = context;
         }
@@ -45,7 +47,7 @@ namespace Domain.Repository
             context.SubmittedClaims.Add(new ClaimSubmissionRequest
             {
                 Id = claim.Id,
-                Patient = claim.Patient,
+                //Patient = claim.Patient,
                 Diagnosis = claim.Visit.Diagnosis,
                 DateOfService = claim.Visit.DateOfService
             });

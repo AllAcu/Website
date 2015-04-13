@@ -46,10 +46,6 @@
     <Reference Include="Microsoft.Its.Domain.Sql">
       <HintPath>..\packages\Its.Domain.Sql.0.10.5-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.EventStore, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.EventStore.0.10.5-beta\lib\net45\Microsoft.Its.EventStore.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -76,36 +72,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\UserPrincipal.cs" />
-    <Compile Include="CareProvider.cs" />
-    <Compile Include="ClaimSubmissionRequest.cs" />
-    <Compile Include="ClaimDraft.cs" />
-    <Compile Include="ClaimDraftingProcess\ClaimFilingProcess.cs" />
-    <Compile Include="ClaimDraftingProcess\ClaimFilingProcess.EnactCommands.cs" />
-    <Compile Include="ClaimDraftingProcess\ClaimId.cs" />
-    <Compile Include="ClaimDraftingProcess\Commands\Approve.cs" />
-    <Compile Include="ClaimDraftingProcess\Commands\CreateClaim.cs" />
-    <Compile Include="ClaimDraftingProcess\Commands\Deny.cs" />
-    <Compile Include="ClaimDraftingProcess\Commands\Submit.cs" />
-    <Compile Include="ClaimDraftingProcess\Commands\UpdateClaim.cs" />
-    <Compile Include="ClaimDraftingProcess\EventHandlers\ClaimDraftWorking.cs" />
-    <Compile Include="ClaimDraftingProcess\Events\Approved.cs" />
-    <Compile Include="ClaimDraftingProcess\Events\ClaimInitiated.cs" />
-    <Compile Include="ClaimDraftingProcess\Events\ClaimUpdated.cs" />
-    <Compile Include="ClaimDraftingProcess\Events\Denied.cs" />
-    <Compile Include="ClaimDraftingProcess\Events\Submitted.cs" />
-    <Compile Include="InsuranceCall.cs" />
-    <Compile Include="Patient.cs" />
+    <Compile Include="CareProvider\CareProvider.cs" />
+    <Compile Include="CareProvider\Commands\CreateProvider.cs" />
+    <Compile Include="CareProvider\Commands\IntakePatient.cs" />
+    <Compile Include="CareProvider\Events\NewProvider.cs" />
+    <Compile Include="CareProvider\Events\NewPatient.cs" />
+    <Compile Include="ClaimFiling\Claim.cs" />
+    <Compile Include="ClaimFiling\ClaimSubmissionRequest.cs" />
+    <Compile Include="CareProvider\ClaimDraft.cs" />
+    <Compile Include="ClaimFiling\ClaimFilingProcess.cs" />
+    <Compile Include="ClaimFiling\ClaimFilingProcess.EnactCommands.cs" />
+    <Compile Include="ClaimFiling\ClaimId.cs" />
+    <Compile Include="ClaimFiling\Commands\Approve.cs" />
+    <Compile Include="CareProvider\Commands\StartClaim.cs" />
+    <Compile Include="ClaimFiling\Commands\Deny.cs" />
+    <Compile Include="ClaimFiling\Commands\SubmitClaim.cs" />
+    <Compile Include="CareProvider\Commands\UpdateClaim.cs" />
+    <Compile Include="CareProvider\EventHandlers\ClaimDraftWorking.cs" />
+    <Compile Include="ClaimFiling\Events\Approved.cs" />
+    <Compile Include="CareProvider\Events\ClaimInitiated.cs" />
+    <Compile Include="CareProvider\Events\ClaimUpdated.cs" />
+    <Compile Include="ClaimFiling\Events\Denied.cs" />
+    <Compile Include="ClaimFiling\Events\Submitted.cs" />
+    <Compile Include="ClaimFiling\InsuranceCall.cs" />
+    <Compile Include="CareProvider\Patient.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ClaimDraftRepository.cs" />
-    <Compile Include="Repository\ClaimsReadModelDbContext.cs" />
+    <Compile Include="Repository\CareProviderReadModelDbContext.cs" />
+    <Compile Include="Repository\ClaimsProcessReadModelDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ClaimFiling\EventHandlers\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

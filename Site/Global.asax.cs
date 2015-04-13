@@ -3,7 +3,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Domain;
+using Domain.CareProvider;
+using Domain.ClaimFiling;
 using Domain.Repository;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
@@ -22,12 +23,19 @@ namespace AllAcu
 
             EventStoreDbContext.NameOrConnectionString = 
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
-            ReadModelDbContext.NameOrConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ReadModels";
+            CareProviderReadModelDbContext.ConnectionString =
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=CareProviders";
+            ClaimsProcessReadModelDbContext.ConnectionString =
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ClaimsProcess";
 
-            using (var db = new ClaimsReadModelDbContext())
+            using (var db = new CareProviderReadModelDbContext())
             {
-                new ReadModelDatabaseInitializer<ClaimsReadModelDbContext>().InitializeDatabase(db);
+                new ReadModelDatabaseInitializer<CareProviderReadModelDbContext>().InitializeDatabase(db);
+            }
+
+            using (var db = new ClaimsProcessReadModelDbContext())
+            {
+                new ReadModelDatabaseInitializer<ClaimsProcessReadModelDbContext>().InitializeDatabase(db);
             }
 
             using (var eventStore = new EventStoreDbContext())
@@ -36,6 +44,7 @@ namespace AllAcu
             }
 
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Configuration.Current.Repository<ClaimFilingProcess>());
+            container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Configuration.Current.Repository<CareProvider>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
 
             GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);

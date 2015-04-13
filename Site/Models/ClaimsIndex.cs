@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Domain;
+using Domain.CareProvider;
 
 namespace AllAcu.Models
 {
