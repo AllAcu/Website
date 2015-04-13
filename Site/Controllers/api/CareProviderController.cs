@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Web.Http;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
-    [System.Web.Mvc.RoutePrefix("api/provider")]
+    [RoutePrefix("api/provider")]
     public class CareProviderController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
@@ -15,7 +17,7 @@ namespace AllAcu.Controllers.api
             this.careProviderEventRepository = careProviderEventRepository;
         }
 
-        [Route("new"), HttpGet]
+        [Route("new-laksdjflsajdfiosadfj"), HttpGet]
         public Guid CreateProvider()
         {
             var provider = new CareProvider(CareProvider.HardCodedId);
@@ -29,6 +31,15 @@ namespace AllAcu.Controllers.api
             careProviderEventRepository.Save(provider);
 
             return provider.Id;
+        }
+
+        [Route(""), HttpGet]
+        public IEnumerable<CareProvider> GetProviders()
+        {
+            return new[]
+            {
+                careProviderEventRepository.GetLatest(CareProvider.HardCodedId)
+            };
         }
     }
 }

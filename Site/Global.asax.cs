@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Domain.CareProvider;
+using Domain.CareProvider.EventHandlers;
 using Domain.ClaimFiling;
 using Domain.Repository;
 using Microsoft.Its.Domain;
@@ -46,6 +47,7 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Configuration.Current.Repository<ClaimFilingProcess>());
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Configuration.Current.Repository<CareProvider>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
+            Configuration.Current.EventBus.Subscribe(container.Resolve<CareProviderHandlers>());
 
             GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
             

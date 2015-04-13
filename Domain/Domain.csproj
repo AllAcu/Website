@@ -76,6 +76,7 @@
     <Compile Include="CareProvider\CareProvider.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
+    <Compile Include="CareProvider\EventHandlers\CareProviderHandlers.cs" />
     <Compile Include="CareProvider\Events\NewProvider.cs" />
     <Compile Include="CareProvider\Events\NewPatient.cs" />
     <Compile Include="ClaimFiling\Claim.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="CareProvider\Patient.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CareProvider\CareProviderInfo.cs" />
     <Compile Include="Repository\ClaimDraftRepository.cs" />
     <Compile Include="Repository\CareProviderReadModelDbContext.cs" />
     <Compile Include="Repository\ClaimsProcessReadModelDbContext.cs" />

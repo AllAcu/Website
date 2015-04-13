@@ -17,6 +17,7 @@ namespace Domain.Repository
 
         public DbSet<ClaimDraft> Drafts { get; set; }
         public DbSet<ClaimSubmissionRequest> SubmittedClaims { get; set; }
+        public DbSet<CareProviderInfo> CareProviders { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,6 +31,9 @@ namespace Domain.Repository
 
             modelBuilder.Entity<Patient>()
                 .HasKey(x => new { x.Id });
+
+            modelBuilder.Entity<CareProviderInfo>()
+                .ToTable("CareProviders");
 
             modelBuilder.Entity<ClaimDraft>()
                 .Ignore(x => x.Provider);

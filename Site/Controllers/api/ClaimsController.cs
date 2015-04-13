@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Web.Http;
-using Domain;
 using Domain.CareProvider;
-using Domain.ClaimFiling;
 using Domain.Repository;
 using Microsoft.Its.Domain;
 
