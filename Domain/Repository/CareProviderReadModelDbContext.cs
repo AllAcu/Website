@@ -36,6 +36,8 @@ namespace Domain.Repository
             modelBuilder.Entity<CareProviderInfo>()
                 .ToTable("CareProviders");
 
+            modelBuilder.ComplexType<InsurancePolicy>();
+
             modelBuilder.Entity<ClaimDraft>()
                 .Ignore(x => x.Provider);
 

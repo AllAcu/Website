@@ -17,6 +17,16 @@ namespace Domain.CareProvider
         {
         }
 
+        public CareProvider(CreateProvider command) : base(HardCodedId)
+        {
+            RecordEvent(new NewProvider
+            {
+                BusinessName = command.BusinessName,
+                PractitionerName = command.PractitionerName,
+                City = command.City
+            });
+        }
+
         public IList<Patient> Patients { get; } = new List<Patient>();
         public IList<string> Practitioners { get; } = new List<string>();
         public IList<ClaimDraft> Drafts { get; } = new List<ClaimDraft>();

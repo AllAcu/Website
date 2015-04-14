@@ -21,16 +21,6 @@
             });
         }
 
-        public void EnactCommand(CreateProvider command)
-        {
-            RecordEvent(new NewProvider
-            {
-                BusinessName = command.BusinessName,
-                PractitionerName = command.PractitionerName,
-                City = command.City
-            });
-        }
-
         public void EnactCommand(UpdateInsurance command)
         {
             RecordEvent(new InsuranceUpdated
