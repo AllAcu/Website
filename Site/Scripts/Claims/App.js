@@ -77,6 +77,21 @@
             }
     ]);
 
+    controllers.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
+        $scope.providers = [];
+
+        $providers.findAll().success(function(data) {
+            $scope.providers = data;
+            $providers.getCurrent().success(function(current) {
+                $scope.currentProvider = $scope.providers.filter(function (p) { return p.id == current})[0];
+            });
+        });
+
+        $scope.setProvider = function() {
+            $providers.setCurrent($scope.currentProvider.id);
+        }
+    }]);
+
     exports.app = app;
     exports.controllers = controllers;
 })(window)

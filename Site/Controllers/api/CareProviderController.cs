@@ -23,14 +23,15 @@ namespace AllAcu.Controllers.api
             this.dbContext = dbContext;
         }
 
-        [Route("new-laksdjflsajdfiosadfj"), HttpGet]
-        public Guid CreateProvider()
+        [Route("new"), HttpGet]
+        public Guid CreateProvider(string businessName, string practitionerName)
         {
             var command = new CareProvider.CreateProvider
             {
-                PractitionerName = "Dr Philson",
-                BusinessName = "Visibility Care",
-                City = "Seattle"
+                AggregateId = Guid.NewGuid(),
+                PractitionerName = practitionerName,
+                BusinessName = businessName,
+                City = "Seattle",
             };
             var provider = new CareProvider(command);
             careProviderEventRepository.Save(provider);
@@ -41,8 +42,7 @@ namespace AllAcu.Controllers.api
         [Route("who"), HttpGet]
         public Guid? WhoIsProvider()
         {
-            var id = ActionContext.ActionArguments[CareProviderIdFilter.providerCookieName];
-            return id != null ? Guid.Parse(id.ToString()) : (Guid?)null;
+            return CareProviderIdFilter.GetCurrentProvider(ActionContext);
         }
 
         [Route(""), HttpGet]

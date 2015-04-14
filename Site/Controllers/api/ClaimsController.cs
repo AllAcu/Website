@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.Repository;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
+    [CareProviderIdFilter]
     [RoutePrefix("api/claim")]
     public class ClaimsController : ApiController
     {
@@ -34,7 +36,8 @@ namespace AllAcu.Controllers.api
         [Route(""), HttpPost]
         public Guid Create(ClaimDraft draft)
         {
-            var provider = careProviderEventRepository.GetLatest(CareProvider.HardCodedId);
+            var providerId = CareProviderIdFilter.GetCurrentProvider(ActionContext);
+            var provider = careProviderEventRepository.GetLatest(providerId);
 
             var command = new CareProvider.StartClaim
             {

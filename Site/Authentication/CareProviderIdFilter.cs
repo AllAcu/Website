@@ -10,6 +10,7 @@ namespace Domain.Authentication
 {
     public class CareProviderIdFilter : ActionFilterAttribute
     {
+        public static readonly Guid HardCodedId = new Guid("949D90DD-8A4F-4466-B383-1A4B78468951");
         public const string providerCookieName = "CareProviderId";
 
         public override Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
@@ -20,6 +21,12 @@ namespace Domain.Authentication
                 ? (object) Guid.Parse(cookie[providerCookieName].Value)
                 : null;
             return base.OnActionExecutingAsync(actionContext, cancellationToken);
+        }
+
+        public static Guid GetCurrentProvider(HttpActionContext actionContext)
+        {
+            var id = actionContext.ActionArguments[providerCookieName];
+            return id != null ? Guid.Parse(id.ToString()) : HardCodedId;
         }
     }
 }

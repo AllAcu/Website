@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-<html>
+<html ng-app="claimsApp">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
@@ -14,8 +14,15 @@
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-route.js")
     @Scripts.Render("~/Scripts/smart-table.js")
-@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")
 </head>
+<header>
+    <div style="text-align: right" ng-controller="header">
+        <select ng-model="currentProvider"
+                ng-options="p.businessName for p in providers"
+                ng-change="setProvider()"></select>
+    </div>
+</header>
 <div class="container body-content">
     @RenderBody()
     <hr />

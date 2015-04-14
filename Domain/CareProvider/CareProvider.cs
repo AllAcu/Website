@@ -7,8 +7,6 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider : EventSourcedAggregate<CareProvider>
     {
-        public static readonly Guid HardCodedId = new Guid("949D90DD-8A4F-4466-B383-1A4B78468951");
-
         public CareProvider(Guid? id = default(Guid?)) : base(id)
         {
         }
@@ -17,7 +15,7 @@ namespace Domain.CareProvider
         {
         }
 
-        public CareProvider(CreateProvider command) : base(HardCodedId)
+        public CareProvider(CreateProvider command) : base(command.AggregateId)
         {
             RecordEvent(new NewProvider
             {

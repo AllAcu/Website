@@ -30,6 +30,5 @@
         }
 
         return claimRepository;
-    }
-    ]);
+    }]);
 })(window.app);
