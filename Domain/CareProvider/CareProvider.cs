@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
@@ -23,5 +24,15 @@ namespace Domain.CareProvider
         public string BusinessName { get; set; }
         public string PractitionerName { get; set; }
         public string City { get; set; }
+
+        public Patient GetPatient(Guid id)
+        {
+            return Patients.SingleOrDefault(patient => patient.Id == id);
+        }
+
+        public bool PatientExists(Guid id)
+        {
+            return GetPatient(id) != null;
+        }
     }
 }

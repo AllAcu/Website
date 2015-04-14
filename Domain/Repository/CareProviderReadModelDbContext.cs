@@ -18,6 +18,7 @@ namespace Domain.Repository
         public DbSet<ClaimDraft> Drafts { get; set; }
         public DbSet<ClaimSubmissionRequest> SubmittedClaims { get; set; }
         public DbSet<CareProviderInfo> CareProviders { get; set; }
+        public DbSet<Patient> Patients { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

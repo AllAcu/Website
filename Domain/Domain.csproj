@@ -76,9 +76,16 @@
     <Compile Include="CareProvider\CareProvider.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
+    <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
+    <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
+    <Compile Include="CareProvider\Commands\UpdatePatientInformation.cs" />
     <Compile Include="CareProvider\EventHandlers\CareProviderHandlers.cs" />
+    <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
+    <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
     <Compile Include="CareProvider\Events\NewProvider.cs" />
     <Compile Include="CareProvider\Events\NewPatient.cs" />
+    <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
+    <Compile Include="CareProvider\InsurancePolicy.cs" />
     <Compile Include="ClaimFiling\Claim.cs" />
     <Compile Include="ClaimFiling\ClaimSubmissionRequest.cs" />
     <Compile Include="CareProvider\ClaimDraft.cs" />

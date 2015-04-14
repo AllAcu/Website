@@ -21,13 +21,14 @@ namespace AllAcu.Controllers.api
         public Guid CreateProvider()
         {
             var provider = new CareProvider(CareProvider.HardCodedId);
-            provider.EnactCommand(new CareProvider.CreateProvider
+            var command = new CareProvider.CreateProvider
             {
                 PractitionerName = "Dr Philson",
                 BusinessName = "Visibility Care",
                 City = "Seattle"
-            });
+            };
 
+            command.ApplyTo(provider);
             careProviderEventRepository.Save(provider);
 
             return provider.Id;

@@ -8,7 +8,7 @@
             RecordEvent(new ClaimStarted(command.Claim));
         }
 
-        public void EnactCommand(UpdateClaim command)
+        public void EnactCommand(UpdateClaimDraft command)
         {
             RecordEvent(new ClaimUpdated(command.Claim));
         }
@@ -17,7 +17,7 @@
         {
             RecordEvent(new NewPatient
             {
-                Patient = command.Patient
+                Name = command.Name
             });
         }
 
@@ -28,6 +28,27 @@
                 BusinessName = command.BusinessName,
                 PractitionerName = command.PractitionerName,
                 City = command.City
+            });
+        }
+
+        public void EnactCommand(UpdateInsurance command)
+        {
+            RecordEvent(new InsuranceUpdated
+            {
+                InsuranceCompany = command.InsuranceCompany,
+                Plan = command.Plan,
+                EffectiveDate = command.EffectiveDate,
+                PolicyDate = command.PolicyDate,
+                IssueDate = command.IssueDate
+            });
+        }
+
+        public void EnactCommand(TerminateInsurance command)
+        {
+            RecordEvent(new InsuranceTerminated
+            {
+                PatientId = command.PatientId,
+                TerminationDate = command.TerminationDate
             });
         }
     }

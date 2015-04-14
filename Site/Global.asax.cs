@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -48,6 +49,9 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Configuration.Current.Repository<CareProvider>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<CareProviderHandlers>());
+
+            Command<CareProvider>.AuthorizeDefault = (provider, command) => true;
+            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => true;
 
             GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
             

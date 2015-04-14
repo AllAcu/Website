@@ -1,22 +1,31 @@
-﻿using Domain.CareProvider;
+﻿using System;
+using Domain.CareProvider;
+using Domain.ClaimFiling;
+using Microsoft.Its.Domain;
 using Xunit;
 
 namespace Domain.Test
 {
     public class CareProviderTests
     {
+        public CareProviderTests()
+        {
+            Command<CareProvider.CareProvider>.AuthorizeDefault = (provider, command) => true;
+            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => true;
+        }
+
         [Fact]
         public void IntakeOfPatient_AddsPatientToCareProvider()
         {
             var provider = new CareProvider.CareProvider();
 
-            var patient = new Patient();
-            provider.EnactCommand(new CareProvider.CareProvider.IntakePatient
+            var command = new CareProvider.CareProvider.IntakePatient
             {
-                Patient = patient
-            });
+                Name = "Phillip"
+            };
+            command.ApplyTo(provider);
 
-            Assert.Contains(provider.Patients, p => p == patient);
+            Assert.Contains(provider.Patients, p => p.Name == "Phillip");
         }
 
         [Fact]
@@ -25,13 +34,53 @@ namespace Domain.Test
             var provider = new CareProvider.CareProvider();
 
             var draft = new ClaimDraft();
-            provider.EnactCommand(new CareProvider.CareProvider.StartClaim
+
+            var command = new CareProvider.CareProvider.StartClaim
             {
                 Claim = draft
-            });
+            };
+            command.ApplyTo(provider);
 
             Assert.Contains(provider.Drafts, d => d == draft);
         }
 
+        [Fact]
+        public void CannotUpdateInsuranceOfNonPatient()
+        {
+            var provider = new CareProvider.CareProvider(Guid.NewGuid());
+
+            var command = new CareProvider.CareProvider.UpdateInsurance
+            {
+                PatientId = Guid.NewGuid()
+            };
+
+            Assert.Throws<CommandValidationException>(() => command.ApplyTo(provider));
+        }
+
+        [Fact]
+        public void CannotTerminateInsuranceOfNonPatient()
+        {
+            var provider = new CareProvider.CareProvider(Guid.NewGuid());
+
+            var command = new CareProvider.CareProvider.TerminateInsurance
+            {
+                PatientId = Guid.NewGuid()
+            };
+
+            Assert.Throws<CommandValidationException>(() => command.ApplyTo(provider));
+        }
+
+        [Fact]
+        public void CannotUpdatePatientInformationOfNonPatient()
+        {
+            var provider = new CareProvider.CareProvider(Guid.NewGuid());
+
+            var command = new CareProvider.CareProvider.UpdatePatientInformation
+            {
+                PatientId = Guid.NewGuid()
+            };
+
+            Assert.Throws<CommandValidationException>(() => command.ApplyTo(provider));
+        }
     }
 }

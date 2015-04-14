@@ -5,17 +5,15 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
-        public class NewPatient : Event<CareProvider>
+        public class PatientInformationUpdated : Event<CareProvider>
         {
+            public Guid Id { get; set; }
             public string Name { get; set; }
-            public Guid PatientId { get; set; }
 
             public override void Update(CareProvider provider)
             {
-                provider.Patients.Add(new Patient(PatientId)
-                {
-                    Name = Name
-                });
+                var patient = provider.GetPatient(Id);
+                patient.Name = Name;
             }
         }
     }

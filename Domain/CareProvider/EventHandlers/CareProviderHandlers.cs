@@ -8,7 +8,9 @@ using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider.EventHandlers
 {
-    public class CareProviderHandlers :IUpdateProjectionWhen<CareProvider.NewProvider>
+    public class CareProviderHandlers :
+        IUpdateProjectionWhen<CareProvider.NewProvider>,
+        IUpdateProjectionWhen<CareProvider.NewPatient>
     {
         private readonly CareProviderReadModelDbContext dbContext;
 
@@ -27,6 +29,12 @@ namespace Domain.CareProvider.EventHandlers
                 City = @event.City
             });
 
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(CareProvider.NewPatient @event)
+        {
+            dbContext.Patients.Add(new Patient(@event.PatientId) { Name = @event.Name });
             dbContext.SaveChanges();
         }
     }

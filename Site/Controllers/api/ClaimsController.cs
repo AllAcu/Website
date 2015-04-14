@@ -36,10 +36,12 @@ namespace AllAcu.Controllers.api
         {
             var provider = careProviderEventRepository.GetLatest(CareProvider.HardCodedId);
 
-            provider.EnactCommand(new CareProvider.StartClaim
+            var command = new CareProvider.StartClaim
             {
                 Claim = draft
-            });
+            };
+
+            command.ApplyTo(provider);
 
             careProviderEventRepository.Save(provider);
 
@@ -49,14 +51,16 @@ namespace AllAcu.Controllers.api
         [Route(""), HttpPut]
         public void Update(ClaimDraft draft)
         {
-            var claim = careProviderEventRepository.GetLatest(draft.Id);
+            var provider = careProviderEventRepository.GetLatest(draft.Id);
 
-            claim.EnactCommand(new CareProvider.UpdateClaim
+            var command = new CareProvider.UpdateClaimDraft
             {
                 Claim = draft
-            });
+            };
 
-            careProviderEventRepository.Save(claim);
+            command.ApplyTo(provider);
+
+            careProviderEventRepository.Save(provider);
         }
     }
 }

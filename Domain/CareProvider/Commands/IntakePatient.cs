@@ -6,7 +6,7 @@ namespace Domain.CareProvider
     {
         public class IntakePatient : Command<CareProvider>
         {
-            public Patient Patient { get; set; }
+            public string Name { get; set; }
         }
     }
 }
