@@ -17,7 +17,7 @@ namespace Domain.CareProvider
 
         public void UpdateProjection(CareProvider.ClaimStarted @event)
         {
-            draftRepository.StartDraft(@event.Claim);
+            draftRepository.StartDraft(@event.Draft);
         }
 
         public void UpdateProjection(CareProvider.ClaimUpdated @event)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
 {
@@ -6,16 +7,11 @@ namespace Domain.CareProvider
     {
         public class ClaimStarted : Event<CareProvider>
         {
-            public ClaimDraft Claim { get; }
-
-            public ClaimStarted(ClaimDraft claim)
-            {
-                Claim = claim;
-            }
+            public ClaimDraft Draft { get; set; }
 
             public override void Update(CareProvider provider)
             {
-                provider.Drafts.Add(Claim);
+                provider.Drafts.Add(Draft);
             }
         }
     }

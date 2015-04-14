@@ -85,6 +85,7 @@
     <Compile Include="CareProvider\Events\NewProvider.cs" />
     <Compile Include="CareProvider\Events\NewPatient.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
+    <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />
     <Compile Include="CareProvider\InsurancePolicy.cs" />
     <Compile Include="ClaimFiling\Claim.cs" />
     <Compile Include="ClaimFiling\ClaimSubmissionRequest.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="CareProvider\Commands\StartClaim.cs" />
     <Compile Include="ClaimFiling\Commands\Deny.cs" />
     <Compile Include="ClaimFiling\Commands\SubmitClaim.cs" />
-    <Compile Include="CareProvider\Commands\UpdateClaim.cs" />
+    <Compile Include="CareProvider\Commands\UpdateClaimDraft.cs" />
     <Compile Include="CareProvider\EventHandlers\ClaimDraftWorking.cs" />
     <Compile Include="ClaimFiling\Events\Approved.cs" />
     <Compile Include="CareProvider\Events\ClaimInitiated.cs" />

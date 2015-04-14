@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Domain;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.Repository;
@@ -33,15 +34,15 @@ namespace AllAcu.Controllers.api
             return claimDrafts.GetDraft(claimId);
         }
 
-        [Route(""), HttpPost]
-        public Guid Create(ClaimDraft draft)
+        [Route("patient/{patientId}"), HttpPost]
+        public Guid Create(Guid patientId, Visit visit)
         {
-            var providerId = CareProviderIdFilter.GetCurrentProvider(ActionContext);
-            var provider = careProviderEventRepository.GetLatest(providerId);
+            var provider = careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments);
 
             var command = new CareProvider.StartClaim
             {
-                Claim = draft
+                PatientId = patientId,
+                Visit = visit
             };
 
             command.ApplyTo(provider);
@@ -52,13 +53,14 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpPut]
-        public void Update(ClaimDraft draft)
+        public void Update(Guid draftId, Visit visit)
         {
-            var provider = careProviderEventRepository.GetLatest(draft.Id);
+            var provider = careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments);
 
             var command = new CareProvider.UpdateClaimDraft
             {
-                Claim = draft
+                ClaimDraftId = draftId,
+                Visit = visit
             };
 
             command.ApplyTo(provider);

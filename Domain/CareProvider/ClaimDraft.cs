@@ -6,7 +6,6 @@ namespace Domain.CareProvider
     {
         public Guid Id { get; set; }
         public Patient Patient { get; set; } = new Patient();
-        public CareProvider Provider { get; set; } = new CareProvider();
         public Visit Visit { get; set; } = new Visit();
     }
 }

@@ -38,9 +38,6 @@ namespace Domain.Repository
 
             modelBuilder.ComplexType<InsurancePolicy>();
 
-            modelBuilder.Entity<ClaimDraft>()
-                .Ignore(x => x.Provider);
-
             modelBuilder.ComplexType<Visit>()
                 .Ignore(x => x.Procedures);
 

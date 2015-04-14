@@ -1,16 +1,24 @@
-﻿namespace Domain.CareProvider
+﻿using System.Linq;
+
+namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
         public void EnactCommand(StartClaim command)
         {
-            command.Claim.Id = Id;
-            RecordEvent(new ClaimStarted(command.Claim));
+            RecordEvent(new ClaimStarted
+            {
+                Draft = new ClaimDraft
+                {
+                    Patient = GetPatient(command.PatientId),
+                    Visit = command.Visit
+                }
+            });
         }
 
         public void EnactCommand(UpdateClaimDraft command)
         {
-            RecordEvent(new ClaimUpdated(command.Claim));
+            RecordEvent(new ClaimUpdated(Drafts.SingleOrDefault(d => d.Id == command.ClaimDraftId)));
         }
 
         public void EnactCommand(IntakePatient command)
