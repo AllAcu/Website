@@ -1,0 +1,16 @@
+﻿<div ng-controller="patientList">
+    <table st-table="patients" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="patient in patients">
+            <td>{{patient.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="button" class="btn" value="Intake" ng-click="intake('Ross')" />
+    <!--<a href="#create"><input type="button" class="btn" value="New" /></a>-->
+</div>

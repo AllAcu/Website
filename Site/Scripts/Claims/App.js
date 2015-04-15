@@ -20,6 +20,10 @@
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimCreate'
                 }).
+                when('/patient', {
+                    templateUrl: '/Templates/Patients/patientList.html',
+                    controller: 'patientList'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });
@@ -33,7 +37,7 @@
                 $scope.drafts = [];
 
                 $claims.findAll().success(function (data) {
-                    $scope.drafts = data.map(function(item) {
+                    $scope.drafts = data.map(function (item) {
                         item.dateOfService = new Date(item.dateOfService);
                         return item;
                     });
@@ -70,7 +74,7 @@
                 $scope.draft = {};
 
                 $scope.save = function () {
-                    $claims.create($scope.draft).success(function() {
+                    $claims.create($scope.draft).success(function () {
                         $location.path("/");
                     });
                 }
@@ -80,17 +84,29 @@
     controllers.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
         $scope.providers = [];
 
-        $providers.findAll().success(function(data) {
+        $providers.findAll().success(function (data) {
             $scope.providers = data;
-            $providers.getCurrent().success(function(current) {
-                $scope.currentProvider = $scope.providers.filter(function (p) { return p.id == current})[0];
+            $providers.getCurrent().success(function (current) {
+                $scope.currentProvider = $scope.providers.filter(function (p) { return p.id == current })[0];
             });
         });
 
-        $scope.setProvider = function() {
+        $scope.setProvider = function () {
             $providers.setCurrent($scope.currentProvider.id);
         }
     }]);
+
+    controllers.controller('patientList', [
+        "$scope", "patientRepository", function ($scope, $patients) {
+            $patients.findAll().success(function (data) {
+                $scope.patients = data;
+            });
+
+            $scope.intake = function(name) {
+                $patients.intake(name);
+            }
+        }
+    ]);
 
     exports.app = app;
     exports.controllers = controllers;

@@ -203,6 +203,7 @@
     <Compile Include="Authentication\CareProviderIdFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\CareProviderController.cs" />
+    <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\api\ClaimsController.cs" />
@@ -230,6 +231,7 @@
     <Content Include="Scripts\Claims\App.js" />
     <Content Include="Scripts\Claims\CareProviderRepository.js" />
     <Content Include="Scripts\Claims\ClaimsRepository.js" />
+    <Content Include="Scripts\Claims\PatientRepository.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -244,6 +246,7 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
+    <Content Include="Templates\Patients\PatientList.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -18,10 +18,7 @@ namespace Domain.Test
         {
             var provider = new CareProvider.CareProvider();
 
-            var command = new CareProvider.CareProvider.IntakePatient
-            {
-                Name = "Phillip"
-            };
+            var command = new CareProvider.CareProvider.IntakePatient("Phillip");
             command.ApplyTo(provider);
 
             Assert.Contains(provider.Patients, p => p.Name == "Phillip");

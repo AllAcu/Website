@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.CareProvider.EventHandlers;
 using Domain.ClaimFiling;
@@ -50,8 +51,13 @@ namespace AllAcu
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<CareProviderHandlers>());
 
-            Command<CareProvider>.AuthorizeDefault = (provider, command) => true;
-            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => true;
+            Command<CareProvider>.AuthorizeDefault = (provider, command) => {
+                command.Principal = new UserPrincipal(name: "Brett");
+                return true; };
+            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => {
+                command.Principal = new UserPrincipal(name: "Brett");
+                return true;
+            };
 
             GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
             

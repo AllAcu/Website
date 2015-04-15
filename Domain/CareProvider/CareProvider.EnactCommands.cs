@@ -25,6 +25,7 @@ namespace Domain.CareProvider
         {
             RecordEvent(new NewPatient
             {
+                PatientId = command.PatientId,
                 Name = command.Name
             });
         }
@@ -47,6 +48,14 @@ namespace Domain.CareProvider
             {
                 PatientId = command.PatientId,
                 TerminationDate = command.TerminationDate
+            });
+        }
+
+        public void EnactCommand(Poke command)
+        {
+            RecordEvent(new Poked
+            {
+                PokeId = command.PokeId
             });
         }
     }

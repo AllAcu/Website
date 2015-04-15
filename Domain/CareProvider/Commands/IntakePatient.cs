@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
 {
@@ -6,7 +7,14 @@ namespace Domain.CareProvider
     {
         public class IntakePatient : Command<CareProvider>
         {
-            public string Name { get; set; }
+            public Guid PatientId { get; }
+            public string Name { get; }
+
+            public IntakePatient(string name)
+            {
+                Name = name;
+                PatientId = Guid.NewGuid();
+            }
         }
     }
 }
