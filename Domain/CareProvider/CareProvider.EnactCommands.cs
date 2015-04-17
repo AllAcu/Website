@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Domain.CareProvider
 {
@@ -32,10 +33,13 @@ namespace Domain.CareProvider
 
         public void EnactCommand(UpdatePatientInformation command)
         {
+            var patient = GetPatient(command.PatientId);
             RecordEvent(new PatientInformationUpdated
             {
                 PatientId = command.PatientId,
-                Name = command.Name
+                UpdatedName = (command.Name != patient.Name) ? command.Name : null,
+                UpdatedGender = (command.Gender != patient.Gender) ? command.Gender : null,
+                UpdatedDateOfBirth = (command.DateOfBirth != patient.DateOfBirth) ? command.DateOfBirth : (DateTimeOffset?)null
             });
         }
 

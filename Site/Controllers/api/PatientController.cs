@@ -51,7 +51,8 @@ namespace AllAcu.Controllers.api
             var command = new CareProvider.UpdatePatientInformation()
             {
                 PatientId = patientId,
-                Name = request.Name
+                Name = request.Name,
+                DateOfBirth = request.DateOfBirth
             };
 
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
@@ -79,6 +80,7 @@ namespace AllAcu.Controllers.api
         public class UpdateRequest
         {
             public string Name { get; set; }
+            public DateTimeOffset DateOfBirth { get; set; }
         }
     }
 }

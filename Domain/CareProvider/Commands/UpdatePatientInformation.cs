@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Its.Validation;
 using Its.Validation.Configuration;
 using Microsoft.Its.Domain;
@@ -12,6 +11,8 @@ namespace Domain.CareProvider
         {
             public Guid PatientId { get; set; } = Guid.NewGuid();
             public string Name { get; set; }
+            public DateTimeOffset DateOfBirth { get; set; }
+            public Gender Gender { get; set; }
 
             public override IValidationRule<CareProvider> Validator
             {

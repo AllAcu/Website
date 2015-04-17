@@ -5,8 +5,8 @@
 
 <html ng-app="claimsApp">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
     @Styles.Render("~/Content/css")
@@ -16,8 +16,10 @@
     @Scripts.Render("~/Scripts/smart-table.js")
     @Scripts.Render("~/bundles/jquery")
 </head>
-<header>
-    <div style="text-align: right" ng-controller="header">
+<header width="100%">
+    <div style="display: inline;text-align: left"><a href="/Claims">Home</a></div>
+
+    <div style="display: inline-block;float: right" ng-controller="header">
         <select ng-model="currentProvider"
                 ng-options="p.businessName for p in providers"
                 ng-change="setProvider()"></select>

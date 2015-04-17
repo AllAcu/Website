@@ -3,11 +3,13 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Date of Birth</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="patient in patients">
             <td><a href="#patient/edit/{{patient.id}}">{{patient.name}}</a></td>
+            <td>{{patient.dateOfBirth | date:'mediumDate'}}</td>
         </tr>
         </tbody>
     </table>
