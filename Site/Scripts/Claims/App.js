@@ -24,6 +24,10 @@
                     templateUrl: '/Templates/Patients/patientList.html',
                     controller: 'patientList'
                 }).
+                when('/patient/edit/:id', {
+                    templateUrl: '/Templates/Patients/patientEdit.html',
+                    controller: 'patientEdit'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });
@@ -102,8 +106,30 @@
                 $scope.patients = data;
             });
 
-            $scope.intake = function(name) {
-                $patients.intake(name);
+            $scope.intakeName = "Jimmy";
+
+            $scope.intake = function() {
+                $patients.intake($scope.intakeName);
+            }
+
+            $scope.dismiss = function (patient) {
+                alert("deleting " + patient.name);
+            }
+        }
+    ]);
+
+    controllers.controller('patientEdit', [
+        "$scope", "$routeParams", "$location", "patientRepository", function ($scope, $routeParams, $location, $patients) {
+
+            $scope.patient = {};
+            $patients.find($routeParams["id"]).success(function (data) {
+                $scope.patient = data;
+            });
+
+            $scope.save = function () {
+                $patients.update($scope.patient).success(function () {
+                    $location.path("/patient");
+                });
             }
         }
     ]);

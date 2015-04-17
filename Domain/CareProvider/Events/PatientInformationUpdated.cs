@@ -7,12 +7,12 @@ namespace Domain.CareProvider
     {
         public class PatientInformationUpdated : Event<CareProvider>
         {
-            public Guid Id { get; set; }
+            public Guid PatientId { get; set; }
             public string Name { get; set; }
 
             public override void Update(CareProvider provider)
             {
-                var patient = provider.GetPatient(Id);
+                var patient = provider.GetPatient(PatientId);
                 patient.Name = Name;
             }
         }

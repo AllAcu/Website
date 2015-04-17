@@ -7,10 +7,10 @@
         </thead>
         <tbody>
         <tr ng-repeat="patient in patients">
-            <td>{{patient.name}}</td>
+            <td><a href="#patient/edit/{{patient.id}}">{{patient.name}}</a></td>
         </tr>
         </tbody>
     </table>
-    <input type="button" class="btn" value="Intake" ng-click="intake('Ross')" />
-    <!--<a href="#create"><input type="button" class="btn" value="New" /></a>-->
+    <input type="button" class="btn" value="Intake" ng-click="intake()" />
+    <input type="text" ng-model="intakeName" />
 </div>

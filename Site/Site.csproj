@@ -246,6 +246,7 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
+    <Content Include="Templates\Patients\PatientEdit.html" />
     <Content Include="Templates\Patients\PatientList.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

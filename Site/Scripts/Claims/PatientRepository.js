@@ -12,6 +12,11 @@
                 return $http.post("/api/patient/", {
                     name: name
                 });
+            },
+            update: function(patient) {
+                return $http.put("/api/patient/" + patient.id, {
+                    name: patient.name
+                });
             }
         }
 

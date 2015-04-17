@@ -30,6 +30,15 @@ namespace Domain.CareProvider
             });
         }
 
+        public void EnactCommand(UpdatePatientInformation command)
+        {
+            RecordEvent(new PatientInformationUpdated
+            {
+                PatientId = command.PatientId,
+                Name = command.Name
+            });
+        }
+
         public void EnactCommand(UpdateInsurance command)
         {
             RecordEvent(new InsuranceUpdated
