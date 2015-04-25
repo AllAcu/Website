@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using AllAcu.Models.Patients;
 using Domain;
 using Domain.Authentication;
 using Domain.CareProvider;
@@ -13,30 +15,29 @@ namespace AllAcu.Controllers.api
     public class PatientController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> providerEventSourcedRepository;
-        public PatientController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository)
+        private readonly PatientDbContext patientDbContext;
+
+        public PatientController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository, PatientDbContext patientDbContext)
         {
             this.providerEventSourcedRepository = providerEventSourcedRepository;
+            this.patientDbContext = patientDbContext;
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<Patient> GetAll()
+        public IEnumerable<PatientPersonalInformation> GetAll()
         {
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            return provider.Patients;
+            return patientDbContext.Patients;
         }
 
         [Route("{PatientId}"), HttpGet]
-        public Patient Get(Guid patientId)
+        public PatientPersonalInformation Get(Guid patientId)
         {
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            return provider.GetPatient(patientId);
+            return patientDbContext.Patients.FirstOrDefault(p => p.Id == patientId);
         }
 
         [Route(""), HttpPost]
-        public Guid Intake(IntakeRequest request)
+        public Guid Intake(CareProvider.IntakePatient command)
         {
-            var command = new CareProvider.IntakePatient(request.Name);
-
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
@@ -46,15 +47,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}"), HttpPut]
-        public void Update(Guid patientId, UpdateRequest request)
+        public void Update(Guid patientId, CareProvider.UpdatePatientPersonalInformation command)
         {
-            var command = new CareProvider.UpdatePatientInformation()
-            {
-                PatientId = patientId,
-                Name = request.Name,
-                DateOfBirth = request.DateOfBirth
-            };
-
+            command.PatientId = patientId;
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
@@ -71,16 +66,6 @@ namespace AllAcu.Controllers.api
             providerEventSourcedRepository.Save(provider);
 
             return command.PokeId;
-        }
-
-        public class IntakeRequest
-        {
-            public string Name { get; set; }
-        }
-        public class UpdateRequest
-        {
-            public string Name { get; set; }
-            public DateTimeOffset DateOfBirth { get; set; }
         }
     }
 }

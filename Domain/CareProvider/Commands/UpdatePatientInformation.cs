@@ -7,9 +7,9 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
-        public class UpdatePatientInformation : Command<CareProvider>
+        public class UpdatePatientPersonalInformation : Command<CareProvider>
         {
-            public Guid PatientId { get; set; } = Guid.NewGuid();
+            public Guid PatientId { get; set; }
             public string Name { get; set; }
             public DateTimeOffset DateOfBirth { get; set; }
             public Gender Gender { get; set; }

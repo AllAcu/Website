@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AllAcu.Projections;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.CareProvider.EventHandlers;
@@ -30,6 +31,8 @@ namespace AllAcu
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=CareProviders";
             ClaimsProcessReadModelDbContext.ConnectionString =
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ClaimsProcess";
+            PatientDbContext.ConnectionString =
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=Patients";
 
             using (var db = new CareProviderReadModelDbContext())
             {
@@ -41,6 +44,11 @@ namespace AllAcu
                 new ReadModelDatabaseInitializer<ClaimsProcessReadModelDbContext>().InitializeDatabase(db);
             }
 
+            using (var db = new PatientDbContext())
+            {
+                new ReadModelDatabaseInitializer<PatientDbContext>().InitializeDatabase(db);
+            }
+
             using (var eventStore = new EventStoreDbContext())
             {
                 new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
@@ -50,6 +58,7 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Configuration.Current.Repository<CareProvider>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
             Configuration.Current.EventBus.Subscribe(container.Resolve<CareProviderHandlers>());
+            Configuration.Current.EventBus.Subscribe(container.Resolve<PatientInformationUpdateHandler>());
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");

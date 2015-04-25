@@ -1,18 +1,21 @@
 ﻿using System;
 using Microsoft.Its.Domain;
 
-namespace Domain.CareProvider.Events
+namespace Domain.CareProvider
 {
-    public class PatientContactInformationUpdated : Event<CareProvider>
+    public partial class CareProvider
     {
-        public Guid PatientId { get; set; }
-        public Address Address { get; set; }
-
-        public override void Update(CareProvider provider)
+        public class PatientContactInformationUpdated : Event<CareProvider>
         {
-            var patient = provider.GetPatient(PatientId);
+            public Guid PatientId { get; set; }
+            public Address UpdatedAddress { get; set; }
 
-            patient.Address = Address;
+            public override void Update(CareProvider provider)
+            {
+                var patient = provider.GetPatient(PatientId);
+
+                patient.Address = UpdatedAddress ?? patient.Address;
+            }
         }
     }
 }

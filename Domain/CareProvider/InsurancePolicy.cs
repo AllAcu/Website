@@ -8,6 +8,8 @@ namespace Domain
         // relationship to policy for a patient?
         // medical or pip
 
+        public Verification Verification { get; set; }
+
         public string InsuranceCompany { get; set; }
         public string Plan { get; set; }
         public PhoneNumber InsuranceProviderNumber { get; set; }
@@ -19,5 +21,11 @@ namespace Domain
         public DateTimeOffset PolicyDate { get; set; }
         public DateTimeOffset EffectiveDate { get; set; }
         public DateTimeOffset TerminationDate { get; set; }
+    }
+
+    public class Verification
+    {
+        public string Verifier { get; set; }
+        public DateTimeOffset VerifiedOn { get; set; }
     }
 }

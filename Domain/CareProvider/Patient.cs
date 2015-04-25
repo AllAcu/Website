@@ -14,7 +14,7 @@ namespace Domain
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Gender Gender { get; set; }
+        public Gender Gender { get; set; } = Gender.Male;
         public Address Address { get; set; }
 
         public DateTimeOffset DateOfBirth

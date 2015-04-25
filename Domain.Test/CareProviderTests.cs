@@ -71,7 +71,7 @@ namespace Domain.Test
         {
             var provider = new CareProvider.CareProvider();
 
-            var command = new CareProvider.CareProvider.UpdatePatientInformation
+            var command = new CareProvider.CareProvider.UpdatePatientPersonalInformation
             {
                 PatientId = Guid.NewGuid()
             };

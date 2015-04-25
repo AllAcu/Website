@@ -207,13 +207,16 @@
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\api\ClaimsController.cs" />
+    <Compile Include="Data\PatientDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ClaimsIndex.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Authorization\AccountBindingModels.cs" />
+    <Compile Include="Models\Authorization\AccountViewModels.cs" />
+    <Compile Include="Models\Authorization\IdentityModels.cs" />
+    <Compile Include="Models\Providers\ActivePatientListViewModel.cs" />
+    <Compile Include="Models\Providers\PatientPersonalInformation.cs" />
+    <Compile Include="Projections\PatientInformationUpdateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -269,6 +272,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="Models\Claims\" />
     <Folder Include="Views\CareProvider\" />
   </ItemGroup>
   <ItemGroup>

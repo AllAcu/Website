@@ -3,10 +3,7 @@
 
         var claimRepository = {
             findAll: function () {
-                return $http.get("/api/patient").success(function(data) {
-                    data.dateOfBirth = new Date(data.dateOfBirth);
-                    return data;
-                });
+                return $http.get("/api/patient");
             },
             find: function (id) {
                 return $http.get("/api/patient/" + id).success(function (data) {

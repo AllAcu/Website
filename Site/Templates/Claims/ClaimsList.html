@@ -5,13 +5,15 @@
             <th>Patient</th>
             <th>Diagnosis</th>
             <th>Date Of Service</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="draft in drafts">
-            <td><a href="#edit/{{draft.id}}">{{draft.patient.name}}</a></td>
-            <td>{{draft.visit.diagnosis}}</td>
-            <td>{{draft.visit.dateOfService}}</td>
+            <td><a href="#edit/{{draft.id}}">{{draft.patientName}}</a></td>
+            <td>{{draft.diagnosis}}</td>
+            <td>{{draft.dateOfService}}</td>
+            <td>{{draft.status}}</td>
         </tr>
         </tbody>
     </table>
