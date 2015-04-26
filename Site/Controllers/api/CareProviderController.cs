@@ -15,24 +15,18 @@ namespace AllAcu.Controllers.api
     public class CareProviderController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
-        private readonly CareProviderReadModelDbContext dbContext;
+        private readonly AllAcuSiteDbContext dbContext;
 
-        public CareProviderController(IEventSourcedRepository<CareProvider> careProviderEventRepository, CareProviderReadModelDbContext dbContext)
+        public CareProviderController(IEventSourcedRepository<CareProvider> careProviderEventRepository, AllAcuSiteDbContext dbContext)
         {
             this.careProviderEventRepository = careProviderEventRepository;
             this.dbContext = dbContext;
         }
 
-        [Route("new"), HttpGet]
-        public Guid CreateProvider(string businessName, string practitionerName)
+        [Route("new"), HttpPost]
+        public Guid CreateProvider(CareProvider.CreateProvider command)
         {
-            var command = new CareProvider.CreateProvider
-            {
-                AggregateId = Guid.NewGuid(),
-                PractitionerName = practitionerName,
-                BusinessName = businessName,
-                City = "Seattle",
-            };
+            command.AggregateId = Guid.NewGuid();
             var provider = new CareProvider(command);
             careProviderEventRepository.Save(provider);
 
@@ -46,7 +40,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<CareProviderInfo> GetProviders()
+        public IEnumerable<CareProviderBusinessInfo> GetProviders()
         {
             return dbContext.CareProviders;
         }

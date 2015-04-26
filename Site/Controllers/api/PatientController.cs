@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using AllAcu.Models.Patients;
-using Domain;
+using AllAcu.Models.Providers;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
@@ -15,24 +14,42 @@ namespace AllAcu.Controllers.api
     public class PatientController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> providerEventSourcedRepository;
-        private readonly PatientDbContext patientDbContext;
+        private readonly AllAcuSiteDbContext allAcuSiteDbContext;
 
-        public PatientController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository, PatientDbContext patientDbContext)
+        public PatientController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository,
+            AllAcuSiteDbContext allAcuSiteDbContext)
         {
             this.providerEventSourcedRepository = providerEventSourcedRepository;
-            this.patientDbContext = patientDbContext;
+            this.allAcuSiteDbContext = allAcuSiteDbContext;
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<PatientPersonalInformation> GetAll()
+        public IEnumerable<PatientListItemViewModel> GetAll()
         {
-            return patientDbContext.Patients;
+            var currentProviderId = ActionContext.ActionArguments.CurrentProviderId();
+            if (currentProviderId != null)
+            {
+                return allAcuSiteDbContext.Patients
+                        .Where(p => p.ProviderId == currentProviderId)
+                        .Select(p => new PatientListItemViewModel
+                        {
+                            Id = p.PatientId,
+                            Name = p.PersonalInfo.Name,
+                            DateOfBirth = p.PersonalInfo.DateOfBirth
+                        });
+            }
+            return Enumerable.Empty<PatientListItemViewModel>();
         }
 
+
         [Route("{PatientId}"), HttpGet]
-        public PatientPersonalInformation Get(Guid patientId)
+        public PatientEditViewModel Get(Guid patientId)
         {
-            return patientDbContext.Patients.FirstOrDefault(p => p.Id == patientId);
+            return new PatientEditViewModel
+            {
+                PatientId = patientId,
+                PersonalInformation = allAcuSiteDbContext.Patients.FirstOrDefault(p => p.PatientId == patientId)?.PersonalInfo
+            };
         }
 
         [Route(""), HttpPost]

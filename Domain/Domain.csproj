@@ -83,7 +83,6 @@
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientContactInformation.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientInformation.cs" />
-    <Compile Include="CareProvider\EventHandlers\CareProviderHandlers.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
     <Compile Include="CareProvider\Events\NewProvider.cs" />
@@ -117,7 +116,7 @@
     <Compile Include="CareProvider\Patient.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CareProvider\CareProviderInfo.cs" />
+    <Compile Include="CareProvider\CareProviderBusinessInfo.cs" />
     <Compile Include="Repository\ClaimDraftRepository.cs" />
     <Compile Include="Repository\CareProviderReadModelDbContext.cs" />
     <Compile Include="Repository\ClaimsProcessReadModelDbContext.cs" />
@@ -125,9 +124,7 @@
     <Compile Include="User.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClaimFiling\EventHandlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />

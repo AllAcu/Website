@@ -17,8 +17,6 @@ namespace Domain.Repository
 
         public DbSet<ClaimDraft> Drafts { get; set; }
         public DbSet<ClaimSubmissionRequest> SubmittedClaims { get; set; }
-        public DbSet<CareProviderInfo> CareProviders { get; set; }
-        public DbSet<Patient> Patients { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,20 +28,8 @@ namespace Domain.Repository
             modelBuilder.Entity<ClaimDraft>()
                 .Property(x => x.Visit.DateOfService).HasColumnName("DateOfService");
 
-            modelBuilder.Entity<Patient>()
-                .Ignore(x => x.Gender);
-            modelBuilder.Entity<Patient>()
-                .Ignore(x => x.Address);
-
-            modelBuilder.Entity<Patient>()
-                .HasKey(x => new { x.Id });
-
-            modelBuilder.Entity<CareProviderInfo>()
-                .ToTable("CareProviders");
-
             modelBuilder.ComplexType<InsurancePolicy>();
             modelBuilder.ComplexType<Address>();
-
             modelBuilder.ComplexType<Visit>()
                 .Ignore(x => x.Procedures);
 

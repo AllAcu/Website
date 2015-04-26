@@ -123,7 +123,8 @@
 
             $scope.patient = {};
             $patients.find($routeParams["id"]).success(function (data) {
-                $scope.patient = data;
+                $scope.patient = data.personalInfo;
+                $scope.patient.id = data.id;
             });
 
             $scope.save = function () {

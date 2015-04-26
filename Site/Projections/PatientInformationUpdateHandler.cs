@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AllAcu.Models.Patients;
+using AllAcu.Models.Providers;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
@@ -10,39 +10,43 @@ namespace AllAcu.Projections
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.PatientContactInformationUpdated>
     {
-        private readonly PatientDbContext dbContext;
+        private readonly AllAcuSiteDbContext dbContext;
 
-        public PatientInformationUpdateHandler(PatientDbContext dbContext)
+        public PatientInformationUpdateHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
         {
-            var patient = dbContext.Patients.First(p => p.Id == @event.PatientId);
+            var patient = dbContext.Patients.First(p => p.PatientId == @event.PatientId);
 
-            patient.Name = @event.UpdatedName ?? patient.Name;
-            patient.DateOfBirth = @event.UpdatedDateOfBirth?.ToString("d") ?? patient.DateOfBirth;
-            patient.Gender = @event.UpdatedGender?.ToString() ?? patient.Gender;
+            patient.PersonalInfo.Name = @event.UpdatedName ?? patient.PersonalInfo.Name;
+            patient.PersonalInfo.DateOfBirth = @event.UpdatedDateOfBirth?.ToString("d") ?? patient.PersonalInfo.DateOfBirth;
+            patient.PersonalInfo.Gender = @event.UpdatedGender?.ToString() ?? patient.PersonalInfo.Gender;
 
             dbContext.SaveChanges();
         }
 
         public void UpdateProjection(CareProvider.PatientContactInformationUpdated @event)
         {
-            var patient = dbContext.Patients.First(p => p.Id == @event.PatientId);
+            var patient = dbContext.Patients.First(p => p.PatientId == @event.PatientId);
 
-            patient.Address = @event.UpdatedAddress ?? patient.Address;
+            patient.PersonalInfo.Address = @event.UpdatedAddress ?? patient.PersonalInfo.Address;
 
             dbContext.SaveChanges();
         }
 
         public void UpdateProjection(CareProvider.NewPatient @event)
         {
-            dbContext.Patients.Add(new PatientPersonalInformation
+            dbContext.Patients.Add(new Patient
             {
-                Id = @event.PatientId,
-                Name = @event.Name
+                PatientId = @event.PatientId,
+                ProviderId = @event.AggregateId,
+                PersonalInfo = new PatientPersonalInformation
+                {
+                    Name = @event.Name
+                }
             });
 
             dbContext.SaveChanges();

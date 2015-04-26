@@ -2,7 +2,7 @@
 
 namespace Domain.Repository
 {
-    public class CareProviderInfo
+    public class CareProviderBusinessInfo
     {
         public Guid Id { get; set; }
         public string BusinessName { get; set; }
