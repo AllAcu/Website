@@ -28,10 +28,10 @@ namespace AllAcu
 
             EventStoreDbContext.NameOrConnectionString = 
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
-            CareProviderReadModelDbContext.ConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=CareProviders";
-            ClaimsProcessReadModelDbContext.ConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ClaimsProcess";
+            //CareProviderReadModelDbContext.ConnectionString =
+            //    @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=CareProviders";
+            //ClaimsProcessReadModelDbContext.ConnectionString =
+            //    @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ClaimsProcess";
             AllAcuSiteDbContext.ConnectionString =
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite";
 
@@ -64,7 +64,8 @@ namespace AllAcu
             var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes().Select(handlerType => container.Resolve(handlerType)).ToArray()));
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));
             container.RegisterSingle(c => catchup);
-//            catchup.PollEventStore();
+            //catchup.PollEventStore();
+            catchup.SingleBatchAsync();
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");

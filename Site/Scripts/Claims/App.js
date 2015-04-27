@@ -28,6 +28,10 @@
                     templateUrl: '/Templates/Patients/patientEdit.html',
                     controller: 'patientEdit'
                 }).
+                when('/provider/create', {
+                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    controller: 'providerCreate'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });
@@ -108,7 +112,7 @@
 
             $scope.intakeName = "Jimmy";
 
-            $scope.intake = function() {
+            $scope.intake = function () {
                 $patients.intake($scope.intakeName);
             }
 
@@ -129,6 +133,17 @@
 
             $scope.save = function () {
                 $patients.update($scope.patient).success(function () {
+                    $location.path("/patient");
+                });
+            }
+        }
+    ]);
+
+    controllers.controller('providerCreate', [
+        "$scope", "$location", "careProviderRepository", function ($scope, $location, $providers) {
+            $scope.provider = {};
+            $scope.save = function() {
+                $providers.create($scope.provider).success(function() {
                     $location.path("/patient");
                 });
             }

@@ -4,6 +4,9 @@
             findAll: function() {
                 return $http.get("/api/provider");
             },
+            create: function(provider) {
+                return $http.post("/api/provider/new", provider);
+            },
             setCurrent: function(id) {
                 return $http.get("/api/provider/be/" + id);
             },

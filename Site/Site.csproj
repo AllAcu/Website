@@ -206,7 +206,6 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\api\ClaimsController.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -253,6 +252,7 @@
     <Content Include="Templates\Claims\ClaimsList.html" />
     <Content Include="Templates\Patients\PatientEdit.html" />
     <Content Include="Templates\Patients\PatientList.html" />
+    <Content Include="Templates\Providers\ProviderEdit.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
