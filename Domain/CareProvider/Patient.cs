@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Its.Domain;
 
 namespace Domain
 {
@@ -16,6 +15,7 @@ namespace Domain
         public string Name { get; set; }
         public Gender Gender { get; set; } = Gender.Male;
         public Address Address { get; set; }
+        public Address PhoneNumber { get; set; }
 
         public DateTimeOffset DateOfBirth
         {
@@ -24,22 +24,5 @@ namespace Domain
         }
 
         public IList<InsurancePolicy> InsurancePolicies { get; set; } = new List<InsurancePolicy>();
-    }
-
-
-    public class Gender : String<Gender>
-    {
-        public Gender(string value) : base(value)
-        {
-            
-        }
-
-        public static implicit operator Gender(string gender)
-        {
-            return new Gender(gender);
-        }
-
-        public static Gender Male = new Gender("Male");
-        public static Gender Female = new Gender("Female`");
     }
 }

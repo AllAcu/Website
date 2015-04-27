@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using AllAcu.Models.Providers;
-using Domain;
 using Domain.Repository;
 using Microsoft.Its.Domain.Sql;
 
@@ -24,18 +22,12 @@ namespace AllAcu
                 .HasKey(i => i.PatientId);
 
             modelBuilder.ComplexType<PatientPersonalInformation>();
+            modelBuilder.ComplexType<PatientContactInformation>();
 
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .ToTable("CareProviders");
 
             base.OnModelCreating(modelBuilder);
         }
-    }
-
-    public class Patient
-    {
-        public Guid PatientId { get; set; }
-        public Guid ProviderId { get; set; }
-        public PatientPersonalInformation PersonalInfo { get; set; }
     }
 }

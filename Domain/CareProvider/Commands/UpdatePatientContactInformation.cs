@@ -9,6 +9,7 @@ namespace Domain.CareProvider.Commands
     {
         public Guid PatientId { get; set; }
         public Address Address { get; set; }
+        public PhoneNumber PhoneNumber { get; set; }
 
         public override IValidationRule<CareProvider> Validator
         {

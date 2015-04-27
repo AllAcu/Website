@@ -206,7 +206,10 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Providers\Address.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
+    <Compile Include="Models\Providers\PatientContactInformation.cs" />
+    <Compile Include="Models\Providers\Patient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -90,6 +90,7 @@
     <Compile Include="CareProvider\Events\PatientContactInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\Poked.cs" />
+    <Compile Include="CareProvider\Gender.cs" />
     <Compile Include="CareProvider\GroupNumber.cs" />
     <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />
     <Compile Include="CareProvider\InsuranceId.cs" />
