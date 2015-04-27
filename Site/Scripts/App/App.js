@@ -2,7 +2,8 @@
     var app = angular.module('claimsApp', [
         'ngRoute',
         'claimsAppControllers',
-        'patientsApp'
+        'patientsApp',
+        'providersApp'
     ]);
 
     app.config([
@@ -105,16 +106,5 @@
         }
     }]);
 
-    controllers.controller('providerCreate', [
-        "$scope", "$location", "careProviderRepository", function ($scope, $location, $providers) {
-            $scope.provider = {};
-            $scope.save = function () {
-                $providers.create($scope.provider).success(function () {
-                    $location.path("/patient");
-                });
-            }
-    }]);
-
     exports.app = app;
-    exports.controllers = controllers;
 })(window, angular)
