@@ -6,23 +6,13 @@
         function setCurrentProvider(id) {
             var previous = _currentProvider;
             _currentProvider = _providers.filter(function (p) { return p.id === id })[0];
-            if (previous !== _currentProvider) {
-                 return $http.get("/api/provider/be/" + _currentProvider.id);
+            if (previous && previous !== _currentProvider) {
+                return $http.get("/api/provider/be/" + _currentProvider.id)
+                .then(function () {
+                    location.reload();
+                });
             }
         }
-
-        var repo = {
-            providers: function() {
-                return _providers;
-            },
-            current: function (provider) {
-                if (provider) {
-                    setCurrentProvider(provider.id);
-                }
-                return _currentProvider;
-            },
-            setCurrent: setCurrentProvider
-        };
 
         $http.get("/api/provider")
              .success(function (data) {
@@ -33,7 +23,17 @@
                      });
              });
 
-        app.careRepo = repo;
-        return repo;
+        return {
+            providers: function () {
+                return _providers;
+            },
+            current: function (provider) {
+                if (provider) {
+                    setCurrentProvider(provider.id);
+                }
+                return _currentProvider;
+            },
+            setCurrent: setCurrentProvider
+        };
     }]);
 })(window.app);

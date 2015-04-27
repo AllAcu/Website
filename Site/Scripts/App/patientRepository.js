@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.factory('patientRepository', ['$http', function ($http) {
 
-        var claimRepository = {
+        return {
             findAll: function () {
                 return $http.get("/api/patient");
             },
@@ -25,6 +25,5 @@
             }
         }
 
-        return claimRepository;
     }]);
 })(window.app);
