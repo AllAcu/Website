@@ -23,15 +23,10 @@ namespace AllAcu
             modelBuilder.Entity<Patient>()
                 .HasKey(i => i.PatientId);
 
-            //modelBuilder.Entity<Patient>()
-            //    .HasRequired(i => i.PersonalInfo);
-
             modelBuilder.ComplexType<PatientPersonalInformation>();
 
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .ToTable("CareProviders");
-
-            modelBuilder.Ignore<Address>();
 
             base.OnModelCreating(modelBuilder);
         }

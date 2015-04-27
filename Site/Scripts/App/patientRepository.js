@@ -11,10 +11,8 @@
                     return data;
                 });
             },
-            intake: function(name) {
-                return $http.post("/api/patient/", {
-                    name: name
-                });
+            intake: function(patient) {
+                return $http.post("/api/patient/", patient);
             },
             update: function(patient) {
                 return $http.put("/api/patient/" + patient.id, {

@@ -33,7 +33,7 @@ namespace AllAcu.Projections
         {
             var patient = dbContext.Patients.First(p => p.PatientId == @event.PatientId);
 
-            patient.PersonalInfo.Address = @event.UpdatedAddress ?? patient.PersonalInfo.Address;
+            //patient.PersonalInfo.Address = @event.UpdatedAddress ?? patient.PersonalInfo.Address;
 
             dbContext.SaveChanges();
         }
@@ -47,7 +47,8 @@ namespace AllAcu.Projections
                 PersonalInfo = new PatientPersonalInformation
                 {
                     Name = @event.Name,
-                    DateOfBirth = DateTime.Parse("1/1/1970")
+                    DateOfBirth = @event.DateOfBirth,
+                    Gender = @event.Gender
                 }
             });
 

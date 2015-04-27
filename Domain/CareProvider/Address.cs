@@ -6,9 +6,9 @@ namespace Domain
     {
         public string Line1 { get; set; }
         public string Line2 { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PostalCode { get; set; }
+        public City City { get; set; }
+        public State State { get; set; }
+        public PostalCode PostalCode { get; set; }
     }
 
     public class State : String<State>

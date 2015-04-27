@@ -1,16 +1,23 @@
 ﻿(function(module) {
 
+    module.controller('patientIntake', [
+        "$scope", "patientRepository", function ($scope, $patients) {
+            $scope.patient = {
+                name: "Jimmy"
+            };
+
+            $scope.save = function () {
+                $patients.intake($scope.patient);
+            }
+        }
+    ]);
+
     module.controller('patientList', [
         "$scope", "patientRepository", function($scope, $patients) {
             $patients.findAll().success(function(data) {
                 $scope.patients = data;
             });
 
-            $scope.intakeName = "Jimmy";
-
-            $scope.intake = function() {
-                $patients.intake($scope.intakeName);
-            }
 
             $scope.dismiss = function(patient) {
                 alert("deleting " + patient.name);

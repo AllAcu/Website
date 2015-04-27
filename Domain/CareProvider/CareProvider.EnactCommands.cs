@@ -28,7 +28,17 @@ namespace Domain.CareProvider
             RecordEvent(new NewPatient
             {
                 PatientId = command.PatientId,
-                Name = command.Name
+                Name = command.Name,
+                Gender = command.Gender,
+                DateOfBirth = command.DateOfBirth,
+                Address = new Address
+                {
+                    Line1 = command.Address1,
+                    Line2 = command.Address2,
+                    City = new City(command.City),
+                    State = new State(command.State),
+                    PostalCode = new PostalCode(command.PostalCode)
+                }
             });
         }
 
