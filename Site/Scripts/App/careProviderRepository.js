@@ -1,20 +1,39 @@
 ﻿(function (app) {
     app.factory('careProviderRepository', ['$http', function ($http) {
-        var careProviderRepository = {
-            findAll: function() {
-                return $http.get("/api/provider");
-            },
-            create: function(provider) {
-                return $http.post("/api/provider/new", provider);
-            },
-            setCurrent: function(id) {
-                return $http.get("/api/provider/be/" + id);
-            },
-            getCurrent: function() {
-                return $http.get("/api/provider/who");
+        var _providers = [];
+        var _currentProvider = null;
+
+        function setCurrentProvider(id) {
+            var previous = _currentProvider;
+            _currentProvider = _providers.filter(function (p) { return p.id === id })[0];
+            if (previous !== _currentProvider) {
+                 return $http.get("/api/provider/be/" + _currentProvider.id);
             }
         }
 
-        return careProviderRepository;
+        var repo = {
+            providers: function() {
+                return _providers;
+            },
+            current: function (provider) {
+                if (provider) {
+                    setCurrentProvider(provider.id);
+                }
+                return _currentProvider;
+            },
+            setCurrent: setCurrentProvider
+        };
+
+        $http.get("/api/provider")
+             .success(function (data) {
+                 _providers = data;
+                 $http.get("/api/provider/who")
+                     .success(function (current) {
+                         setCurrentProvider(current);
+                     });
+             });
+
+        app.careRepo = repo;
+        return repo;
     }]);
 })(window.app);

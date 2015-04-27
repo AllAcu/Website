@@ -22,8 +22,8 @@
 
     <div style="display: inline-block;float: right" ng-controller="header">
         <select ng-model="currentProvider"
-                ng-options="p.businessName for p in providers"
-                ng-change="setProvider()"></select>
+                ng-model-options="{ getterSetter: true }"
+                ng-options="p.businessName for p in providers()"></select>
     </div>
 </header>
 <div class="container body-content">
