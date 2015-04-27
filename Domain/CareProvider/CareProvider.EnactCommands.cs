@@ -40,7 +40,7 @@ namespace Domain.CareProvider
                 PatientId = command.PatientId,
                 UpdatedName = (command.Name != patient.Name) ? command.Name : null,
                 UpdatedGender = (command.Gender != patient.Gender) ? command.Gender : null,
-                UpdatedDateOfBirth = (command.DateOfBirth != patient.DateOfBirth) ? command.DateOfBirth : (DateTimeOffset?)null
+                UpdatedDateOfBirth = (command.DateOfBirth != patient.DateOfBirth) ? command.DateOfBirth : (DateTime?)null
             });
         }
 

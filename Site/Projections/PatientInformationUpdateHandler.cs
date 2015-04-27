@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AllAcu.Models.Providers;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
@@ -22,7 +23,7 @@ namespace AllAcu.Projections
             var patient = dbContext.Patients.First(p => p.PatientId == @event.PatientId);
 
             patient.PersonalInfo.Name = @event.UpdatedName ?? patient.PersonalInfo.Name;
-            patient.PersonalInfo.DateOfBirth = @event.UpdatedDateOfBirth?.ToString("d") ?? patient.PersonalInfo.DateOfBirth;
+            patient.PersonalInfo.DateOfBirth = @event.UpdatedDateOfBirth ?? patient.PersonalInfo.DateOfBirth;
             patient.PersonalInfo.Gender = @event.UpdatedGender?.ToString() ?? patient.PersonalInfo.Gender;
 
             dbContext.SaveChanges();
@@ -45,7 +46,8 @@ namespace AllAcu.Projections
                 ProviderId = @event.AggregateId,
                 PersonalInfo = new PatientPersonalInformation
                 {
-                    Name = @event.Name
+                    Name = @event.Name,
+                    DateOfBirth = DateTime.Parse("1/1/1970")
                 }
             });
 

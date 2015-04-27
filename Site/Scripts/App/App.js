@@ -1,7 +1,8 @@
-﻿(function (exports) {
+﻿(function (exports, angular) {
     var app = angular.module('claimsApp', [
         'ngRoute',
-        'claimsAppControllers'
+        'claimsAppControllers',
+        'patientsApp'
     ]);
 
     app.config([
@@ -104,52 +105,16 @@
         }
     }]);
 
-    controllers.controller('patientList', [
-        "$scope", "patientRepository", function ($scope, $patients) {
-            $patients.findAll().success(function (data) {
-                $scope.patients = data;
-            });
-
-            $scope.intakeName = "Jimmy";
-
-            $scope.intake = function () {
-                $patients.intake($scope.intakeName);
-            }
-
-            $scope.dismiss = function (patient) {
-                alert("deleting " + patient.name);
-            }
-        }
-    ]);
-
-    controllers.controller('patientEdit', [
-        "$scope", "$routeParams", "$location", "patientRepository", function ($scope, $routeParams, $location, $patients) {
-
-            $scope.patient = {};
-            $patients.find($routeParams["id"]).success(function (data) {
-                $scope.patient = data.personalInfo;
-                $scope.patient.id = data.id;
-            });
-
-            $scope.save = function () {
-                $patients.update($scope.patient).success(function () {
-                    $location.path("/patient");
-                });
-            }
-        }
-    ]);
-
     controllers.controller('providerCreate', [
         "$scope", "$location", "careProviderRepository", function ($scope, $location, $providers) {
             $scope.provider = {};
-            $scope.save = function() {
-                $providers.create($scope.provider).success(function() {
+            $scope.save = function () {
+                $providers.create($scope.provider).success(function () {
                     $location.path("/patient");
                 });
             }
-        }
-    ]);
+    }]);
 
     exports.app = app;
     exports.controllers = controllers;
-})(window)
+})(window, angular)

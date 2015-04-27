@@ -30,12 +30,12 @@ namespace AllAcu.Controllers.api
             if (currentProviderId != null)
             {
                 return allAcuSiteDbContext.Patients
-                        .Where(p => p.ProviderId == currentProviderId)
+                        .Where(p => p.ProviderId == currentProviderId).ToList()
                         .Select(p => new PatientListItemViewModel
                         {
                             Id = p.PatientId,
                             Name = p.PersonalInfo.Name,
-                            DateOfBirth = p.PersonalInfo.DateOfBirth
+                            DateOfBirth = p.PersonalInfo.DateOfBirth.ToString("d")
                         });
             }
             return Enumerable.Empty<PatientListItemViewModel>();

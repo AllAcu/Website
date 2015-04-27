@@ -11,7 +11,7 @@ namespace Domain.CareProvider
         {
             public Guid PatientId { get; set; }
             public string Name { get; set; }
-            public DateTimeOffset DateOfBirth { get; set; }
+            public DateTime DateOfBirth { get; set; }
             public Gender Gender { get; set; }
 
             public override IValidationRule<CareProvider> Validator

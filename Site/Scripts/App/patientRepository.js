@@ -7,7 +7,7 @@
             },
             find: function (id) {
                 return $http.get("/api/patient/" + id).success(function (data) {
-                    data.dateOfBirth = new Date(data.dateOfBirth);
+                    data.personalInformation.dateOfBirth = new Date(data.personalInformation.dateOfBirth);
                     return data;
                 });
             },

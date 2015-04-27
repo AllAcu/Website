@@ -9,7 +9,7 @@ namespace Domain.CareProvider
         {
             public Guid PatientId { get; set; }
             public string UpdatedName { get; set; }
-            public DateTimeOffset? UpdatedDateOfBirth { get; set; }
+            public DateTime? UpdatedDateOfBirth { get; set; }
             public Gender UpdatedGender { get; set; }
 
             public override void Update(CareProvider provider)
