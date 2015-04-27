@@ -36,7 +36,7 @@ namespace AllAcu.Controllers.api
         [Route("who"), HttpGet]
         public Guid? WhoIsProvider()
         {
-            return careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments).Id;
+            return careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments)?.Id;
         }
 
         [Route(""), HttpGet]

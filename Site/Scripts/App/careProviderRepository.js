@@ -6,9 +6,9 @@
         function setCurrentProvider(id) {
             var previous = _currentProvider;
             _currentProvider = _providers.filter(function (p) { return p.id === id })[0];
-            if (previous && previous !== _currentProvider) {
-                return $http.get("/api/provider/be/" + _currentProvider.id)
-                .then(function () {
+
+            if (previous !== _currentProvider) {
+                $http.get("/api/provider/be/" + _currentProvider.id).then(function () {
                     location.reload();
                 });
             }
@@ -17,10 +17,15 @@
         $http.get("/api/provider")
              .success(function (data) {
                  _providers = data;
-                 $http.get("/api/provider/who")
-                     .success(function (current) {
-                         setCurrentProvider(current);
-                     });
+                 if (_providers) {
+                     $http.get("/api/provider/who")
+                         .success(function (current) {
+                             _currentProvider = _providers.filter(function (p) { return p.id === current })[0];
+                             if (!_currentProvider) {
+                                 setCurrentProvider(_providers[0].id);
+                             }
+                         });
+                 }
              });
 
         return {
@@ -33,7 +38,10 @@
                 }
                 return _currentProvider;
             },
-            setCurrent: setCurrentProvider
+            setCurrent: setCurrentProvider,
+            create: function (provider) {
+                return $http.post("/api/provider/new", provider);
+            }
         };
     }]);
 })(window.app);
