@@ -231,6 +231,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\patients.js" />
     <Content Include="Scripts\App\providers.js" />
     <Content Include="Scripts\bootstrap.js" />

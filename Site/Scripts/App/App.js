@@ -1,9 +1,9 @@
 ﻿(function (exports, angular) {
-    var app = angular.module('claimsApp', [
+    var app = angular.module('allAcuApp', [
         'ngRoute',
-        'claimsAppControllers',
         'patientsApp',
-        'providersApp'
+        'providersApp',
+        'claimsApp'
     ]);
 
     app.config([
@@ -40,58 +40,7 @@
         }
     ]);
 
-    var controllers = angular.module("claimsAppControllers", []);
-
-    controllers.controller('claimsList', [
-            "$scope", "claimsRepository", function ($scope, $claims) {
-                $scope.drafts = [];
-
-                $claims.findAll().success(function (data) {
-                    $scope.drafts = data.map(function (item) {
-                        item.dateOfService = new Date(item.dateOfService);
-                        return item;
-                    });
-                });
-            }
-    ]);
-
-    controllers.controller('claimEdit', [
-            "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
-
-                $scope.draft = {};
-                $claims.find($routeParams["id"]).success(function (data) {
-                    data.dateOfService = new Date(data.dateOfService);
-                    $scope.draft = data;
-                });
-
-                $scope.save = function () {
-                    $claims.update($scope.draft).success(function () {
-                        $location.path("/");
-                    });
-                }
-
-                $scope.submit = function () {
-                    $claims.submit($scope.draft).success(function () {
-                        $location.path("/");
-                    });
-                }
-            }
-    ]);
-
-    controllers.controller('claimCreate', [
-            "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
-
-                $scope.draft = {};
-
-                $scope.save = function () {
-                    $claims.create($scope.draft).success(function () {
-                        $location.path("/");
-                    });
-                }
-            }
-    ]);
-
-    controllers.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
+    app.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
         $scope.providers = [];
 
         $providers.findAll().success(function (data) {
@@ -107,4 +56,5 @@
     }]);
 
     exports.app = app;
+
 })(window, angular)
