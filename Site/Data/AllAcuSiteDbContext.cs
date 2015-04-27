@@ -32,6 +32,8 @@ namespace AllAcu
                 .ToTable("CareProviders");
 
             modelBuilder.Ignore<Address>();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 

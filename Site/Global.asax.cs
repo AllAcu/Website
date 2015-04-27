@@ -64,8 +64,7 @@ namespace AllAcu
             var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes().Select(handlerType => container.Resolve(handlerType)).ToArray()));
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));
             container.RegisterSingle(c => catchup);
-            //catchup.PollEventStore();
-            catchup.SingleBatchAsync();
+            catchup.PollEventStore();
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");
