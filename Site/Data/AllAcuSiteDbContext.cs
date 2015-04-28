@@ -11,6 +11,7 @@ namespace AllAcu
 
         public DbSet<CareProviderBusinessInfo> CareProviders { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<PatientListItemViewModel> PatientList { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -19,6 +20,8 @@ namespace AllAcu
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Patient>()
+                .HasKey(i => i.PatientId);
+            modelBuilder.Entity<PatientListItemViewModel>()
                 .HasKey(i => i.PatientId);
 
             modelBuilder.ComplexType<PatientPersonalInformation>();

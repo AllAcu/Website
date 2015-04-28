@@ -29,14 +29,8 @@ namespace AllAcu.Controllers.api
             var currentProviderId = ActionContext.ActionArguments.CurrentProviderId();
             if (currentProviderId != null)
             {
-                return allAcuSiteDbContext.Patients
-                        .Where(p => p.ProviderId == currentProviderId).ToList()
-                        .Select(p => new PatientListItemViewModel
-                        {
-                            Id = p.PatientId,
-                            Name = p.PersonalInfo.Name,
-                            DateOfBirth = p.PersonalInfo.DateOfBirth.ToString("d")
-                        });
+                return allAcuSiteDbContext.PatientList
+                    .Where(p => p.ProviderId == currentProviderId);
             }
             return Enumerable.Empty<PatientListItemViewModel>();
         }

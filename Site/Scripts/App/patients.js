@@ -1,13 +1,13 @@
 ﻿(function(module) {
 
     module.controller('patientIntake', [
-        "$scope", "patientRepository", function ($scope, $patients) {
-            $scope.patient = {
-                name: "Jimmy"
-            };
+        "$scope", "$location", "patientRepository", function ($scope, $location, $patients) {
+            $scope.patient = {};
 
             $scope.save = function () {
-                $patients.intake($scope.patient);
+                $patients.intake($scope.patient).success(function() {
+                    $location.path("/patient");
+                });
             }
         }
     ]);
