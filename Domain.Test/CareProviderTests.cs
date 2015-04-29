@@ -13,7 +13,7 @@ namespace Domain.Test
             Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => true;
         }
 
-        [Fact]
+        
         public void IntakeOfPatient_AddsPatientToCareProvider()
         {
             var provider = new CareProvider.CareProvider();
