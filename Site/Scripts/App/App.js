@@ -34,6 +34,10 @@
                     templateUrl: '/Templates/Patients/patientEdit.html',
                     controller: 'patientEdit'
                 }).
+                when('/patient/:id', {
+                    templateUrl: '/Templates/Patients/patientDetails.html',
+                    controller: 'patientDetails'
+                }).
                 when('/provider/create', {
                     templateUrl: '/Templates/Providers/providerEdit.html',
                     controller: 'providerCreate'

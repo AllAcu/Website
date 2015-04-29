@@ -10,8 +10,9 @@ namespace Domain.CareProvider
             public string Name { get; set; }
             public Guid PatientId { get; set; }
             public DateTime DateOfBirth { get; set; }
-            public Address Address { get; set; }
             public string Gender { get; set; }
+            public Address Address { get; set; }
+            public PhoneNumber PhoneNumber { get; set; }
 
             public override void Update(CareProvider provider)
             {
@@ -19,7 +20,9 @@ namespace Domain.CareProvider
                 {
                     Name = Name,
                     DateOfBirth = DateOfBirth,
-                    Address = Address
+                    Gender = Gender,
+                    Address = Address,
+                    PhoneNumber = PhoneNumber
                 });
             }
         }

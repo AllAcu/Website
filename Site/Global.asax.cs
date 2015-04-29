@@ -28,22 +28,8 @@ namespace AllAcu
 
             EventStoreDbContext.NameOrConnectionString = 
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
-            //CareProviderReadModelDbContext.ConnectionString =
-            //    @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=CareProviders";
-            //ClaimsProcessReadModelDbContext.ConnectionString =
-            //    @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=ClaimsProcess";
             AllAcuSiteDbContext.ConnectionString =
                 @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite";
-
-            //using (var db = new CareProviderReadModelDbContext())
-            //{
-            //    new ReadModelDatabaseInitializer<CareProviderReadModelDbContext>().InitializeDatabase(db);
-            //}
-
-            //using (var db = new ClaimsProcessReadModelDbContext())
-            //{
-            //    new ReadModelDatabaseInitializer<ClaimsProcessReadModelDbContext>().InitializeDatabase(db);
-            //}
 
             using (var db = new AllAcuSiteDbContext())
             {
@@ -57,9 +43,6 @@ namespace AllAcu
 
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Configuration.Current.Repository<ClaimFilingProcess>());
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Configuration.Current.Repository<CareProvider>());
-            //Configuration.Current.EventBus.Subscribe(container.Resolve<ClaimDraftWorking>());
-            Configuration.Current.EventBus.Subscribe(container.Resolve<PatientInformationUpdateHandler>());
-            Configuration.Current.EventBus.Subscribe(container.Resolve<CareProviderInformationHandler>());
 
             var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes().Select(handlerType => container.Resolve(handlerType)).ToArray()));
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));

@@ -5,11 +5,11 @@
             findAll: function () {
                 return $http.get("/api/patient");
             },
-            find: function (id) {
-                return $http.get("/api/patient/" + id).success(function (data) {
-                    data.personalInformation.dateOfBirth = new Date(data.personalInformation.dateOfBirth);
-                    return data;
-                });
+            details: function (id) {
+                return $http.get("/api/patient/" + id);
+            },
+            edit: function (id) {
+                return $http.get("/api/patient/edit/" + id);
             },
             intake: function(patient) {
                 return $http.post("/api/patient/", patient);
@@ -22,6 +22,5 @@
                 });
             }
         }
-
     }]);
 })(window.app);

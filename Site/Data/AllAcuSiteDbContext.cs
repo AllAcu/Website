@@ -10,8 +10,9 @@ namespace AllAcu
         public static string ConnectionString;
 
         public DbSet<CareProviderBusinessInfo> CareProviders { get; set; }
-        public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
+        public DbSet<PatientEditViewModel> PatientEditViewModels { get; set; }
+        public DbSet<PatientDetailsViewModel> PatientDetailsViewModels { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -19,13 +20,12 @@ namespace AllAcu
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Patient>()
-                .HasKey(i => i.PatientId);
             modelBuilder.Entity<PatientListItemViewModel>()
                 .HasKey(i => i.PatientId);
-
-            modelBuilder.ComplexType<PatientPersonalInformation>();
-            modelBuilder.ComplexType<PatientContactInformation>();
+            modelBuilder.Entity<PatientEditViewModel>()
+                .HasKey(i => i.PatientId);
+            modelBuilder.Entity<PatientDetailsViewModel>()
+                .HasKey(i => i.PatientId);
 
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .ToTable("CareProviders");

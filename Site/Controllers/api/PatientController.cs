@@ -35,15 +35,16 @@ namespace AllAcu.Controllers.api
             return Enumerable.Empty<PatientListItemViewModel>();
         }
 
-
         [Route("{PatientId}"), HttpGet]
-        public PatientEditViewModel Get(Guid patientId)
+        public PatientDetailsViewModel Details(Guid patientId)
         {
-            return new PatientEditViewModel
-            {
-                PatientId = patientId,
-                PersonalInformation = allAcuSiteDbContext.Patients.FirstOrDefault(p => p.PatientId == patientId)?.PersonalInfo
-            };
+            return allAcuSiteDbContext.PatientDetailsViewModels.FirstOrDefault(p => p.PatientId == patientId);
+        }
+
+        [Route("edit/{PatientId}"), HttpGet]
+        public PatientEditViewModel Edit(Guid patientId)
+        {
+            return allAcuSiteDbContext.PatientEditViewModels.FirstOrDefault(p => p.PatientId == patientId);
         }
 
         [Route(""), HttpPost]
