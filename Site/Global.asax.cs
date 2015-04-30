@@ -26,10 +26,10 @@ namespace AllAcu
             var container = new PocketContainer();
             Container = container;
 
-            EventStoreDbContext.NameOrConnectionString = 
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore";
+            EventStoreDbContext.NameOrConnectionString =
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore;AttachDBFilename=|DataDirectory|\eventStore.mdf";
             AllAcuSiteDbContext.ConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite";
+                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite;AttachDBFilename=|DataDirectory|\allacu.mdf";
 
             using (var db = new AllAcuSiteDbContext())
             {
