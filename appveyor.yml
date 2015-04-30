@@ -7,4 +7,5 @@ nuget:
 before_build:
 - nuget restore
 build:
-  verbosity: minimal
+  publish_wap: true
+  verbosity: detailed
