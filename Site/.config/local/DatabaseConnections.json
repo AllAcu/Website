@@ -1,0 +1,4 @@
+﻿{
+    "EventStore": "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore;AttachDBFilename=|DataDirectory|\\eventStore.mdf",
+    "AllAcu" : "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite;AttachDBFilename=|DataDirectory|\\allacu.mdf"
+}

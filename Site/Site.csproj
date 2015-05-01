@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Its.Configuration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Configuration.1.0.0-beta\lib\net40\Its.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Its.Validation">
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
@@ -207,6 +211,7 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DatabaseConnections.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -229,9 +234,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Parameters.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\App\claims.js" />
@@ -239,6 +241,12 @@
     <Content Include="Scripts\App\providers.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include=".config\local\DatabaseConnections.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".config\dev\DatabaseConnections.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />
@@ -282,6 +290,8 @@
     <Content Include="Views\Shared\_Minimal.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include=".config\defaults\" />
+    <Folder Include=".config\prod\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Models\Claims\" />

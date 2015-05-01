@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<parameters>
-  <parameter name="EventStoreConnectionString" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\Web.config$" match="/configuration/connectionStrings/add[@name='EventStore']/@connectionString" />
-  </parameter>
-  <parameter name="AllAcuConnectionString" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/connectionStrings/add[@name='AllAcu']/@connectionString" />
-  </parameter>
-</parameters>

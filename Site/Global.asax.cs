@@ -9,6 +9,7 @@ using System.Web.Routing;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
+using Its.Configuration;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
@@ -24,8 +25,9 @@ namespace AllAcu
             var container = new PocketContainer();
             Container = container;
 
-            EventStoreDbContext.NameOrConnectionString = "EventStore";
-            AllAcuSiteDbContext.ConnectionString = "AllAcu";
+            var dbConnections = Settings.Get<DatabaseConnections>();
+            EventStoreDbContext.NameOrConnectionString = dbConnections.EventStore;
+            AllAcuSiteDbContext.ConnectionString = dbConnections.AllAcu;
 
             using (var db = new AllAcuSiteDbContext())
             {
