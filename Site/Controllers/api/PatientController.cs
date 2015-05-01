@@ -68,6 +68,16 @@ namespace AllAcu.Controllers.api
             providerEventSourcedRepository.Save(provider);
         }
 
+        [Route("{PatientId}/insurance"), HttpPost]
+        public void UpdateInsurance(Guid patientId, CareProvider.UpdateInsurance command)
+        {
+            command.PatientId = patientId;
+            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            command.ApplyTo(provider);
+
+            providerEventSourcedRepository.Save(provider);
+        }
+
         [Route("poke"), HttpGet]
         public Guid Poke()
         {

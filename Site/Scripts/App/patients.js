@@ -1,11 +1,11 @@
 ﻿(function (module) {
 
     module.controller('patientIntake', [
-        "$scope", "$location", "patientRepository", function ($scope, $location, $patients) {
+        "$scope", "$location", "patientCommands", function ($scope, $location, $commands) {
             $scope.patient = {};
 
             $scope.save = function () {
-                $patients.intake($scope.patient).success(function () {
+                $commands.intake($scope.patient).success(function () {
                     $location.path("/patient");
                 });
             }
@@ -26,7 +26,7 @@
     ]);
 
     module.controller('patientEdit', [
-        "$scope", "$routeParams", "$location", "patientRepository", function ($scope, $routeParams, $location, $patients) {
+        "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
 
             $scope.patient = {};
             $patients.edit($routeParams["id"]).success(function (data) {
@@ -34,7 +34,7 @@
             });
 
             $scope.save = function () {
-                $patients.update($scope.patient).success(function () {
+                $commands.update($scope.patient).success(function () {
                     $location.path("/patient");
                 });
             }
@@ -52,9 +52,16 @@
     ]);
 
     module.controller('patientInsurance', [
-        "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
+        "$scope", "$routeParams", "patientCommands", function ($scope, $routeParams, $commands) {
 
-            $scope.patient = {};
+            $scope.patientId = $routeParams["id"];
+            $scope.insurance = {};
+
+            $scope.save = function () {
+                $commands.addInsurance($scope.patientId, $scope.insurance).success(function () {
+                    $location.path("/patient");
+                });
+            }
         }
     ]);
 

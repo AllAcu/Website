@@ -12,9 +12,15 @@ namespace Domain.CareProvider
             public Guid PatientId { get; set; }
             public string InsuranceCompany { get; set; }
             public string Plan { get; set; }
+            public PhoneNumber ProviderNumber { get; set; }
+            public InsuranceId InsuranceId { get; set; }
+            public GroupNumber GroupNumber { get; set; }
+
             public DateTimeOffset IssueDate { get; set; }
             public DateTimeOffset PolicyDate { get; set; }
             public DateTimeOffset EffectiveDate { get; set; }
+
+            public bool SecondaryCoverage { get; set; }
 
             public override IValidationRule<CareProvider> Validator
             {
