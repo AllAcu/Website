@@ -9,3 +9,13 @@ before_build:
 build:
   publish_wap: true
   verbosity: detailed
+deploy:
+- provider: WebDeploy
+  server: 52.0.7.4
+  website: AllAcu
+  username: WDeployAdmin
+  password:
+    secure: bV5ieY1+BR+y1jdDh08nQA==
+  ntlm: true
+  remove_files: true
+  artifact: 
