@@ -1,7 +1,8 @@
 ﻿<h2>Edit patient vital information</h2>
 <div>
-    <div>Patient Name: <input type="text" ng-model="patient.name" /></div>
-    <div>Gender:
+    <div><label>Patient Name</label> <input type="text" ng-model="patient.name" /></div>
+    <div>
+        <label>Gender</label>
         <label>
             <input type="radio" ng-model="patient.gender" value="Male">
             Male
@@ -11,7 +12,7 @@
             Female
         </label>
     </div>
-    <div>Date of birth: <input type="date" ng-model="patient.dateOfBirth"/></div>
+    <div><label>Date of birth</label> <input type="date" ng-model="patient.dateOfBirth" /></div>
 
     <div>
         <button ng-click="save()">Save</button>

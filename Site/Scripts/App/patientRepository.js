@@ -9,13 +9,16 @@
                 return $http.get("/api/patient/" + id);
             },
             edit: function (id) {
-                return $http.get("/api/patient/edit/" + id);
+                return $http.get("/api/patient/edit/" + id).success(function (data) {
+                    data.dateOfBirth = new Date(data.dateOfBirth);
+                    return data;
+                });
             },
-            intake: function(patient) {
+            intake: function (patient) {
                 return $http.post("/api/patient/", patient);
             },
-            update: function(patient) {
-                return $http.put("/api/patient/" + patient.id, {
+            update: function (patient) {
+                return $http.put("/api/patient/" + patient.patientId, {
                     name: patient.name,
                     gender: patient.gender,
                     dateOfBirth: patient.dateOfBirth

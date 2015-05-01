@@ -51,4 +51,11 @@
         }
     ]);
 
+    module.controller('patientInsurance', [
+        "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
+
+            $scope.patient = {};
+        }
+    ]);
+
 }(angular.module("patientsApp", [])));

@@ -1,0 +1,25 @@
+﻿<h2>{{patient.name}}</h2>
+<div>
+    <div>
+        <fieldset>
+            <legend>About <a href="#/patient/edit/{{patient.patientId}}" class="btn active">Edit</a></legend>
+            <div><label>Gender</label> <span>{{patient.gender}}</span></div>
+            <div><label>Date of birth</label> <span>{{patient.dateOfBirth}}</span></div>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <legend>Contact information <a class="btn active">Edit</a></legend>
+            <label>Address</label>
+            <div style="display: inline-block">
+                <div><span>{{patient.address1}}</span></div>
+                <div><span>{{patient.address2}}</span></div>
+            </div>
+            <div><label>City</label> <span>{{patient.city}}</span></div>
+            <div><label>State</label> <span>{{patient.state}}</span></div>
+            <div><label>Zip Code</label> <span>{{patient.postalCode}}</span></div>
+        </fieldset>
+    </div>
+
+    <a href="#/patient/insurance/{{patient.patientId}}/edit" class="btn active">Insurance</a>
+</div>

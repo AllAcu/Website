@@ -27,20 +27,24 @@
                     controller: 'patientList'
                 }).
                 when('/patient/intake', {
-                    templateUrl: '/Templates/Patients/patientIntake.html',
+                    templateUrl: '/Templates/Patients/intake.html',
                     controller: 'patientIntake'
                 }).
                 when('/patient/edit/:id', {
-                    templateUrl: '/Templates/Patients/patientEdit.html',
+                    templateUrl: '/Templates/Patients/updateVitalInfo.html',
                     controller: 'patientEdit'
                 }).
                 when('/patient/:id', {
-                    templateUrl: '/Templates/Patients/patientDetails.html',
+                    templateUrl: '/Templates/Patients/details.html',
                     controller: 'patientDetails'
                 }).
                 when('/provider/create', {
                     templateUrl: '/Templates/Providers/providerEdit.html',
                     controller: 'providerCreate'
+                }).
+                when('/patient/insurance/:id/edit', {
+                    templateUrl: '/Templates/Patients/recordInsurance.html',
+                    controller: 'patientInsurance'
                 }).
                 otherwise({
                     redirectTo: '/'
