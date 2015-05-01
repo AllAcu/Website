@@ -6,11 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using AllAcu.Projections;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
-using Domain.Repository;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
@@ -26,10 +24,8 @@ namespace AllAcu
             var container = new PocketContainer();
             Container = container;
 
-            EventStoreDbContext.NameOrConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore;AttachDBFilename=|DataDirectory|\eventStore.mdf";
-            AllAcuSiteDbContext.ConnectionString =
-                @"Data Source=(LocalDb)\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite;AttachDBFilename=|DataDirectory|\allacu.mdf";
+            EventStoreDbContext.NameOrConnectionString = "EventStore";
+            AllAcuSiteDbContext.ConnectionString = "AllAcu";
 
             using (var db = new AllAcuSiteDbContext())
             {
