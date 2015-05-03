@@ -19,7 +19,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(CareProvider.NewPatient @event)
         {
-            dbContext.PatientDetailsViewModels.Add(new PatientDetailsViewModel
+            dbContext.PatientDetails.Add(new PatientDetails
             {
                 PatientId = @event.PatientId,
                 Name = @event.Name,
@@ -37,7 +37,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
         {
-            var patient = dbContext.PatientDetailsViewModels.First(p => p.PatientId == @event.PatientId);
+            var patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId);
 
             patient.Name = @event.UpdatedName ?? patient.Name;
             patient.DateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ?? patient.DateOfBirth;
@@ -48,7 +48,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(CareProvider.PatientContactInformationUpdated @event)
         {
-            var patient = dbContext.PatientDetailsViewModels.First(p => p.PatientId == @event.PatientId);
+            var patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId);
 
             //patient.PersonalInfo.Address = @event.UpdatedAddress ?? patient.PersonalInfo.Address;
 
@@ -56,7 +56,7 @@ namespace AllAcu.Models.Providers
         }
     }
 
-    public class PatientDetailsViewModel
+    public class PatientDetails
     {
         public Guid PatientId { get; set; }
         public string Name { get; set; }
@@ -67,11 +67,11 @@ namespace AllAcu.Models.Providers
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
-        public InsuranceDetails Insurance { get; set; }
+        //public InsuranceDetails Insurance { get; set; }
 
-        public class InsuranceDetails
-        {
+        //public class InsuranceDetails
+        //{
             
-        }
+        //}
     }
 }

@@ -11,8 +11,7 @@ namespace AllAcu
 
         public DbSet<CareProviderBusinessInfo> CareProviders { get; set; }
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
-        public DbSet<PatientEditViewModel> PatientEditViewModels { get; set; }
-        public DbSet<PatientDetailsViewModel> PatientDetailsViewModels { get; set; }
+        public DbSet<PatientDetails> PatientDetails { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -22,9 +21,7 @@ namespace AllAcu
         {
             modelBuilder.Entity<PatientListItemViewModel>()
                 .HasKey(i => i.PatientId);
-            modelBuilder.Entity<PatientEditViewModel>()
-                .HasKey(i => i.PatientId);
-            modelBuilder.Entity<PatientDetailsViewModel>()
+            modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
 
             modelBuilder.Entity<CareProviderBusinessInfo>()

@@ -63,6 +63,29 @@
         }
     }]);
 
+
+    app.directive('displayField', function () {
+        return {
+            restrict: "E",
+            template: function (element, attrs) {
+                return '<div class="row"><div class="col-md-2"><label>{{field}}</label></div><div class="col-md-4">{{value}}</div></div>'
+                .replace('{{field}}', attrs.field)
+                .replace('{{value}}', attrs.value);
+            }
+        };
+    });
+
+    app.directive('editField', function () {
+        return {
+            restrict: "E",
+            template: function (element, attrs) {
+                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><input type="text" ng-model="{{field}}" /></div></div>'
+                .replace('{{label}}', attrs.label)
+                .replace('{{field}}', attrs.field);
+            }
+        };
+    });
+
     exports.app = app;
 
 })(window, angular)

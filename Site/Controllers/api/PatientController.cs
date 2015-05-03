@@ -36,15 +36,15 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}"), HttpGet]
-        public PatientDetailsViewModel Details(Guid patientId)
+        public PatientDetails Details(Guid patientId)
         {
-            return allAcuSiteDbContext.PatientDetailsViewModels.FirstOrDefault(p => p.PatientId == patientId);
+            return allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
         }
 
         [Route("edit/{PatientId}"), HttpGet]
-        public PatientEditViewModel Edit(Guid patientId)
+        public PatientDetails Edit(Guid patientId)
         {
-            return allAcuSiteDbContext.PatientEditViewModels.FirstOrDefault(p => p.PatientId == patientId);
+            return allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
         }
 
         [Route(""), HttpPost]

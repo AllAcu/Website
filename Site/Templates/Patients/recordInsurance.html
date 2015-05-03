@@ -1,5 +1,19 @@
-﻿<div ng-include="'Templates/Patients/inputMedicalInsurance.html'"></div>
+﻿<div>
+    Type of insurance:
+    <label>
+        <input type="radio" ng-model="insurance.classification" value="medical">
+        Medical Insurance
+    </label>
+    <label>
+        <input type="radio" ng-model="insurance.classification" value="pip">
+        Private Injury Protection
+    </label>
+</div>
+
+<div ng-include="insuranceTemplate()">Insurances</div>
 
 <div>
     <button ng-click="save()">Save</button>
 </div>
+
+

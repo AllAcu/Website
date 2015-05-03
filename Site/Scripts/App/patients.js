@@ -55,14 +55,23 @@
         "$scope", "$routeParams", "patientCommands", function ($scope, $routeParams, $commands) {
 
             $scope.patientId = $routeParams["id"];
-            $scope.insurance = {};
+            $scope.insurance = {
+                classification: "medical"
+            };
 
             $scope.save = function () {
                 $commands.addInsurance($scope.patientId, $scope.insurance).success(function () {
                     $location.path("/patient");
                 });
             }
+
+            $scope.insuranceTemplate = function() {
+                if ($scope.insurance.classification === "medical")
+                    return 'Templates/Patients/inputMedicalInsurance.html';
+                else if ($scope.insurance.classification === "pip")
+                    return 'Templates/Patients/inputPersonalInjuryProtection.html';
+                return "boogie";
+            }
         }
     ]);
-
 }(angular.module("patientsApp", [])));
