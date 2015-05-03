@@ -52,7 +52,7 @@
     ]);
 
     module.controller('patientInsurance', [
-        "$scope", "$routeParams", "patientCommands", function ($scope, $routeParams, $commands) {
+        "$scope", "$routeParams", "$location", "patientCommands", function ($scope, $routeParams, $location, $commands) {
 
             $scope.patientId = $routeParams["id"];
             $scope.insurance = {

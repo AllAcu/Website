@@ -30,7 +30,7 @@
                     templateUrl: '/Templates/Patients/intake.html',
                     controller: 'patientIntake'
                 }).
-                when('/patient/edit/:id', {
+                when('/patient/:id/edit', {
                     templateUrl: '/Templates/Patients/updateVitalInfo.html',
                     controller: 'patientEdit'
                 }).
@@ -42,7 +42,7 @@
                     templateUrl: '/Templates/Providers/providerEdit.html',
                     controller: 'providerCreate'
                 }).
-                when('/patient/insurance/:id/edit', {
+                when('/patient/:id/insurance/edit', {
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
                 }).
@@ -68,9 +68,9 @@
         return {
             restrict: "E",
             template: function (element, attrs) {
-                return '<div class="row"><div class="col-md-2"><label>{{field}}</label></div><div class="col-md-4">{{value}}</div></div>'
-                .replace('{{field}}', attrs.field)
-                .replace('{{value}}', attrs.value);
+                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4">{{{{field}}}}</div></div>'
+                    .replace('{{label}}', attrs.label)
+                    .replace('{{field}}', attrs.field);
             }
         };
     });

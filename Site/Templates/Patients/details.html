@@ -1,9 +1,9 @@
 ﻿<h2>{{patient.name}}</h2>
 <div>
     <fieldset>
-        <legend>About <a href="#/patient/edit/{{patient.patientId}}" class="btn btn-sm">Edit</a></legend>
-        <div class="row"><div class="col-md-2"><label>Date of birth</label></div><div class="col-md-4">{{patient.dateOfBirth}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Gender</label></div><div class="col-md-4">{{patient.gender}}</div></div>
+        <legend>About <a href="#/patient/{{patient.patientId}}/edit" class="btn btn-sm">Edit</a></legend>
+        <display-field label="Date of birth" field="patient.dateOfBirth"></display-field>
+        <display-field label="Gender" field="patient.gender"></display-field>
     </fieldset>
     <fieldset>
         <legend>Contact information <a class="btn btn-sm">Edit</a></legend>
@@ -18,14 +18,12 @@
         </div>
     </fieldset>
     <fieldset>
-        <legend>Insurance<a class="btn btn-sm">Add or edit?</a></legend>
-        <div class="row"><div class="col-md-2"><label>Company</label></div><div class="col-md-4">{{patient.insurance.company}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Phone Number</label></div><div class="col-md-4">{{patient.insurance.phoneNumber}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Provider Number</label></div><div class="col-md-4">{{patient.insurance.providerNumber}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Plan</label></div><div class="col-md-4">{{patient.insurance.plan}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Insurance Id</label></div><div class="col-md-4">{{patient.insurance.insuranceId}}</div></div>
-        <div class="row"><div class="col-md-2"><label>Group Id</label></div><div class="col-md-4">{{patient.insurance.groupNumber}}</div></div>
-
+        <legend>Insurance<a href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-sm">Add or edit?</a></legend>
+        <display-field label="Company" field="patient.insurance.company"></display-field>
+        <display-field label="Phone Number" field="patient.insurance.phoneNumber"></display-field>
+        <display-field label="Provider Number" field="patient.insurance.providerNumber"></display-field>
+        <display-field label="Plan" field="patient.insurance.plan"></display-field>
+        <display-field label="Insurance Id" field="patient.insurance.insuranceId"></display-field>
+        <display-field label="Group Id" field="patient.insurance.groupNumber"></display-field>
     </fieldset>
-    <a href="#/patient/insurance/{{patient.patientId}}/edit" class="btn btn-default">Insurance</a>
 </div>
