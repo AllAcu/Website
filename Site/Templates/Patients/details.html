@@ -1,25 +1,31 @@
 ﻿<h2>{{patient.name}}</h2>
 <div>
-    <div>
-        <fieldset>
-            <legend>About <a href="#/patient/edit/{{patient.patientId}}" class="btn active">Edit</a></legend>
-            <div><label>Gender</label> <span>{{patient.gender}}</span></div>
-            <div><label>Date of birth</label> <span>{{patient.dateOfBirth}}</span></div>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
-            <legend>Contact information <a class="btn active">Edit</a></legend>
-            <label>Address</label>
-            <div style="display: inline-block">
-                <div><span>{{patient.address1}}</span></div>
-                <div><span>{{patient.address2}}</span></div>
+    <fieldset>
+        <legend>About <a href="#/patient/edit/{{patient.patientId}}" class="btn btn-sm">Edit</a></legend>
+        <div class="row"><div class="col-md-2"><label>Date of birth</label></div><div class="col-md-4">{{patient.dateOfBirth}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Gender</label></div><div class="col-md-4">{{patient.gender}}</div></div>
+    </fieldset>
+    <fieldset>
+        <legend>Contact information <a class="btn btn-sm">Edit</a></legend>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Address</label>
             </div>
-            <div><label>City</label> <span>{{patient.city}}</span></div>
-            <div><label>State</label> <span>{{patient.state}}</span></div>
-            <div><label>Zip Code</label> <span>{{patient.postalCode}}</span></div>
-        </fieldset>
-    </div>
+            <div class="col-md-4">
+                <div class="row">{{patient.address}}</div>
+                <div class="row">{{patient.city}}, {{patient.state}} {{patient.postalCode}}</div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Insurance<a class="btn btn-sm">Add or edit?</a></legend>
+        <div class="row"><div class="col-md-2"><label>Company</label></div><div class="col-md-4">{{patient.insurance.company}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Phone Number</label></div><div class="col-md-4">{{patient.insurance.phoneNumber}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Provider Number</label></div><div class="col-md-4">{{patient.insurance.providerNumber}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Plan</label></div><div class="col-md-4">{{patient.insurance.plan}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Insurance Id</label></div><div class="col-md-4">{{patient.insurance.insuranceId}}</div></div>
+        <div class="row"><div class="col-md-2"><label>Group Id</label></div><div class="col-md-4">{{patient.insurance.groupNumber}}</div></div>
 
-    <a href="#/patient/insurance/{{patient.patientId}}/edit" class="btn active">Insurance</a>
+    </fieldset>
+    <a href="#/patient/insurance/{{patient.patientId}}/edit" class="btn btn-default">Insurance</a>
 </div>

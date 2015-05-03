@@ -23,11 +23,11 @@ namespace Domain.CareProvider
                 var patient = provider.GetPatient(PatientId);
                 patient.InsurancePolicies.Add(new InsurancePolicy
                 {
-                    InsuranceCompany = InsuranceCompany,
-                    Plan = Plan,
-                    InsuranceProviderNumber = ProviderNumber,
-                    InsuranceId = InsuranceId,
-                    GroupNumber = GroupNumber,
+                    //InsuranceCompany = InsuranceCompany,
+                    //Plan = Plan,
+                    //InsuranceProviderNumber = ProviderNumber,
+                    //InsuranceId = InsuranceId,
+                    //GroupNumber = GroupNumber,
                     EffectiveDate = EffectiveDate,
                     PolicyDate = PolicyDate,
                     IssueDate = IssueDate

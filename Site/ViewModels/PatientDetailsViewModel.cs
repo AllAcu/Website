@@ -67,5 +67,11 @@ namespace AllAcu.Models.Providers
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
+        public InsuranceDetails Insurance { get; set; }
+
+        public class InsuranceDetails
+        {
+            
+        }
     }
 }
