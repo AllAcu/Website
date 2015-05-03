@@ -9,6 +9,11 @@ namespace Domain
         public City City { get; set; }
         public State State { get; set; }
         public PostalCode PostalCode { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Line1}\r\n{Line2}\r\n{City}, {State} {PostalCode}";
+        }
     }
 
     public class State : String<State>

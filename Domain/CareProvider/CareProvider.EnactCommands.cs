@@ -69,14 +69,8 @@ namespace Domain.CareProvider
             RecordEvent(new InsuranceUpdated
             {
                 PatientId = command.PatientId,
-                InsuranceCompany = command.InsuranceCompany,
-                Plan = command.Plan,
-                ProviderNumber = command.ProviderNumber,
-                InsuranceId = command.InsuranceId,
-                GroupNumber = command.GroupNumber,
-                EffectiveDate = command.EffectiveDate,
-                PolicyDate = command.PolicyDate,
-                IssueDate = command.IssueDate
+                PersonalInjuryProtection = command.PersonalInjuryProtection,
+                MedicalInsurance = command.MedicalInsurance
             });
         }
 

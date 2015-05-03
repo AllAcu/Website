@@ -35,7 +35,7 @@
 
             $scope.save = function () {
                 $commands.update($scope.patient).success(function () {
-                    $location.path("/patient");
+                    $location.path("/patient/" + $scope.patient.patientId);
                 });
             }
         }
@@ -52,25 +52,30 @@
     ]);
 
     module.controller('patientInsurance', [
-        "$scope", "$routeParams", "$location", "patientCommands", function ($scope, $routeParams, $location, $commands) {
+        "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
 
             $scope.patientId = $routeParams["id"];
-            $scope.insurance = {
-                classification: "medical"
-            };
+            $scope.classification = "medical";
+            $scope.medical = {};
+            $scope.pip = {};
+
+            $patients.edit($routeParams["id"]).success(function (data) {
+                $scope.medical = data.medicalInsurance;
+                $scope.pip = data.personalInjuryProtection;
+            });
 
             $scope.save = function () {
-                $commands.addInsurance($scope.patientId, $scope.insurance).success(function () {
-                    $location.path("/patient");
+                $commands.addInsurance($scope.patientId, $scope).success(function () {
+                    $location.path("/patient/" + $scope.patientId);
                 });
             }
 
-            $scope.insuranceTemplate = function() {
-                if ($scope.insurance.classification === "medical")
+            $scope.insuranceTemplate = function () {
+                if ($scope.classification === "medical")
                     return 'Templates/Patients/inputMedicalInsurance.html';
-                else if ($scope.insurance.classification === "pip")
+                else if ($scope.classification === "pip")
                     return 'Templates/Patients/inputPersonalInjuryProtection.html';
-                return "boogie";
+                return "";
             }
         }
     ]);

@@ -10,17 +10,24 @@ namespace Domain.CareProvider
         public class UpdateInsurance : Command<CareProvider>
         {
             public Guid PatientId { get; set; }
-            public string InsuranceCompany { get; set; }
-            public string Plan { get; set; }
-            public PhoneNumber ProviderNumber { get; set; }
-            public InsuranceId InsuranceId { get; set; }
-            public GroupNumber GroupNumber { get; set; }
 
-            public DateTimeOffset IssueDate { get; set; }
-            public DateTimeOffset PolicyDate { get; set; }
-            public DateTimeOffset EffectiveDate { get; set; }
+            public MedicalInsurance MedicalInsurance { get; set; }
+            public PersonalInjuryProtection PersonalInjuryProtection { get; set; }
 
             public bool SecondaryCoverage { get; set; }
+
+            public override IValidationRule CommandValidator
+            {
+                get
+                {
+                    return new ValidationPlan<UpdateInsurance>(
+                        Validate.That<UpdateInsurance>(
+                            cmd => cmd.MedicalInsurance != null || cmd.PersonalInjuryProtection != null),
+                        Validate.That<UpdateInsurance>(
+                            cmd => !(cmd.MedicalInsurance != null && cmd.PersonalInjuryProtection != null))
+                        ).WithErrorMessage("Either medical or personal injury protection must be supplied");
+                }
+            }
 
             public override IValidationRule<CareProvider> Validator
             {

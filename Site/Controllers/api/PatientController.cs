@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 using AllAcu.Models.Providers;
@@ -38,7 +39,9 @@ namespace AllAcu.Controllers.api
         [Route("{PatientId}"), HttpGet]
         public PatientDetails Details(Guid patientId)
         {
-            return allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
+            var patient = allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
+            Debug.WriteLine(patient?.MedicalInsurance?.Plan);
+            return patient;
         }
 
         [Route("edit/{PatientId}"), HttpGet]

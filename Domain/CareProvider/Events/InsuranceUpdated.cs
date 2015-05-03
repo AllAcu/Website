@@ -8,30 +8,22 @@ namespace Domain.CareProvider
         public class InsuranceUpdated : Event<CareProvider>
         {
             public Guid PatientId { get; set; }
-            public string InsuranceCompany { get; set; }
-            public string Plan { get; set; }
-            public PhoneNumber ProviderNumber { get; set; }
-            public InsuranceId InsuranceId { get; set; }
-            public GroupNumber GroupNumber { get; set; }
 
-            public DateTimeOffset IssueDate { get; set; }
-            public DateTimeOffset PolicyDate { get; set; }
-            public DateTimeOffset EffectiveDate { get; set; }
+            public MedicalInsurance MedicalInsurance { get; set; }
+            public PersonalInjuryProtection PersonalInjuryProtection { get; set; }
 
             public override void Update(CareProvider provider)
             {
                 var patient = provider.GetPatient(PatientId);
-                patient.InsurancePolicies.Add(new InsurancePolicy
+
+                var policy = MedicalInsurance != null ? new InsurancePolicy<MedicalInsurance>(MedicalInsurance)
+                    : PersonalInjuryProtection != null ? new InsurancePolicy<PersonalInjuryProtection>(PersonalInjuryProtection)
+                        : (InsurancePolicy)null;
+
+                if (policy != null)
                 {
-                    //InsuranceCompany = InsuranceCompany,
-                    //Plan = Plan,
-                    //InsuranceProviderNumber = ProviderNumber,
-                    //InsuranceId = InsuranceId,
-                    //GroupNumber = GroupNumber,
-                    EffectiveDate = EffectiveDate,
-                    PolicyDate = PolicyDate,
-                    IssueDate = IssueDate
-                });
+                    patient.InsurancePolicies.Add(policy);
+                }
             }
         }
     }

@@ -1,7 +1,8 @@
-﻿<h2>{{patient.name}}</h2>
+﻿<h2>Patient</h2>
 <div>
     <fieldset>
         <legend>About <a href="#/patient/{{patient.patientId}}/edit" class="btn btn-sm">Edit</a></legend>
+        <display-field label="Name" field="patient.name"></display-field>
         <display-field label="Date of birth" field="patient.dateOfBirth"></display-field>
         <display-field label="Gender" field="patient.gender"></display-field>
     </fieldset>
@@ -17,13 +18,27 @@
             </div>
         </div>
     </fieldset>
-    <fieldset>
-        <legend>Insurance<a href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-sm">Add or edit?</a></legend>
-        <display-field label="Company" field="patient.insurance.company"></display-field>
-        <display-field label="Phone Number" field="patient.insurance.phoneNumber"></display-field>
-        <display-field label="Provider Number" field="patient.insurance.providerNumber"></display-field>
-        <display-field label="Plan" field="patient.insurance.plan"></display-field>
-        <display-field label="Insurance Id" field="patient.insurance.insuranceId"></display-field>
-        <display-field label="Group Id" field="patient.insurance.groupNumber"></display-field>
+    <fieldset ng-if="patient.medicalInsurance">
+        <legend>Medical Insurance<a href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-sm">Add or edit?</a></legend>
+        <display-field label="Company" field="patient.medicalInsurance.insuranceCompany"></display-field>
+        <display-field label="Provider Number" field="patient.medicalInsurance.providerPhoneNumber"></display-field>
+        <display-field label="Plan" field="patient.medicalInsurance.plan"></display-field>
+        <display-field label="Insurance Id" field="patient.medicalInsurance.insuranceId"></display-field>
+        <display-field label="Group Id" field="patient.medicalInsurance.groupNumber"></display-field>
     </fieldset>
+    <fieldset ng-if="patient.personalInjuryProtection">
+        <legend>Personal Injury Protection<a href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-sm">Add or edit?</a></legend>
+        <display-field label="Date Of Injury" field="patient.personalInjuryProtection.dateOfInjury"></display-field>
+        <display-field label="Place Of Accident" field="patient.personalInjuryProtection.placeOfAccident"></display-field>
+        <display-field label="Insurance Carrier" field="patient.personalInjuryProtection.insuranceCarrier"></display-field>
+        <display-field label="Policy Number" field="patient.personalInjuryProtection.policyNumber"></display-field>
+        <display-field label="Claim Number" field="patient.personalInjuryProtection.claimNumber"></display-field>
+        <display-field label="Insurance Address" field="patient.personalInjuryProtection.insuranceCompanyAddress"></display-field>
+        <display-field label="Adjuster Name" field="patient.personalInjuryProtection.adjusterName"></display-field>
+        <display-field label="Adjuster Phone" field="patient.personalInjuryProtection.adjusterPhone"></display-field>
+        <display-field label="Injury" field="patient.personalInjuryProtection.injury"></display-field>
+        <display-field label="Notes" field="patient.personalInjuryProtection.notes"></display-field>
+    </fieldset>
+
+    <a ng-if="!patient.personalInjuryProtection && !patient.medicalInsurance" href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-default">Add Insurance</a>
 </div>

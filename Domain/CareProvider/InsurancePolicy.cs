@@ -5,18 +5,21 @@ namespace Domain
 {
     public class InsurancePolicy<TInsurance> : InsurancePolicy
     {
-        // relationship to policy for a patient?
+        public TInsurance Insurance { get; }
 
-        public TInsurance Insurance { get; set; }
+        public InsurancePolicy(TInsurance insurance)
+        {
+            Insurance = insurance;
+        }
     }
 
     public class MedicalInsurance
     {
         public string InsuranceCompany { get; set; }
         public string Plan { get; set; }
-        public PhoneNumber InsuranceProviderNumber { get; set; }
-        public InsuranceId InsuranceId { get; set; }
-        public GroupNumber GroupNumber { get; set; }
+        public string ProviderPhoneNumber { get; set; }
+        public string InsuranceId { get; set; }
+        public string GroupNumber { get; set; }
         public bool SecondaryCoverage { get; set; }
     }
 
@@ -27,9 +30,9 @@ namespace Domain
         public string InsuranceCarrier { get; set; }
         public string PolicyNumber { get; set; }
         public string ClaimNumber { get; set; }
-        public Address InsuranceCompanyAddress { get; set; }
+        public string InsuranceCompanyAddress { get; set; }
         public string AdjusterName { get; set; }
-        public PhoneNumber AdjusterPhone { get; set; }
+        public string AdjusterPhone { get; set; }
         public string Injury { get; set; }
         public string Notes { get; set; }
     }
@@ -40,8 +43,11 @@ namespace Domain
         public DateTimeOffset VerifiedOn { get; set; }
     }
 
-    public class InsurancePolicy
+    public abstract class InsurancePolicy
     {
+        // relationship to policy for a patient?
+
+
         public Verification Verification { get; set; }
         public DateTimeOffset IssueDate { get; set; }
         public DateTimeOffset PolicyDate { get; set; }

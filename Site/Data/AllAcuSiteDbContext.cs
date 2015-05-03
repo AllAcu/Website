@@ -24,6 +24,11 @@ namespace AllAcu
             modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
 
+            modelBuilder.Entity<PatientDetails>()
+                .HasOptional(d => d.MedicalInsurance);
+            modelBuilder.Entity<PatientDetails>()
+                .HasOptional(d => d.PersonalInjuryProtection);
+
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .ToTable("CareProviders");
 

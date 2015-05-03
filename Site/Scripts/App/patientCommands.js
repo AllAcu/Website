@@ -6,7 +6,10 @@
                 return $http.post("/api/patient/", patient);
             },
             addInsurance: function (patientId, insurance) {
-                return $http.post("/api/patient/" + patientId + "/insurance", insurance);
+                return $http.post("/api/patient/" + patientId + "/insurance", {
+                    medicalInsurance: insurance.classification === "medical" ? insurance.medical : null,
+                    personalInjuryProtection: insurance.classification === "pip" ? insurance.pip : null
+                });
             },
             update: function (patient) {
                 return $http.put("/api/patient/" + patient.patientId, {
