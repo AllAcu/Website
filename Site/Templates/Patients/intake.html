@@ -1,6 +1,6 @@
 ﻿<h2>New patient information</h2>
 <div>
-    <div>Patient Name: <input type="text" ng-model="patient.name" /></div>
+    <edit-field label="Patient name" field="patient.name"></edit-field>
     <div>
         Gender:
         <label>
@@ -12,13 +12,10 @@
             Female
         </label>
     </div>
-    <div>Date of birth: <input type="date" ng-model="patient.dateOfBirth" /></div>
+    <edit-field label="Date of birth" type="date" field="patient.dateOfBirth"></edit-field>
 
-    <div>Address: <input type="text" ng-model="patient.address1"/></div>
-    <div><input type="text" ng-model="patient.address2"/></div>
-    <div>City: <input type="text" ng-model="patient.city"/></div>
-    <div>State: <input type="text" ng-model="patient.state"/></div>
-    <div>Zip Code: <input type="text" ng-model="patient.postalCode"/></div>
+    <edit-address field="patient"></edit-address>
+    <edit-field label="Phone Number" field="patient.phoneNumber"></edit-field>
 
     <div>
         <button ng-click="save()">Save</button>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Domain.CareProvider.Commands;
 
 namespace Domain.CareProvider
 {
@@ -35,9 +34,9 @@ namespace Domain.CareProvider
                 {
                     Line1 = command.Address1,
                     Line2 = command.Address2,
-                    City = new City(command.City),
-                    State = new State(command.State),
-                    PostalCode = new PostalCode(command.PostalCode)
+                    City = command.City,
+                    State = command.State,
+                    PostalCode = command.PostalCode
                 }
             });
         }
@@ -60,7 +59,8 @@ namespace Domain.CareProvider
             RecordEvent(new PatientContactInformationUpdated
             {
                 PatientId = command.PatientId,
-                UpdatedAddress = (command.Address != patient.Address) ? command.Address : null
+                UpdatedAddress = (command.Address != patient.Address) ? command.Address : null,
+                UpdatedPhoneNumber = (command.PhoneNumber != patient.PhoneNumber) ? command.PhoneNumber : null
             });
         }
 

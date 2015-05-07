@@ -25,8 +25,9 @@ namespace AllAcu.Models.Providers
                 PatientId = @event.PatientId,
                 Name = @event.Name,
                 DateOfBirth = @event.DateOfBirth.ToShortDateString(),
-                Gender = @event.Gender,
-                Address = @event.Address.Line1 + " " + @event.Address.Line2,
+                Gender = @event.Gender.ToString(),
+                Address1 = @event.Address.Line1,
+                Address2 = @event.Address.Line2,
                 City = @event.Address.City?.ToString(),
                 State = @event.Address.State?.ToString(),
                 PostalCode = @event.Address.PostalCode?.ToString(),
@@ -51,7 +52,15 @@ namespace AllAcu.Models.Providers
         {
             var patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId);
 
-            //patient.PersonalInfo.Address = @event.UpdatedAddress ?? patient.PersonalInfo.Address;
+            if (@event.UpdatedAddress != null)
+            {
+                patient.Address1 = @event.UpdatedAddress.Line1;
+                patient.Address2 = @event.UpdatedAddress.Line2;
+                patient.City = @event.UpdatedAddress.City.ToString();
+                patient.State = @event.UpdatedAddress.State.ToString();
+                patient.PostalCode = @event.UpdatedAddress.PostalCode.ToString();
+            }
+            patient.PhoneNumber = @event.UpdatedPhoneNumber?.ToString() ?? patient.PhoneNumber;
 
             dbContext.SaveChanges();
         }
@@ -96,7 +105,8 @@ namespace AllAcu.Models.Providers
         public string DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string PhoneNumber { get; set; }
-        public string Address { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }

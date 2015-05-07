@@ -30,13 +30,17 @@
                     templateUrl: '/Templates/Patients/intake.html',
                     controller: 'patientIntake'
                 }).
+                when('/patient/:id', {
+                    templateUrl: '/Templates/Patients/details.html',
+                    controller: 'patientDetails'
+                }).
                 when('/patient/:id/edit', {
                     templateUrl: '/Templates/Patients/updateVitalInfo.html',
                     controller: 'patientEdit'
                 }).
-                when('/patient/:id', {
-                    templateUrl: '/Templates/Patients/details.html',
-                    controller: 'patientDetails'
+                when('/patient/:id/contact/edit', {
+                    templateUrl: '/Templates/Patients/updateContactInfo.html',
+                    controller: 'patientEditContactInfo'
                 }).
                 when('/provider/create', {
                     templateUrl: '/Templates/Providers/providerEdit.html',
@@ -62,29 +66,6 @@
             $providers.setCurrent($scope.currentProvider.id);
         }
     }]);
-
-
-    app.directive('displayField', function () {
-        return {
-            restrict: "E",
-            template: function (element, attrs) {
-                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4">{{{{field}}}}</div></div>'
-                    .replace('{{label}}', attrs.label)
-                    .replace('{{field}}', attrs.field);
-            }
-        };
-    });
-
-    app.directive('editField', function () {
-        return {
-            restrict: "E",
-            template: function (element, attrs) {
-                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><input type="text" ng-model="{{field}}" /></div></div>'
-                .replace('{{label}}', attrs.label)
-                .replace('{{field}}', attrs.field);
-            }
-        };
-    });
 
     exports.app = app;
 

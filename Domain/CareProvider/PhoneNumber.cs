@@ -1,6 +1,6 @@
 ﻿using Microsoft.Its.Domain;
 
-namespace Domain.CareProvider
+namespace Domain
 {
     public class PhoneNumber : String<PhoneNumber>
     {

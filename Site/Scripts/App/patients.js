@@ -25,6 +25,16 @@
         }
     ]);
 
+    module.controller('patientDetails', [
+        "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
+
+            $scope.patient = {};
+            $patients.details($routeParams["id"]).success(function (data) {
+                $scope.patient = data;
+            });
+        }
+    ]);
+
     module.controller('patientEdit', [
         "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
 
@@ -41,15 +51,32 @@
         }
     ]);
 
-    module.controller('patientDetails', [
-        "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
+    module.controller('patientEditContactInfo', [
+    "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
 
-            $scope.patient = {};
-            $patients.details($routeParams["id"]).success(function (data) {
-                $scope.patient = data;
+        var patientId = $routeParams["id"];
+        $scope.contact = {};
+        $patients.edit(patientId).success(function (data) {
+            $scope.contact = {
+                address: {
+                    address1: data.address1,
+                    address2: data.address2,
+                    city: data.city,
+                    state: data.state,
+                    postalCode: data.postalCode
+                },
+                phoneNumber: data.phoneNumber
+            }
+        });
+
+        $scope.save = function () {
+            $commands.updateContactInfo(patientId, $scope.contact).success(function () {
+                $location.path("/patient/" + patientId);
             });
         }
+    }
     ]);
+
 
     module.controller('patientInsurance', [
         "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {

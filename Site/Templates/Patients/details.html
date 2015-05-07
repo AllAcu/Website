@@ -7,16 +7,9 @@
         <display-field label="Gender" field="patient.gender"></display-field>
     </fieldset>
     <fieldset>
-        <legend>Contact information <a class="btn btn-sm">Edit</a></legend>
-        <div class="row">
-            <div class="col-md-2">
-                <label>Address</label>
-            </div>
-            <div class="col-md-4">
-                <div class="row">{{patient.address}}</div>
-                <div class="row">{{patient.city}}, {{patient.state}} {{patient.postalCode}}</div>
-            </div>
-        </div>
+        <legend>Contact information <a href="#/patient/{{patient.patientId}}/contact/edit" class="btn btn-sm">Edit</a></legend>
+        <display-address field="patient"></display-address>
+        <display-field label="Phone Number" field="patient.phoneNumber"></display-field>
     </fieldset>
     <fieldset ng-if="patient.medicalInsurance">
         <legend>Medical Insurance<a href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-sm">Add or edit?</a></legend>

@@ -12,10 +12,11 @@ namespace Domain.CareProvider
             public DateTime DateOfBirth { get; set; }
             public string Address1 { get; set; }
             public string Address2 { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public string PostalCode { get; set; }
-            public string Gender { get; set; }
+            public City City { get; set; }
+            public State State { get; set; }
+            public PostalCode PostalCode { get; set; }
+            public Gender Gender { get; set; }
+            public PhoneNumber PhoneNumber { get; set; }
         }
     }
 }

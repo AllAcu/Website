@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using Domain;
+using Microsoft.Its.Domain.Serialization;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -23,9 +25,20 @@ namespace AllAcu
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            RegisterStringT();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings = Serializer.CloneSettings();
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+
+        private static void RegisterStringT()
+        {
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new State(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new City(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PostalCode(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PhoneNumber(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new Gender(s.ToString()));
         }
     }
 }
