@@ -83,12 +83,10 @@
 
             $scope.patientId = $routeParams["id"];
             $scope.classification = "medical";
-            $scope.medical = {};
-            $scope.pip = {};
 
             $patients.edit($routeParams["id"]).success(function (data) {
-                $scope.medical = data.medicalInsurance;
-                $scope.pip = data.personalInjuryProtection;
+                $scope.medical = data.medicalInsurance || {};
+                $scope.pip = data.personalInjuryProtection || {};
             });
 
             $scope.save = function () {
