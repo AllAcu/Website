@@ -77,7 +77,6 @@
     }
     ]);
 
-
     module.controller('patientInsurance', [
         "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
 
@@ -104,4 +103,12 @@
             }
         }
     ]);
+
+    module.controller('verifyInsurance', [
+        "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
+
+
+        }
+    ]);
+
 }(angular.module("patientsApp", [])));

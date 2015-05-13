@@ -50,6 +50,10 @@
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
                 }).
+                when('/patient/:id/insurance/verify', {
+                    templateUrl: '/Templates/Patients/verifyInsurance.html',
+                    controller: 'verifyInsurance'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });
