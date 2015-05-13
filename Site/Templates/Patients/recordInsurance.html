@@ -1,14 +1,4 @@
-﻿<div>
-    Type of insurance:
-    <label>
-        <input type="radio" ng-model="classification" value="medical">
-        Medical Insurance
-    </label>
-    <label>
-        <input type="radio" ng-model="classification" value="pip">
-        Private Injury Protection
-    </label>
-</div>
+﻿<edit-choice label="Type of insurance" ng-model="classification" options="[ { label: 'Medical Insurance', value: 'medical' }, { label: 'Private Injury Protection', value: 'pip' }]"></edit-choice>
 
 <div ng-include="insuranceTemplate()">Insurances</div>
 

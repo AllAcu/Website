@@ -1,8 +1,8 @@
 ﻿<h2>Edit provider information</h2>
 <div>
-    <div>Business Name: <input type="text" ng-model="provider.businessName" /></div>
-    <div>Practitioner: <input type="text" ng-model="provider.practitionerName"/></div>
-    <div>City: <input type="text" ng-model="provider.city"/></div>
+    <edit-field label="Business Name" ng-model="provider.businessName"></edit-field>
+    <edit-field label="Practitioner" ng-model="provider.practitionerName"></edit-field>
+    <edit-field label="City" ng-model="provider.city"></edit-field>
 
     <div>
         <button ng-click="save()">Save</button>

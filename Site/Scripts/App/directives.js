@@ -3,23 +3,44 @@
     app.directive('displayField', function () {
         return {
             restrict: "E",
-            template: function (element, attrs) {
-                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4">{{{{field}}}}</div></div>'
-                    .replace('{{label}}', attrs.label)
-                    .replace('{{field}}', attrs.field);
-            }
+            scope: {
+                ngModel: "=ngModel",
+                label: "@label"
+            },
+            template: '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4">{{ngModel}}</div></div>'
         };
     });
 
     app.directive('editField', function () {
         return {
             restrict: "E",
-            template: function (element, attrs) {
-                return '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><input type="{{type}}" ng-model="{{field}}" /></div></div>'
-                    .replace('{{label}}', attrs.label || "")
-                    .replace('{{field}}', attrs.field)
-                    .replace('{{type}}', attrs.type || "text");
-            }
+            scope: {
+                label: "@label",
+                ngModel: "=ngModel",
+                type: "@type"
+            },
+            template: '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><input type="{{type}}" ng-model="ngModel" /></div></div>'
+        };
+    });
+
+    app.directive('editChoice', function () {
+        return {
+            restrict: "E",
+            require: 'ngModel',
+            scope: {
+                label: "@label",
+                ngModel: "=ngModel",
+                options: "=options"
+            },
+            template: '<div class="row">' +
+                    '<div class="col-md-2">' +
+                        '<label>{{label}}</label>' +
+                    '</div>' +
+                    '<label class="col-md-3" ng-repeat="(key, value) in options">' +
+                            '<input type="radio" ng-model="$parent.ngModel" value="{{value.value}}">' +
+                            '{{value.label}}' +
+                    '</label>' +
+                '</div>'
         };
     });
 
@@ -29,8 +50,7 @@
             scope: {
                 address: "=field"
             },
-            template: function (element, attrs) {
-                return ('<div class="row">' +
+            template: '<div class="row">' +
                             '<div class="col-md-2">' +
                                 '<label>Address</label>' +
                             '</div>' +
@@ -39,8 +59,7 @@
                                 '<div>{{address.address2}}</div>' +
                                 '<div>{{address.city}}, {{address.state}} {{address.postalCode}}</div>' +
                             '</div>' +
-                        '</div>');
-            }
+                        '</div>'
         };
     });
 
@@ -50,18 +69,14 @@
             scope: {
                 address: "=field"
             },
-            template: function (element, attrs) {
-                return ('<div>' +
-                    '<edit-field label="Address" field="address.address1"></edit-field>' +
-                    '<edit-field field="address.address2"></edit-field>' +
-                    '<edit-field label="City" field="address.city"></edit-field>' +
-                    '<edit-field label="State" field="address.state"></edit-field>' +
-                    '<edit-field label="Postal Code" field="address.postalCode"></edit-field>' +
-                    '</div>');
-            }
+            template: '<div>' +
+                    '<edit-field label="Address" ng-model="address.address1"></edit-field>' +
+                    '<edit-field ng-model="address.address2"></edit-field>' +
+                    '<edit-field label="City" ng-model="address.city"></edit-field>' +
+                    '<edit-field label="State" ng-model="address.state"></edit-field>' +
+                    '<edit-field label="Postal Code" ng-model="address.postalCode"></edit-field>' +
+                    '</div>'
         };
     });
-
-
 
 })(window.app)
