@@ -271,7 +271,7 @@
     <Content Include="Templates\Patients\inputMedicalInsurance.html" />
     <Content Include="Templates\Patients\inputPersonalInjuryProtection.html" />
     <Content Include="Templates\Patients\intake.html" />
-    <Content Include="Templates\Patients\PatientList.html" />
+    <Content Include="Templates\Patients\patientList.html" />
     <Content Include="Templates\Patients\recordInsurance.html" />
     <Content Include="Templates\Patients\updateContactInfo.html" />
     <Content Include="Templates\Patients\updateVitalInfo.html" />

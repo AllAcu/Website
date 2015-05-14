@@ -1,79 +1,88 @@
-﻿<h2>Verify Insurance</h2>
+﻿<div>
 
-<div>
-    <displayField label="Insurance Carrier" field="carrier"></displayField>
-    Phone # 632-543-2647
-    Acupuncturist: Test Demo
-    NPI #1456789234
-    Tax ID # 324-35-3455
-    Address: addr gg, Alabama, 12345
-    Phone Number: 234-523-6253
-    Patient Name: Amit Garg
-    DOB: 12/03/2014
-    Insurance Policy/Plan # test2Id
+    <h2>Verify Insurance</h2>
+
+    <div>
+        <display-field label="Insurance Carrier" ng-model="patient.carrier"></display-field>
+        <display-field label="Phone #" ng-model="patient.phone"></display-field>
+        <display-field label="Acupuncturist" ng-model="patient.accupuncturist"></display-field>
+        <display-field label="NPI #" ng-model="patient.npiNumber"></display-field>
+        <display-field label="Tax ID #" ng-model="patient.taxId"></display-field>
+        <display-field label="Address" ng-model="patient.address"></display-field>
+        <display-field label="Phone Number" ng-model="patient.phoneNumber"></display-field>
+        <display-field label="Patient Name" ng-model="patient.name"></display-field>
+        <display-field label="Date of Birth" ng-model="patient.dateOfBirth"></display-field>
+        <display-field label="Insurance Policy/ Plan" ng-model="patient.insurancePolicy"></display-field>
+    </div>
+
+
+    <div>
+        <label>
+            Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?
+        </label>
+        <edit-choice ng-model="verification.isCovered" options='[{ label: "Yes", value: "true"}, { label: "No", value: "false" }]'></edit-choice>
+
+        <div ng-show="verification.isCovered=='true'">
+            Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)?
+            YesNo
+
+            Is a Referral Required?
+            YesNo
+            From Who?
+            Are any Pre-certifications or Pre-authorizations required?
+            YesNo
+            How is it obtained?
+            Is there an Office Visit Copay?
+            YesNo
+            Copay Amount: $per visit.
+            Is this a calendar year plan?
+            YesNo
+            Plan Begin
+            Plan End
+            Comments
+            Is there a deductible?
+            YesNo
+            Individual Deductible of $per calendar year,
+            of which $has been met.
+            Family Deductible of $per calendar year,
+            of which $has been met.
+            Insurance covers the patient at% of approved charges.
+            Patient's responsibility is % of all billed services.
+            Is there an Out-of-Pocket Maximum?
+            YesNo
+            Individual Out-of-Pocket Maximum is $per calendar year,
+            of which $has been met.
+            Family Out-of-Pocket Maximum is $per calendar year,
+            of which $has been met.
+            Is deductible applied towards Out-of-Pocket
+            YesNo
+            Is there a limit on the number of visits allowed per year?
+            YesNo
+            Number of allowed visits:
+            Number of visits used this year:
+            Remaining visits for this year:
+            Can a licensed acupuncturist bill for code 99203 (evaluations/exams)?
+            YesNo
+            Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?
+
+            Other limits or provisions with regard to acupuncture services:
+        </div>
+
+        <div>
+            Verification Status
+            Complete
+
+            Service Center Representative
+            Call Reference Number
+            Call Time
+            Assign To
+            -Select-
+        </div>
+        <input type="button" value="Submit" ng-click="save()"/>
+    </div>
+
+    // save verification draft
+    // submit verified
+    // send back for bad information
+
 </div>
-
-
-<div>
-    Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?
-    YesNo
-    Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)?
-    YesNo
-
-    Is a Referral Required?
-    YesNo
-    From Who?
-    Are any Pre-certifications or Pre-authorizations required?
-    YesNo
-    How is it obtained?
-    Is there an Office Visit Copay?
-    YesNo
-    Copay Amount: $per visit.
-    Is this a calendar year plan?
-    YesNo
-    Plan Begin
-    Plan End
-    Comments
-    Is there a deductible?
-    YesNo
-    Individual Deductible of $per calendar year,
-    of which $has been met.
-    Family Deductible of $per calendar year,
-    of which $has been met.
-    Insurance covers the patient at% of approved charges.
-    Patient's responsibility is % of all billed services.
-    Is there an Out-of-Pocket Maximum?
-    YesNo
-    Individual Out-of-Pocket Maximum is $per calendar year,
-    of which $has been met.
-    Family Out-of-Pocket Maximum is $per calendar year,
-    of which $has been met.
-    Is deductible applied towards Out-of-Pocket
-    YesNo
-    Is there a limit on the number of visits allowed per year?
-    YesNo
-    Number of allowed visits:
-    Number of visits used this year:
-    Remaining visits for this year:
-    Can a licensed acupuncturist bill for code 99203 (evaluations/exams)?
-    YesNo
-    Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?
-
-    Other limits or provisions with regard to acupuncture services:
-    Verification Status
-    Complete
-
-    Service Center Representative
-    Call Reference Number
-    Call Time
-    Assign To
-    -Select-
-
-    Submit
-</div>
-
-// save verification draft
-// submit verified
-// send back for bad information
-
-
