@@ -113,7 +113,7 @@
             };
 
             $scope.verification = {
-
+                isCovered: "true"
             };
 
             $scope.save = function() {

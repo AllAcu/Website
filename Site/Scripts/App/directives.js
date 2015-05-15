@@ -44,6 +44,19 @@
         };
     });
 
+    app.directive('editYesNo', function () {
+        return {
+            restrict: "E",
+            require: 'ngModel',
+            scope: {
+                label: "@label",
+                ngModel: "=ngModel",
+                options: "=options"
+            },
+            template: "<edit-choice ng-model='ngModel' options='[{ label: \"Yes\", value: \"true\"}, { label: \"No\", value: null }]'></edit-choice>"
+        };
+    });
+
     app.directive('displayAddress', function () {
         return {
             restrict: "E",
