@@ -95,20 +95,19 @@
             </div>
 
         <div>
-            Verification Status
-            Complete
 
-            Service Center Representative
-            Call Reference Number
-            Call Time
-            Assign To
-            -Select-
+            <edit-field label="Verification Status" ng-model="verification.approval.status"></edit-field>
+
+            <edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>
+            <edit-field label="Call Reference Number" ng-model="verification.approval.callReferenceNumber"></edit-field>
+            <edit-field label="Call Time" ng-model="verification.approval.callTime"></edit-field>
+            <edit-field label="Assign To" ng-model="verification.approval.assignedTo"></edit-field>
         </div>
         <input type="button" value="Submit" ng-click="save()" />
     </div>
 
-    // save verification draft
-    // submit verified
-    // send back for bad information
+    <!--save verification draft
+    submit verified
+    send back for bad information-->
 
 </div>
