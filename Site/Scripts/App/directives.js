@@ -61,7 +61,7 @@
         return {
             restrict: "E",
             scope: {
-                address: "=field"
+                address: "=ngModel"
             },
             template: '<div class="row">' +
                             '<div class="col-md-2">' +
@@ -80,7 +80,7 @@
         return {
             restrict: "E",
             scope: {
-                address: "=field"
+                address: "=ngModel"
             },
             template: '<div>' +
                     '<edit-field label="Address" ng-model="address.address1"></edit-field>' +

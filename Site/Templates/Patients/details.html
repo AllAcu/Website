@@ -8,7 +8,7 @@
     </fieldset>
     <fieldset>
         <legend>Contact information <a href="#/patient/{{patient.patientId}}/contact/edit" class="btn btn-sm">Edit</a></legend>
-        <display-address field="patient"></display-address>
+        <display-address ng-model="patient"></display-address>
         <display-field label="Phone Number" ng-model="patient.phoneNumber"></display-field>
     </fieldset>
     <fieldset ng-if="patient.medicalInsurance">

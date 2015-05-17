@@ -8,7 +8,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="patient in patients">
-            <td><a href="#patient/{{patient.patientId}}">{{patient.name}}</a></td>
+            <td><a href="#patient/{{patient.patientId}}">{{patient.name || "____"}}</a></td>
             <td>{{patient.dateOfBirth | date:'mediumDate'}}</td>
         </tr>
         </tbody>
