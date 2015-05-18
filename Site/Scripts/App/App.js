@@ -8,9 +8,10 @@
     ]);
 
     angular.module("loginApp", []);
-    angular.module("patientsApp", []);
+    angular.module("patientsApp", ["insuranceApp"]);
     angular.module("providersApp", []);
     angular.module("claimsApp", []);
+    angular.module("insuranceApp", []);
 
     app.config([
         '$routeProvider',
@@ -59,6 +60,10 @@
                 when('/patient/:id/insurance/verify', {
                     templateUrl: '/Templates/Patients/verifyInsurance.html',
                     controller: 'verifyInsurance'
+                }).
+                when('/patient/:id/insurance/requestVerify', {
+                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
+                    controller: 'requestVerification'
                 }).
                 when('/login', {
                     templateUrl: '/Templates/login.html',

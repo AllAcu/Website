@@ -23,6 +23,17 @@
         };
     });
 
+    app.directive('editText', function () {
+        return {
+            restrict: "E",
+            scope: {
+                label: "@label",
+                ngModel: "=ngModel"
+            },
+            template: '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><textarea style="width:100%;max-width:100%;" ng-model="ngModel"></textarea></div></div>'
+        };
+    });
+
     app.directive('editChoice', function () {
         return {
             restrict: "E",

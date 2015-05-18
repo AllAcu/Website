@@ -239,6 +239,7 @@
     <Content Include="Scripts\App\authCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />
+    <Content Include="Scripts\App\insurance.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\patientCommands.js" />
     <Content Include="Scripts\App\patients.js" />
@@ -277,6 +278,7 @@
     <Content Include="Templates\Patients\intake.html" />
     <Content Include="Templates\Patients\patientList.html" />
     <Content Include="Templates\Patients\recordInsurance.html" />
+    <Content Include="Templates\Patients\requestInsuranceVerification.html" />
     <Content Include="Templates\Patients\updateContactInfo.html" />
     <Content Include="Templates\Patients\updateVitalInfo.html" />
     <Content Include="Templates\Patients\verifyInsurance.html" />
