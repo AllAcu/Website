@@ -8,7 +8,7 @@ before_build:
 - nuget restore
 build:
   publish_wap: true
-  verbosity: detailed
+  verbosity: normal
 deploy:
 - provider: WebDeploy
   server: 52.0.7.4

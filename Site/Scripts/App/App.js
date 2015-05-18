@@ -1,10 +1,16 @@
 ﻿(function (exports, angular) {
     var app = angular.module('allAcuApp', [
         'ngRoute',
+        'loginApp',
         'patientsApp',
         'providersApp',
         'claimsApp'
     ]);
+
+    angular.module("loginApp", []);
+    angular.module("patientsApp", []);
+    angular.module("providersApp", []);
+    angular.module("claimsApp", []);
 
     app.config([
         '$routeProvider',
@@ -53,6 +59,10 @@
                 when('/patient/:id/insurance/verify', {
                     templateUrl: '/Templates/Patients/verifyInsurance.html',
                     controller: 'verifyInsurance'
+                }).
+                when('/login', {
+                    templateUrl: '/Templates/login.html',
+                    controller: 'loginController'
                 }).
                 otherwise({
                     redirectTo: '/'

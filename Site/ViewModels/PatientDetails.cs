@@ -25,7 +25,7 @@ namespace AllAcu.Models.Providers
                 PatientId = @event.PatientId,
                 Name = @event.Name,
                 DateOfBirth = @event.DateOfBirth.ToShortDateString(),
-                Gender = @event.Gender.ToString(),
+                Gender = @event.Gender?.ToString(),
                 Address1 = @event.Address.Line1,
                 Address2 = @event.Address.Line2,
                 City = @event.Address.City?.ToString(),
@@ -56,9 +56,9 @@ namespace AllAcu.Models.Providers
             {
                 patient.Address1 = @event.UpdatedAddress.Line1;
                 patient.Address2 = @event.UpdatedAddress.Line2;
-                patient.City = @event.UpdatedAddress.City.ToString();
-                patient.State = @event.UpdatedAddress.State.ToString();
-                patient.PostalCode = @event.UpdatedAddress.PostalCode.ToString();
+                patient.City = @event.UpdatedAddress.City?.ToString();
+                patient.State = @event.UpdatedAddress.State?.ToString();
+                patient.PostalCode = @event.UpdatedAddress.PostalCode?.ToString();
             }
             patient.PhoneNumber = @event.UpdatedPhoneNumber?.ToString() ?? patient.PhoneNumber;
 

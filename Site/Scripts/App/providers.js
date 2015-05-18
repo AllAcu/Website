@@ -10,4 +10,4 @@
         }
     }]);
 
-}(angular.module("providersApp", [])));
+}(angular.module("providersApp")));

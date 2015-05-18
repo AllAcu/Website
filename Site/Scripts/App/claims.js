@@ -49,4 +49,4 @@
         }
     ]);
 
-}(angular.module("claimsApp", [])));
+}(angular.module("claimsApp")));

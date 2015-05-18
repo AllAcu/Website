@@ -122,4 +122,4 @@
         }
     ]);
 
-}(angular.module("patientsApp", [])));
+}(angular.module("patientsApp")));
