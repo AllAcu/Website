@@ -13,7 +13,7 @@ namespace Domain.CareProvider
 
             public override void Update(CareProvider provider)
             {
-                provider.VerificationRequestDrafts.Single(r => r.DraftId == DraftId)
+                provider.PendingVerifications.Single(r => r.DraftId == DraftId)
                     .Request = Request;
             }
         }

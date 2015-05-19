@@ -23,7 +23,7 @@ namespace Domain.Test
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
-                provider.VerificationRequestDrafts.Add(new CareProvider.CareProvider.VerificationRequestDraft
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
                     DraftId = Guid.NewGuid()
                 });
@@ -39,7 +39,7 @@ namespace Domain.Test
                 var draftId = Guid.NewGuid();
 
                 var provider = new CareProvider.CareProvider();
-                provider.VerificationRequestDrafts.Add(new CareProvider.CareProvider.VerificationRequestDraft
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
                     DraftId = draftId,
                     Request = new VerificationRequest
@@ -56,20 +56,21 @@ namespace Domain.Test
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("second draft", provider.VerificationRequestDrafts.First().Request.Comment);
+                Assert.Equal("second draft", provider.PendingVerifications.First().Request.Comment);
             }
 
             [Fact]
-            public void WhenVerificationIsOutstanding_ReturnsValidationError()
+            public void WhenVerificationIsAlreadySubmitted_ReturnsValidationError()
             {
                 var draftId = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(draftId,
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
-                provider.OutstandingVerifications.Add(new CareProvider.CareProvider.OutstandingVerification
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    RequestId = draftId
+                    DraftId = draftId,
+                    Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted
                 });
 
                 Assert.Contains("submitted",
@@ -94,7 +95,7 @@ namespace Domain.Test
                 var provider = new CareProvider.CareProvider();
                 command.ApplyTo(provider);
 
-                Assert.Equal("Created draft", provider.VerificationRequestDrafts.Single().Request.Comment);
+                Assert.Equal("Created draft", provider.PendingVerifications.Single().Request.Comment);
             }
 
             [Fact]
@@ -116,11 +117,7 @@ namespace Domain.Test
             [Fact]
             public void WhenDraftIdNullAndRequestNull_FailsCommandValidation()
             {
-                var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    DraftId = null,
-                    VerificationRequest = null
-                };
+                var command = new CareProvider.CareProvider.SubmitVerificationRequest(null, null);
 
                 Assert.Contains("supply a request",
                     Assert.Throws<CommandValidationException>(() => command.ApplyTo(new CareProvider.CareProvider()))
@@ -130,10 +127,7 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationDoesNotExistAndRequestNotSupplied_ReturnsValidationError()
             {
-                var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    DraftId = Guid.NewGuid()
-                };
+                var command = new CareProvider.CareProvider.SubmitVerificationRequest(draftId: Guid.NewGuid());
 
                 Assert.Contains("doesn't exist",
                     Assert.Throws<CommandValidationException>(() => command.ApplyTo(new CareProvider.CareProvider()))
@@ -145,13 +139,14 @@ namespace Domain.Test
             {
                 var draftId = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    DraftId = draftId
-                };
+                (
+                    draftId: draftId
+                );
                 var provider = new CareProvider.CareProvider();
-                provider.OutstandingVerifications.Add(new CareProvider.CareProvider.OutstandingVerification
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    RequestId = draftId
+                    DraftId = draftId,
+                    Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted 
                 });
 
                 Assert.Contains("submitted",
@@ -164,11 +159,11 @@ namespace Domain.Test
             {
                 var draftId = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    DraftId = draftId
-                };
+                (
+                    draftId: draftId
+                );
                 var provider = new CareProvider.CareProvider();
-                provider.VerificationRequestDrafts.Add(new CareProvider.CareProvider.VerificationRequestDraft
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
                     DraftId = draftId,
                     Request = new VerificationRequest
@@ -179,24 +174,26 @@ namespace Domain.Test
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("draft comment", provider.OutstandingVerifications.Single().Request.Comment);
+                Assert.Equal("draft comment", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
             [Fact]
             public void WhenVerificationDoesNotExistAndOnlyRequestSupplied_SendsNewRequestToOutstanding()
             {
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    VerificationRequest = new VerificationRequest
+                (
+                    verificationRequest: new VerificationRequest
                     {
                         Comment = "request comment"
                     }
-                };
+                );
                 var provider = new CareProvider.CareProvider();
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("request comment", provider.OutstandingVerifications.Single().Request.Comment);
+                Assert.Equal("request comment", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
             [Fact]
@@ -205,15 +202,15 @@ namespace Domain.Test
                 var draftId = Guid.NewGuid();
 
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
-                {
-                    DraftId = draftId,
-                    VerificationRequest = new VerificationRequest
+                (
+                    draftId: draftId,
+                    verificationRequest: new VerificationRequest
                     {
                         Comment = "final request comment"
                     }
-                };
+                );
                 var provider = new CareProvider.CareProvider();
-                provider.VerificationRequestDrafts.Add(new CareProvider.CareProvider.VerificationRequestDraft
+                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
                     DraftId = draftId,
                     Request = new VerificationRequest
@@ -224,7 +221,8 @@ namespace Domain.Test
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("final request comment", provider.OutstandingVerifications.Single().Request.Comment);
+                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
+                Assert.Equal("final request comment", provider.PendingVerifications.Single().Request.Comment);
             }
         }
     }

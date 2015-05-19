@@ -11,14 +11,8 @@ namespace Domain.CareProvider
             public Guid DraftId { get; set; }
             public override void Update(CareProvider provider)
             {
-                var draft = provider.VerificationRequestDrafts.Single(d => d.DraftId == DraftId);
-                provider.VerificationRequestDrafts.Remove(draft);
-
-                provider.OutstandingVerifications.Add(new OutstandingVerification
-                {
-                    RequestId = DraftId,
-                    Request = draft.Request
-                });
+                var draft = provider.PendingVerifications.Single(d => d.DraftId == DraftId);
+                draft.Status = PendingVerification.RequestStatus.Submitted;
             }
         }
     }

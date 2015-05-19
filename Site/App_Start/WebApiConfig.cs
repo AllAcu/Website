@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Domain;
+using Domain.CareProvider;
 using Microsoft.Its.Domain.Serialization;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
@@ -38,7 +39,8 @@ namespace AllAcu
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new City(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PostalCode(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PhoneNumber(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new Gender(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => Gender.Parse(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => CareProvider.PendingVerification.RequestStatus.Parse(s.ToString()));
         }
     }
 }

@@ -10,8 +10,14 @@ namespace Domain.CareProvider
     {
         public class SubmitVerificationRequest : Command<CareProvider>
         {
-            public Guid? DraftId { get; set; }
-            public VerificationRequest VerificationRequest { get; set; }
+            public SubmitVerificationRequest(Guid? draftId = null, VerificationRequest verificationRequest = null)
+            {
+                VerificationRequest = verificationRequest;
+                DraftId = draftId;
+            }
+
+            public Guid? DraftId { get; }
+            public VerificationRequest VerificationRequest { get; }
 
             public override IValidationRule CommandValidator
             {
@@ -27,11 +33,11 @@ namespace Domain.CareProvider
             {
                 get
                 {
-                    return Validate.That<CareProvider>(p => DraftId == null || p.VerificationRequestDrafts.Any(d => d.DraftId == DraftId))
-                        .WithErrorMessage((ev, pr) => pr.OutstandingVerifications.Any(r => r.RequestId == DraftId) ?
-                            "The draft has been submitted" :
-                            "This draft doesn't exist"
-                            );
+                    return Validate.That<CareProvider>(p => DraftId == null || p.PendingVerifications.Any(d => d.DraftId == DraftId && d.Status == PendingVerification.RequestStatus.Draft))
+                        .WithErrorMessage((ev, pr) => 
+                            pr.PendingVerifications.Any(r => r.DraftId == DraftId && r.Status == PendingVerification.RequestStatus.Submitted)
+                                ? "The draft has been submitted"
+                                : "This draft doesn't exist");
                 }
             }
         }

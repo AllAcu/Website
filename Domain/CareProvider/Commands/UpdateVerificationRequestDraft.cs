@@ -23,11 +23,11 @@ namespace Domain.CareProvider
             {
                 get
                 {
-                    return Validate.That<CareProvider>(p => p.VerificationRequestDrafts.Count(d => d.DraftId == DraftId) == 1)
-                        .WithErrorMessage((ev, pr) => pr.OutstandingVerifications.Any(r => r.RequestId == DraftId) ?
-                            "The draft has been submitted" :
-                            "This draft doesn't exist"
-                            );
+                    return Validate.That<CareProvider>(p => p.PendingVerifications.Any(d => d.DraftId == DraftId && d.Status == PendingVerification.RequestStatus.Draft))
+                        .WithErrorMessage((ev, pr) =>
+                            pr.PendingVerifications.Any(r => r.DraftId == DraftId && r.Status == PendingVerification.RequestStatus.Submitted)
+                                ? "The draft has been submitted"
+                                : "This draft doesn't exist");
                 }
             }
         }

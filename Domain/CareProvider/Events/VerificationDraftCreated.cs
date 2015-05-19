@@ -11,7 +11,7 @@ namespace Domain.CareProvider
 
             public override void Update(CareProvider provider)
             {
-                provider.VerificationRequestDrafts.Add(new VerificationRequestDraft
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     DraftId = DraftId
                 });
