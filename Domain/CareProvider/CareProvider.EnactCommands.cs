@@ -95,34 +95,34 @@ namespace Domain.CareProvider
         {
             RecordEvent(new VerificationDraftUpdated
             {
-                DraftId = command.DraftId,
+                VerificationId = command.VerificationId,
                 Request = command.RequestDraft
             });
         }
 
         public void EnactCommand(StartVerificationRequestDraft command)
         {
-            var draftId = Guid.NewGuid();
+            var verificationId = Guid.NewGuid();
             RecordEvent(new VerificationDraftCreated
             {
-                DraftId = draftId
+                VerificationId = verificationId
             });
 
             RecordEvent(new VerificationDraftUpdated
             {
-                DraftId = draftId,
+                VerificationId = verificationId,
                 Request = command.RequestDraft
             });
         }
 
         public void EnactCommand(SubmitVerificationRequest command)
         {
-            var draftId = command.DraftId ?? Guid.NewGuid();
-            if (command.DraftId == null)
+            var verificationId = command.VerificationId ?? Guid.NewGuid();
+            if (command.VerificationId == null)
             {
                 RecordEvent(new VerificationDraftCreated
                 {
-                    DraftId = draftId
+                    VerificationId = verificationId
                 });
             }
 
@@ -130,14 +130,14 @@ namespace Domain.CareProvider
             {
                 RecordEvent(new VerificationDraftUpdated
                 {
-                    DraftId = draftId,
+                    VerificationId = verificationId,
                     Request = command.VerificationRequest
                 });
             }
 
             RecordEvent(new VerificationRequestSubmitted
             {
-                DraftId = draftId
+                VerificationId = verificationId
             });
         }
     }

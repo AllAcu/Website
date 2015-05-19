@@ -8,7 +8,12 @@ namespace Domain.CareProvider
     {
         public class StartVerificationRequestDraft : Command<CareProvider>
         {
-            public VerificationRequest RequestDraft { get; set; }
+            public StartVerificationRequestDraft(VerificationRequest requestDraft)
+            {
+                RequestDraft = requestDraft;
+            }
+
+            public VerificationRequest RequestDraft { get; }
 
             public override IValidationRule CommandValidator
             {

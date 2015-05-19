@@ -10,12 +10,12 @@ namespace Domain.CareProvider
     {
         public class UpdateVerificationRequestDraft : Command<CareProvider>
         {
-            public Guid DraftId { get; }
+            public Guid VerificationId { get; }
             public VerificationRequest RequestDraft { get; }
 
-            public UpdateVerificationRequestDraft(Guid draftId, VerificationRequest requestDraft)
+            public UpdateVerificationRequestDraft(Guid verificationId, VerificationRequest requestDraft)
             {
-                DraftId = draftId;
+                VerificationId = verificationId;
                 RequestDraft = requestDraft;
             }
 
@@ -23,9 +23,9 @@ namespace Domain.CareProvider
             {
                 get
                 {
-                    return Validate.That<CareProvider>(p => p.PendingVerifications.Any(d => d.DraftId == DraftId && d.Status == PendingVerification.RequestStatus.Draft))
+                    return Validate.That<CareProvider>(p => p.PendingVerifications.Any(d => d.Id == VerificationId && d.Status == PendingVerification.RequestStatus.Draft))
                         .WithErrorMessage((ev, pr) =>
-                            pr.PendingVerifications.Any(r => r.DraftId == DraftId && r.Status == PendingVerification.RequestStatus.Submitted)
+                            pr.PendingVerifications.Any(r => r.Id == VerificationId && r.Status == PendingVerification.RequestStatus.Submitted)
                                 ? "The draft has been submitted"
                                 : "This draft doesn't exist");
                 }

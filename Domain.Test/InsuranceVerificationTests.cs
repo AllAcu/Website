@@ -18,14 +18,14 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationDraftDoesNotExist_ReturnsValidationError()
             {
-                var draftId = Guid.NewGuid();
-                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(draftId,
+                var id = Guid.NewGuid();
+                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(id,
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = Guid.NewGuid()
+                    Id = Guid.NewGuid()
                 });
 
                 Assert.Contains("doesn't exist",
@@ -36,19 +36,19 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationDraftExists_DraftIsUpdated()
             {
-                var draftId = Guid.NewGuid();
+                var id = Guid.NewGuid();
 
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = draftId,
+                    Id = id,
                     Request = new VerificationRequest
                     {
                         Comment = "first draft"
                     }
                 });
 
-                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(draftId,
+                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(id,
                     new VerificationRequest
                     {
                         Comment = "second draft"
@@ -62,14 +62,14 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationIsAlreadySubmitted_ReturnsValidationError()
             {
-                var draftId = Guid.NewGuid();
-                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(draftId,
+                var id = Guid.NewGuid();
+                var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(id,
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = draftId,
+                    Id = id,
                     Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted
                 });
 
@@ -85,12 +85,12 @@ namespace Domain.Test
             public void WhenVerificationIsStarted_BecomesPartOfProviderDraftList()
             {
                 var command = new CareProvider.CareProvider.StartVerificationRequestDraft
-                {
-                    RequestDraft = new VerificationRequest
+                (
+                    requestDraft: new VerificationRequest
                     {
                         Comment = "Created draft"
                     }
-                };
+                );
 
                 var provider = new CareProvider.CareProvider();
                 command.ApplyTo(provider);
@@ -102,9 +102,9 @@ namespace Domain.Test
             public void WhenVerificationIsStartedWithoutRequestData_FailsCommandValidation()
             {
                 var command = new CareProvider.CareProvider.StartVerificationRequestDraft
-                {
-                    RequestDraft = null
-                };
+                (
+                    requestDraft: null
+                );
 
                 Assert.Contains("Must supply",
                     Assert.Throws<CommandValidationException>(() => command.ApplyTo(new CareProvider.CareProvider()))
@@ -127,7 +127,7 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationDoesNotExistAndRequestNotSupplied_ReturnsValidationError()
             {
-                var command = new CareProvider.CareProvider.SubmitVerificationRequest(draftId: Guid.NewGuid());
+                var command = new CareProvider.CareProvider.SubmitVerificationRequest(verificationId: Guid.NewGuid());
 
                 Assert.Contains("doesn't exist",
                     Assert.Throws<CommandValidationException>(() => command.ApplyTo(new CareProvider.CareProvider()))
@@ -137,15 +137,15 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationAlreadySubmitted_ReturnsValidationError()
             {
-                var draftId = Guid.NewGuid();
+                var id = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
                 (
-                    draftId: draftId
+                    verificationId: id
                 );
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = draftId,
+                    Id = id,
                     Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted 
                 });
 
@@ -157,15 +157,15 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationExistsAndDraftIdSupplied_MovesDraftToOutstanding()
             {
-                var draftId = Guid.NewGuid();
+                var id = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
                 (
-                    draftId: draftId
+                    verificationId: id
                 );
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = draftId,
+                    Id = id,
                     Request = new VerificationRequest
                     {
                         Comment = "draft comment"
@@ -199,11 +199,11 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationExistsAndRequestAlsoSupplied_SendsUpdatedRequestToOutstanding()
             {
-                var draftId = Guid.NewGuid();
+                var id = Guid.NewGuid();
 
                 var command = new CareProvider.CareProvider.SubmitVerificationRequest
                 (
-                    draftId: draftId,
+                    verificationId: id,
                     verificationRequest: new VerificationRequest
                     {
                         Comment = "final request comment"
@@ -212,7 +212,7 @@ namespace Domain.Test
                 var provider = new CareProvider.CareProvider();
                 provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
                 {
-                    DraftId = draftId,
+                    Id = id,
                     Request = new VerificationRequest
                     {
                         Comment = "draft comment"

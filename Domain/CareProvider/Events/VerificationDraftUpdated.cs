@@ -8,12 +8,12 @@ namespace Domain.CareProvider
     {
         public class VerificationDraftUpdated : Event<CareProvider>
         {
-            public Guid DraftId { get; set; }
+            public Guid VerificationId { get; set; }
             public VerificationRequest Request { get; set; }
 
             public override void Update(CareProvider provider)
             {
-                provider.PendingVerifications.Single(r => r.DraftId == DraftId)
+                provider.PendingVerifications.Single(r => r.Id == VerificationId)
                     .Request = Request;
             }
         }

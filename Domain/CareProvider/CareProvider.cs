@@ -46,7 +46,7 @@ namespace Domain.CareProvider
 
         public class PendingVerification
         {
-            public Guid DraftId { get; set; }
+            public Guid Id { get; set; }
             public RequestStatus Status { get; set; } = RequestStatus.Draft;
             public VerificationRequest Request { get; set; }
             public string ReviewerComments { get; set; }
