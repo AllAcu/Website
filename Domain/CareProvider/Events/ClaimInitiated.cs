@@ -11,7 +11,7 @@ namespace Domain.CareProvider
 
             public override void Update(CareProvider provider)
             {
-                provider.Drafts.Add(Draft);
+                provider.ClaimDrafts.Add(Draft);
             }
         }
     }

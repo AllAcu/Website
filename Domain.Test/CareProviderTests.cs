@@ -12,7 +12,6 @@ namespace Domain.Test
             Command<CareProvider.CareProvider>.AuthorizeDefault = (provider, command) => true;
             Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => true;
         }
-
         
         public void IntakeOfPatient_AddsPatientToCareProvider()
         {
@@ -40,7 +39,7 @@ namespace Domain.Test
             };
             command.ApplyTo(provider);
 
-            Assert.Contains(provider.Drafts, d => d.Patient.Id == patientId);
+            Assert.Contains(provider.ClaimDrafts, d => d.Patient.Id == patientId);
         }
 
         [Fact]

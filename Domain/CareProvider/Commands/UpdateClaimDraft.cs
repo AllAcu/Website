@@ -15,7 +15,7 @@ namespace Domain.CareProvider
 
             public override IValidationRule<CareProvider> Validator
             {
-                get { return Validate.That<CareProvider>(provider => provider.Drafts.SingleOrDefault(d => d.Id == ClaimDraftId) != null); }
+                get { return Validate.That<CareProvider>(provider => provider.ClaimDrafts.SingleOrDefault(d => d.Id == ClaimDraftId) != null); }
             }
         }
     }

@@ -79,10 +79,14 @@
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
     <Compile Include="CareProvider\Commands\Poke.cs" />
+    <Compile Include="CareProvider\Commands\StartVerificationRequestDraft.cs" />
+    <Compile Include="CareProvider\Commands\SubmitVerificationRequest.cs" />
     <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientContactInformation.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientInformation.cs" />
+    <Compile Include="CareProvider\Commands\UpdateVerificationRequestDraft.cs" />
+    <Compile Include="CareProvider\Commands\VerificationRequest.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
     <Compile Include="CareProvider\Events\NewProvider.cs" />
@@ -90,6 +94,9 @@
     <Compile Include="CareProvider\Events\PatientContactInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\Poked.cs" />
+    <Compile Include="CareProvider\Events\VerificationDraftCreated.cs" />
+    <Compile Include="CareProvider\Events\VerificationDraftSubmitted.cs" />
+    <Compile Include="CareProvider\Events\VerificationDraftUpdated.cs" />
     <Compile Include="CareProvider\Gender.cs" />
     <Compile Include="CareProvider\GroupNumber.cs" />
     <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />

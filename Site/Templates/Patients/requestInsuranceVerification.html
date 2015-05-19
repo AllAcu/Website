@@ -3,14 +3,14 @@
 
     <h2>Request an insurance verification</h2>
 
-    <edit-choice label="Specialty" ng-model="request.gender" options="[ { label: 'L.Ac', value: 'Acu' } ]"></edit-choice>
+    <edit-choice label="Specialty" ng-model="request.specialty" options="[ { label: 'L.Ac', value: 'Acu' } ]"></edit-choice>
 
     <div class="row">
         <label class="col-md-4">Provider</label>
         <select class="col-md-2"><option>Dummy Provider</option></select>
     </div>
     <label>Are you in network with this insurance company?</label>
-    <edit-yes-no ng-model="request.isDiagnosisRequirement"></edit-yes-no>
+    <edit-yes-no ng-model="request.isInNetwork"></edit-yes-no>
 
     <label>Please mark all modalities that you would like us to verify for this patient.</label>
     <edit-field label="Acupuncture" ng-model="request.isAcupuncture" type="checkbox"></edit-field>

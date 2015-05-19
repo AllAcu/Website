@@ -19,7 +19,7 @@ namespace Domain.CareProvider
 
         public void EnactCommand(UpdateClaimDraft command)
         {
-            RecordEvent(new ClaimUpdated(Drafts.SingleOrDefault(d => d.Id == command.ClaimDraftId)));
+            RecordEvent(new ClaimUpdated(ClaimDrafts.SingleOrDefault(d => d.Id == command.ClaimDraftId)));
         }
 
         public void EnactCommand(IntakePatient command)
@@ -88,6 +88,56 @@ namespace Domain.CareProvider
             RecordEvent(new Poked
             {
                 PokeId = command.PokeId
+            });
+        }
+
+        public void EnactCommand(UpdateVerificationRequestDraft command)
+        {
+            RecordEvent(new VerificationDraftUpdated
+            {
+                DraftId = command.DraftId,
+                Request = command.RequestDraft
+            });
+        }
+
+        public void EnactCommand(StartVerificationRequestDraft command)
+        {
+            var draftId = Guid.NewGuid();
+            RecordEvent(new VerificationDraftCreated
+            {
+                DraftId = draftId
+            });
+
+            RecordEvent(new VerificationDraftUpdated
+            {
+                DraftId = draftId,
+                Request = command.RequestDraft
+            });
+        }
+
+        public void EnactCommand(SubmitVerificationRequest command)
+        {
+            var draftId = command.DraftId ?? Guid.NewGuid();
+            if (command.DraftId == null)
+            {
+                RecordEvent(new VerificationDraftCreated
+                {
+                    DraftId = draftId
+                });
+            }
+
+            if (command.VerificationRequest != null)
+            {
+                RecordEvent(new VerificationDraftUpdated
+                {
+                    DraftId = draftId,
+                    Request = command.VerificationRequest
+                });
+            }
+
+            RecordEvent(new VerificationRequestSubmitted
+            {
+                DraftId = draftId
             });
         }
     }

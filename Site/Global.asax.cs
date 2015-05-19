@@ -6,13 +6,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Domain;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
 using Its.Configuration;
 using Microsoft.Its.Domain;
-using Microsoft.Its.Domain.Serialization;
 using Microsoft.Its.Domain.Sql;
 using Pocket;
 
