@@ -102,6 +102,7 @@
     <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />
     <Compile Include="CareProvider\InsuranceId.cs" />
     <Compile Include="CareProvider\InsurancePolicy.cs" />
+    <Compile Include="CareProvider\PendingVerification.cs" />
     <Compile Include="CareProvider\PhoneNumber.cs" />
     <Compile Include="ClaimFiling\Claim.cs" />
     <Compile Include="ClaimFiling\ClaimSubmissionRequest.cs" />

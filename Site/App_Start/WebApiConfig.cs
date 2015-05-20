@@ -40,7 +40,7 @@ namespace AllAcu
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PostalCode(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PhoneNumber(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => Gender.Parse(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => CareProvider.PendingVerification.RequestStatus.Parse(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => PendingVerification.RequestStatus.Parse(s.ToString()));
         }
     }
 }

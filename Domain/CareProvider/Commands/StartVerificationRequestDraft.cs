@@ -1,4 +1,5 @@
-﻿using Its.Validation;
+﻿using System;
+using Its.Validation;
 using Its.Validation.Configuration;
 using Microsoft.Its.Domain;
 
@@ -13,6 +14,7 @@ namespace Domain.CareProvider
                 RequestDraft = requestDraft;
             }
 
+            public Guid PatientId { get; set; }
             public VerificationRequest RequestDraft { get; }
 
             public override IValidationRule CommandValidator

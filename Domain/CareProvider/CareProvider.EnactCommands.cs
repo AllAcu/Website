@@ -105,6 +105,7 @@ namespace Domain.CareProvider
             var verificationId = Guid.NewGuid();
             RecordEvent(new VerificationDraftCreated
             {
+                PatientId = command.PatientId,
                 VerificationId = verificationId
             });
 

@@ -23,7 +23,7 @@ namespace Domain.Test
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = Guid.NewGuid()
                 });
@@ -39,7 +39,7 @@ namespace Domain.Test
                 var id = Guid.NewGuid();
 
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = id,
                     Request = new VerificationRequest
@@ -67,10 +67,10 @@ namespace Domain.Test
                     new VerificationRequest());
 
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = id,
-                    Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted
+                    Status = PendingVerification.RequestStatus.Submitted
                 });
 
                 Assert.Contains("submitted",
@@ -143,10 +143,10 @@ namespace Domain.Test
                     verificationId: id
                 );
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = id,
-                    Status = CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted 
+                    Status = PendingVerification.RequestStatus.Submitted 
                 });
 
                 Assert.Contains("submitted",
@@ -163,7 +163,7 @@ namespace Domain.Test
                     verificationId: id
                 );
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = id,
                     Request = new VerificationRequest
@@ -175,7 +175,7 @@ namespace Domain.Test
                 command.ApplyTo(provider);
 
                 Assert.Equal("draft comment", provider.PendingVerifications.Single().Request.Comment);
-                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
+                Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
             [Fact]
@@ -193,7 +193,7 @@ namespace Domain.Test
                 command.ApplyTo(provider);
 
                 Assert.Equal("request comment", provider.PendingVerifications.Single().Request.Comment);
-                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
+                Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
             [Fact]
@@ -210,7 +210,7 @@ namespace Domain.Test
                     }
                 );
                 var provider = new CareProvider.CareProvider();
-                provider.PendingVerifications.Add(new CareProvider.CareProvider.PendingVerification
+                provider.PendingVerifications.Add(new PendingVerification
                 {
                     Id = id,
                     Request = new VerificationRequest
@@ -221,7 +221,7 @@ namespace Domain.Test
 
                 command.ApplyTo(provider);
 
-                Assert.Equal(CareProvider.CareProvider.PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
+                Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
                 Assert.Equal("final request comment", provider.PendingVerifications.Single().Request.Comment);
             }
         }

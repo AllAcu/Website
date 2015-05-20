@@ -7,13 +7,15 @@ namespace Domain.CareProvider
     {
         public class VerificationDraftCreated : Event<CareProvider>
         {
+            public Guid PatientId { get; set; }
             public Guid VerificationId { get; set; }
 
             public override void Update(CareProvider provider)
             {
                 provider.PendingVerifications.Add(new PendingVerification
                 {
-                    Id = VerificationId
+                    Id = VerificationId,
+                    PatientId = PatientId
                 });
             }
         }
