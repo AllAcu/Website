@@ -12,6 +12,7 @@ namespace AllAcu
         public string Patient { get; set; }
         public string Status { get; set; }
         public string Provider { get; set; }
+        public string Comments { get; set; }
     }
 
     public class InsuranceVerificationViewModelHandler :
@@ -32,6 +33,7 @@ namespace AllAcu
             dbContext.VerificationList.Add(new PendingInsuranceVerificationListItemViewModel
             {
                 VerificationId = @event.VerificationId,
+                PatientId = @event.PatientId,
                 Patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId)?.Name,
                 Status = "Draft"
             });
@@ -43,6 +45,7 @@ namespace AllAcu
         {
             var verification = dbContext.VerificationList.First(p => p.VerificationId == @event.VerificationId);
             verification.Provider = @event.Request.Provider;
+            verification.Comments = @event.Request.Comments;
 
             dbContext.SaveChanges();
         }
@@ -57,10 +60,12 @@ namespace AllAcu
 
         public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
         {
+            if (string.IsNullOrEmpty(@event.UpdatedName)) return;
+
             var verifications = dbContext.VerificationList.Where(v => v.PatientId == @event.PatientId);
             foreach (var verification in verifications)
             {
-                verification.Patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId)?.Name;
+                verification.Patient = @event.UpdatedName;
             }
 
             dbContext.SaveChanges();

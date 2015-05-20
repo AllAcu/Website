@@ -18,11 +18,11 @@
     }
     ]);
 
-    module.controller('requestVerification', [
-        "$scope", function ($scope) {
+    module.controller('verificationRequestCreate', [
+        "$scope", "$routeParams", "verificationCommands", function ($scope, $routeParams, commands) {
 
-        $scope.save = function () {
-            console.log(JSON.stringify($scope.verification));
+            $scope.save = function () {
+                commands.start($routeParams["id"], $scope.verification);
         }
     }
     ]);

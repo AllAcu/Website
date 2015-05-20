@@ -1,6 +1,20 @@
 ﻿<h2>Verifications</h2>
 
-<ul ng-repeat="verification in verifications">
-    <li>{{verification.provider}}</li>
-</ul>
-
+<table st-table="verifications" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Status</th>
+            <th>Provider</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="verification in verifications">
+            <td>{{verification.patient || "____"}}</td>
+            <td>{{verification.status}}</td>
+            <td>{{verification.provider}}</td>
+            <td>{{verification.comments}}</td>
+        </tr>
+    </tbody>
+</table>

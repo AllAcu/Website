@@ -44,19 +44,19 @@ namespace Domain.Test
                     Id = id,
                     Request = new VerificationRequest
                     {
-                        Comment = "first draft"
+                        Comments = "first draft"
                     }
                 });
 
                 var command = new CareProvider.CareProvider.UpdateVerificationRequestDraft(id,
                     new VerificationRequest
                     {
-                        Comment = "second draft"
+                        Comments = "second draft"
                     });
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("second draft", provider.PendingVerifications.First().Request.Comment);
+                Assert.Equal("second draft", provider.PendingVerifications.First().Request.Comments);
             }
 
             [Fact]
@@ -88,14 +88,14 @@ namespace Domain.Test
                 (
                     requestDraft: new VerificationRequest
                     {
-                        Comment = "Created draft"
+                        Comments = "Created draft"
                     }
                 );
 
                 var provider = new CareProvider.CareProvider();
                 command.ApplyTo(provider);
 
-                Assert.Equal("Created draft", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal("Created draft", provider.PendingVerifications.Single().Request.Comments);
             }
 
             [Fact]
@@ -168,13 +168,13 @@ namespace Domain.Test
                     Id = id,
                     Request = new VerificationRequest
                     {
-                        Comment = "draft comment"
+                        Comments = "draft comments"
                     }
                 });
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("draft comment", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal("draft comments", provider.PendingVerifications.Single().Request.Comments);
                 Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
@@ -185,14 +185,14 @@ namespace Domain.Test
                 (
                     verificationRequest: new VerificationRequest
                     {
-                        Comment = "request comment"
+                        Comments = "request comments"
                     }
                 );
                 var provider = new CareProvider.CareProvider();
 
                 command.ApplyTo(provider);
 
-                Assert.Equal("request comment", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal("request comments", provider.PendingVerifications.Single().Request.Comments);
                 Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
             }
 
@@ -206,7 +206,7 @@ namespace Domain.Test
                     verificationId: id,
                     verificationRequest: new VerificationRequest
                     {
-                        Comment = "final request comment"
+                        Comments = "final request comments"
                     }
                 );
                 var provider = new CareProvider.CareProvider();
@@ -215,14 +215,14 @@ namespace Domain.Test
                     Id = id,
                     Request = new VerificationRequest
                     {
-                        Comment = "draft comment"
+                        Comments = "draft comments"
                     }
                 });
 
                 command.ApplyTo(provider);
 
                 Assert.Equal(PendingVerification.RequestStatus.Submitted, provider.PendingVerifications.Single().Status);
-                Assert.Equal("final request comment", provider.PendingVerifications.Single().Request.Comment);
+                Assert.Equal("final request comments", provider.PendingVerifications.Single().Request.Comments);
             }
         }
     }

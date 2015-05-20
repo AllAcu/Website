@@ -13,6 +13,6 @@ namespace Domain.CareProvider
         public bool IsTheraputicExcercises { get; set; }
         public bool IsChiropractic { get; set; }
         public bool IsMassageTherapy { get; set; }
-        public string Comment { get; set; }
+        public string Comments { get; set; }
     }
 }

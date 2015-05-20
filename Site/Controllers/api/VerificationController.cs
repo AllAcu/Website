@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Domain.Authentication;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
+    [CareProviderIdFilter]
     [RoutePrefix("api")]
     public class VerificationController : ApiController
     {

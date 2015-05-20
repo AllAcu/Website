@@ -33,7 +33,7 @@
         <display-field label="Notes" ng-model="patient.personalInjuryProtection.notes"></display-field>
     </fieldset>
 
-    <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/requestVerify" class="btn btn-sm">Request verification</a></div>
+    <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/verification/start" class="btn btn-sm">Request verification</a></div>
     <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/verify" class="btn btn-sm">Process verification</a></div>
 
     <a ng-if="!patient.personalInjuryProtection && !patient.medicalInsurance" href="#/patient/{{patient.patientId}}/insurance/edit" class="btn btn-default">Add Insurance</a>
