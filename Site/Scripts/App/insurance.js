@@ -21,11 +21,24 @@
     module.controller('requestVerification', [
         "$scope", function ($scope) {
 
-
         $scope.save = function () {
             console.log(JSON.stringify($scope.verification));
         }
     }
     ]);
+
+    module.controller('verifyInsuranceList', [
+        "$scope", "verificationRepository", function ($scope, verifications) {
+
+            verifications.findAll()
+                .success(function(data) {
+                    $scope.verifications = data;
+                });
+
+        }
+    ]);
+
+
+
 
 }(angular.module("insuranceApp")));

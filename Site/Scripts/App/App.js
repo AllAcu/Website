@@ -16,60 +16,72 @@
     app.config([
         '$routeProvider',
         function ($routeProvider) {
-            $routeProvider.
-                when('/', {
+            $routeProvider
+                .when('/', {
                     templateUrl: '/Templates/Claims/claimsList.html',
                     controller: 'claimsList'
-                }).
-                when('/edit/:id', {
-                    templateUrl: '/Templates/Claims/claimEdit.html',
-                    controller: 'claimEdit'
-                }).
-                when('/create', {
-                    templateUrl: '/Templates/Claims/claimEdit.html',
-                    controller: 'claimCreate'
-                }).
-                when('/patient', {
-                    templateUrl: '/Templates/Patients/patientList.html',
-                    controller: 'patientList'
-                }).
-                when('/patient/intake', {
-                    templateUrl: '/Templates/Patients/intake.html',
-                    controller: 'patientIntake'
-                }).
-                when('/patient/:id', {
-                    templateUrl: '/Templates/Patients/details.html',
-                    controller: 'patientDetails'
-                }).
-                when('/patient/:id/edit', {
-                    templateUrl: '/Templates/Patients/updateVitalInfo.html',
-                    controller: 'patientEdit'
-                }).
-                when('/patient/:id/contact/edit', {
-                    templateUrl: '/Templates/Patients/updateContactInfo.html',
-                    controller: 'patientEditContactInfo'
-                }).
-                when('/provider/create', {
-                    templateUrl: '/Templates/Providers/providerEdit.html',
-                    controller: 'providerCreate'
-                }).
-                when('/patient/:id/insurance/edit', {
-                    templateUrl: '/Templates/Patients/recordInsurance.html',
-                    controller: 'patientInsurance'
-                }).
-                when('/patient/:id/insurance/verify', {
-                    templateUrl: '/Templates/Patients/verifyInsurance.html',
-                    controller: 'verifyInsurance'
-                }).
-                when('/patient/:id/insurance/requestVerify', {
-                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
-                    controller: 'requestVerification'
-                }).
-                when('/login', {
+                })
+                .when('/login', {
                     templateUrl: '/Templates/login.html',
                     controller: 'loginController'
-                }).
-                otherwise({
+                })
+                .when('/patient', {
+                    templateUrl: '/Templates/Patients/patientList.html',
+                    controller: 'patientList'
+                })
+                .when('/patient/intake', {
+                    templateUrl: '/Templates/Patients/intake.html',
+                    controller: 'patientIntake'
+                })
+                .when('/patient/:id', {
+                    templateUrl: '/Templates/Patients/details.html',
+                    controller: 'patientDetails'
+                })
+                .when('/patient/:id/edit', {
+                    templateUrl: '/Templates/Patients/updateVitalInfo.html',
+                    controller: 'patientEdit'
+                })
+                .when('/patient/:id/contact/edit', {
+                    templateUrl: '/Templates/Patients/updateContactInfo.html',
+                    controller: 'patientEditContactInfo'
+                })
+                .when('/provider/create', {
+                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    controller: 'providerCreate'
+                })
+                .when('/patient/:id/insurance/edit', {
+                    templateUrl: '/Templates/Patients/recordInsurance.html',
+                    controller: 'patientInsurance'
+                })
+                .when('/patient/:id/insurance/verification', {
+                    templateUrl: '/Templates/Verification/verificationList.html',
+                    controller: 'patientVerificationList'
+                })
+                .when('/patient/:id/insurance/verification/start', {
+                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
+                    controller: 'verificationRequestCreate'
+                })
+                .when('/patient/:id/insurance/verification/:verificationId', {
+                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
+                    controller: 'verificationRequestEdit'
+                })
+                .when('/verification', {
+                    templateUrl: '/Templates/Verification/verificationList.html',
+                    controller: 'verifyInsuranceList'
+                })
+                .when('/verification/:verificationId/verify', {
+                    templateUrl: '/Templates/Patients/verifyInsurance.html',
+                    controller: 'verifyInsurance'
+                })
+                .when('/edit/:id', {
+                    templateUrl: '/Templates/Claims/claimEdit.html',
+                    controller: 'claimEdit'
+                })
+                .when('/create', {
+                    templateUrl: '/Templates/Claims/claimEdit.html',
+                    controller: 'claimCreate'
+                })
+                .otherwise({
                     redirectTo: '/'
                 });
         }

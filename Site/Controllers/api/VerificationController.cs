@@ -27,6 +27,12 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList.Where(v => v.PatientId == patientId);
         }
 
+        [Route("insurance/verify"), HttpGet]
+        public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItems()
+        {
+            return allAcuSiteDbContext.VerificationList;
+        }
+
         [Route("{PatientId}/insurance/verify"), HttpPost]
         public void StartVerification(Guid patientId, CareProvider.StartVerificationRequestDraft command)
         {

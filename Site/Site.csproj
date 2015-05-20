@@ -247,6 +247,7 @@
     <Content Include="Scripts\App\patientCommands.js" />
     <Content Include="Scripts\App\patients.js" />
     <Content Include="Scripts\App\providers.js" />
+    <Content Include="Scripts\App\verificationRepository.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include=".config\local\DatabaseConnections.json">
@@ -286,6 +287,7 @@
     <Content Include="Templates\Patients\updateVitalInfo.html" />
     <Content Include="Templates\Patients\verifyInsurance.html" />
     <Content Include="Templates\Providers\ProviderEdit.html" />
+    <Content Include="Templates\Verification\verificationList.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
