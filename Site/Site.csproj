@@ -223,6 +223,7 @@
     <Compile Include="Models\Authorization\IdentityModels.cs" />
     <Compile Include="ViewModels\InsuranceVerification.cs" />
     <Compile Include="ViewModels\PatientDetails.cs" />
+    <Compile Include="ViewModels\PatientDetailsViewModelHandler.cs" />
     <Compile Include="ViewModels\PatientListItemViewModel.cs" />
     <Compile Include="Projections\CareProviderInformationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,10 +281,11 @@
     <Content Include="Templates\Patients\details.html" />
     <Content Include="Templates\Patients\inputMedicalInsurance.html" />
     <Content Include="Templates\Patients\inputPersonalInjuryProtection.html" />
+    <Content Include="Templates\Verification\insuranceVerificationDetails.html" />
     <Content Include="Templates\Patients\intake.html" />
     <Content Include="Templates\Patients\patientList.html" />
     <Content Include="Templates\Patients\recordInsurance.html" />
-    <Content Include="Templates\Patients\requestInsuranceVerification.html" />
+    <Content Include="Templates\Verification\requestInsuranceVerification.html" />
     <Content Include="Templates\Patients\updateContactInfo.html" />
     <Content Include="Templates\Patients\updateVitalInfo.html" />
     <Content Include="Templates\Verification\verifyInsurance.html" />

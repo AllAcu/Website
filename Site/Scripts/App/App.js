@@ -58,16 +58,20 @@
                     controller: 'patientVerificationList'
                 })
                 .when('/patient/:id/insurance/verification/start', {
-                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
+                    templateUrl: '/Templates/Verification/requestInsuranceVerification.html',
                     controller: 'verificationRequestCreate'
-                })
-                .when('/patient/:id/insurance/verification/:verificationId', {
-                    templateUrl: '/Templates/Patients/requestInsuranceVerification.html',
-                    controller: 'verificationRequestEdit'
                 })
                 .when('/verification', {
                     templateUrl: '/Templates/Verification/verificationList.html',
                     controller: 'verifyInsuranceList'
+                })
+                .when('/verification/:verificationId', {
+                    templateUrl: '/Templates/Verification/insuranceVerificationDetails.html',
+                    controller: 'verificationDetails'
+                })
+                .when('/verification/:verificationId/edit', {
+                    templateUrl: '/Templates/Verification/requestInsuranceVerification.html',
+                    controller: 'verificationRequestEdit'
                 })
                 .when('/verification/:verificationId/verify', {
                     templateUrl: '/Templates/Patients/verifyInsurance.html',

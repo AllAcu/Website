@@ -38,6 +38,18 @@
         }
     ]);
 
+    module.controller('verificationDetails', [
+        "$scope", "verificationRepository", function ($scope, verifications) {
+
+        }
+    ]);
+
+    module.controller('verificationRequestEdit', [
+        "$scope", "verificationRepository", function ($scope, verifications) {
+
+        }
+    ]);
+
 
 
 
