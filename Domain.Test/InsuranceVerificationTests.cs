@@ -84,15 +84,23 @@ namespace Domain.Test
             [Fact]
             public void WhenVerificationIsStarted_BecomesPartOfProviderDraftList()
             {
+                var patientId = Guid.NewGuid();
                 var command = new CareProvider.CareProvider.StartVerificationRequestDraft
                 (
                     requestDraft: new VerificationRequest
                     {
                         Comments = "Created draft"
                     }
-                );
+                )
+                {
+                    PatientId = patientId
+                };
 
                 var provider = new CareProvider.CareProvider();
+                provider.Patients.Add(new Patient(patientId)
+                {
+                    InsurancePolicies = new InsurancePolicy[] { new InsurancePolicy<MedicalInsurance>(new MedicalInsurance()) }
+                });
                 command.ApplyTo(provider);
 
                 Assert.Equal("Created draft", provider.PendingVerifications.Single().Request.Comments);

@@ -39,7 +39,7 @@
         <div ng-show="patient.medicalInsurance || patient.personalInjuryProtection">
             <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/verification/start" class="btn btn-sm" ng-show="!patient.currentVerification || patient.currentVerification.status != 'Draft'">Request insurance verification</a></div>
             <div class="row"><a href="#/verification/{{patient.currentVerification.id}}/edit" class="btn btn-sm" ng-show="patient.currentVerification && patient.currentVerification.status == 'Draft'">Edit verification request</a></div>
-            <div class="row"><a href="#/verification/{{patient.currentVerification.id}}" class="btn btn-sm" ng-show="patient.currentVerification && patient.currentVerification.status != 'Draft'">View current verification</a></div>
+            <div class="row"><a href="#/verification/{{patient.currentVerification.id}}" class="btn btn-sm" ng-show="patient.currentVerification && patient.currentVerification.status == 'Submitted'">View current verification</a></div>
         </div>
     </div>
 

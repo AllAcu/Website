@@ -52,6 +52,6 @@ namespace Domain
         public DateTimeOffset IssueDate { get; set; }
         public DateTimeOffset PolicyDate { get; set; }
         public DateTimeOffset EffectiveDate { get; set; }
-        public DateTimeOffset TerminationDate { get; set; }
+        public DateTimeOffset? TerminationDate { get; set; }
     }
 }
