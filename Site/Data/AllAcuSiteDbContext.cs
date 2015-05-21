@@ -27,6 +27,8 @@ namespace AllAcu
             modelBuilder.Entity<PendingInsuranceVerificationListItemViewModel>()
                 .HasKey(i => i.VerificationId);
 
+            modelBuilder.ComplexType<PatientDetails.Verification>();
+
             modelBuilder.Entity<PatientDetails>()
                 .HasOptional(d => d.MedicalInsurance);
             modelBuilder.Entity<PatientDetails>()

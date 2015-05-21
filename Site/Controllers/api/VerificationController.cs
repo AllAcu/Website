@@ -35,6 +35,15 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList;
         }
 
+        [Route("insurance/verify/{VerificationId}")]
+        public object GetVerification(Guid verificationId)
+        {
+            return new
+            {
+                comments = "some dummy verification"
+            };
+        }
+
         [Route("{PatientId}/insurance/verify"), HttpPost]
         public void StartVerification(Guid patientId, CareProvider.StartVerificationRequestDraft command)
         {

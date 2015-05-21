@@ -107,8 +107,11 @@ namespace AllAcu.Models.Providers
         public void UpdateProjection(CareProvider.VerificationDraftCreated @event)
         {
             var patient = GetPatient(@event.PatientId);
-            patient.CurrentVerificationId = @event.VerificationId;
-            patient.CurrentVerificationStatus = "Draft";
+            patient.CurrentVerification = new PatientDetails.Verification
+            {
+                Id = @event.VerificationId,
+                Status = "Draft"
+            };
 
             dbContext.SaveChanges();
         }
@@ -117,7 +120,7 @@ namespace AllAcu.Models.Providers
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
             var patient = GetPatient(verification.PatientId);
-            patient.CurrentVerificationStatus = "Submitted";
+            patient.CurrentVerification.Status = "Submitted";
 
             dbContext.SaveChanges();
         }

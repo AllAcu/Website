@@ -4,6 +4,10 @@
         return {
             findAll: function () {
                 return $http.get("/api/insurance/verify");
+            },
+            get: function(id) {
+                return $http.get("/api/insurance/verify/{VerificationId}"
+                                    .replace("{VerificationId}", id));
             }
         }
     }]);
