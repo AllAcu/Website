@@ -13,6 +13,12 @@
                     verificationId: verificationId,
                     requestDraft: verification
                 });
+            },
+            submit: function (verificationId, verification) {
+                return $http.post("api/insurance/verify/submit", {
+                    verificationId: verificationId,
+                    requestDraft: verification
+                });
             }
         }
     }]);

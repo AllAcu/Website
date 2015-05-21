@@ -62,6 +62,12 @@
                         $location.path("/patient/" + patientId);
                     });
             };
+            $scope.submit = function() {
+                commands.submit(verificationId, $scope.verification)
+                    .success(function () {
+                        $location.path("/patient/" + patientId);
+                    });
+            };
         }
     ]);
 

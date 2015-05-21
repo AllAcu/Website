@@ -62,7 +62,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verify/submit"), HttpPost]
-        public void UpdateVerification(CareProvider.SubmitVerificationRequest command)
+        public void SubmitVerification(CareProvider.SubmitVerificationRequest command)
         {
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
