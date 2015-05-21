@@ -58,7 +58,7 @@
                     controller: 'patientVerificationList'
                 })
                 .when('/patient/:id/insurance/verification/start', {
-                    templateUrl: '/Templates/Verification/requestInsuranceVerification.html',
+                    templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestCreate'
                 })
                 .when('/verification', {
@@ -70,7 +70,7 @@
                     controller: 'verificationDetails'
                 })
                 .when('/verification/:verificationId/edit', {
-                    templateUrl: '/Templates/Verification/requestInsuranceVerification.html',
+                    templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestEdit'
                 })
                 .when('/verification/:verificationId/verify', {

@@ -286,7 +286,7 @@
     <Content Include="Templates\Patients\intake.html" />
     <Content Include="Templates\Patients\patientList.html" />
     <Content Include="Templates\Patients\recordInsurance.html" />
-    <Content Include="Templates\Verification\requestInsuranceVerification.html" />
+    <Content Include="Templates\Verification\verifyInsuranceRequest.html" />
     <Content Include="Templates\Patients\updateContactInfo.html" />
     <Content Include="Templates\Patients\updateVitalInfo.html" />
     <Content Include="Templates\Verification\verifyInsurance.html" />

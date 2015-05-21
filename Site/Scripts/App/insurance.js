@@ -19,10 +19,12 @@
     ]);
 
     module.controller('verificationRequestCreate', [
-        "$scope", "$routeParams", "verificationCommands", function ($scope, $routeParams, commands) {
+        "$scope", "$routeParams", "$location", "verificationCommands", function ($scope, $routeParams, location, commands) {
 
             $scope.save = function () {
-                commands.start($routeParams["id"], $scope.verification);
+                commands.start($routeParams["id"], $scope.verification).success(function() {
+                    $location.path("/patient/" + $routeParams["patientId"]);
+                });
         }
     }
     ]);
@@ -45,11 +47,21 @@
     ]);
 
     module.controller('verificationRequestEdit', [
-        "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
-            verifications.get($routeParams["verificationId"])
-            .success(function(data) {
+        "$scope", "$routeParams", "$location", "verificationRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, commands) {
+            var verificationId = $routeParams["verificationId"];
+            var patientId;
+            verifications.get(verificationId)
+                .success(function(data) {
                     $scope.verification = data.request;
+                    patientId = data.patientId;
                 });
+
+            $scope.save = function() {
+                commands.update(verificationId, $scope.verification)
+                    .success(function () {
+                        $location.path("/patient/" + patientId);
+                    });
+            };
         }
     ]);
 
