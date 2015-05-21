@@ -48,7 +48,7 @@
         "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
             verifications.get($routeParams["verificationId"])
             .success(function(data) {
-                    $scope.verification = data;
+                    $scope.verification = data.request;
                 });
         }
     ]);

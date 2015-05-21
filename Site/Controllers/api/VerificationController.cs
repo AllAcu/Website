@@ -36,12 +36,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verify/{VerificationId}")]
-        public object GetVerification(Guid verificationId)
+        public PendingVerificationRequest GetVerification(Guid verificationId)
         {
-            return new
-            {
-                comments = "some dummy verification"
-            };
+            return allAcuSiteDbContext.VerificationRequestDrafts.FirstOrDefault(v => v.VerificationId == verificationId);
         }
 
         [Route("{PatientId}/insurance/verify"), HttpPost]
