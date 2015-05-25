@@ -37,10 +37,44 @@ namespace Domain
         public string Notes { get; set; }
     }
 
-    public class Verification
+    public class Benefits
     {
-        public string Verifier { get; set; }
-        public DateTimeOffset VerifiedOn { get; set; }
+        public bool IsCovered { get; set; }
+        public bool IsDiagnosisRequirement { get; set; }
+        public bool IsReferralRequired { get; set; }
+        public string ReferralSource { get; set; }
+        public bool IsPreCertificationRequired { get; set; }
+        public string DiagnosisRequirement { get; set; }
+        public string PreCertification { get; set; }
+        public bool IsOfficeVisitCopay { get; set; }
+        public string OfficeVisitCopay { get; set; }
+        public bool IsCalendarYearPlan { get; set; }
+        public string CalendarYearComments { get; set; }
+        public DateTime CalendarYearPlanEnd { get; set; }
+        public DateTime CalendarYearPlanBegin { get; set; }
+        public bool IsDeductable { get; set; }
+        public bool IndividualDeductable { get; set; }
+        public bool IndividualDeductableUsed { get; set; }
+        public string FamilyDeductable { get; set; }
+        public string FamilyDeductableUsed { get; set; }
+        public string InsurancePercentResponsibility { get; set; }
+        public string PatientPercentResponsiblity { get; set; }
+        public bool IsOutOfPocketMaximum { get; set; }
+        public string AnnualIndividualOutOfPocketMaximum { get; set; }
+        public string AnnualIndividualOutOfPocketMaximumUsed { get; set; }
+        public string AnnualFamilyOutOfPocketMaximum { get; set; }
+        public string AnnualFamilyOutOfPocketMaximumUsed { get; set; }
+        public bool IsDeductableAppliedTowardOutOfPocket { get; set; }
+        public bool HasAnnualVisitLimit { get; set; }
+        public string AnnualVisitLimit { get; set; }
+        public string AnnualVisitsUsed { get; set; }
+        public string AnnualVisitsRemaining { get; set; }
+        public bool IsBillableForCode99203 { get; set; }
+        //public string Approval { get; set; }
+        //public string ServiceCenterRepresentative { get; set; }
+        //public string CallReferenceNumber { get; set; }
+        //public string CallTime { get; set; }
+        //public string AssignedTo { get; set; }
     }
 
     public abstract class InsurancePolicy
@@ -48,7 +82,7 @@ namespace Domain
         // relationship to policy for a patient?
 
 
-        public Verification Verification { get; set; }
+        public Benefits Benefits { get; set; }
         public DateTimeOffset IssueDate { get; set; }
         public DateTimeOffset PolicyDate { get; set; }
         public DateTimeOffset EffectiveDate { get; set; }

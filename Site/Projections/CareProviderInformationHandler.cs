@@ -20,7 +20,8 @@ namespace AllAcu.Projections
                 Id = @event.AggregateId,
                 BusinessName = @event.BusinessName,
                 PractitionerName = @event.PractitionerName,
-                City = @event.City
+                City = @event.City,
+                NpiNumber = @event.NpiNumber
             });
 
             dbContext.SaveChanges();

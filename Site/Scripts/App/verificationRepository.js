@@ -5,8 +5,12 @@
             findAll: function () {
                 return $http.get("/api/insurance/verify");
             },
-            get: function(id) {
-                return $http.get("/api/insurance/verify/{VerificationId}"
+            getRequest: function(id) {
+                return $http.get("/api/insurance/verifyRequest/{VerificationId}"
+                                    .replace("{VerificationId}", id));
+            },
+            getVerification: function(id) {
+                return $http.get("/api/insurance/verification/{VerificationId}"
                                     .replace("{VerificationId}", id));
             }
         }

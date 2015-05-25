@@ -10,6 +10,7 @@ namespace Domain.CareProvider
         public RequestStatus Status { get; set; } = RequestStatus.Draft;
         public VerificationRequest Request { get; set; }
         public string ReviewerComments { get; set; }
+        public Benefits Benefits { get; set; }
 
         public class RequestStatus : String<RequestStatus>
         {
@@ -23,11 +24,14 @@ namespace Domain.CareProvider
                     return Draft;
                 if (String.Compare(value, "Submitted", StringComparison.OrdinalIgnoreCase) == 0)
                     return Submitted;
+                if (String.Compare(value, "Approved", StringComparison.OrdinalIgnoreCase) == 0)
+                    return Approved;
                 throw new ArgumentException($"Not a valid request status: {value}");
             }
 
             public static readonly RequestStatus Draft = new RequestStatus("Draft");
             public static readonly RequestStatus Submitted = new RequestStatus("Submitted");
+            public static readonly RequestStatus Approved = new RequestStatus("Approved");
         }
     }
 }

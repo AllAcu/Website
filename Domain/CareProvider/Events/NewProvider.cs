@@ -10,12 +10,14 @@ namespace Domain.CareProvider
             public string BusinessName { get; set; }
             public string PractitionerName { get; set; }
             public string City { get; set; }
+            public string NpiNumber { get; set; }
 
             public override void Update(CareProvider provider)
             {
                 provider.BusinessName = BusinessName;
                 provider.PractitionerName = PractitionerName;
                 provider.City = City;
+                provider.NpiNumber = NpiNumber;
             }
         }
     }

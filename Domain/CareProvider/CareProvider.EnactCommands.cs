@@ -103,6 +103,8 @@ namespace Domain.CareProvider
         public void EnactCommand(StartVerificationRequestDraft command)
         {
             var verificationId = Guid.NewGuid();
+             // terminate old one if it's there
+
             RecordEvent(new VerificationDraftCreated
             {
                 PatientId = command.PatientId,
@@ -139,6 +141,31 @@ namespace Domain.CareProvider
             RecordEvent(new VerificationRequestSubmitted
             {
                 VerificationId = verificationId
+            });
+        }
+
+        public void EnactCommand(UpdateVerification command)
+        {
+            RecordEvent(new VerificationUpdated
+            {
+
+            });
+        }
+
+        public void EnactCommand(ApproveVerification command)
+        {
+            if (command.Benefits != null)
+            {
+                RecordEvent(new VerificationUpdated
+                {
+                    VerificationId = command.VerificationId,
+                    Benefits = command.Benefits
+                });
+            }
+
+            RecordEvent(new VerificationApproved
+            {
+
             });
         }
     }

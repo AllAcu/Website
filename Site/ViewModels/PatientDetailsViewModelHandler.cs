@@ -11,7 +11,8 @@ namespace AllAcu.Models.Providers
         IUpdateProjectionWhen<CareProvider.PatientContactInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.InsuranceUpdated>,
         IUpdateProjectionWhen<CareProvider.VerificationDraftCreated>,
-        IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>
+        IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<CareProvider.VerificationApproved>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -121,6 +122,15 @@ namespace AllAcu.Models.Providers
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Submitted";
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(CareProvider.VerificationApproved @event)
+        {
+            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
+            var patient = GetPatient(verification.PatientId);
+            patient.CurrentVerification.Status = "Approved";
 
             dbContext.SaveChanges();
         }

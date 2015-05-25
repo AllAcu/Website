@@ -74,7 +74,7 @@
                     controller: 'verificationRequestEdit'
                 })
                 .when('/verification/:verificationId/verify', {
-                    templateUrl: '/Templates/Patients/verifyInsurance.html',
+                    templateUrl: '/Templates/Verification/verifyInsurance.html',
                     controller: 'verifyInsurance'
                 })
                 .when('/edit/:id', {

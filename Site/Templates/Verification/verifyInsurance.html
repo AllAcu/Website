@@ -3,19 +3,25 @@
     <h2>Verify Insurance</h2>
 
     <div>
-        <display-field label="Insurance Carrier" ng-model="patient.carrier"></display-field>
-        <display-field label="Phone #" ng-model="patient.phone"></display-field>
-        <display-field label="Acupuncturist" ng-model="patient.accupuncturist"></display-field>
-        <display-field label="NPI #" ng-model="patient.npiNumber"></display-field>
-        <display-field label="Tax ID #" ng-model="patient.taxId"></display-field>
-        <display-field label="Address" ng-model="patient.address"></display-field>
-        <display-field label="Phone Number" ng-model="patient.phoneNumber"></display-field>
-        <display-field label="Patient Name" ng-model="patient.name"></display-field>
-        <display-field label="Date of Birth" ng-model="patient.dateOfBirth"></display-field>
-        <display-field label="Insurance Policy/ Plan" ng-model="patient.insurancePolicy"></display-field>
+        <div>
+            <h4><display-field label="Insurance Carrier" ng-model="request.insuranceCarrier"></display-field></h4>
+            <display-field label="Phone #" ng-model="request.insurancePhoneNumber"></display-field>
+        </div>
+        <div>
+            <h4><display-field label="Acupuncturist" ng-model="request.acupuncturist"></display-field></h4>
+            <display-field label="NPI #" ng-model="npiNumber"></display-field>
+            <display-field label="Tax ID #" ng-model="taxId"></display-field>
+            <display-field label="Address" ng-model="address"></display-field>
+            <display-field label="Phone Number" ng-model="phoneNumber"></display-field>
+        </div>
+        <div>
+            <h4><display-field label="Patient Name" ng-model="request.patientName"></display-field></h4>
+            <display-field label="Date of Birth" ng-model="request.patientDateOfBirth"></display-field>
+            <display-field label="Insurance Policy/ Plan" ng-model="request.patientInsurancePolicy"></display-field>
+        </div>
     </div>
 
-
+    <hr/>
     <div>
         <label>
             Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?
@@ -31,7 +37,7 @@
 
             <label>Is a Referral Required?</label>
             <edit-yes-no ng-model="verification.isReferralRequired"></edit-yes-no>
-            <edit-field label="From Who?" ng-model="verification.diagnosisRequirement" ng-show="verification.isReferralRequired"></edit-field>
+            <edit-field label="From Who?" ng-model="verification.referralSource" ng-show="verification.isReferralRequired"></edit-field>
 
             <label>Are any Pre-certifications or Pre-authorizations required?</label>
             <edit-yes-no ng-model="verification.isPreCertificationRequired"></edit-yes-no>
@@ -78,7 +84,7 @@
 
             <label>Is there a limit on the number of visits allowed per year?</label>
             <edit-yes-no ng-model="verification.isAnnualVisitLimit"></edit-yes-no>
-            <div ng-show="verification.isAnnualVisitLimit">
+            <div ng-show="verification.hasAnnualVisitLimit">
                 <edit-field label="Number of allowed visits" ng-model="verification.annualVisitLimit"></edit-field>
                 <edit-field label="Number of visits used this year" ng-model="verification.annualVisitsUsed"></edit-field>
                 <edit-field label="Remaining visits for this year" ng-model="verification.annualVisitsRemaining"></edit-field>
@@ -92,7 +98,7 @@
             <edit-field label="Number of allowed visits" ng-model="verification.annualVisitLimit"></edit-field>
 
             <label>Other limits or provisions with regard to acupuncture services</label>
-            </div>
+        </div>
 
         <div>
 
@@ -103,7 +109,8 @@
             <edit-field label="Call Time" ng-model="verification.approval.callTime"></edit-field>
             <edit-field label="Assign To" ng-model="verification.approval.assignedTo"></edit-field>
         </div>
-        <input type="button" value="Submit" ng-click="save()" />
+        <input type="button" value="Save" ng-click="save()" />
+        <input type="button" value="Submit" ng-click="submit()" />
     </div>
 
     <!--save verification draft

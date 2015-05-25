@@ -221,7 +221,8 @@
     <Compile Include="Models\Authorization\AccountBindingModels.cs" />
     <Compile Include="Models\Authorization\AccountViewModels.cs" />
     <Compile Include="Models\Authorization\IdentityModels.cs" />
-    <Compile Include="ViewModels\InsuranceVerification.cs" />
+    <Compile Include="ViewModels\Benefits.cs" />
+    <Compile Include="ViewModels\InsuranceVerificationForm.cs" />
     <Compile Include="ViewModels\PatientDetails.cs" />
     <Compile Include="ViewModels\PatientDetailsViewModelHandler.cs" />
     <Compile Include="ViewModels\PatientListItemViewModel.cs" />

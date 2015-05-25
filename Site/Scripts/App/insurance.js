@@ -1,39 +1,53 @@
 ﻿(function (module) {
 
     module.controller('verifyInsurance', [
-        "$scope", function ($scope) {
+        "$scope", "$routeParams", "$location", "verificationRepository", "patientRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, patients, commands) {
 
-        $scope.patient = {
-            carrier: "Premera",
-            phone: "206-555-3939"
-        };
+            var verificationId = $routeParams["verificationId"];
+            var patientId;
 
-        $scope.verification = {
-            isCovered: "true"
-        };
+            $scope.verification = {
+                isCovered: "true"
+            };
 
-        $scope.save = function () {
-            console.log(JSON.stringify($scope.verification));
+            verifications.getVerification(verificationId)
+                .success(function (data) {
+                    $scope.request = data;
+                    patientId = data.patientId;
+                    patients.details(patientId).success(function (data) {
+                        $scope.patient = data;
+                    });
+                });
+
+
+            $scope.save = function () {
+                console.log(JSON.stringify($scope.verification));
+            }
+
+            $scope.submit = function() {
+                commands.submit(verificationId, $scope.verification).success(function() {
+                    $location.path("/patient/" + patientId);
+                });
+            }
         }
-    }
     ]);
 
     module.controller('verificationRequestCreate', [
-        "$scope", "$routeParams", "$location", "verificationCommands", function ($scope, $routeParams, location, commands) {
+        "$scope", "$routeParams", "$location", "verificationCommands", function ($scope, $routeParams, $location, commands) {
 
             $scope.save = function () {
-                commands.start($routeParams["id"], $scope.verification).success(function() {
+                commands.start($routeParams["id"], $scope.verification).success(function () {
                     $location.path("/patient/" + $routeParams["patientId"]);
                 });
+            }
         }
-    }
     ]);
 
     module.controller('verifyInsuranceList', [
         "$scope", "verificationRepository", function ($scope, verifications) {
 
             verifications.findAll()
-                .success(function(data) {
+                .success(function (data) {
                     $scope.verifications = data;
                 });
 
@@ -50,19 +64,19 @@
         "$scope", "$routeParams", "$location", "verificationRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, commands) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
-            verifications.get(verificationId)
-                .success(function(data) {
+            verifications.getRequest(verificationId)
+                .success(function (data) {
                     $scope.verification = data.request;
                     patientId = data.patientId;
                 });
 
-            $scope.save = function() {
+            $scope.save = function () {
                 commands.update(verificationId, $scope.verification)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
             };
-            $scope.submit = function() {
+            $scope.submit = function () {
                 commands.submit(verificationId, $scope.verification)
                     .success(function () {
                         $location.path("/patient/" + patientId);

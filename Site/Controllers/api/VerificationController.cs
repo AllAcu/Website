@@ -35,10 +35,16 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList;
         }
 
-        [Route("insurance/verify/{VerificationId}")]
-        public PendingVerificationRequest GetVerification(Guid verificationId)
+        [Route("insurance/verifyRequest/{VerificationId}")]
+        public PendingVerificationRequest GetVerificationRequest(Guid verificationId)
         {
-            return allAcuSiteDbContext.VerificationRequestDrafts.FirstOrDefault(v => v.VerificationId == verificationId);
+            return allAcuSiteDbContext.VerificationRequestDrafts.Find(verificationId);
+        }
+
+        [Route("insurance/verification/{VerificationId}")]
+        public InsuranceVerificationForm GetVerification(Guid verificationId)
+        {
+            return allAcuSiteDbContext.VerificationForms.Find(verificationId);
         }
 
         [Route("{PatientId}/insurance/verify"), HttpPost]
@@ -53,7 +59,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verify"), HttpPut]
-        public void UpdateVerification(CareProvider.UpdateVerificationRequestDraft command)
+        public void UpdateVerificationRequest(CareProvider.UpdateVerificationRequestDraft command)
         {
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
@@ -62,7 +68,16 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verify/submit"), HttpPost]
-        public void SubmitVerification(CareProvider.SubmitVerificationRequest command)
+        public void SubmitVerificationRequest(CareProvider.SubmitVerificationRequest command)
+        {
+            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            command.ApplyTo(provider);
+
+            providerEventSourcedRepository.Save(provider);
+        }
+
+        [Route("insurance/verify/approve"), HttpPost]
+        public void ApproveVerification(CareProvider.ApproveVerification command)
         {
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
