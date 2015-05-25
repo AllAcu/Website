@@ -83,7 +83,7 @@
             <edit-yes-no ng-model="verification.benefits.isDeductableAppliedTowardOutOfPocket"></edit-yes-no>
 
             <label>Is there a limit on the number of visits allowed per year?</label>
-            <edit-yes-no ng-model="verification.benefits.isAnnualVisitLimit"></edit-yes-no>
+            <edit-yes-no ng-model="verification.benefits.hasAnnualVisitLimit"></edit-yes-no>
             <div ng-show="verification.benefits.hasAnnualVisitLimit">
                 <edit-field label="Number of allowed visits" ng-model="verification.benefits.annualVisitLimit"></edit-field>
                 <edit-field label="Number of visits used this year" ng-model="verification.benefits.annualVisitsUsed"></edit-field>
@@ -94,12 +94,10 @@
             <edit-yes-no ng-model="verification.benefits.isBillableForCode99203"></edit-yes-no>
 
             <label>Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?</label>
-
-            <edit-field label="Number of allowed visits" ng-model="verification.benefits.annualVisitLimit"></edit-field>
-
-            <label>Other limits or provisions with regard to acupuncture services</label>
+            <edit-field label="Other limits or provisions with regard to acupuncture services" ng-model="verification.benefits.otherLimits"></edit-field>
         </div>
 
+        <hr/>
         <div>
 
             <edit-field label="Verification Status" ng-model="verification.approval.status"></edit-field>

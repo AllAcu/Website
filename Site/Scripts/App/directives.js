@@ -48,7 +48,7 @@
                         '<label>{{label}}</label>' +
                     '</div>' +
                     '<label class="col-md-3" ng-repeat="(key, value) in options">' +
-                            '<input type="radio" ng-model="$parent.ngModel" value="{{value.value}}">' +
+                            '<input type="radio" ng-model="$parent.ngModel" ng-value="{{value.value}}">' +
                             '{{value.label}}' +
                     '</label>' +
                 '</div>'
@@ -64,7 +64,7 @@
                 ngModel: "=ngModel",
                 options: "=options"
             },
-            template: "<edit-choice ng-model='ngModel' options='[{ label: \"Yes\", value: \"true\"}, { label: \"No\", value: null }]'></edit-choice>"
+            template: "<edit-choice ng-model='ngModel' options='[{ label: \"Yes\", value: \"true\"}, { label: \"No\", value: \"false\" }]'></edit-choice>"
         };
     });
 

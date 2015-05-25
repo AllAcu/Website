@@ -70,6 +70,7 @@ namespace Domain
         public string AnnualVisitsUsed { get; set; }
         public string AnnualVisitsRemaining { get; set; }
         public bool IsBillableForCode99203 { get; set; }
+        public string OtherLimits { get; set; }
         //public string Approval { get; set; }
         //public string ServiceCenterRepresentative { get; set; }
         //public string CallReferenceNumber { get; set; }

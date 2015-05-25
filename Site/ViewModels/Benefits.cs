@@ -35,6 +35,7 @@ namespace AllAcu
         public string AnnualVisitsUsed { get; set; }
         public string AnnualVisitsRemaining { get; set; }
         public bool IsBillableForCode99203 { get; set; }
+        public string OtherLimits { get; set; }
 
         //public string Approval { get; set; }
         //public string ServiceCenterRepresentative { get; set; }
@@ -80,7 +81,8 @@ namespace AllAcu
                 AnnualVisitLimit = benefits.AnnualVisitLimit,
                 AnnualVisitsUsed = benefits.AnnualVisitsUsed,
                 AnnualVisitsRemaining = benefits.AnnualVisitsRemaining,
-                IsBillableForCode99203 = benefits.IsBillableForCode99203
+                IsBillableForCode99203 = benefits.IsBillableForCode99203,
+                OtherLimits = benefits.OtherLimits
             };
         }
     }
