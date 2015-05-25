@@ -76,9 +76,20 @@ namespace AllAcu.Controllers.api
             providerEventSourcedRepository.Save(provider);
         }
 
-        [Route("insurance/verify/approve"), HttpPost]
-        public void ApproveVerification(CareProvider.ApproveVerification command)
+        [Route("insurance/verification/{VerificationId}"), HttpPut]
+        public void UpdateVerification(Guid verificationId, CareProvider.UpdateVerification command)
         {
+            command.VerificationId = verificationId;
+            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            command.ApplyTo(provider);
+
+            providerEventSourcedRepository.Save(provider);
+        }
+
+        [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
+        public void ApproveVerification(Guid verificationId, CareProvider.ApproveVerification command)
+        {
+            command.VerificationId = verificationId;
             var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 

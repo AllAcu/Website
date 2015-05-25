@@ -4,98 +4,98 @@
 
     <div>
         <div>
-            <h4><display-field label="Insurance Carrier" ng-model="request.insuranceCarrier"></display-field></h4>
-            <display-field label="Phone #" ng-model="request.insurancePhoneNumber"></display-field>
+            <h4><display-field label="Insurance Carrier" ng-model="verification.request.insuranceCarrier"></display-field></h4>
+            <display-field label="Phone #" ng-model="verification.request.insurancePhoneNumber"></display-field>
         </div>
         <div>
-            <h4><display-field label="Acupuncturist" ng-model="request.acupuncturist"></display-field></h4>
-            <display-field label="NPI #" ng-model="npiNumber"></display-field>
-            <display-field label="Tax ID #" ng-model="taxId"></display-field>
-            <display-field label="Address" ng-model="address"></display-field>
-            <display-field label="Phone Number" ng-model="phoneNumber"></display-field>
+            <h4><display-field label="Acupuncturist" ng-model="verification.request.acupuncturist"></display-field></h4>
+            <display-field label="NPI #" ng-model="verification.request.acupuncturistNpiNumber"></display-field>
+            <display-field label="Tax ID #" ng-model="verification.request.acupuncturistTaxId"></display-field>
+            <display-field label="Address" ng-model="verification.request.acupuncturistAddress"></display-field>
+            <display-field label="Phone Number" ng-model="verification.request.acupuncturistPhoneNumber"></display-field>
         </div>
         <div>
-            <h4><display-field label="Patient Name" ng-model="request.patientName"></display-field></h4>
-            <display-field label="Date of Birth" ng-model="request.patientDateOfBirth"></display-field>
-            <display-field label="Insurance Policy/ Plan" ng-model="request.patientInsurancePolicy"></display-field>
+            <h4><display-field label="Patient Name" ng-model="verification.request.patientName"></display-field></h4>
+            <display-field label="Date of Birth" ng-model="verification.request.patientDateOfBirth"></display-field>
+            <display-field label="Insurance Policy/ Plan" ng-model="verification.request.patientInsurancePolicy"></display-field>
         </div>
     </div>
 
-    <hr/>
+    <hr />
     <div>
         <label>
             Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?
         </label>
-        <edit-yes-no ng-model="verification.isCovered"></edit-yes-no>
+        <edit-yes-no ng-model="verification.benefits.isCovered"></edit-yes-no>
 
-        <div ng-show="verification.isCovered">
+        <div ng-show="verification.benefits.isCovered">
             <label>
                 Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)?
             </label>
-            <edit-yes-no ng-model="verification.isDiagnosisRequirement"></edit-yes-no>
-            <edit-field ng-model="verification.diagnosisRequirement" ng-show="verification.isDiagnosisRequirement"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isDiagnosisRequirement"></edit-yes-no>
+            <edit-field ng-model="verification.benefits.diagnosisRequirement" ng-show="verification.benefits.isDiagnosisRequirement"></edit-field>
 
             <label>Is a Referral Required?</label>
-            <edit-yes-no ng-model="verification.isReferralRequired"></edit-yes-no>
-            <edit-field label="From Who?" ng-model="verification.referralSource" ng-show="verification.isReferralRequired"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isReferralRequired"></edit-yes-no>
+            <edit-field label="From Who?" ng-model="verification.benefits.referralSource" ng-show="verification.benefits.isReferralRequired"></edit-field>
 
             <label>Are any Pre-certifications or Pre-authorizations required?</label>
-            <edit-yes-no ng-model="verification.isPreCertificationRequired"></edit-yes-no>
-            <edit-field label="How is it obtained?" ng-model="verification.preCertification" ng-show="verification.isPreCertificationRequired"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isPreCertificationRequired"></edit-yes-no>
+            <edit-field label="How is it obtained?" ng-model="verification.benefits.preCertification" ng-show="verification.benefits.isPreCertificationRequired"></edit-field>
 
 
             <label>Is there an Office Visit Copay?</label>
-            <edit-yes-no ng-model="verification.isOfficeVisitCopay"></edit-yes-no>
-            <edit-field label="Copay Amount per visit" ng-model="verification.officeVisitCopay" ng-show="verification.isOfficeVisitCopay"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isOfficeVisitCopay"></edit-yes-no>
+            <edit-field label="Copay Amount per visit" ng-model="verification.benefits.officeVisitCopay" ng-show="verification.benefits.isOfficeVisitCopay"></edit-field>
 
 
             <label>Is this a calendar year plan?</label>
-            <edit-yes-no ng-model="verification.isCalendarYearPlan"></edit-yes-no>
-            <div ng-show="verification.isCalendarYearPlan">
-                <edit-field label="Plan begin" type="date" ng-model="verification.calendarYearPlanBegin"></edit-field>
-                <edit-field label="Plan end" type="date" ng-model="verification.calendarYearPlanEnd"></edit-field>
-                <edit-field label="Comments" ng-model="verification.calendarYearComments"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isCalendarYearPlan"></edit-yes-no>
+            <div ng-show="verification.benefits.isCalendarYearPlan">
+                <edit-field label="Plan begin" type="date" ng-model="verification.benefits.calendarYearPlanBegin"></edit-field>
+                <edit-field label="Plan end" type="date" ng-model="verification.benefits.calendarYearPlanEnd"></edit-field>
+                <edit-field label="Comments" ng-model="verification.benefits.calendarYearComments"></edit-field>
             </div>
 
             <label>Is there a deductible?</label>
-            <edit-yes-no ng-model="verification.isDeductable"></edit-yes-no>
-            <div ng-show="verification.isDeductable">
-                <edit-field label="Annual Individual deductable" ng-model="verification.individualDeductable"></edit-field>
-                <edit-field label="used" ng-model="verification.individualDeductableUsed"></edit-field>
-                <edit-field label="Annual family deductable" ng-model="verification.familyDeductable"></edit-field>
-                <edit-field label="used" ng-model="verification.familyDeductableUsed"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isDeductable"></edit-yes-no>
+            <div ng-show="verification.benefits.isDeductable">
+                <edit-field label="Annual Individual deductable" ng-model="verification.benefits.individualDeductable"></edit-field>
+                <edit-field label="used" ng-model="verification.benefits.individualDeductableUsed"></edit-field>
+                <edit-field label="Annual family deductable" ng-model="verification.benefits.familyDeductable"></edit-field>
+                <edit-field label="used" ng-model="verification.benefits.familyDeductableUsed"></edit-field>
             </div>
 
-            <edit-field label="Insurance covers the patient at% of approved charges." ng-model="verification.insurancePercentResponsibility"></edit-field>
-            <edit-field label="Patient's responsibility percent of all billed services." ng-model="verification.patientPercentResponsiblity"></edit-field>
+            <edit-field label="Insurance covers the patient at% of approved charges." ng-model="verification.benefits.insurancePercentResponsibility"></edit-field>
+            <edit-field label="Patient's responsibility percent of all billed services." ng-model="verification.benefits.patientPercentResponsiblity"></edit-field>
 
 
             <label>Is there an Out-of-Pocket Maximum?</label>
-            <edit-yes-no ng-model="verification.isOutOfPocketMaximum"></edit-yes-no>
-            <div ng-show="verification.isOutOfPocketMaximum">
-                <edit-field label="Individual annual Out-of-Pocket Maximum" ng-model="verification.annualIndividualOutOfPocketMaximum"></edit-field>
-                <edit-field label="used" ng-model="verification.annualIndividualOutOfPocketMaximumUsed"></edit-field>
-                <edit-field label="Family annual out-of-pocket maximum" ng-model="verification.annualFamilyOutOfPocketMaximum"></edit-field>
-                <edit-field label="used" ng-model="verification.annualFamilyOutOfPocketMaximumUsed"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isOutOfPocketMaximum"></edit-yes-no>
+            <div ng-show="verification.benefits.isOutOfPocketMaximum">
+                <edit-field label="Individual annual Out-of-Pocket Maximum" ng-model="verification.benefits.annualIndividualOutOfPocketMaximum"></edit-field>
+                <edit-field label="used" ng-model="verification.benefits.annualIndividualOutOfPocketMaximumUsed"></edit-field>
+                <edit-field label="Family annual out-of-pocket maximum" ng-model="verification.benefits.annualFamilyOutOfPocketMaximum"></edit-field>
+                <edit-field label="used" ng-model="verification.benefits.annualFamilyOutOfPocketMaximumUsed"></edit-field>
             </div>
 
             <label>Is deductible applied towards Out-of-Pocket</label>
-            <edit-yes-no ng-model="verification.isDeductableAppliedTowardOutOfPocket"></edit-yes-no>
+            <edit-yes-no ng-model="verification.benefits.isDeductableAppliedTowardOutOfPocket"></edit-yes-no>
 
             <label>Is there a limit on the number of visits allowed per year?</label>
-            <edit-yes-no ng-model="verification.isAnnualVisitLimit"></edit-yes-no>
-            <div ng-show="verification.hasAnnualVisitLimit">
-                <edit-field label="Number of allowed visits" ng-model="verification.annualVisitLimit"></edit-field>
-                <edit-field label="Number of visits used this year" ng-model="verification.annualVisitsUsed"></edit-field>
-                <edit-field label="Remaining visits for this year" ng-model="verification.annualVisitsRemaining"></edit-field>
+            <edit-yes-no ng-model="verification.benefits.isAnnualVisitLimit"></edit-yes-no>
+            <div ng-show="verification.benefits.hasAnnualVisitLimit">
+                <edit-field label="Number of allowed visits" ng-model="verification.benefits.annualVisitLimit"></edit-field>
+                <edit-field label="Number of visits used this year" ng-model="verification.benefits.annualVisitsUsed"></edit-field>
+                <edit-field label="Remaining visits for this year" ng-model="verification.benefits.annualVisitsRemaining"></edit-field>
             </div>
 
             <label>Can a licensed acupuncturist bill for code 99203 (evaluations/exams)?</label>
-            <edit-yes-no ng-model="verification.isBillableForCode99203"></edit-yes-no>
+            <edit-yes-no ng-model="verification.benefits.isBillableForCode99203"></edit-yes-no>
 
             <label>Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?</label>
 
-            <edit-field label="Number of allowed visits" ng-model="verification.annualVisitLimit"></edit-field>
+            <edit-field label="Number of allowed visits" ng-model="verification.benefits.annualVisitLimit"></edit-field>
 
             <label>Other limits or provisions with regard to acupuncture services</label>
         </div>
@@ -112,9 +112,5 @@
         <input type="button" value="Save" ng-click="save()" />
         <input type="button" value="Submit" ng-click="submit()" />
     </div>
-
-    <!--save verification draft
-    submit verified
-    send back for bad information-->
 
 </div>

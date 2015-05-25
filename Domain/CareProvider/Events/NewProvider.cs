@@ -11,6 +11,7 @@ namespace Domain.CareProvider
             public string PractitionerName { get; set; }
             public string City { get; set; }
             public string NpiNumber { get; set; }
+            public string TaxId { get; set; }
 
             public override void Update(CareProvider provider)
             {
@@ -18,6 +19,7 @@ namespace Domain.CareProvider
                 provider.PractitionerName = PractitionerName;
                 provider.City = City;
                 provider.NpiNumber = NpiNumber;
+                provider.TaxId = TaxId;
             }
         }
     }

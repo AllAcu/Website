@@ -21,7 +21,8 @@ namespace AllAcu.Projections
                 BusinessName = @event.BusinessName,
                 PractitionerName = @event.PractitionerName,
                 City = @event.City,
-                NpiNumber = @event.NpiNumber
+                NpiNumber = @event.NpiNumber,
+                TaxId = @event.TaxId
             });
 
             dbContext.SaveChanges();

@@ -9,22 +9,18 @@
                     });
             },
             update: function (verificationId, verification) {
-                return $http.put("/api/insurance/verify", {
-                    verificationId: verificationId,
-                    requestDraft: verification
-                });
-            },
-            submit: function (verificationId, verification) {
-                return $http.post("/api/insurance/verify/submit", {
-                    verificationId: verificationId,
-                    verificationRequest: verification
-                });
+                return $http.put("/api/insurance/verification/{verificationId}"
+                        .replace("{verificationId}", verificationId), {
+                            verificationId: verificationId,
+                            benefits: verification.benefits
+                        });
             },
             approve: function (verificationId, verification) {
-                return $http.post("/api/insurance/verify/approve", {
-                    verificationId: verificationId,
-                    verification: verification
-                });
+                return $http.post("/api/insurance/verification/{verificationId}/approve"
+                        .replace("{verificationId}", verificationId), {
+                            verificationId: verificationId,
+                            benefits: verification.benefits
+                        });
             }
         }
     }]);

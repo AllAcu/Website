@@ -148,7 +148,8 @@ namespace Domain.CareProvider
         {
             RecordEvent(new VerificationUpdated
             {
-
+                VerificationId = command.VerificationId,
+                Benefits = command.Benefits
             });
         }
 
@@ -165,7 +166,7 @@ namespace Domain.CareProvider
 
             RecordEvent(new VerificationApproved
             {
-
+                VerificationId = command.VerificationId
             });
         }
     }

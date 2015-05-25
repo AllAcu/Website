@@ -86,9 +86,10 @@
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientContactInformation.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientInformation.cs" />
+    <Compile Include="CareProvider\Commands\UpdateProvider.cs" />
     <Compile Include="CareProvider\Commands\UpdateVerification.cs" />
     <Compile Include="CareProvider\Commands\UpdateVerificationRequestDraft.cs" />
-    <Compile Include="CareProvider\Commands\VerificationRequest.cs" />
+    <Compile Include="CareProvider\VerificationRequest.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
     <Compile Include="CareProvider\Events\NewProvider.cs" />

@@ -50,11 +50,11 @@ namespace Domain
         public string OfficeVisitCopay { get; set; }
         public bool IsCalendarYearPlan { get; set; }
         public string CalendarYearComments { get; set; }
-        public DateTime CalendarYearPlanEnd { get; set; }
-        public DateTime CalendarYearPlanBegin { get; set; }
+        public DateTime? CalendarYearPlanEnd { get; set; }
+        public DateTime? CalendarYearPlanBegin { get; set; }
         public bool IsDeductable { get; set; }
-        public bool IndividualDeductable { get; set; }
-        public bool IndividualDeductableUsed { get; set; }
+        public string IndividualDeductable { get; set; }
+        public string IndividualDeductableUsed { get; set; }
         public string FamilyDeductable { get; set; }
         public string FamilyDeductableUsed { get; set; }
         public string InsurancePercentResponsibility { get; set; }

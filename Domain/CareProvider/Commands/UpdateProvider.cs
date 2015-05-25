@@ -9,10 +9,10 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
-        public class UpdateVerification : Command<CareProvider>
+        public class UpdateProvider : Command<CareProvider>
         {
-            public Guid VerificationId { get; set; }
-            public Benefits Benefits { get; set; }
+            public Guid ProviderId { get; set; }
+            public string BusinessName { get; set; }
         }
     }
 }

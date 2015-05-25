@@ -9,6 +9,8 @@ namespace Domain.CareProvider
             public string BusinessName { get; set; }
             public string PractitionerName { get; set; }
             public string City { get; set; }
+            public string NpiNumber { get; set; }
+            public string TaxId { get; set; }
         }
     }
 }

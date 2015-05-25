@@ -33,6 +33,7 @@ namespace AllAcu
                 .HasKey(i => i.VerificationId);
             modelBuilder.Entity<InsuranceVerificationForm>()
                 .HasKey(i => i.VerificationId);
+            modelBuilder.ComplexType<InsuranceVerificationForm.RequestInfo>();
             modelBuilder.ComplexType<Benefits>();
 
             modelBuilder.ComplexType<PatientDetails.Verification>();

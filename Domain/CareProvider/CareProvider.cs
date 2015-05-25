@@ -21,7 +21,9 @@ namespace Domain.CareProvider
             {
                 BusinessName = command.BusinessName,
                 PractitionerName = command.PractitionerName,
-                City = command.City
+                City = command.City,
+                NpiNumber = command.NpiNumber,
+                TaxId = command.TaxId
             });
         }
 
@@ -34,6 +36,7 @@ namespace Domain.CareProvider
         public string PractitionerName { get; set; }
         public string City { get; set; }
         public string NpiNumber { get; set; }
+        public string TaxId { get; set; }
 
         public Patient GetPatient(Guid id)
         {
