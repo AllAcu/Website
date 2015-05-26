@@ -69,6 +69,10 @@
                     templateUrl: '/Templates/Verification/insuranceVerificationDetails.html',
                     controller: 'verificationDetails'
                 })
+                .when('/verification/:verificationId/letter', {
+                    templateUrl: '/Templates/Verification/insuranceVerificationLetter.html',
+                    controller: 'verificationDetails'
+                })
                 .when('/verification/:verificationId/edit', {
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestEdit'

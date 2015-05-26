@@ -108,7 +108,7 @@ namespace AllAcu.Models.Providers
         public void UpdateProjection(CareProvider.VerificationDraftCreated @event)
         {
             var patient = GetPatient(@event.PatientId);
-            patient.CurrentVerification = new PatientDetails.Verification
+            patient.CurrentVerification = new PatientDetails.LatestVerification
             {
                 Id = @event.VerificationId,
                 Status = "Draft"

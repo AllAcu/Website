@@ -1,18 +1,8 @@
-﻿<h2>Insurance verification details</h2>
+﻿Specialty {{provder.specialty}}
+Provider {{provider.name}}
+Verification Status {{verification.status}}
 
-<display-field label="Specialty" ng-model="provider.specialty"></display-field>
-<display-field label="Provider" ng-model="provider.name"></display-field>
-<display-field label="Verification Status" ng-model="verifiation.status"></display-field>
-
-<display-field label="Covered for in-network acupuncture services" ng-model="benefits.isCovered"></display-field>
-<display-field label="Requirements or restrictions" ng-model="benefits.IsDiagnosisRequirement"></display-field>
-
-
-Specialty LAc
-Provider Sarit Hirschkorn
-Verification Status Complete
-
-The patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)
+The patient {{benefits.isCovered ? "is" : "is not"}}covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)
 Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)? Yes  only medlly necessary
 Is a Referral Required? Yes From Who?  COMPANY
 Are any Pre-certifications or Pre-authorizations required? Yes   How is it obtained?   call 1800- 242-74747

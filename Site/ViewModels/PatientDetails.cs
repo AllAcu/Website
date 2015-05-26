@@ -14,7 +14,7 @@ namespace AllAcu.Models.Providers
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
-        public Verification CurrentVerification { get; set; } = new Verification();
+        public LatestVerification CurrentVerification { get; set; } = new LatestVerification();
 
         public virtual MedicalInsuranceDetails MedicalInsurance { get; set; }
         public virtual PersonalInjuryProtectionDetails PersonalInjuryProtection { get; set; }
@@ -45,7 +45,7 @@ namespace AllAcu.Models.Providers
             public string Notes { get; set; }
         }
 
-        public class Verification
+        public class LatestVerification
         {
             public Guid Id { get; set; }
             public string Status { get; set; }

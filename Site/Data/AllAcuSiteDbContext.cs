@@ -15,7 +15,7 @@ namespace AllAcu
         public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
         public DbSet<PendingVerificationRequest> VerificationRequestDrafts { get; set; }
         public DbSet<InsuranceVerificationForm> VerificationForms { get; set; }
-        //public DbSet<object> ApprovedVerifications { get; set; }
+        public DbSet<CompletedVerificationDetails> ApprovedVerifications { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -33,10 +33,12 @@ namespace AllAcu
                 .HasKey(i => i.VerificationId);
             modelBuilder.Entity<InsuranceVerificationForm>()
                 .HasKey(i => i.VerificationId);
+            modelBuilder.Entity<CompletedVerificationDetails>()
+                .HasKey(i => i.VerificationId);
             modelBuilder.ComplexType<InsuranceVerificationForm.RequestInfo>();
             modelBuilder.ComplexType<Benefits>();
 
-            modelBuilder.ComplexType<PatientDetails.Verification>();
+            modelBuilder.ComplexType<PatientDetails.LatestVerification>();
 
             modelBuilder.Entity<PatientDetails>()
                 .HasOptional(d => d.MedicalInsurance);
