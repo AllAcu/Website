@@ -15,6 +15,12 @@
                             benefits: verification.benefits
                         });
             },
+            submit: function (verificationId, verification) {
+                return $http.post("/api/insurance/verify/submit", {
+                    verificationId: verificationId,
+                    verificationRequest: verification
+                });
+            },
             approve: function (verificationId, verification) {
                 return $http.post("/api/insurance/verification/{verificationId}/approve"
                         .replace("{verificationId}", verificationId), {

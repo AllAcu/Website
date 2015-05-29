@@ -44,7 +44,7 @@ namespace AllAcu.Controllers.api
         [Route("insurance/pendingVerification/{VerificationId}")]
         public InsuranceVerificationForm GetVerification(Guid verificationId)
         {
-            return allAcuSiteDbContext.VerificationForms.Find(verificationId);
+            return allAcuSiteDbContext.VerificationForms.First(v => v.VerificationId == verificationId);
         }
 
         [Route("insurance/verification/{VerificationId}")]

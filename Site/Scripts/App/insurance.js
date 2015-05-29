@@ -64,6 +64,16 @@
                     $scope.verifications = data;
                 });
 
+            $scope.link = function(verification) {
+                switch (verification.status) {
+                case "Draft":
+                    return "claims/#verification/" + verification.verificationId + "/edit";
+                case "Submitted":
+                    return "claims/#verification/" + verification.verificationId + "/verify";
+                case "Approved":
+                    return "claims/#verification/" + verification.verificationId + "/letter";
+                }
+            };
         }
     ]);
 
@@ -89,7 +99,7 @@
                 });
             }
 
-            $scope.submit = function () {
+            $scope.approve = function () {
                 commands.approve(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
