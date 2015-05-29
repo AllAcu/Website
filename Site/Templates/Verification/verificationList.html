@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="verification in verifications">
-            <td> <a href="claims/#verification/{{verification.verificationId}}/verify">{{verification.patient || "____"}}</a></td>
+            <td> <a href='{{"claims/#verification/" + verification.verificationId + (verification.status !== "Approved" ? "/verify" : "")}}'>{{verification.patient || "____"}}</a></td>
             <td>{{verification.status}}</td>
             <td>{{verification.provider}}</td>
             <td>{{verification.comments}}</td>

@@ -11,7 +11,6 @@ namespace AllAcu
     public class CompletedVerificationDetails
     {
         public Guid VerificationId { get; set; }
-
         public Benefits Benefits { get; set; }
     }
 
@@ -28,7 +27,7 @@ namespace AllAcu
         {
             dbContext.ApprovedVerifications.Add(new CompletedVerificationDetails
             {
-                VerificationId = @event.VerificationId,
+                VerificationId = @event.VerificationId
             });
         }
     }

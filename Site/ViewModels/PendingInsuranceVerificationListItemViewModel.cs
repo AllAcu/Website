@@ -19,6 +19,7 @@ namespace AllAcu
         IUpdateProjectionWhen<CareProvider.VerificationDraftCreated>,
         IUpdateProjectionWhen<CareProvider.VerificationDraftUpdated>,
         IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<CareProvider.VerificationApproved>,
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
@@ -28,13 +29,21 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
+        public void UpdateProjection(CareProvider.VerificationApproved @event)
+        {
+            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            verification.Status = "Approved";
+
+            dbContext.SaveChanges();
+        }
+
         public void UpdateProjection(CareProvider.VerificationDraftCreated @event)
         {
             dbContext.VerificationList.Add(new PendingInsuranceVerificationListItemViewModel
             {
                 VerificationId = @event.VerificationId,
                 PatientId = @event.PatientId,
-                Patient = dbContext.PatientDetails.First(p => p.PatientId == @event.PatientId)?.Name,
+                Patient = dbContext.PatientDetails.Find(@event.PatientId)?.Name,
                 Status = "Draft"
             });
 
@@ -43,7 +52,7 @@ namespace AllAcu
 
         public void UpdateProjection(CareProvider.VerificationDraftUpdated @event)
         {
-            var verification = dbContext.VerificationList.First(p => p.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.VerificationId);
             verification.Provider = @event.Request.Provider;
             verification.Comments = @event.Request.Comments;
 
@@ -52,7 +61,7 @@ namespace AllAcu
 
         public void UpdateProjection(CareProvider.VerificationRequestSubmitted @event)
         {
-            var verification = dbContext.VerificationList.First(p => p.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.VerificationId);
             verification.Status = "Submitted";
 
             dbContext.SaveChanges();

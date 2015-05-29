@@ -41,10 +41,16 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationRequestDrafts.Find(verificationId);
         }
 
-        [Route("insurance/verification/{VerificationId}")]
+        [Route("insurance/pendingVerification/{VerificationId}")]
         public InsuranceVerificationForm GetVerification(Guid verificationId)
         {
             return allAcuSiteDbContext.VerificationForms.Find(verificationId);
+        }
+
+        [Route("insurance/verification/{VerificationId}")]
+        public CompletedVerificationDetails GetApprovedVerification(Guid verificationId)
+        {
+            return allAcuSiteDbContext.ApprovedVerifications.Find(verificationId);
         }
 
         [Route("{PatientId}/insurance/verify"), HttpPost]

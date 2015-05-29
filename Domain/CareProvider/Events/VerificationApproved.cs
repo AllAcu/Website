@@ -9,7 +9,6 @@ namespace Domain.CareProvider
         public class VerificationApproved : Event<CareProvider>
         {
             public Guid VerificationId { get; set; }
-            public Benefits Benefits { get; set; } // TODO (bremor) - want this in the event?
 
             public override void Update(CareProvider provider)
             {

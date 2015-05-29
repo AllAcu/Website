@@ -12,8 +12,22 @@
     ]);
 
     module.controller('verificationDetails', [
-        "$scope", "verificationRepository", function ($scope, verifications) {
+        "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
+            var verificationId = $routeParams["verificationId"];
+            verifications.getApprovedVerification(verificationId)
+                .successs(function (data) {
+                    $scope.benefits = data.benefits;
+                });
+        }
+    ]);
 
+    module.controller('verificationLetter', [
+        "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
+            var verificationId = $routeParams["verificationId"];
+            verifications.getApprovedVerification(verificationId)
+                .success(function (data) {
+                    $scope.benefits = data.benefits;
+                });
         }
     ]);
 

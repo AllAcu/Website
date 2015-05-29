@@ -71,7 +71,7 @@
                 })
                 .when('/verification/:verificationId/letter', {
                     templateUrl: '/Templates/Verification/insuranceVerificationLetter.html',
-                    controller: 'verificationDetails'
+                    controller: 'verificationLetter'
                 })
                 .when('/verification/:verificationId/edit', {
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
