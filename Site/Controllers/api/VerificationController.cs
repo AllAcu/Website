@@ -101,5 +101,15 @@ namespace AllAcu.Controllers.api
 
             providerEventSourcedRepository.Save(provider);
         }
+
+        [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
+        public void ReviseVerification(Guid verificationId, CareProvider.ReviseVerification command)
+        {
+            command.VerificationId = verificationId;
+            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            command.ApplyTo(provider);
+
+            providerEventSourcedRepository.Save(provider);
+        }
     }
 }

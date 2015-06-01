@@ -8,10 +8,10 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
-        public class ApproveVerification : Command<CareProvider>
+        public class ReviseVerification : Command<CareProvider>
         {
             public Guid VerificationId { get; set; }
-            public Benefits Benefits { get; set; }
+            public string Reason { get; set; }
 
             public override IValidationRule<CareProvider> Validator
             {

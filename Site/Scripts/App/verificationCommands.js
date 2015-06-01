@@ -27,6 +27,13 @@
                             verificationId: verificationId,
                             benefits: verification.benefits
                         });
+            },
+            revise: function (verificationId, reason) {
+                return $http.post("/api/insurance/verification/{verificationId}/revise"
+                        .replace("{verificationId}", verificationId), {
+                            verificationId: verificationId,
+                            reason: reason
+                        });
             }
         }
     }]);

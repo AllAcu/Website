@@ -3,11 +3,19 @@
     module.controller('verificationRequestCreate', [
         "$scope", "$routeParams", "$location", "verificationCommands", function ($scope, $routeParams, $location, commands) {
 
+            var patientId = $routeParams["patientId"];
+
             $scope.save = function () {
-                commands.start($routeParams["id"], $scope.verification).success(function () {
-                    $location.path("/patient/" + $routeParams["patientId"]);
+                commands.start(patientId, $scope.verification).success(function () {
+                    $location.path("/patient/" + patientId);
                 });
             }
+            $scope.submit = function () {
+                commands.submit(null, $scope.verification)
+                    .success(function () {
+                        $location.path("/patient/" + patientId);
+                    });
+            };
         }
     ]);
 
@@ -101,6 +109,12 @@
 
             $scope.approve = function () {
                 commands.approve(verificationId, $scope.verification).success(function () {
+                    $location.path("/patient/" + patientId);
+                });
+            }
+
+            $scope.revise = function () {
+                commands.revise(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }

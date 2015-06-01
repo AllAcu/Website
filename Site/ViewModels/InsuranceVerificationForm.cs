@@ -32,7 +32,8 @@ namespace AllAcu
         : IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
             IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
             IUpdateProjectionWhen<CareProvider.VerificationUpdated>,
-            IUpdateProjectionWhen<CareProvider.VerificationApproved>
+            IUpdateProjectionWhen<CareProvider.VerificationApproved>,
+            IUpdateProjectionWhen<CareProvider.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -97,6 +98,13 @@ namespace AllAcu
 
             dbContext.SaveChanges();
         }
-    }
 
+        public void UpdateProjection(CareProvider.VerificationRevised @event)
+        {
+            var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.VerificationId);
+            dbContext.VerificationForms.Remove(form);
+
+            dbContext.SaveChanges();
+        }
+    }
 }

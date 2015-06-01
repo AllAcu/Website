@@ -99,7 +99,8 @@ namespace Domain.CareProvider
             ICommandHandler<CareProvider, UpdateVerificationRequestDraft>,
             ICommandHandler<CareProvider, SubmitVerificationRequest>,
             ICommandHandler<CareProvider, UpdateVerification>,
-            ICommandHandler<CareProvider, ApproveVerification>
+            ICommandHandler<CareProvider, ApproveVerification>,
+            ICommandHandler<CareProvider, ReviseVerification>
         {
             public async Task EnactCommand(CareProvider provider, StartVerificationRequestDraft command)
             {
@@ -199,6 +200,19 @@ namespace Domain.CareProvider
             }
 
             public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<ApproveVerification> command)
+            {
+            }
+
+            public async Task EnactCommand(CareProvider provider, ReviseVerification command)
+            {
+                provider.RecordEvent(new VerificationRevised
+                {
+                    VerificationId = command.VerificationId,
+                    Reason = command.Reason
+                });
+            }
+
+            public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<ReviseVerification> command)
             {
             }
         }

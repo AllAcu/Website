@@ -53,11 +53,7 @@
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
                 })
-                .when('/patient/:id/insurance/verification', {
-                    templateUrl: '/Templates/Verification/verificationList.html',
-                    controller: 'patientVerificationList'
-                })
-                .when('/patient/:id/insurance/verification/start', {
+                .when('/patient/:patientId/insurance/verification/start', {
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestCreate'
                 })

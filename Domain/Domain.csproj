@@ -80,6 +80,7 @@
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
     <Compile Include="CareProvider\Commands\Poke.cs" />
+    <Compile Include="CareProvider\Commands\ReviseVerificaiton.cs" />
     <Compile Include="CareProvider\Commands\StartVerificationRequestDraft.cs" />
     <Compile Include="CareProvider\Commands\SubmitVerificationRequest.cs" />
     <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="CareProvider\Commands\UpdateProvider.cs" />
     <Compile Include="CareProvider\Commands\UpdateVerification.cs" />
     <Compile Include="CareProvider\Commands\UpdateVerificationRequestDraft.cs" />
+    <Compile Include="CareProvider\Events\VerificationRevised.cs" />
     <Compile Include="CareProvider\VerificationRequest.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />

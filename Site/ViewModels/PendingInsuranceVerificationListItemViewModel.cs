@@ -20,6 +20,7 @@ namespace AllAcu
         IUpdateProjectionWhen<CareProvider.VerificationDraftUpdated>,
         IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
         IUpdateProjectionWhen<CareProvider.VerificationApproved>,
+        IUpdateProjectionWhen<CareProvider.VerificationRevised>,
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
@@ -76,6 +77,14 @@ namespace AllAcu
             {
                 verification.Patient = @event.UpdatedName;
             }
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(CareProvider.VerificationRevised @event)
+        {
+            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            verification.Status = "Draft";
 
             dbContext.SaveChanges();
         }
