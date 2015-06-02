@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace Domain.Verification
@@ -8,10 +7,9 @@ namespace Domain.Verification
     {
         public class VerificationRequestSubmitted : Event<InsuranceVerification>
         {
-            public override void Update(InsuranceVerification provider)
+            public override void Update(InsuranceVerification verification)
             {
-                //var draft = provider.PendingVerifications.Single(d => d.Id == VerificationId);
-                //draft.Status = PendingVerification.RequestStatus.Submitted;
+                verification.Status = PendingVerification.RequestStatus.Submitted;
             }
         }
     }

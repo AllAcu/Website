@@ -28,6 +28,7 @@ namespace AllAcu.Models.Providers
             dbContext.PatientDetails.Add(new PatientDetails
             {
                 PatientId = @event.PatientId,
+                ProviderId = @event.AggregateId,
                 Name = @event.Name,
                 DateOfBirth = @event.DateOfBirth.ToShortDateString(),
                 Gender = @event.Gender?.ToString(),

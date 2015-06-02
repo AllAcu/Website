@@ -10,20 +10,13 @@
                                     .replace("{VerificationId}", id));
             },
             getVerification: function (id) {
-                return $http.get("/api/insurance/pendingVerification/{VerificationId}"
+                return $http.get("/api/insurance/verifyRequest/{VerificationId}"
                                     .replace("{VerificationId}", id))
                             .success(function (data) {
                                 var benefits = data.benefits;
                                 benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;
                                 benefits.calendarYearPlanBegin = benefits.calendarYearPlanBegin ? new Date(benefits.calendarYearPlanBegin) : null;
                             });
-            },
-            updateVerification: function (id, verification) {
-                return $http.put("/api/insurance/pendingVerification/{VerificationId}"
-                                    .replace("{VerificationId}", id), {
-                                        verificationId: id,
-                                        benefits: verification
-                                    });
             },
             getApprovedVerification: function (id) {
                 return $http.get("/api/insurance/verification/{VerificationId}"
@@ -33,8 +26,7 @@
                                 benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;
                                 benefits.calendarYearPlanBegin = benefits.calendarYearPlanBegin ? new Date(benefits.calendarYearPlanBegin) : null;
                             });
-            },
-
+            }
         }
     }]);
 })(window.app);

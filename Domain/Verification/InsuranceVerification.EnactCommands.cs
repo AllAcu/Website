@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Its.Domain;
 
 namespace Domain.Verification
@@ -16,32 +12,6 @@ namespace Domain.Verification
             ICommandHandler<InsuranceVerification, ApproveVerification>,
             ICommandHandler<InsuranceVerification, ReviseVerification>
         {
-            //public async Task EnactCommand(CareProvider provider, SubmitVerificationRequest command)
-            //{
-            //    var verificationId = command.VerificationId ?? Guid.NewGuid();
-            //    if (command.VerificationId == null)
-            //    {
-            //        provider.RecordEvent(new VerificationDraftCreated
-            //        {
-            //            VerificationId = verificationId
-            //        });
-            //    }
-
-            //    if (command.VerificationRequest != null)
-            //    {
-            //        provider.RecordEvent(new VerificationDraftUpdated
-            //        {
-            //            VerificationId = verificationId,
-            //            Request = command.VerificationRequest
-            //        });
-            //    }
-
-            //    provider.RecordEvent(new VerificationRequestSubmitted
-            //    {
-            //        VerificationId = verificationId
-            //    });
-            //}
-
             public async Task EnactCommand(InsuranceVerification verification, UpdateVerificationRequestDraft command)
             {
                 verification.RecordEvent(new VerificationDraftUpdated
@@ -88,9 +58,6 @@ namespace Domain.Verification
 
             public async Task EnactCommand(InsuranceVerification verification, SubmitVerificationRequest command)
             {
-                var verificationId = Guid.NewGuid();
-                // terminate old one if it's there
-
 
                 //verification.RecordEvent(new VerificationStarted
                 //{
@@ -103,6 +70,11 @@ namespace Domain.Verification
                 //    VerificationId = verificationId,
                 //    Request = command.RequestDraft
                 //});
+
+                verification.RecordEvent(new VerificationRequestSubmitted
+                {
+                    
+                });
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
@@ -125,36 +97,31 @@ namespace Domain.Verification
             {
             }
         }
-
-    }
-
-    public partial class InsuranceVerification
-    {
-        //public class VerificationCommandHandler :
-        //    ICommandHandler<InsuranceVerification.SubmitVerification>
-        //{
-        //    public async Task EnactCommand(InsuranceVerification verification, InsuranceVerification.SubmitVerification command)
-        //    {
-        //        var verificationId = Guid.NewGuid();
-        //        // terminate old one if it's there
-
-
-        //        provider.RecordEvent(new InsuranceVerification.VerificationStarted
-        //        {
-        //            PatientId = command.PatientId,
-        //            VerificationId = verificationId
-        //        });
-
-        //        provider.RecordEvent(new CareProvider.CareProvider.VerificationDraftUpdated
-        //        {
-        //            VerificationId = verificationId,
-        //            Request = command.RequestDraft
-        //        });
-        //    }
-
-
-        //}
-
-
     }
 }
+
+//public async Task EnactCommand(CareProvider provider, SubmitVerificationRequest command)
+//{
+//    var verificationId = command.VerificationId ?? Guid.NewGuid();
+//    if (command.VerificationId == null)
+//    {
+//        provider.RecordEvent(new VerificationDraftCreated
+//        {
+//            VerificationId = verificationId
+//        });
+//    }
+
+//    if (command.VerificationRequest != null)
+//    {
+//        provider.RecordEvent(new VerificationDraftUpdated
+//        {
+//            VerificationId = verificationId,
+//            Request = command.VerificationRequest
+//        });
+//    }
+
+//    provider.RecordEvent(new VerificationRequestSubmitted
+//    {
+//        VerificationId = verificationId
+//    });
+//}

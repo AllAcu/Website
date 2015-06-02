@@ -2,26 +2,26 @@
 <div>
     <h2>Request an insurance verification</h2>
 
-    <edit-choice label="Specialty" ng-model="verification.specialty" options="[ { label: 'L.Ac', value: 'Acu' } ]"></edit-choice>
+    <edit-choice label="Specialty" ng-model="request.specialty" options="[ { label: 'L.Ac', value: 'Acu' } ]"></edit-choice>
 
     <div class="row">
         <label class="col-md-4">Provider</label>
         <select class="col-md-2"><option>Dummy Provider</option></select>
     </div>
     <label>Are you in network with this insurance company?</label>
-    <edit-yes-no ng-model="verification.isInNetwork"></edit-yes-no>
+    <edit-yes-no ng-model="request.isInNetwork"></edit-yes-no>
 
     <label>Please mark all modalities that you would like us to verify for this patient.</label>
-    <edit-field label="Acupuncture" ng-model="verification.isAcupuncture" type="checkbox"></edit-field>
-    <div ng-show="verification.isAcupuncture">
-        <edit-field label="Tui Na, Moving Cupping" ng-model="verification.isTuiNa" type="checkbox"></edit-field>
-        <edit-field label="Heat Lamp, Gua Sha, Stationary Cupping, Ear Seeds, Liniments/Plasters" ng-model="verification.isHeatLamp" type="checkbox"></edit-field>
-        <edit-field label="Therapeutic Exercises" ng-model="verification.isTheraputicExcercises" type="checkbox"></edit-field>
+    <edit-field label="Acupuncture" ng-model="request.isAcupuncture" type="checkbox"></edit-field>
+    <div ng-show="request.isAcupuncture">
+        <edit-field label="Tui Na, Moving Cupping" ng-model="request.isTuiNa" type="checkbox"></edit-field>
+        <edit-field label="Heat Lamp, Gua Sha, Stationary Cupping, Ear Seeds, Liniments/Plasters" ng-model="request.isHeatLamp" type="checkbox"></edit-field>
+        <edit-field label="Therapeutic Exercises" ng-model="request.isTheraputicExcercises" type="checkbox"></edit-field>
     </div>
-    <edit-field label="Chiropractic" ng-model="verification.isChiropractic" type="checkbox"></edit-field>
-    <edit-field label="Massage Therapy by a LMT" ng-model="verification.isMassageTherapy" type="checkbox"></edit-field>
+    <edit-field label="Chiropractic" ng-model="request.isChiropractic" type="checkbox"></edit-field>
+    <edit-field label="Massage Therapy by a LMT" ng-model="request.isMassageTherapy" type="checkbox"></edit-field>
 
-    <edit-text label="Comments" ng-model="verification.comments"></edit-text>
+    <edit-text label="Comments" ng-model="request.comments"></edit-text>
 
     <button ng-click="save()">Save</button>
     <button ng-click="submit()">Submit</button>

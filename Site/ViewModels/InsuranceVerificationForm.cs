@@ -10,6 +10,9 @@ namespace AllAcu
     {
         public Guid VerificationId { get; set; }
         public Guid PatientId { get; set; }
+        public string Status { get; set; }
+
+        public VerificationRequest VerificationRequest { get; set; }
 
         public RequestInfo Request { get; set; } = new RequestInfo();
         public Benefits Benefits { get; set; } = new Benefits();
@@ -29,12 +32,14 @@ namespace AllAcu
         }
     }
 
-    public class InsuranceVerificationFormEventHandler
-        : IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
-            IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
-            IUpdateProjectionWhen<InsuranceVerification.VerificationUpdated>,
-            IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
-            IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
+    public class InsuranceVerificationFormEventHandler :
+        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationDraftUpdated>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationUpdated>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -43,32 +48,55 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
+        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
         {
-            var verification = dbContext.VerificationRequestDrafts.First(f => f.VerificationId == @event.AggregateId);
-            var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
-            var provider = dbContext.CareProviders.First(p => p.Id == @event.AggregateId);
-
-            var form = new InsuranceVerificationForm
+            var request = new InsuranceVerificationForm
             {
+                PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
-                PatientId = patient.PatientId,
-                Request = new InsuranceVerificationForm.RequestInfo
-                {
-                    InsuranceCarrier = patient.MedicalInsurance != null ? patient.MedicalInsurance.InsuranceCompany : patient.PersonalInjuryProtection.InsuranceCarrier,
-                    InsurancePhoneNumber = patient.MedicalInsurance != null ? patient.MedicalInsurance.ProviderPhoneNumber : patient.PersonalInjuryProtection.AdjusterPhone,
-                    Acupuncturist = provider.PractitionerName,
-                    AcupuncturistNpiNumber = provider.NpiNumber,
-                    AcupuncturistAddress = provider.Address,
-                    AcupuncturistPhoneNumber = provider.PhoneNumber,
-                    AcupuncturistTaxId = provider.TaxId,
-                    PatientName = patient.Name,
-                    PatientDateOfBirth = patient.DateOfBirth,
-                    PatientInsurancePolicy = patient.MedicalInsurance != null ? patient.MedicalInsurance.Plan : patient.PersonalInjuryProtection.ClaimNumber,
-                },
+                VerificationRequest = @event.Request ?? new VerificationRequest(),
+                Status = "Draft"
             };
 
-            dbContext.VerificationForms.Add(form);
+            dbContext.VerificationForms.Add(request);
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
+        {
+            var verification = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
+            verification.VerificationRequest = @event.Request;
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
+        {
+            var verification = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
+            var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
+            var provider = dbContext.CareProviders.First(p => p.Id == patient.ProviderId);
+
+            verification.Status = "Submitted";
+            verification.Request = new InsuranceVerificationForm.RequestInfo
+            {
+                InsuranceCarrier = patient.MedicalInsurance != null
+                    ? patient.MedicalInsurance.InsuranceCompany
+                    : patient.PersonalInjuryProtection.InsuranceCarrier,
+                InsurancePhoneNumber = patient.MedicalInsurance != null
+                    ? patient.MedicalInsurance.ProviderPhoneNumber
+                    : patient.PersonalInjuryProtection.AdjusterPhone,
+                Acupuncturist = provider.PractitionerName,
+                AcupuncturistNpiNumber = provider.NpiNumber,
+                AcupuncturistAddress = provider.Address,
+                AcupuncturistPhoneNumber = provider.PhoneNumber,
+                AcupuncturistTaxId = provider.TaxId,
+                PatientName = patient.Name,
+                PatientDateOfBirth = patient.DateOfBirth,
+                PatientInsurancePolicy = patient.MedicalInsurance != null
+                    ? patient.MedicalInsurance.Plan
+                    : patient.PersonalInjuryProtection.ClaimNumber
+            };
 
             dbContext.SaveChanges();
         }
@@ -80,7 +108,8 @@ namespace AllAcu
             if (form != null)
             {
                 form.Request.PatientName = @event.UpdatedName ?? form.Request.PatientName;
-                form.Request.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ?? form.Request.PatientDateOfBirth;
+                form.Request.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
+                                                  form.Request.PatientDateOfBirth;
             }
         }
 

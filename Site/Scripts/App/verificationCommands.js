@@ -2,38 +2,48 @@
     app.factory('verificationCommands', ['$http', function ($http) {
 
         return {
-            start: function (patientId, verification) {
-                return $http.post("/api/{PatientId}/insurance/verify"
-                    .replace("{PatientId}", patientId), {
-                        requestDraft: verification
-                    });
+            request: {
+                start: function (patientId, request) {
+                    return $http.post("/api/{PatientId}/insurance/verifyRequest"
+                        .replace("{PatientId}", patientId), {
+                            requestDraft: request
+                        });
+                },
+                update: function (verificationId, request) {
+                    return $http.put("/api/insurance/verifyRequest/{VerificationId}"
+                        .replace("{VerificationId}", verificationId), {
+                            requestDraft: request
+                        });
+                },
+                submit: function (verificationId, request) {
+                    return $http.post("api/insurance/verifyRequest/{VerificationId}/submit"
+                        .replace("{VerificationId}", verificationId), {
+                            request: request
+                        });
+                }
             },
-            update: function (verificationId, verification) {
-                return $http.put("/api/insurance/verification/{verificationId}"
+            verification: {
+                update: function (verificationId, verification) {
+                    return $http.put("/api/insurance/verification/{verificationId}"
                         .replace("{verificationId}", verificationId), {
                             verificationId: verificationId,
                             benefits: verification.benefits
                         });
-            },
-            submit: function (verificationId, verification) {
-                return $http.post("/api/insurance/verify/submit", {
-                    verificationId: verificationId,
-                    verificationRequest: verification
-                });
-            },
-            approve: function (verificationId, verification) {
-                return $http.post("/api/insurance/verification/{verificationId}/approve"
+                },
+                approve: function (verificationId, verification) {
+                    return $http.post("/api/insurance/verification/{verificationId}/approve"
                         .replace("{verificationId}", verificationId), {
                             verificationId: verificationId,
                             benefits: verification.benefits
                         });
-            },
-            revise: function (verificationId, reason) {
-                return $http.post("/api/insurance/verification/{verificationId}/revise"
+                },
+                revise: function (verificationId, reason) {
+                    return $http.post("/api/insurance/verification/{verificationId}/revise"
                         .replace("{verificationId}", verificationId), {
                             verificationId: verificationId,
                             reason: reason
                         });
+                }
             }
         }
     }]);

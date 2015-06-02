@@ -10,7 +10,7 @@ namespace Domain.Verification
     {
         public class SubmitVerificationRequest : Command<InsuranceVerification>
         {
-            public VerificationRequest VerificationRequest { get; }
+            public VerificationRequest Request { get; set; }
 
             //public override IValidationRule CommandValidator
             //{

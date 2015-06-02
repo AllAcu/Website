@@ -8,7 +8,7 @@ namespace Domain.Verification
         public class CreateVerification : ConstructorCommand<InsuranceVerification>
         {
             public Guid PatientId { get; set; }
-            public VerificationRequest Request { get; set; }
+            public VerificationRequest RequestDraft { get; set; }
         }
     }
 }

@@ -39,27 +39,16 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verifyRequest/{VerificationId}")]
-        public PendingVerificationRequest GetVerificationRequest(Guid verificationId)
+        public InsuranceVerificationForm GetVerificationRequest(Guid verificationId)
         {
-            return allAcuSiteDbContext.VerificationRequestDrafts.Find(verificationId);
+            return allAcuSiteDbContext.VerificationForms.Find(verificationId);
         }
 
-        [Route("insurance/pendingVerification/{VerificationId}")]
-        public InsuranceVerificationForm GetVerification(Guid verificationId)
-        {
-            return allAcuSiteDbContext.VerificationForms.First(v => v.VerificationId == verificationId);
-        }
-
-        [Route("insurance/verification/{VerificationId}")]
-        public CompletedVerificationDetails GetApprovedVerification(Guid verificationId)
-        {
-            return allAcuSiteDbContext.ApprovedVerifications.Find(verificationId);
-        }
-
-        [Route("{PatientId}/insurance/verify"), HttpPost]
+        [Route("{PatientId}/insurance/verifyRequest"), HttpPost]
         public Guid StartVerification(Guid patientId, InsuranceVerification.CreateVerification command)
         {
             command.AggregateId = Guid.NewGuid();
+            // TODO (bremor) - still a little wonky, and should probably be generated from a patient aggregate?
             command.PatientId = patientId;
             var verification = new InsuranceVerification(command);
             verificationEventSourcedRepository.Save(verification);
@@ -106,6 +95,12 @@ namespace AllAcu.Controllers.api
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
+        }
+
+        [Route("insurance/verification/{VerificationId}")]
+        public CompletedVerificationDetails GetApprovedVerification(Guid verificationId)
+        {
+            return allAcuSiteDbContext.ApprovedVerifications.Find(verificationId);
         }
     }
 }

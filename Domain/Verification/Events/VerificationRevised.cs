@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace Domain.Verification
@@ -10,10 +11,9 @@ namespace Domain.Verification
         {
             public string Reason { get; set; }
 
-            public override void Update(InsuranceVerification provider)
+            public override void Update(InsuranceVerification verification)
             {
-                //var verification = provider.PendingVerifications.Single(p => p.Id == VerificationId);
-                //verification.Status = PendingVerification.RequestStatus.Draft;
+                verification.Status = PendingVerification.RequestStatus.Draft;
             }
         }
     }

@@ -10,10 +10,9 @@ namespace Domain.Verification
         {
             public VerificationRequest Request { get; set; }
 
-            public override void Update(InsuranceVerification provider)
+            public override void Update(InsuranceVerification verification)
             {
-                //provider.PendingVerifications.Single(r => r.Id == VerificationId)
-                //    .Request = Request;
+                verification.Request = Request;
             }
         }
     }
