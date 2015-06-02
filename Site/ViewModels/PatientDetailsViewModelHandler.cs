@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Models.Providers
@@ -10,10 +11,10 @@ namespace AllAcu.Models.Providers
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.PatientContactInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.InsuranceUpdated>,
-        IUpdateProjectionWhen<CareProvider.VerificationDraftCreated>,
-        IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
-        IUpdateProjectionWhen<CareProvider.VerificationApproved>,
-        IUpdateProjectionWhen<CareProvider.VerificationRevised>
+        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -106,7 +107,7 @@ namespace AllAcu.Models.Providers
             return dbContext.PatientDetails.First(p => p.PatientId == patientId);
         }
 
-        public void UpdateProjection(CareProvider.VerificationDraftCreated @event)
+        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
         {
             var patient = GetPatient(@event.PatientId);
             patient.CurrentVerification = new PatientDetails.LatestVerification
@@ -118,7 +119,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationRequestSubmitted @event)
+        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
             var patient = GetPatient(verification.PatientId);
@@ -127,7 +128,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationApproved @event)
+        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
             var patient = GetPatient(verification.PatientId);
@@ -136,7 +137,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationRevised @event)
+        public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
             var patient = GetPatient(verification.PatientId);

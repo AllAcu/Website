@@ -1,6 +1,4 @@
-using System;
-
-namespace Domain.CareProvider
+namespace Domain.Verification
 {
     public class VerificationRequest
     {

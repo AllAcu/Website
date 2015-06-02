@@ -4,11 +4,11 @@ using Its.Validation;
 using Its.Validation.Configuration;
 using Microsoft.Its.Domain;
 
-namespace Domain.CareProvider
+namespace Domain.Verification
 {
-    public partial class CareProvider
+    public partial class InsuranceVerification
     {
-        public class SubmitVerificationRequest : Command<CareProvider>
+        public class SubmitVerificationRequest : Command<InsuranceVerification>
         {
             public SubmitVerificationRequest(Guid? verificationId = null, VerificationRequest verificationRequest = null)
             {
@@ -29,17 +29,17 @@ namespace Domain.CareProvider
                 }
             }
 
-            public override IValidationRule<CareProvider> Validator
-            {
-                get
-                {
-                    return Validate.That<CareProvider>(p => VerificationId == null || p.PendingVerifications.Any(d => d.Id == VerificationId && d.Status == PendingVerification.RequestStatus.Draft))
-                        .WithErrorMessage((ev, pr) => 
-                            pr.PendingVerifications.Any(r => r.Id == VerificationId && r.Status == PendingVerification.RequestStatus.Submitted)
-                                ? "The draft has been submitted"
-                                : "This draft doesn't exist");
-                }
-            }
+            //public override IValidationRule<InsuranceVerification> Validator
+            //{
+            //    get
+            //    {
+            //        return Validate.That<InsuranceVerification>(p => VerificationId == null || p.PendingVerifications.Any(d => d.Id == VerificationId && d.Status == PendingVerification.RequestStatus.Draft))
+            //            .WithErrorMessage((ev, pr) => 
+            //                pr.PendingVerifications.Any(r => r.Id == VerificationId && r.Status == PendingVerification.RequestStatus.Submitted)
+            //                    ? "The draft has been submitted"
+            //                    : "This draft doesn't exist");
+            //    }
+            //}
         }
     }
 }

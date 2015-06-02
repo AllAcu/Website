@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Domain.Authentication;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
@@ -15,12 +16,14 @@ namespace AllAcu.Controllers.api
     public class VerificationController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> providerEventSourcedRepository;
+        private readonly IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository;
         private readonly AllAcuSiteDbContext allAcuSiteDbContext;
 
-        public VerificationController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
+        public VerificationController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository, IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
         {
             this.providerEventSourcedRepository = providerEventSourcedRepository;
             this.allAcuSiteDbContext = allAcuSiteDbContext;
+            this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
 
         [Route("{PatientId}/insurance/verify"), HttpGet]
@@ -54,62 +57,58 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance/verify"), HttpPost]
-        public void StartVerification(Guid patientId, CareProvider.StartVerificationRequestDraft command)
+        public Guid StartVerification(Guid patientId, InsuranceVerification.CreateVerification command)
         {
-            // TODO (brett) - this is a little weird
+            command.AggregateId = Guid.NewGuid();
             command.PatientId = patientId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
+            var verification = new InsuranceVerification(command);
+            verificationEventSourcedRepository.Save(verification);
 
-            providerEventSourcedRepository.Save(provider);
+            return verification.Id;
         }
 
         [Route("insurance/verify"), HttpPut]
-        public void UpdateVerificationRequest(CareProvider.UpdateVerificationRequestDraft command)
+        public void UpdateVerificationRequest(InsuranceVerification.UpdateVerificationRequestDraft command)
         {
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
+            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verify/submit"), HttpPost]
-        public void SubmitVerificationRequest(CareProvider.SubmitVerificationRequest command)
+        public void SubmitVerificationRequest(InsuranceVerification.SubmitVerificationRequest command)
         {
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
+            // TODO (bremor) - account for new verification with no id
+            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId.Value);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}"), HttpPut]
-        public void UpdateVerification(Guid verificationId, CareProvider.UpdateVerification command)
+        public void UpdateVerification(Guid verificationId, InsuranceVerification.UpdateVerification command)
         {
+            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
             command.VerificationId = verificationId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
-        public void ApproveVerification(Guid verificationId, CareProvider.ApproveVerification command)
+        public void ApproveVerification(Guid verificationId, InsuranceVerification.ApproveVerification command)
         {
+            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
             command.VerificationId = verificationId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
-        public void ReviseVerification(Guid verificationId, CareProvider.ReviseVerification command)
+        public void ReviseVerification(Guid verificationId, InsuranceVerification.ReviseVerification command)
         {
+            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
             command.VerificationId = verificationId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
         }
     }
 }

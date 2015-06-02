@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -29,11 +30,11 @@ namespace AllAcu
     }
 
     public class InsuranceVerificationFormEventHandler
-        : IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>,
+        : IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
             IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
-            IUpdateProjectionWhen<CareProvider.VerificationUpdated>,
-            IUpdateProjectionWhen<CareProvider.VerificationApproved>,
-            IUpdateProjectionWhen<CareProvider.VerificationRevised>
+            IUpdateProjectionWhen<InsuranceVerification.VerificationUpdated>,
+            IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
+            IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -42,7 +43,7 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(CareProvider.VerificationRequestSubmitted @event)
+        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
             var verification = dbContext.VerificationRequestDrafts.First(f => f.VerificationId == @event.VerificationId);
             var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
@@ -83,7 +84,7 @@ namespace AllAcu
             }
         }
 
-        public void UpdateProjection(CareProvider.VerificationUpdated @event)
+        public void UpdateProjection(InsuranceVerification.VerificationUpdated @event)
         {
             var form = dbContext.VerificationForms.Find(@event.VerificationId);
             form.Benefits = @event.Benefits.ToBenefits();
@@ -91,7 +92,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationApproved @event)
+        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
             var form = dbContext.VerificationForms.Find(@event.VerificationId);
             dbContext.VerificationForms.Remove(form);
@@ -99,7 +100,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationRevised @event)
+        public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
             var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.VerificationId);
             dbContext.VerificationForms.Remove(form);

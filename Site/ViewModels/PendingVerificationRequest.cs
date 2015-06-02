@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -14,9 +15,9 @@ namespace AllAcu
     }
 
     public class PendingVerificationRequestHandler :
-        IUpdateProjectionWhen<CareProvider.VerificationDraftCreated>,
-        IUpdateProjectionWhen<CareProvider.VerificationDraftUpdated>,
-        IUpdateProjectionWhen<CareProvider.VerificationRequestSubmitted>
+        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationDraftUpdated>,
+        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>
     {
         private AllAcuSiteDbContext dbContext;
         public PendingVerificationRequestHandler(AllAcuSiteDbContext dbContext)
@@ -24,7 +25,7 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(CareProvider.VerificationDraftCreated @event)
+        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
         {
             var request = new PendingVerificationRequest
             {
@@ -39,7 +40,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationDraftUpdated @event)
+        public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
         {
             var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.VerificationId);
 
@@ -48,7 +49,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.VerificationRequestSubmitted @event)
+        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
             var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.VerificationId);
             dbContext.VerificationRequestDrafts.Remove(request);

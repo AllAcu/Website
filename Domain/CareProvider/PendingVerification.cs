@@ -1,4 +1,5 @@
 using System;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider

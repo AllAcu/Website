@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
@@ -95,125 +96,17 @@ namespace Domain.CareProvider
         }
 
         public class VerificationCommandHandler :
-            ICommandHandler<CareProvider, StartVerificationRequestDraft>,
-            ICommandHandler<CareProvider, UpdateVerificationRequestDraft>,
-            ICommandHandler<CareProvider, SubmitVerificationRequest>,
-            ICommandHandler<CareProvider, UpdateVerification>,
-            ICommandHandler<CareProvider, ApproveVerification>,
-            ICommandHandler<CareProvider, ReviseVerification>
+            ICommandHandler<CareProvider, StartVerificationRequestDraft>
         {
-            public async Task EnactCommand(CareProvider provider, StartVerificationRequestDraft command)
+            public Task EnactCommand(CareProvider aggregate, StartVerificationRequestDraft command)
             {
-                var verificationId = Guid.NewGuid();
-                // terminate old one if it's there
-
-                provider.RecordEvent(new VerificationDraftCreated
-                {
-                    PatientId = command.PatientId,
-                    VerificationId = verificationId
-                });
-
-                provider.RecordEvent(new VerificationDraftUpdated
-                {
-                    VerificationId = verificationId,
-                    Request = command.RequestDraft
-                });
+                throw new NotImplementedException();
             }
 
             public async Task HandleScheduledCommandException(CareProvider provider,
                 CommandFailed<StartVerificationRequestDraft> command)
             {
-            }
-
-            public async Task EnactCommand(CareProvider provider, UpdateVerificationRequestDraft command)
-            {
-                provider.RecordEvent(new VerificationDraftUpdated
-                {
-                    VerificationId = command.VerificationId,
-                    Request = command.RequestDraft
-                });
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider aggregate,
-                CommandFailed<UpdateVerificationRequestDraft> command)
-            {
-            }
-
-            public async Task EnactCommand(CareProvider provider, SubmitVerificationRequest command)
-            {
-                var verificationId = command.VerificationId ?? Guid.NewGuid();
-                if (command.VerificationId == null)
-                {
-                    provider.RecordEvent(new VerificationDraftCreated
-                    {
-                        VerificationId = verificationId
-                    });
-                }
-
-                if (command.VerificationRequest != null)
-                {
-                    provider.RecordEvent(new VerificationDraftUpdated
-                    {
-                        VerificationId = verificationId,
-                        Request = command.VerificationRequest
-                    });
-                }
-
-                provider.RecordEvent(new VerificationRequestSubmitted
-                {
-                    VerificationId = verificationId
-                });
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<SubmitVerificationRequest> command)
-            {
-            }
-
-            public async Task EnactCommand(CareProvider provider, UpdateVerification command)
-            {
-                provider.RecordEvent(new VerificationUpdated
-                {
-                    VerificationId = command.VerificationId,
-                    Benefits = command.Benefits
-                });
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<UpdateVerification> command)
-            {
-            }
-
-            public async Task EnactCommand(CareProvider provider, ApproveVerification command)
-            {
-                if (command.Benefits != null)
-                {
-                    provider.RecordEvent(new VerificationUpdated
-                    {
-                        VerificationId = command.VerificationId,
-                        Benefits = command.Benefits
-                    });
-                }
-
-                provider.RecordEvent(new VerificationApproved
-                {
-                    VerificationId = command.VerificationId
-                });
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<ApproveVerification> command)
-            {
-            }
-
-            public async Task EnactCommand(CareProvider provider, ReviseVerification command)
-            {
-                provider.RecordEvent(new VerificationRevised
-                {
-                    VerificationId = command.VerificationId,
-                    Reason = command.Reason
-                });
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<ReviseVerification> command)
-            {
+                await Task.FromResult(0);
             }
         }
 

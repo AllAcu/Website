@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -15,7 +12,7 @@ namespace AllAcu
     }
 
     public class CompletedVerificationDetailsEventHandler
-        : IUpdateProjectionWhen<CareProvider.VerificationApproved>
+        : IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>
     {
         private readonly AllAcuSiteDbContext dbContext;
         public CompletedVerificationDetailsEventHandler(AllAcuSiteDbContext dbContext)
@@ -23,7 +20,7 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(CareProvider.VerificationApproved @event)
+        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
             dbContext.ApprovedVerifications.Add(new CompletedVerificationDetails
             {

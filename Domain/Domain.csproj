@@ -76,21 +76,21 @@
     <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
-    <Compile Include="CareProvider\Commands\ApproveVerification.cs" />
+    <Compile Include="Verification\Commands\ApproveVerification.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
     <Compile Include="CareProvider\Commands\Poke.cs" />
-    <Compile Include="CareProvider\Commands\ReviseVerificaiton.cs" />
+    <Compile Include="Verification\Commands\ReviseVerificaiton.cs" />
     <Compile Include="CareProvider\Commands\StartVerificationRequestDraft.cs" />
-    <Compile Include="CareProvider\Commands\SubmitVerificationRequest.cs" />
+    <Compile Include="Verification\Commands\SubmitVerificationRequest.cs" />
     <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientContactInformation.cs" />
     <Compile Include="CareProvider\Commands\UpdatePatientInformation.cs" />
     <Compile Include="CareProvider\Commands\UpdateProvider.cs" />
-    <Compile Include="CareProvider\Commands\UpdateVerification.cs" />
-    <Compile Include="CareProvider\Commands\UpdateVerificationRequestDraft.cs" />
-    <Compile Include="CareProvider\Events\VerificationRevised.cs" />
+    <Compile Include="Verification\Commands\UpdateVerification.cs" />
+    <Compile Include="Verification\Commands\UpdateVerificationRequestDraft.cs" />
+    <Compile Include="Verification\Events\VerificationRevised.cs" />
     <Compile Include="CareProvider\VerificationRequest.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
@@ -99,11 +99,10 @@
     <Compile Include="CareProvider\Events\PatientContactInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\Poked.cs" />
-    <Compile Include="CareProvider\Events\VerificationApproved.cs" />
-    <Compile Include="CareProvider\Events\VerificationDraftCreated.cs" />
-    <Compile Include="CareProvider\Events\VerificationRequestSubmitted.cs" />
-    <Compile Include="CareProvider\Events\VerificationDraftUpdated.cs" />
-    <Compile Include="CareProvider\Events\VerificationUpdated.cs" />
+    <Compile Include="Verification\Events\VerificationApproved.cs" />
+    <Compile Include="Verification\Events\VerificationRequestSubmitted.cs" />
+    <Compile Include="Verification\Events\VerificationDraftUpdated.cs" />
+    <Compile Include="Verification\Events\VerificationUpdated.cs" />
     <Compile Include="CareProvider\Gender.cs" />
     <Compile Include="CareProvider\GroupNumber.cs" />
     <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />
@@ -135,6 +134,9 @@
     <Compile Include="Repository\ClaimsProcessReadModelDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Verification\Commands\CreateVerification.cs" />
+    <Compile Include="Verification\Events\VerificationStarted.cs" />
+    <Compile Include="Verification\InsuranceVerification.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +146,7 @@
     <None Include="app.config" />
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />
     <None Include="packages.config" />
+    <Compile Include="Verification\InsuranceVerification.EnactCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

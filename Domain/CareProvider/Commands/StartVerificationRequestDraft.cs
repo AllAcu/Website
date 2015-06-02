@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Domain.Verification;
 using Its.Validation;
 using Its.Validation.Configuration;
 using Microsoft.Its.Domain;
