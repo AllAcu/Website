@@ -94,21 +94,5 @@ namespace Domain.CareProvider
                 PokeId = command.PokeId
             });
         }
-
-        public class VerificationCommandHandler :
-            ICommandHandler<CareProvider, StartVerificationRequestDraft>
-        {
-            public Task EnactCommand(CareProvider aggregate, StartVerificationRequestDraft command)
-            {
-                throw new NotImplementedException();
-            }
-
-            public async Task HandleScheduledCommandException(CareProvider provider,
-                CommandFailed<StartVerificationRequestDraft> command)
-            {
-                await Task.FromResult(0);
-            }
-        }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.CareProvider;
 using Domain.Verification;
 using Microsoft.Its.Domain;
 
@@ -24,7 +23,7 @@ namespace AllAcu
         {
             dbContext.ApprovedVerifications.Add(new CompletedVerificationDetails
             {
-                VerificationId = @event.VerificationId
+                VerificationId = @event.AggregateId
             });
         }
     }

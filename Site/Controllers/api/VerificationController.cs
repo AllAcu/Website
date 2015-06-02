@@ -67,19 +67,19 @@ namespace AllAcu.Controllers.api
             return verification.Id;
         }
 
-        [Route("insurance/verify"), HttpPut]
-        public void UpdateVerificationRequest(InsuranceVerification.UpdateVerificationRequestDraft command)
+        [Route("insurance/verifyRequest/{VerificationId}"), HttpPut]
+        public void UpdateVerificationRequest(Guid verificationId, InsuranceVerification.UpdateVerificationRequestDraft command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }
 
-        [Route("insurance/verify/submit"), HttpPost]
-        public void SubmitVerificationRequest(InsuranceVerification.SubmitVerificationRequest command)
+        [Route("insurance/verifyRequest/{VerificationId}/submit"), HttpPost]
+        public void SubmitVerificationRequest(Guid verificationId, InsuranceVerification.SubmitVerificationRequest command)
         {
             // TODO (bremor) - account for new verification with no id
-            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId.Value);
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }
@@ -87,8 +87,7 @@ namespace AllAcu.Controllers.api
         [Route("insurance/verification/{VerificationId}"), HttpPut]
         public void UpdateVerification(Guid verificationId, InsuranceVerification.UpdateVerification command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
-            command.VerificationId = verificationId;
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }
@@ -96,8 +95,7 @@ namespace AllAcu.Controllers.api
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
         public void ApproveVerification(Guid verificationId, InsuranceVerification.ApproveVerification command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
-            command.VerificationId = verificationId;
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }
@@ -105,8 +103,7 @@ namespace AllAcu.Controllers.api
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
         public void ReviseVerification(Guid verificationId, InsuranceVerification.ReviseVerification command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(command.VerificationId);
-            command.VerificationId = verificationId;
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }

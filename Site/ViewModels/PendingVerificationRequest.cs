@@ -30,8 +30,8 @@ namespace AllAcu
             var request = new PendingVerificationRequest
             {
                 PatientId = @event.PatientId,
-                VerificationId = @event.VerificationId,
-                Request = new VerificationRequest(),
+                VerificationId = @event.AggregateId,
+                Request = @event.Request ?? new VerificationRequest(),
                 Status = "Draft"
             };
 
@@ -42,7 +42,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
         {
-            var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.VerificationId);
+            var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.AggregateId);
 
             request.Request = @event.Request;
 
@@ -51,7 +51,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
-            var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.VerificationId);
+            var request = dbContext.VerificationRequestDrafts.First(v => v.VerificationId == @event.AggregateId);
             dbContext.VerificationRequestDrafts.Remove(request);
             dbContext.SaveChanges();
         }

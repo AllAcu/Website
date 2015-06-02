@@ -81,7 +81,6 @@
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
     <Compile Include="CareProvider\Commands\Poke.cs" />
     <Compile Include="Verification\Commands\ReviseVerificaiton.cs" />
-    <Compile Include="CareProvider\Commands\StartVerificationRequestDraft.cs" />
     <Compile Include="Verification\Commands\SubmitVerificationRequest.cs" />
     <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />

@@ -33,7 +33,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
-            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Approved";
 
             dbContext.SaveChanges();
@@ -43,7 +43,7 @@ namespace AllAcu
         {
             dbContext.VerificationList.Add(new PendingInsuranceVerificationListItemViewModel
             {
-                VerificationId = @event.VerificationId,
+                VerificationId = @event.AggregateId,
                 PatientId = @event.PatientId,
                 Patient = dbContext.PatientDetails.Find(@event.PatientId)?.Name,
                 Status = "Draft"
@@ -54,7 +54,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
         {
-            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Provider = @event.Request.Provider;
             verification.Comments = @event.Request.Comments;
 
@@ -63,7 +63,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
-            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Submitted";
 
             dbContext.SaveChanges();
@@ -84,7 +84,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
-            var verification = dbContext.VerificationList.Find(@event.VerificationId);
+            var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Draft";
 
             dbContext.SaveChanges();

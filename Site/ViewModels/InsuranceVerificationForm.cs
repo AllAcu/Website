@@ -45,13 +45,13 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
-            var verification = dbContext.VerificationRequestDrafts.First(f => f.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationRequestDrafts.First(f => f.VerificationId == @event.AggregateId);
             var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
             var provider = dbContext.CareProviders.First(p => p.Id == @event.AggregateId);
 
             var form = new InsuranceVerificationForm
             {
-                VerificationId = @event.VerificationId,
+                VerificationId = @event.AggregateId,
                 PatientId = patient.PatientId,
                 Request = new InsuranceVerificationForm.RequestInfo
                 {
@@ -86,7 +86,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationUpdated @event)
         {
-            var form = dbContext.VerificationForms.Find(@event.VerificationId);
+            var form = dbContext.VerificationForms.Find(@event.AggregateId);
             form.Benefits = @event.Benefits.ToBenefits();
 
             dbContext.SaveChanges();
@@ -94,7 +94,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
-            var form = dbContext.VerificationForms.Find(@event.VerificationId);
+            var form = dbContext.VerificationForms.Find(@event.AggregateId);
             dbContext.VerificationForms.Remove(form);
 
             dbContext.SaveChanges();
@@ -102,7 +102,7 @@ namespace AllAcu
 
         public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
-            var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.VerificationId);
+            var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
             dbContext.VerificationForms.Remove(form);
 
             dbContext.SaveChanges();

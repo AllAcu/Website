@@ -8,7 +8,6 @@ namespace Domain.Verification
     {
         public class VerificationRevised : Event<InsuranceVerification>
         {
-            public Guid VerificationId { get; set; }
             public string Reason { get; set; }
 
             public override void Update(InsuranceVerification provider)

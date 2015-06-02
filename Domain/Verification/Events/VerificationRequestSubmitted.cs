@@ -8,7 +8,6 @@ namespace Domain.Verification
     {
         public class VerificationRequestSubmitted : Event<InsuranceVerification>
         {
-            public Guid VerificationId { get; set; }
             public override void Update(InsuranceVerification provider)
             {
                 //var draft = provider.PendingVerifications.Single(d => d.Id == VerificationId);

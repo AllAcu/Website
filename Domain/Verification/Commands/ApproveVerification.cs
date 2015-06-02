@@ -10,7 +10,6 @@ namespace Domain.Verification
     {
         public class ApproveVerification : Command<InsuranceVerification>
         {
-            public Guid VerificationId { get; set; }
             public Benefits Benefits { get; set; }
 
             //public override IValidationRule<InsuranceVerification> Validator

@@ -46,7 +46,6 @@ namespace Domain.Verification
             {
                 verification.RecordEvent(new VerificationDraftUpdated
                 {
-                    VerificationId = command.VerificationId,
                     Request = command.RequestDraft
                 });
             }
@@ -55,7 +54,6 @@ namespace Domain.Verification
             {
                 verification.RecordEvent(new VerificationUpdated
                 {
-                    VerificationId = command.VerificationId,
                     Benefits = command.Benefits
                 });
             }
@@ -66,14 +64,12 @@ namespace Domain.Verification
                 {
                     verification.RecordEvent(new VerificationUpdated
                     {
-                        VerificationId = command.VerificationId,
                         Benefits = command.Benefits
                     });
                 }
 
                 verification.RecordEvent(new VerificationApproved
                 {
-                    VerificationId = command.VerificationId
                 });
             }
 
@@ -81,7 +77,6 @@ namespace Domain.Verification
             {
                 verification.RecordEvent(new VerificationRevised
                 {
-                    VerificationId = command.VerificationId,
                     Reason = command.Reason
                 });
             }

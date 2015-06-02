@@ -11,7 +11,6 @@ namespace Domain.Verification
     {
         public class VerificationUpdated : Event<InsuranceVerification>
         {
-            public Guid VerificationId { get; set; }
             public Benefits Benefits { get; set; }
 
             public override void Update(InsuranceVerification provider)

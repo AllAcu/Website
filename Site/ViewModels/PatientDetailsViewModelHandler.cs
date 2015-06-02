@@ -112,7 +112,7 @@ namespace AllAcu.Models.Providers
             var patient = GetPatient(@event.PatientId);
             patient.CurrentVerification = new PatientDetails.LatestVerification
             {
-                Id = @event.VerificationId,
+                Id = @event.AggregateId,
                 Status = "Draft"
             };
 
@@ -121,7 +121,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Submitted";
 
@@ -130,7 +130,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Approved";
 
@@ -139,7 +139,7 @@ namespace AllAcu.Models.Providers
 
         public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.VerificationId);
+            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Draft";
 

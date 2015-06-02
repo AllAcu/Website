@@ -10,14 +10,7 @@ namespace Domain.Verification
     {
         public class UpdateVerificationRequestDraft : Command<InsuranceVerification>
         {
-            public Guid VerificationId { get; }
             public VerificationRequest RequestDraft { get; }
-
-            public UpdateVerificationRequestDraft(Guid verificationId, VerificationRequest requestDraft)
-            {
-                VerificationId = verificationId;
-                RequestDraft = requestDraft;
-            }
 
             //public override IValidationRule<InsuranceVerification> Validator
             //{

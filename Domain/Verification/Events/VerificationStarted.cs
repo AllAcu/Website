@@ -7,11 +7,13 @@ namespace Domain.Verification
     {
         public class VerificationStarted : Event<InsuranceVerification>
         {
-            public Guid VerificationId { get; set; }
             public Guid PatientId { get; set; }
+            public VerificationRequest Request { get; set; }
 
-            public override void Update(InsuranceVerification aggregate)
+            public override void Update(InsuranceVerification verification)
             {
+                PatientId = PatientId;
+                Request = Request;
             }
         }
     }

@@ -10,24 +10,17 @@ namespace Domain.Verification
     {
         public class SubmitVerificationRequest : Command<InsuranceVerification>
         {
-            public SubmitVerificationRequest(Guid? verificationId = null, VerificationRequest verificationRequest = null)
-            {
-                VerificationRequest = verificationRequest;
-                VerificationId = verificationId;
-            }
-
-            public Guid? VerificationId { get; }
             public VerificationRequest VerificationRequest { get; }
 
-            public override IValidationRule CommandValidator
-            {
-                get
-                {
-                    return Validate.That<SubmitVerificationRequest>(
-                        command => command.VerificationId != null || VerificationRequest != null)
-                        .WithMessage("Must supply a request if not submitting an existing one");
-                }
-            }
+            //public override IValidationRule CommandValidator
+            //{
+            //    get
+            //    {
+            //        return Validate.That<SubmitVerificationRequest>(
+            //            command => command.VerificationId != null || VerificationRequest != null)
+            //            .WithMessage("Must supply a request if not submitting an existing one");
+            //    }
+            //}
 
             //public override IValidationRule<InsuranceVerification> Validator
             //{
