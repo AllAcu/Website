@@ -48,8 +48,7 @@
                         '<label>{{label}}</label>' +
                     '</div>' +
                     '<label class="col-md-3" ng-repeat="(key, value) in options">' +
-                            '<input type="radio" ng-model="$parent.ngModel" ng-value="{{value.value}}">' +
-                            '{{value.label}}' +
+                            '<input type="radio" ng-model="$parent.ngModel" value="{{value.value}}">{{value.label}}' +
                     '</label>' +
                 '</div>'
         };
@@ -61,10 +60,19 @@
             require: 'ngModel',
             scope: {
                 label: "@label",
-                ngModel: "=ngModel",
-                options: "=options"
+                ngModel: "=ngModel"
             },
-            template: "<edit-choice ng-model='ngModel' options='[{ label: \"Yes\", value: \"true\"}, { label: \"No\", value: \"false\" }]'></edit-choice>"
+            template: '<div class="row">' +
+                    '<div class="col-md-2">' +
+                        '<label>{{label}}</label>' +
+                    '</div>' +
+                    '<label class="col-md-3">' +
+                        '<input type="radio" ng-model="ngModel" ng-value="true">Yes' +
+                    '</label>' +
+                    '<label class="col-md-3">' +
+                        '<input type="radio" ng-model="ngModel" ng-value="false">No' +
+                    '</label>' +
+                '</div>'
         };
     });
 
