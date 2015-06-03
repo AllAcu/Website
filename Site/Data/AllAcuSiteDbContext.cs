@@ -36,7 +36,7 @@ namespace AllAcu
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
 
-            modelBuilder.ComplexType<InsuranceVerificationForm.RequestInfo>();
+            modelBuilder.ComplexType<InsuranceVerificationForm.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
 
             modelBuilder.ComplexType<PatientDetails.LatestVerification>();

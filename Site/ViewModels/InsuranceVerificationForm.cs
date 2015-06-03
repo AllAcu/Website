@@ -12,12 +12,11 @@ namespace AllAcu
         public Guid PatientId { get; set; }
         public string Status { get; set; }
 
-        public VerificationRequest VerificationRequest { get; set; }
-
-        public RequestInfo Request { get; set; } = new RequestInfo();
+        public VerificationRequest Request { get; set; }
+        public PatientInfo Patient { get; set; } = new PatientInfo();
         public Benefits Benefits { get; set; } = new Benefits();
 
-        public class RequestInfo
+        public class PatientInfo
         {
             public string InsuranceCarrier { get; set; }
             public string InsurancePhoneNumber { get; set; }
@@ -54,7 +53,7 @@ namespace AllAcu
             {
                 PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
-                VerificationRequest = @event.Request ?? new VerificationRequest(),
+                Request = @event.Request ?? new VerificationRequest(),
                 Status = "Draft"
             };
 
@@ -66,7 +65,7 @@ namespace AllAcu
         public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
         {
             var verification = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
-            verification.VerificationRequest = @event.Request;
+            verification.Request = @event.Request;
 
             dbContext.SaveChanges();
         }
@@ -78,7 +77,7 @@ namespace AllAcu
             var provider = dbContext.CareProviders.First(p => p.Id == patient.ProviderId);
 
             verification.Status = "Submitted";
-            verification.Request = new InsuranceVerificationForm.RequestInfo
+            verification.Patient = new InsuranceVerificationForm.PatientInfo
             {
                 InsuranceCarrier = patient.MedicalInsurance != null
                     ? patient.MedicalInsurance.InsuranceCompany
@@ -107,9 +106,9 @@ namespace AllAcu
 
             if (form != null)
             {
-                form.Request.PatientName = @event.UpdatedName ?? form.Request.PatientName;
-                form.Request.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
-                                                  form.Request.PatientDateOfBirth;
+                form.Patient.PatientName = @event.UpdatedName ?? form.Patient.PatientName;
+                form.Patient.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
+                                                  form.Patient.PatientDateOfBirth;
             }
         }
 

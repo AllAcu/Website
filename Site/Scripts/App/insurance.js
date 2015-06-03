@@ -11,7 +11,7 @@
                 });
             }
             $scope.submit = function () {
-                commands.request.submit(null, $scope.request)
+                commands.request.submitNew(patientId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });

@@ -56,6 +56,23 @@ namespace AllAcu.Controllers.api
             return verification.Id;
         }
 
+        [Route("{PatientId}/insurance/verifyRequest/submit"), HttpPost]
+        public void CreateAndSubmitVerificationRequest(Guid patientId, InsuranceVerification.SubmitVerificationRequest submitCommand)
+        {
+            // kind of hacky
+            var createCommmand = new InsuranceVerification.CreateVerification
+            {
+                AggregateId = Guid.NewGuid(),
+                PatientId = patientId,
+                RequestDraft = submitCommand.Request
+            };
+
+            var verification = new InsuranceVerification(createCommmand);
+
+            submitCommand.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
+        }
+
         [Route("insurance/verifyRequest/{VerificationId}"), HttpPut]
         public void UpdateVerificationRequest(Guid verificationId, InsuranceVerification.UpdateVerificationRequestDraft command)
         {
@@ -67,7 +84,6 @@ namespace AllAcu.Controllers.api
         [Route("insurance/verifyRequest/{VerificationId}/submit"), HttpPost]
         public void SubmitVerificationRequest(Guid verificationId, InsuranceVerification.SubmitVerificationRequest command)
         {
-            // TODO (bremor) - account for new verification with no id
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);

@@ -9,6 +9,12 @@
                             requestDraft: request
                         });
                 },
+                submitNew: function (patientId, request) {
+                    return $http.post("/api/{PatientId}/insurance/verifyRequest/submit"
+                        .replace("{PatientId}", patientId), {
+                            request: request
+                        });
+                },
                 update: function (verificationId, request) {
                     return $http.put("/api/insurance/verifyRequest/{VerificationId}"
                         .replace("{VerificationId}", verificationId), {
@@ -16,7 +22,7 @@
                         });
                 },
                 submit: function (verificationId, request) {
-                    return $http.post("api/insurance/verifyRequest/{VerificationId}/submit"
+                    return $http.post("/api/insurance/verifyRequest/{VerificationId}/submit"
                         .replace("{VerificationId}", verificationId), {
                             request: request
                         });
