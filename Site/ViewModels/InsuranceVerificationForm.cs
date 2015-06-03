@@ -131,7 +131,7 @@ namespace AllAcu
         public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
         {
             var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
-            dbContext.VerificationForms.Remove(form);
+            form.Status = "Draft";
 
             dbContext.SaveChanges();
         }

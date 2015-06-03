@@ -28,10 +28,29 @@
     module.controller('patientDetails', [
         "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
 
-            $scope.patient = {};
+            $scope.patient = { };
             $patients.details($routeParams["id"]).success(function (data) {
                 $scope.patient = data;
             });
+
+            $scope.insuranceLinks = {
+                create: function () {
+                    return $scope.patient.currentVerification && (!$scope.patient.currentVerification.status ||
+                        $scope.patient.currentVerification.status === "Approved");
+                },
+                editRequest: function () {
+                    return $scope.patient.currentVerification &&
+                        $scope.patient.currentVerification.status === "Draft";
+                },
+                viewSubmitted: function () {
+                    return $scope.patient.currentVerification &&
+                        $scope.patient.currentVerification.status === 'Submitted';
+                },
+                viewVerification: function () {
+                    return $scope.patient.currentVerification &&
+                        $scope.patient.currentVerification.status === 'Approved';
+                }
+            }
         }
     ]);
 
