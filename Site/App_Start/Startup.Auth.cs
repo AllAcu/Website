@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens;
 using System.Linq;
 using AllAcu.Models;
 using AllAcu.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -18,14 +21,12 @@ namespace AllAcu
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static string PublicClientId { get; private set; }
-
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         internal void ConfigureAuth(IAppBuilder app, PocketContainer container)
         {
-            // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(() => new AuthorizationDbContext());
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            container.Register<IUserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(c.Resolve<AuthorizationDbContext>()));
+            container.Register(c => app.GetDataProtectionProvider());
+            container.Register< ISecureDataFormat<AuthenticationTicket>>(c => new Microsoft.Owin.Security.Jwt.JwtFormat(new TokenValidationParameters()));
+
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -33,11 +34,11 @@ namespace AllAcu
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow
-            PublicClientId = "self";
+            ApplicationOAuthProvider.PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
+                Provider = container.Resolve<ApplicationOAuthProvider>(),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true

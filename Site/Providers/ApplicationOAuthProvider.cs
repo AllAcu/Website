@@ -15,22 +15,16 @@ namespace AllAcu.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private readonly string _publicClientId;
+        private readonly ApplicationUserManager userManager;
+        public static string PublicClientId;
 
-        public ApplicationOAuthProvider(string publicClientId)
+        public ApplicationOAuthProvider(ApplicationUserManager userManager)
         {
-            if (publicClientId == null)
-            {
-                throw new ArgumentNullException("publicClientId");
-            }
-
-            _publicClientId = publicClientId;
+            this.userManager = userManager;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
@@ -73,7 +67,7 @@ namespace AllAcu.Providers
 
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            if (context.ClientId == _publicClientId)
+            if (context.ClientId == PublicClientId)
             {
                 Uri expectedRootUri = new Uri(context.Request.Uri, "/");
 
