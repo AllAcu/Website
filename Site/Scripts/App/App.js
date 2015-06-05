@@ -22,8 +22,12 @@
                     controller: 'claimsList'
                 })
                 .when('/login', {
-                    templateUrl: '/Templates/login.html',
+                    templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController'
+                })
+                .when('/users/create', {
+                    templateUrl: '/Templates/Users/create.html',
+                    controller: 'userCreateController'
                 })
                 .when('/patient', {
                     templateUrl: '/Templates/Patients/patientList.html',

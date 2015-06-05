@@ -204,6 +204,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.Cqrs.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\CareProviderIdFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -242,11 +243,11 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\App\authCommands.js" />
+    <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />
     <Content Include="Scripts\App\insurance.js" />
-    <Content Include="Scripts\App\login.js" />
+    <Content Include="Scripts\App\users.js" />
     <Content Include="Scripts\App\patientCommands.js" />
     <Content Include="Scripts\App\patients.js" />
     <Content Include="Scripts\App\providers.js" />
@@ -260,6 +261,7 @@
     <Content Include=".config\dev\DatabaseConnections.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="App_Start\Startup.Container.cs" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />
@@ -279,7 +281,8 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
-    <Content Include="Templates\login.html" />
+    <Content Include="Templates\Users\create.html" />
+    <Content Include="Templates\Users\login.html" />
     <Content Include="Templates\Patients\details.html" />
     <Content Include="Templates\Patients\inputMedicalInsurance.html" />
     <Content Include="Templates\Patients\inputPersonalInjuryProtection.html" />

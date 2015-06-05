@@ -1,4 +1,5 @@
 ﻿{
     "EventStore": "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial catalog=EventStore;AttachDBFilename=|DataDirectory|\\eventStore.mdf",
-    "AllAcu" : "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite;AttachDBFilename=|DataDirectory|\\allacu.mdf"
+    "AllAcu" : "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=AllAcuSite;AttachDBFilename=|DataDirectory|\\allacu.mdf",
+    "Authentication" : "Data Source=(LocalDb)\\allAcu; Integrated Security=True; MultipleActiveResultSets=False; Initial Catalog=Authentication;AttachDBFilename=|DataDirectory|\\allacu.mdf"
 }

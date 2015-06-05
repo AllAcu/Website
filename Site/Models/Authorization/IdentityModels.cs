@@ -18,16 +18,12 @@ namespace AllAcu.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AuthorizationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public static string ConnectionString;
+
+        public AuthorizationDbContext() : base(ConnectionString, throwIfV1Schema: false)
         {
-        }
-        
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
     }
 }

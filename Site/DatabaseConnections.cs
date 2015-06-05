@@ -10,5 +10,6 @@ namespace AllAcu
     {
         public string EventStore { get; set; }
         public string AllAcu { get; set; }
+        public string Authentication { get; set; }
     }
 }
