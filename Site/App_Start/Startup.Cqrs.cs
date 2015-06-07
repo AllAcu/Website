@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using AllAcu.Models;
+using AllAcu.Models.Providers;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
@@ -16,6 +17,8 @@ namespace AllAcu
 {
     public partial class Startup
     {
+        protected IDisposable _eventSubscriptions;
+
         internal void ConfigureCqrs(IAppBuilder app, PocketContainer container)
         {
             var dbConnections = Settings.Get<DatabaseConnections>();
@@ -41,6 +44,13 @@ namespace AllAcu
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));
             container.RegisterSingle(c => catchup);
             catchup.PollEventStore();
+
+            _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
+                container.Resolve<InsuranceVerificationViewModelHandler>(),
+                container.Resolve<PatientDetailsViewModelHandler>(),
+                container.Resolve<PatientListItemViewModelHandler>(),
+                container.Resolve<InsuranceVerificationFormEventHandler>()
+                );
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");
