@@ -62,6 +62,13 @@
                         return "claims/#verification/" + verification.verificationId + "/letter";
                 }
             };
+
+            $scope.refresh = function() {
+                verifications.findAll()
+                    .success(function (data) {
+                        $scope.verifications = data;
+                    });
+            }
         }
     ]);
 

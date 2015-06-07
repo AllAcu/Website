@@ -22,7 +22,8 @@ namespace AllAcu.Models
     {
         public static string ConnectionString;
 
-        public AuthorizationDbContext() : base(ConnectionString, throwIfV1Schema: false)
+        public AuthorizationDbContext() 
+            : base(ConnectionString, throwIfV1Schema: false)
         {
         }
     }

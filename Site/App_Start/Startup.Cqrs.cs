@@ -64,6 +64,8 @@ namespace AllAcu
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };
+
+            Microsoft.Its.Domain.Configuration.Current.UseSqlEventStore();
         }
     }
 }

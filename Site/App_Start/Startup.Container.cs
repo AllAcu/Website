@@ -6,9 +6,9 @@ namespace AllAcu
 {
     public partial class Startup
     {
-        internal void ConfigureContainer(IAppBuilder app, PocketContainer container)
+        internal void ConfigureContainer(IAppBuilder app, PocketContainer container, HttpConfiguration httpConfig)
         {
-            GlobalConfiguration.Configuration.ResolveDependenciesUsing(container);
+            httpConfig.ResolveDependenciesUsing(container);
         }
     }
 }

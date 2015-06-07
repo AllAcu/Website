@@ -15,13 +15,11 @@ namespace AllAcu.Controllers.api
     [RoutePrefix("api")]
     public class VerificationController : ApiController
     {
-        private readonly IEventSourcedRepository<CareProvider> providerEventSourcedRepository;
         private readonly IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository;
         private readonly AllAcuSiteDbContext allAcuSiteDbContext;
 
-        public VerificationController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository, IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
+        public VerificationController(IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
         {
-            this.providerEventSourcedRepository = providerEventSourcedRepository;
             this.allAcuSiteDbContext = allAcuSiteDbContext;
             this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
@@ -32,6 +30,7 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList.Where(v => v.PatientId == patientId);
         }
 
+        //[Authorize]
         [Route("insurance/verify"), HttpGet]
         public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItems()
         {

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens;
-using System.Linq;
 using AllAcu.Models;
 using AllAcu.Providers;
 using Microsoft.AspNet.Identity;
@@ -9,8 +6,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataHandler;
+using Microsoft.Owin.Security.DataHandler.Serializer;
 using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Pocket;
@@ -24,9 +22,17 @@ namespace AllAcu
         internal void ConfigureAuth(IAppBuilder app, PocketContainer container)
         {
             container.Register<IUserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(c.Resolve<AuthorizationDbContext>()));
-            container.Register(c => app.GetDataProtectionProvider());
-            container.Register< ISecureDataFormat<AuthenticationTicket>>(c => new Microsoft.Owin.Security.Jwt.JwtFormat(new TokenValidationParameters()));
 
+            container.Register<IDataSerializer<AuthenticationTicket>>(c => c.Resolve<TicketSerializer>());
+
+            container.Register(c => app.GetDataProtectionProvider());
+            container.Register<ISecureDataFormat<AuthenticationTicket>>(c => c.Resolve<SecureDataFormat<AuthenticationTicket>>());
+
+            app.CreatePerOwinContext(() => container.Resolve<AuthorizationDbContext>());
+            app.CreatePerOwinContext<ApplicationUserManager>((o, c) => container.Resolve<ApplicationUserManager>());
+
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

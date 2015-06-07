@@ -17,7 +17,7 @@ namespace AllAcu
 
             routes.MapRoute(
                 name: "claims",
-                url: "Claims/",
+                url: "claims/",
                 defaults: new { controller = "Claims", action = "Index" }
             );
 

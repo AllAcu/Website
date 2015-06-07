@@ -10,7 +10,7 @@ namespace AllAcu
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        public static void Configure(HttpConfiguration config)
         {
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
