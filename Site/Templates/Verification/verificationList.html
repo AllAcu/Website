@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="verification in verifications">
+        <tr ng-repeat="verification in verifications()">
             <td> <a href='{{link(verification)}}'>{{verification.patient || "____"}}</a></td>
             <td>{{verification.status}}</td>
             <td>{{verification.provider}}</td>

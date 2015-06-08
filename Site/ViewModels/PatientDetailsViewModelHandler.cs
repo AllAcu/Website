@@ -11,10 +11,10 @@ namespace AllAcu.Models.Providers
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.PatientContactInformationUpdated>,
         IUpdateProjectionWhen<CareProvider.InsuranceUpdated>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationApproved>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -108,7 +108,7 @@ namespace AllAcu.Models.Providers
             return dbContext.PatientDetails.First(p => p.PatientId == patientId);
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationStarted @event)
         {
             var patient = GetPatient(@event.PatientId);
             patient.CurrentVerification = new PatientDetails.LatestVerification
@@ -120,7 +120,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRequestSubmitted @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);
@@ -129,7 +129,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationApproved @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);
@@ -138,7 +138,7 @@ namespace AllAcu.Models.Providers
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRevised @event)
         {
             var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
             var patient = GetPatient(verification.PatientId);

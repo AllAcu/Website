@@ -4,25 +4,25 @@
         return {
             request: {
                 start: function (patientId, request) {
-                    return $http.post("/api/{PatientId}/insurance/verifyRequest"
+                    return $http.post("/api/{PatientId}/insurance/verification/request"
                         .replace("{PatientId}", patientId), {
                             requestDraft: request
                         });
                 },
                 submitNew: function (patientId, request) {
-                    return $http.post("/api/{PatientId}/insurance/verifyRequest/submit"
+                    return $http.post("/api/{PatientId}/insurance/verification/submit"
                         .replace("{PatientId}", patientId), {
                             request: request
                         });
                 },
                 update: function (verificationId, request) {
-                    return $http.put("/api/insurance/verifyRequest/{VerificationId}"
+                    return $http.put("/api/insurance/verification/{VerificationId}/request"
                         .replace("{VerificationId}", verificationId), {
                             requestDraft: request
                         });
                 },
                 submit: function (verificationId, request) {
-                    return $http.post("/api/insurance/verifyRequest/{VerificationId}/submit"
+                    return $http.post("/api/insurance/verification/{VerificationId}/submit"
                         .replace("{VerificationId}", verificationId), {
                             request: request
                         });

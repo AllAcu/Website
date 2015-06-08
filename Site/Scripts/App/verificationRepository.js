@@ -1,24 +1,15 @@
 ﻿(function (app) {
     app.factory('verificationRepository', ['$http', function ($http) {
 
+        var verifications = [];
+
+        $http.get("/api/insurance/verification")
+            .success(function (data) {
+                verifications = data;
+            });
+
         return {
-            findAll: function () {
-                return $http.get("/api/insurance/verify");
-            },
-            getRequest: function (id) {
-                return $http.get("/api/insurance/verifyRequest/{VerificationId}"
-                                    .replace("{VerificationId}", id));
-            },
             getVerification: function (id) {
-                return $http.get("/api/insurance/verifyRequest/{VerificationId}"
-                                    .replace("{VerificationId}", id))
-                            .success(function (data) {
-                                var benefits = data.benefits;
-                                benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;
-                                benefits.calendarYearPlanBegin = benefits.calendarYearPlanBegin ? new Date(benefits.calendarYearPlanBegin) : null;
-                            });
-            },
-            getApprovedVerification: function (id) {
                 return $http.get("/api/insurance/verification/{VerificationId}"
                                     .replace("{VerificationId}", id))
                             .success(function (data) {
@@ -26,6 +17,15 @@
                                 benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;
                                 benefits.calendarYearPlanBegin = benefits.calendarYearPlanBegin ? new Date(benefits.calendarYearPlanBegin) : null;
                             });
+            },
+            verifications: function() {
+                return verifications;
+            },
+            touch: function() {
+                $http.get("/api/insurance/verification")
+                    .success(function (data) {
+                        verifications = data;
+                    });
             }
         }
     }]);

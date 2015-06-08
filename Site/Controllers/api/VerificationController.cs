@@ -15,73 +15,65 @@ namespace AllAcu.Controllers.api
     [RoutePrefix("api")]
     public class VerificationController : ApiController
     {
-        private readonly IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository;
+        private readonly IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository;
         private readonly AllAcuSiteDbContext allAcuSiteDbContext;
 
-        public VerificationController(IEventSourcedRepository<InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
+        public VerificationController(IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
         {
             this.allAcuSiteDbContext = allAcuSiteDbContext;
             this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
 
-        [Route("{PatientId}/insurance/verify"), HttpGet]
+        [Route("{PatientId}/insurance/verification"), HttpGet]
         public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetListViewItems(Guid patientId)
         {
             return allAcuSiteDbContext.VerificationList.Where(v => v.PatientId == patientId);
         }
 
         //[Authorize]
-        [Route("insurance/verify"), HttpGet]
+        [Route("insurance/verification"), HttpGet]
         public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItems()
         {
             return allAcuSiteDbContext.VerificationList;
         }
 
-        [Route("insurance/verifyRequest/{VerificationId}")]
-        public InsuranceVerificationForm GetVerificationRequest(Guid verificationId)
+        [Route("insurance/verification/{VerificationId}")]
+        public InsuranceVerification GetVerification(Guid verificationId)
         {
-            return allAcuSiteDbContext.VerificationForms.Find(verificationId);
+            return allAcuSiteDbContext.Verifications.Find(verificationId);
         }
 
-        [Route("{PatientId}/insurance/verifyRequest"), HttpPost]
-        public Guid StartVerification(Guid patientId, InsuranceVerification.CreateVerification command)
+        [Route("{PatientId}/insurance/verification/request"), HttpPost]
+        public Guid StartVerification(Guid patientId, Domain.Verification.InsuranceVerification.CreateVerification command)
         {
             command.AggregateId = Guid.NewGuid();
             // TODO (bremor) - still a little wonky, and should probably be generated from a patient aggregate?
             command.PatientId = patientId;
-            var verification = new InsuranceVerification(command);
+            var verification = new Domain.Verification.InsuranceVerification(command);
             verificationEventSourcedRepository.Save(verification);
 
             return verification.Id;
         }
 
-        [Route("{PatientId}/insurance/verifyRequest/submit"), HttpPost]
-        public void CreateAndSubmitVerificationRequest(Guid patientId, InsuranceVerification.SubmitVerificationRequest submitCommand)
+        [Route("{PatientId}/insurance/verification/submit"), HttpPost]
+        public void CreateAndSubmitVerificationRequest(Guid patientId, Domain.Verification.InsuranceVerification.SubmitVerificationRequest submitCommand)
         {
             // kind of hacky
-            var createCommmand = new InsuranceVerification.CreateVerification
+            var createCommmand = new Domain.Verification.InsuranceVerification.CreateVerification
             {
                 AggregateId = Guid.NewGuid(),
                 PatientId = patientId,
                 RequestDraft = submitCommand.Request
             };
 
-            var verification = new InsuranceVerification(createCommmand);
+            var verification = new Domain.Verification.InsuranceVerification(createCommmand);
 
             submitCommand.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
         }
 
-        [Route("insurance/verifyRequest/{VerificationId}"), HttpPut]
-        public void UpdateVerificationRequest(Guid verificationId, InsuranceVerification.UpdateVerificationRequestDraft command)
-        {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
-        }
-
-        [Route("insurance/verifyRequest/{VerificationId}/submit"), HttpPost]
-        public void SubmitVerificationRequest(Guid verificationId, InsuranceVerification.SubmitVerificationRequest command)
+        [Route("insurance/verification/{VerificationId}/request"), HttpPut]
+        public void UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateVerificationRequestDraft command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -89,7 +81,15 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}"), HttpPut]
-        public void UpdateVerification(Guid verificationId, InsuranceVerification.UpdateVerification command)
+        public void UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateVerification command)
+        {
+            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            command.ApplyTo(verification);
+            verificationEventSourcedRepository.Save(verification);
+        }
+
+        [Route("insurance/verification/{VerificationId}/submit"), HttpPost]
+        public void SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitVerificationRequest command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -97,7 +97,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
-        public void ApproveVerification(Guid verificationId, InsuranceVerification.ApproveVerification command)
+        public void ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ApproveVerification command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -105,17 +105,11 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
-        public void ReviseVerification(Guid verificationId, InsuranceVerification.ReviseVerification command)
+        public void ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReviseVerification command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
             verificationEventSourcedRepository.Save(verification);
-        }
-
-        [Route("insurance/verification/{VerificationId}")]
-        public CompletedVerificationDetails GetApprovedVerification(Guid verificationId)
-        {
-            return allAcuSiteDbContext.ApprovedVerifications.Find(verificationId);
         }
     }
 }

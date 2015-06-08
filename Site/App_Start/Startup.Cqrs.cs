@@ -38,7 +38,7 @@ namespace AllAcu
 
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<CareProvider>());
-            container.Register(typeof(IEventSourcedRepository<InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<InsuranceVerification>());
+            container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
 
             var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes().Select(handlerType => container.Resolve(handlerType)).ToArray()));
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));
@@ -56,7 +56,7 @@ namespace AllAcu
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };
-            Command<InsuranceVerification>.AuthorizeDefault = (provider, command) => {
+            Command<Domain.Verification.InsuranceVerification>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };

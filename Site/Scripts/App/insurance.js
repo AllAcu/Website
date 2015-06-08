@@ -23,7 +23,7 @@
         "$scope", "$routeParams", "$location", "verificationRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, commands) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
-            verifications.getRequest(verificationId)
+            verifications.getVerification(verificationId)
                 .success(function (data) {
                     $scope.request = data.request;
                     patientId = data.patientId;
@@ -45,12 +45,9 @@
     ]);
 
     module.controller('verifyInsuranceList', [
-        "$scope", "verificationRepository", function ($scope, verifications) {
+        "$scope", "verificationRepository", function ($scope, repo) {
 
-            verifications.findAll()
-                .success(function (data) {
-                    $scope.verifications = data;
-                });
+            $scope.verifications = repo.verifications;
 
             $scope.link = function (verification) {
                 switch (verification.status) {
@@ -64,10 +61,7 @@
             };
 
             $scope.refresh = function() {
-                verifications.findAll()
-                    .success(function (data) {
-                        $scope.verifications = data;
-                    });
+                repo.touch();
             }
         }
     ]);
@@ -111,7 +105,7 @@
     module.controller('verificationDetails', [
     "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
         var verificationId = $routeParams["verificationId"];
-        verifications.getApprovedVerification(verificationId)
+        verifications.getVerification(verificationId)
             .success(function (data) {
                 $scope.benefits = data.benefits;
             });
@@ -121,12 +115,11 @@
     module.controller('verificationLetter', [
         "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
             var verificationId = $routeParams["verificationId"];
-            verifications.getApprovedVerification(verificationId)
+            verifications.getVerification(verificationId)
                 .success(function (data) {
                     $scope.benefits = data.benefits;
                 });
         }
     ]);
-
 
 }(angular.module("insuranceApp")));

@@ -13,8 +13,7 @@ namespace AllAcu
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
         public DbSet<PatientDetails> PatientDetails { get; set; }
         public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
-        public DbSet<InsuranceVerificationForm> VerificationForms { get; set; }
-        public DbSet<CompletedVerificationDetails> ApprovedVerifications { get; set; }
+        public DbSet<InsuranceVerification> Verifications { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -28,17 +27,14 @@ namespace AllAcu
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<PendingInsuranceVerificationListItemViewModel>()
                 .HasKey(i => i.VerificationId);
-            modelBuilder.Entity<InsuranceVerificationForm>()
-                .HasKey(i => i.VerificationId);
-            modelBuilder.Entity<CompletedVerificationDetails>()
+            modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId);
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
 
-            modelBuilder.ComplexType<InsuranceVerificationForm.PatientInfo>();
+            modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
-
             modelBuilder.ComplexType<PatientDetails.LatestVerification>();
 
             modelBuilder.Entity<PatientDetails>()

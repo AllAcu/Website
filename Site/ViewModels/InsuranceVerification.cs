@@ -6,7 +6,7 @@ using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class InsuranceVerificationForm
+    public class InsuranceVerification
     {
         public Guid VerificationId { get; set; }
         public Guid PatientId { get; set; }
@@ -32,13 +32,13 @@ namespace AllAcu
     }
 
     public class InsuranceVerificationFormEventHandler :
-        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationDraftUpdated>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationDraftUpdated>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRequestSubmitted>,
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationUpdated>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationUpdated>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationApproved>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRevised>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -47,9 +47,9 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationStarted @event)
         {
-            var request = new InsuranceVerificationForm
+            var request = new InsuranceVerification
             {
                 PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
@@ -57,27 +57,27 @@ namespace AllAcu
                 Status = "Draft"
             };
 
-            dbContext.VerificationForms.Add(request);
+            dbContext.Verifications.Add(request);
 
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationDraftUpdated @event)
         {
-            var verification = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             verification.Request = @event.Request;
 
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRequestSubmitted @event)
         {
-            var verification = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
             var provider = dbContext.CareProviders.First(p => p.Id == patient.ProviderId);
 
             verification.Status = "Submitted";
-            verification.Patient = new InsuranceVerificationForm.PatientInfo
+            verification.Patient = new InsuranceVerification.PatientInfo
             {
                 InsuranceCarrier = patient.MedicalInsurance != null
                     ? patient.MedicalInsurance.InsuranceCompany
@@ -102,36 +102,36 @@ namespace AllAcu
 
         public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
         {
-            var form = dbContext.VerificationForms.SingleOrDefault(f => f.PatientId == @event.PatientId);
+            var verification = dbContext.Verifications.SingleOrDefault(f => f.PatientId == @event.PatientId);
 
-            if (form != null)
+            if (verification != null)
             {
-                form.Patient.PatientName = @event.UpdatedName ?? form.Patient.PatientName;
-                form.Patient.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
-                                                  form.Patient.PatientDateOfBirth;
+                verification.Patient.PatientName = @event.UpdatedName ?? verification.Patient.PatientName;
+                verification.Patient.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
+                                                  verification.Patient.PatientDateOfBirth;
             }
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationUpdated @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationUpdated @event)
         {
-            var form = dbContext.VerificationForms.Find(@event.AggregateId);
-            form.Benefits = @event.Benefits.ToBenefits();
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Benefits = @event.Benefits.ToBenefits();
 
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationApproved @event)
         {
-            var form = dbContext.VerificationForms.Find(@event.AggregateId);
-            dbContext.VerificationForms.Remove(form);
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Status = "Approved";
 
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRevised @event)
         {
-            var form = dbContext.VerificationForms.First(f => f.VerificationId == @event.AggregateId);
-            form.Status = "Draft";
+            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
+            verification.Status = "Draft";
 
             dbContext.SaveChanges();
         }

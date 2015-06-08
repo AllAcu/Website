@@ -17,11 +17,11 @@ namespace AllAcu
     }
 
     public class InsuranceVerificationViewModelHandler :
-        IUpdateProjectionWhen<InsuranceVerification.VerificationStarted>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationDraftUpdated>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRequestSubmitted>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationApproved>,
-        IUpdateProjectionWhen<InsuranceVerification.VerificationRevised>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationStarted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationDraftUpdated>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRequestSubmitted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationApproved>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.VerificationRevised>,
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
@@ -31,7 +31,7 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationApproved @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationApproved @event)
         {
             var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Approved";
@@ -39,7 +39,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationStarted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationStarted @event)
         {
             dbContext.VerificationList.Add(new PendingInsuranceVerificationListItemViewModel
             {
@@ -52,7 +52,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationDraftUpdated @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationDraftUpdated @event)
         {
             var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Provider = @event.Request.Provider;
@@ -61,7 +61,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRequestSubmitted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRequestSubmitted @event)
         {
             var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Submitted";
@@ -82,7 +82,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(InsuranceVerification.VerificationRevised @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationRevised @event)
         {
             var verification = dbContext.VerificationList.Find(@event.AggregateId);
             verification.Status = "Draft";
