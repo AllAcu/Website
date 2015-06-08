@@ -219,9 +219,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DatabaseConnections.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\Authorization\AccountBindingModels.cs" />
     <Compile Include="Models\Authorization\AccountViewModels.cs" />
     <Compile Include="Models\Authorization\IdentityModels.cs" />
@@ -243,7 +240,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\App\userCommands.js" />
