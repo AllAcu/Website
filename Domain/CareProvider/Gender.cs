@@ -20,7 +20,7 @@ namespace Domain
             if (string.Compare(value, "Male", StringComparison.OrdinalIgnoreCase) == 0)
                 return Male;
             if (string.Compare(value, "Female", StringComparison.OrdinalIgnoreCase) == 0)
-                return Male;
+                return Female;
             throw new ArgumentException($"Not a recognized gender: {value}");
 
         }
