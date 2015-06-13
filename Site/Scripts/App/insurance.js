@@ -61,7 +61,7 @@
             };
 
             $scope.refresh = function() {
-                repo.touch();
+                repo.refresh();
             }
         }
     ]);

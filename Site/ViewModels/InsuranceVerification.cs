@@ -29,6 +29,13 @@ namespace AllAcu
             public string PatientDateOfBirth { get; set; }
             public string PatientInsurancePolicy { get; set; }
         }
+
+        public string Approval { get; set; }
+        public string ServiceCenterRepresentative { get; set; }
+        public string CallReferenceNumber { get; set; }
+        public string CallTime { get; set; }
+        public string AssignedTo { get; set; }
+        public DateTimeOffset? ApprovedTimestamp { get; set; }
     }
 
     public class InsuranceVerificationFormEventHandler :

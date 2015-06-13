@@ -6,17 +6,17 @@ namespace AllAcu
     {
         public bool IsCovered { get; set; }
         public bool IsDiagnosisRequirement { get; set; }
+        public string DiagnosisRequirement { get; set; }
         public bool IsReferralRequired { get; set; }
         public string ReferralSource { get; set; }
         public bool IsPreCertificationRequired { get; set; }
-        public string DiagnosisRequirement { get; set; }
         public string PreCertification { get; set; }
         public bool IsOfficeVisitCopay { get; set; }
         public string OfficeVisitCopay { get; set; }
         public bool IsCalendarYearPlan { get; set; }
         public string CalendarYearComments { get; set; }
-        public DateTime? CalendarYearPlanEnd { get; set; }
         public DateTime? CalendarYearPlanBegin { get; set; }
+        public DateTime? CalendarYearPlanEnd { get; set; }
         public bool IsDeductable { get; set; }
         public string IndividualDeductable { get; set; }
         public string IndividualDeductableUsed { get; set; }
@@ -36,12 +36,6 @@ namespace AllAcu
         public string AnnualVisitsRemaining { get; set; }
         public bool IsBillableForCode99203 { get; set; }
         public string OtherLimits { get; set; }
-
-        //public string Approval { get; set; }
-        //public string ServiceCenterRepresentative { get; set; }
-        //public string CallReferenceNumber { get; set; }
-        //public string CallTime { get; set; }
-        //public string AssignedTo { get; set; }
     }
 
 

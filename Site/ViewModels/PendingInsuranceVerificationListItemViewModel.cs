@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Domain.CareProvider;
-using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -10,10 +9,8 @@ namespace AllAcu
     {
         public Guid VerificationId { get; set; }
         public Guid PatientId { get; set; }
-        public string Patient { get; set; }
+        public string PatientName { get; set; }
         public string Status { get; set; }
-        public string Provider { get; set; }
-        public string Comments { get; set; }
     }
 
     public class InsuranceVerificationViewModelHandler :
@@ -45,7 +42,7 @@ namespace AllAcu
             {
                 VerificationId = @event.AggregateId,
                 PatientId = @event.PatientId,
-                Patient = dbContext.PatientDetails.Find(@event.PatientId)?.Name,
+                PatientName = dbContext.PatientDetails.Find(@event.PatientId)?.Name,
                 Status = "Draft"
             });
 
@@ -55,8 +52,6 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.VerificationDraftUpdated @event)
         {
             var verification = dbContext.VerificationList.Find(@event.AggregateId);
-            verification.Provider = @event.Request.Provider;
-            verification.Comments = @event.Request.Comments;
 
             dbContext.SaveChanges();
         }
@@ -76,7 +71,7 @@ namespace AllAcu
             var verifications = dbContext.VerificationList.Where(v => v.PatientId == @event.PatientId);
             foreach (var verification in verifications)
             {
-                verification.Patient = @event.UpdatedName;
+                verification.PatientName = @event.UpdatedName;
             }
 
             dbContext.SaveChanges();
