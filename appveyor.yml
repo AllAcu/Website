@@ -15,7 +15,7 @@ deploy:
   website: AllAcu
   username: WDeployAdmin
   password:
-    secure: bV5ieY1+BR+y1jdDh08nQA==
+    secure: oCXLjrJ9korA6mfdwsI0MA==
   ntlm: true
   remove_files: true
   artifact: 
