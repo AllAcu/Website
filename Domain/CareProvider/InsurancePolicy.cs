@@ -71,12 +71,16 @@ namespace Domain
         public string AnnualVisitsRemaining { get; set; }
         public bool IsBillableForCode99203 { get; set; }
         public string OtherLimits { get; set; }
-        //public string Approval { get; set; }
-        //public string ServiceCenterRepresentative { get; set; }
-        //public string CallReferenceNumber { get; set; }
-        //public string CallTime { get; set; }
-        //public string AssignedTo { get; set; }
     }
+
+    public class InsuranceCompanyCall
+    {
+        public string ServiceCenterRepresentative { get; set; }
+        public string CallReferenceNumber { get; set; }
+        public string CallTime { get; set; }
+        public string AssignedTo { get; set; }
+    }
+
 
     public abstract class InsurancePolicy
     {

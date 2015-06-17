@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Its.Domain;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 namespace Domain.Verification
 {
@@ -99,29 +100,4 @@ namespace Domain.Verification
         }
     }
 }
-
-//public async Task EnactCommand(CareProvider provider, SubmitVerificationRequest command)
-//{
-//    var verificationId = command.VerificationId ?? Guid.NewGuid();
-//    if (command.VerificationId == null)
-//    {
-//        provider.RecordEvent(new VerificationDraftCreated
-//        {
-//            VerificationId = verificationId
-//        });
-//    }
-
-//    if (command.VerificationRequest != null)
-//    {
-//        provider.RecordEvent(new VerificationDraftUpdated
-//        {
-//            VerificationId = verificationId,
-//            Request = command.VerificationRequest
-//        });
-//    }
-
-//    provider.RecordEvent(new VerificationRequestSubmitted
-//    {
-//        VerificationId = verificationId
-//    });
-//}
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
