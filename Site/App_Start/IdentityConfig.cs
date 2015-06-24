@@ -7,7 +7,7 @@ namespace AllAcu
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider, AuthorizationDbContext dbContext)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
             UserValidator = new UserValidator<ApplicationUser>(this)

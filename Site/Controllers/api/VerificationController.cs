@@ -30,9 +30,15 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList.Where(v => v.PatientId == patientId);
         }
 
-        //[Authorize]
         [Route("insurance/verification"), HttpGet]
         public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItems()
+        {
+            return allAcuSiteDbContext.VerificationList;
+        }
+
+        [Authorize]
+        [Route("insurance/verification2"), HttpGet]
+        public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItemsAuthorized()
         {
             return allAcuSiteDbContext.VerificationList;
         }

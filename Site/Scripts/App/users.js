@@ -5,8 +5,9 @@
 
             $scope.login = function() {
                 commands.login($scope.userName, $scope.password)
-                    .success(function(data) {
-                        console.log(data);
+                    .success(function (data) {
+                        window.sessionStorage.setItem("accessToken", data.access_token);
+                        console.log(window.sessionStorage.getItem("accessToken"));
                     });
             }
         }
