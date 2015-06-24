@@ -25,6 +25,8 @@ namespace AllAcu
             ConfigureCqrs(app, container);
             ConfigureContainer(app, container, httpConfiguration);
             ConfigureAuth(app, container);
+
+            app.UseWebApi(httpConfiguration);
         }
     }
 }
