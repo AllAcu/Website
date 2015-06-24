@@ -1,13 +1,12 @@
 ﻿(function (module) {
 
     module.controller('loginController', [
-        '$scope', 'userCommands', function($scope, commands) {
+        '$scope', 'userCommands', 'authToken', function($scope, commands, authToken) {
 
             $scope.login = function() {
                 commands.login($scope.userName, $scope.password)
                     .success(function (data) {
-                        window.sessionStorage.setItem("accessToken", data.access_token);
-                        console.log(window.sessionStorage.getItem("accessToken"));
+                        authToken.set(data.access_token);
                     });
             }
         }

@@ -255,6 +255,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\App\api.js" />
+    <Content Include="Scripts\App\authToken.js" />
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />

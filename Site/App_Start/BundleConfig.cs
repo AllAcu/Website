@@ -24,6 +24,7 @@ namespace AllAcu
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app")
+                .Include("~/Scripts/App/app.js")
                 .IncludeDirectory("~/Scripts/App", "*.js", true));
         }
     }
