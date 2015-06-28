@@ -88,7 +88,7 @@
                 });
             }
 
-            $scope.approve = function () {
+            $scope.complete = function () {
                 commands.verification.approve(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Its.Domain;
+﻿using Microsoft.Its.Domain;
 
 namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class VerificationUpdated : Event<InsuranceVerification>
+        public class Updated : Event<InsuranceVerification>
         {
             public Benefits Benefits { get; set; }
 

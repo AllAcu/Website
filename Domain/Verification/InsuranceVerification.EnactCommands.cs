@@ -7,57 +7,57 @@ namespace Domain.Verification
     public partial class InsuranceVerification
     {
         public class VerificationCommandHandler :
-            ICommandHandler<InsuranceVerification, UpdateVerificationRequestDraft>,
-            ICommandHandler<InsuranceVerification, SubmitVerificationRequest>,
-            ICommandHandler<InsuranceVerification, UpdateVerification>,
-            ICommandHandler<InsuranceVerification, ApproveVerification>,
-            ICommandHandler<InsuranceVerification, ReviseVerification>
+            ICommandHandler<InsuranceVerification, UpdateRequestDraft>,
+            ICommandHandler<InsuranceVerification, SubmitRequest>,
+            ICommandHandler<InsuranceVerification, Update>,
+            ICommandHandler<InsuranceVerification, VerifyBenefits>,
+            ICommandHandler<InsuranceVerification, ReturnToProvider>
         {
-            public async Task EnactCommand(InsuranceVerification verification, UpdateVerificationRequestDraft command)
+            public async Task EnactCommand(InsuranceVerification verification, UpdateRequestDraft command)
             {
-                verification.RecordEvent(new VerificationDraftUpdated
+                verification.RecordEvent(new DraftUpdated
                 {
                     Request = command.RequestDraft
                 });
             }
 
-            public async Task EnactCommand(InsuranceVerification verification, UpdateVerification command)
+            public async Task EnactCommand(InsuranceVerification verification, Update command)
             {
-                verification.RecordEvent(new VerificationUpdated
+                verification.RecordEvent(new Updated
                 {
                     Benefits = command.Benefits
                 });
             }
 
-            public async Task EnactCommand(InsuranceVerification verification, ApproveVerification command)
+            public async Task EnactCommand(InsuranceVerification verification, VerifyBenefits command)
             {
                 if (command.Benefits != null)
                 {
-                    verification.RecordEvent(new VerificationUpdated
+                    verification.RecordEvent(new Updated
                     {
                         Benefits = command.Benefits
                     });
                 }
 
-                verification.RecordEvent(new VerificationApproved
+                verification.RecordEvent(new Approved
                 {
                 });
             }
 
-            public async Task EnactCommand(InsuranceVerification verification, ReviseVerification command)
+            public async Task EnactCommand(InsuranceVerification verification, ReturnToProvider command)
             {
-                verification.RecordEvent(new VerificationRevised
+                verification.RecordEvent(new Rejected
                 {
                     Reason = command.Reason
                 });
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<UpdateVerificationRequestDraft> command)
+                CommandFailed<UpdateRequestDraft> command)
             {
             }
 
-            public async Task EnactCommand(InsuranceVerification verification, SubmitVerificationRequest command)
+            public async Task EnactCommand(InsuranceVerification verification, SubmitRequest command)
             {
 
                 //verification.RecordEvent(new VerificationStarted
@@ -72,29 +72,29 @@ namespace Domain.Verification
                 //    Request = command.RequestDraft
                 //});
 
-                verification.RecordEvent(new VerificationRequestSubmitted
+                verification.RecordEvent(new RequestSubmitted
                 {
                     
                 });
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<SubmitVerificationRequest> command)
+                CommandFailed<SubmitRequest> command)
             {
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<UpdateVerification> command)
+                CommandFailed<Update> command)
             {
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<ApproveVerification> command)
+                CommandFailed<VerifyBenefits> command)
             {
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<ReviseVerification> command)
+                CommandFailed<ReturnToProvider> command)
             {
             }
         }

@@ -50,7 +50,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance/verification/request"), HttpPost]
-        public Guid StartVerification(Guid patientId, Domain.Verification.InsuranceVerification.CreateVerification command)
+        public Guid StartVerification(Guid patientId, Domain.Verification.InsuranceVerification.Create command)
         {
             command.AggregateId = Guid.NewGuid();
             // TODO (bremor) - still a little wonky, and should probably be generated from a patient aggregate?
@@ -62,10 +62,10 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance/verification/submit"), HttpPost]
-        public void CreateAndSubmitVerificationRequest(Guid patientId, Domain.Verification.InsuranceVerification.SubmitVerificationRequest submitCommand)
+        public void CreateAndSubmitVerificationRequest(Guid patientId, Domain.Verification.InsuranceVerification.SubmitRequest submitCommand)
         {
             // kind of hacky
-            var createCommmand = new Domain.Verification.InsuranceVerification.CreateVerification
+            var createCommmand = new Domain.Verification.InsuranceVerification.Create
             {
                 AggregateId = Guid.NewGuid(),
                 PatientId = patientId,
@@ -79,7 +79,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/request"), HttpPut]
-        public void UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateVerificationRequestDraft command)
+        public void UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -87,7 +87,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}"), HttpPut]
-        public void UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateVerification command)
+        public void UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -95,7 +95,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/submit"), HttpPost]
-        public void SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitVerificationRequest command)
+        public void SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitRequest command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -103,7 +103,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
-        public void ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ApproveVerification command)
+        public void ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.VerifyBenefits command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
@@ -111,7 +111,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
-        public void ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReviseVerification command)
+        public void ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
         {
             var verification = verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);

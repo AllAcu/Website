@@ -40,17 +40,24 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<CareProvider>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
 
-            var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes().Select(handlerType => container.Resolve(handlerType)).ToArray()));
+            var immediateSubscriptions = new[]
+            {
+                typeof (InsuranceVerificationViewModelHandler),
+                typeof(PatientDetailsViewModelHandler),
+                typeof(PatientListItemViewModelHandler),
+                typeof(InsuranceVerificationFormEventHandler)
+            };
+
+            _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
+                immediateSubscriptions.Select(container.Resolve).ToArray());
+
+            var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
+                .Where(s => !immediateSubscriptions.Contains(s)))
+                .Select(container.Resolve).ToArray());
+
             catchup.Progress.Subscribe(m => Debug.WriteLine(m));
             container.RegisterSingle(c => catchup);
             catchup.PollEventStore();
-
-            _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
-                container.Resolve<InsuranceVerificationViewModelHandler>(),
-                container.Resolve<PatientDetailsViewModelHandler>(),
-                container.Resolve<PatientListItemViewModelHandler>(),
-                container.Resolve<InsuranceVerificationFormEventHandler>()
-                );
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) => {
                 command.Principal = new UserPrincipal(name: "Brett");

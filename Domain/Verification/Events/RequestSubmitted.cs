@@ -5,7 +5,7 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class VerificationRequestSubmitted : Event<InsuranceVerification>
+        public class RequestSubmitted : Event<InsuranceVerification>
         {
             public override void Update(InsuranceVerification verification)
             {

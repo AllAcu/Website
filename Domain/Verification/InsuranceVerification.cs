@@ -19,13 +19,13 @@ namespace Domain.Verification
         {
         }
 
-        public InsuranceVerification(CreateVerification command) : base(command.AggregateId)
+        public InsuranceVerification(Create command) : base(command.AggregateId)
         {
             PatientId = command.PatientId;
             Request = command.RequestDraft ??  new VerificationRequest();
             Status = PendingVerification.RequestStatus.Draft;
 
-            RecordEvent(new VerificationStarted
+            RecordEvent(new Started
             {
                 PatientId = command.PatientId,
                 Request = command.RequestDraft

@@ -7,7 +7,7 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class VerificationRevised : Event<InsuranceVerification>
+        public class Rejected : Event<InsuranceVerification>
         {
             public string Reason { get; set; }
 
