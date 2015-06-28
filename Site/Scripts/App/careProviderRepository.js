@@ -1,5 +1,5 @@
 ﻿(function (app) {
-    app.factory('careProviderRepository', ['$http', function ($http) {
+    app.factory('careProviderRepository', ['$api', function ($api) {
         var _providers = [];
         var _currentProvider = null;
 
@@ -8,17 +8,17 @@
             _currentProvider = _providers.filter(function (p) { return p.id === id })[0];
 
             if (previous !== _currentProvider) {
-                $http.get("/api/provider/be/" + _currentProvider.id).then(function () {
+                $api.providers.be(_currentProvider.id).success(function () {
                     location.reload();
                 });
             }
         }
 
-        $http.get("/api/provider")
+        $api.providers.getAll()
              .success(function (data) {
                  _providers = data;
                  if (_providers) {
-                     $http.get("/api/provider/who")
+                     $api.providers.who()
                          .success(function (current) {
                              _currentProvider = _providers.filter(function (p) { return p.id === current })[0];
                              if (!_currentProvider) {
@@ -40,7 +40,7 @@
             },
             setCurrent: setCurrentProvider,
             create: function (provider) {
-                return $http.post("/api/provider/new", provider);
+                return $api.providers.create(provider);
             }
         };
     }]);

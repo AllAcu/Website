@@ -39,6 +39,20 @@
                             url: '/api/insurance/verification2'
                         });
                     }
+                },
+                providers: {
+                    getAll: function() {
+                        return $http.get("/api/provider");
+                    },
+                    who: function() {
+                        return $http.get("/api/provider/who");
+                    },
+                    be: function(id) {
+                        return $http.get("/api/provider/be/" + id);
+                    },
+                    create: function(provider) {
+                        return $http.post("/api/provider/new", provider);
+                    }
                 }
 
             };
