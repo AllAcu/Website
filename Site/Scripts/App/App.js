@@ -62,7 +62,7 @@
                     controller: 'verificationRequestCreate'
                 })
                 .when('/verification', {
-                    templateUrl: '/Templates/Verification/verificationList.html',
+                    templateUrl: '/Templates/Verification/list.html',
                     controller: 'verifyInsuranceList'
                 })
                 .when('/verification/:verificationId', {
@@ -80,6 +80,10 @@
                 .when('/verification/:verificationId/verify', {
                     templateUrl: '/Templates/Verification/verifyInsurance.html',
                     controller: 'verifyInsurance'
+                })
+                .when('/users', {
+                    templateUrl: '/Templates/Users/list.html',
+                    controller: 'userList'
                 })
                 .when('/edit/:id', {
                     templateUrl: '/Templates/Claims/claimEdit.html',

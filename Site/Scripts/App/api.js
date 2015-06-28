@@ -33,7 +33,7 @@
                                 verification.patientName = verification.patient.Name;
                             });
                     },
-                    getAuth: function() {
+                    getAuth: function () {
                         return $httpAuth({
                             method: 'GET',
                             url: '/api/insurance/verification2'
@@ -41,20 +41,24 @@
                     }
                 },
                 providers: {
-                    getAll: function() {
+                    getAll: function () {
                         return $http.get("/api/provider");
                     },
-                    who: function() {
+                    who: function () {
                         return $http.get("/api/provider/who");
                     },
-                    be: function(id) {
+                    be: function (id) {
                         return $http.get("/api/provider/be/" + id);
                     },
-                    create: function(provider) {
+                    create: function (provider) {
                         return $http.post("/api/provider/new", provider);
                     }
+                },
+                users: {
+                    getAll: function () {
+                        return $http.get("/api/user");
+                    }
                 }
-
             };
         }
     ]);

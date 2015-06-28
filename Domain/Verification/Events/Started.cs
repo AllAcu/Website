@@ -12,8 +12,6 @@ namespace Domain.Verification
 
             public override void Update(InsuranceVerification verification)
             {
-                PatientId = PatientId;
-                Request = Request;
             }
         }
     }

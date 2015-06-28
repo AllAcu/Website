@@ -28,21 +28,10 @@ namespace AllAcu
                 defaults: new { id = RouteParameter.Optional }
                 );
 
-            RegisterStringT();
             httpConfig.Formatters.Remove(httpConfig.Formatters.XmlFormatter);
             httpConfig.Formatters.JsonFormatter.SerializerSettings = Serializer.CloneSettings();
             httpConfig.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-        }
-
-        private static void RegisterStringT()
-        {
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new State(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new City(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PostalCode(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PhoneNumber(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => Gender.Parse(s.ToString()));
-            Serializer.AddPrimitiveConverter(s => s.ToString(), s => PendingVerification.RequestStatus.Parse(s.ToString()));
         }
     }
 }

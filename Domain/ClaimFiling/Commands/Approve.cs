@@ -7,7 +7,7 @@ namespace Domain.ClaimFiling
     {
         public class Approve : Command<ClaimFilingProcess>
         {
-            public User Approver { get; set; }
+            public Guid Approver { get; set; }
         }
     }
 }

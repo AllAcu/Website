@@ -11,7 +11,7 @@ namespace Domain.Repository
     public class UserRepository
     {
         private readonly string userFile;
-        private IDictionary<UserId, UserPrincipal> usersById;
+        private IDictionary<Guid, UserPrincipal> usersById;
         private IDictionary<Username, UserPrincipal> usersByName;
 
         public UserRepository(string userFile)
@@ -22,7 +22,7 @@ namespace Domain.Repository
 
         public UserRepository(IEnumerable<UserPrincipal> users)
         {
-            usersById = users.ToDictionary(u => new UserId(u.Id.ToString()), u => u);
+            usersById = users.ToDictionary(u => new Guid(u.Id.ToString()), u => u);
         }
 
         public IEnumerable<UserPrincipal> GetUsers()
@@ -30,7 +30,7 @@ namespace Domain.Repository
             return usersById.Values;
         }
 
-        public UserPrincipal GetUser(UserId id)
+        public UserPrincipal GetUser(Guid id)
         {
             return usersById.ContainsKey(id) ? usersById[id] : null;
         }
@@ -64,7 +64,7 @@ namespace Domain.Repository
         {
             var contents = File.ReadAllText(userFile);
             usersById = JsonConvert.DeserializeObject<List<UserRecord>>(contents)
-                .ToDictionary(i => new UserId(i.Id),
+                .ToDictionary(i => new Guid(i.Id),
                     i => new UserPrincipal(id: new Guid(i.Id), name: i.Name, email: i.Email, ticket: "abcdefg"));
             usersByName = usersById.Values.ToDictionary(i => new Username(i.Email), i => i, Username.Compare);
         }
@@ -97,14 +97,6 @@ namespace Domain.Repository
             public string Id { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
-        }
-    }
-
-    public class UserId : String<UserId>
-    {
-        public UserId(string value) : base(value)
-        {
-            
         }
     }
 }

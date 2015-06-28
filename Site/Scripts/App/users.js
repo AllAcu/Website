@@ -24,4 +24,19 @@
         }
     ]);
 
+    module.controller('userList', [
+        '$scope', '$api', function ($scope, $api) {
+            var users = [];
+            $scope.users = function() { return users; };
+
+            $api.users.getAll().success(function(data) {
+                users = data;
+            });
+
+            $scope.create = function() {
+                console.log("create a user");
+            }
+        }
+    ]);
+
 }(angular.module("loginApp")));

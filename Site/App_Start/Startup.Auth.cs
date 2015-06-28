@@ -15,13 +15,11 @@ namespace AllAcu
 {
     public partial class Startup
     {
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
-
         internal void ConfigureAuth(IAppBuilder app, PocketContainer container)
         {
             container.Register<IUserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(c.Resolve<AuthorizationDbContext>()));
             container.Register<IDataSerializer<AuthenticationTicket>>(c => c.Resolve<TicketSerializer>());
-            container.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider());
+            container.Register(c => app.GetDataProtectionProvider());
 
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {

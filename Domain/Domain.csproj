@@ -77,6 +77,11 @@
     <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
+    <Compile Include="User\Commands\Create.cs" />
+    <Compile Include="User\Commands\Update.cs" />
+    <Compile Include="User\Events\Registered.cs" />
+    <Compile Include="User\Events\Updated.cs" />
+    <Compile Include="User\User.cs" />
     <Compile Include="Verification\Commands\VerifyBenefits.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
@@ -137,7 +142,6 @@
     <Compile Include="CareProvider\CareProviderBusinessInfo.cs" />
     <Compile Include="Repository\ClaimsProcessReadModelDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="Verification\Commands\Create.cs" />
     <Compile Include="Verification\Events\Started.cs" />
     <Compile Include="Verification\InsuranceVerification.cs" />
@@ -151,6 +155,7 @@
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />
     <None Include="packages.config" />
     <Compile Include="Verification\InsuranceVerification.EnactCommands.cs" />
+    <Compile Include="User\User.EnactCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

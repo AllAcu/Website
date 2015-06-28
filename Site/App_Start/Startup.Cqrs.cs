@@ -6,7 +6,6 @@ using AllAcu.Models.Providers;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
-using Domain.Verification;
 using Its.Configuration;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
