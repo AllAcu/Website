@@ -39,6 +39,10 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<CareProvider>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
 
+            // catch completely up
+            new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
+                .Select(container.Resolve).ToArray())).Run();
+
             var immediateSubscriptions = new[]
             {
                 typeof (InsuranceVerificationViewModelHandler),
