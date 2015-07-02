@@ -8,6 +8,7 @@ namespace AllAcu
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
     }
 
     public class UserListItemViewModelHandler :
@@ -16,12 +17,18 @@ namespace AllAcu
     {
         private readonly AllAcuSiteDbContext dbContext;
 
+        public UserListItemViewModelHandler(AllAcuSiteDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void UpdateProjection(User.Registered @event)
         {
             dbContext.UserList.Add(new UserListItemViewModel
             {
                 UserId = @event.AggregateId,
-                Name = "New User"
+                Name = @event.Name,
+                Email = @event.Email
             });
 
             dbContext.SaveChanges();

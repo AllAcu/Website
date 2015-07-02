@@ -7,6 +7,7 @@ namespace Domain.User
     public partial class User : EventSourcedAggregate<User>
     {
         public string Name { get; set; }
+        public string Email { get; set; }
 
         public User(Guid? id = default(Guid?)) : base(id)
         {
@@ -16,9 +17,13 @@ namespace Domain.User
         {
         }
 
-        public User(Create command) : base(command.AggregateId)
+        public User(Register command) : base(Guid.NewGuid())
         {
-            RecordEvent(new Registered());
+            RecordEvent(new Registered
+            {
+                Name = command.Name,
+                Email = command.Email
+            });
         }
     }
 }

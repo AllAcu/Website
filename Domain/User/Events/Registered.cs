@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Its.Domain;
+﻿using Microsoft.Its.Domain;
 
 namespace Domain.User
 {
@@ -11,9 +6,13 @@ namespace Domain.User
     {
         public class Registered : Event<User>
         {
-            public override void Update(User aggregate)
+            public string Email { get; set; }
+            public string Name { get; set; }
+
+            public override void Update(User user)
             {
-                
+                user.Email = Email;
+                user.Name = Name;
             }
         }
     }

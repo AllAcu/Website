@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Domain.Authentication;
+using Domain.User;
+using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
@@ -12,14 +14,17 @@ namespace AllAcu.Controllers.api
     [RoutePrefix("api")]
     public class UserController : ApiController
     {
+        private AllAcuSiteDbContext dbContext;
+
+        public UserController(AllAcuSiteDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         [Route("user")]
         public IEnumerable<UserListItemViewModel> GetUsers()
         {
-            return new[]
-            {
-                new UserListItemViewModel {Name = "Brett Morien"},
-                new UserListItemViewModel {Name = "Dr. Smith"}
-            };
+            return dbContext.UserList;
         }
     }
 }

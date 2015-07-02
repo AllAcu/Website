@@ -25,9 +25,9 @@
                     templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController'
                 })
-                .when('/users/create', {
-                    templateUrl: '/Templates/Users/create.html',
-                    controller: 'userCreateController'
+                .when('/users/register', {
+                    templateUrl: '/Templates/Users/register.html',
+                    controller: 'userRegistrationController'
                 })
                 .when('/patient', {
                     templateUrl: '/Templates/Patients/patientList.html',

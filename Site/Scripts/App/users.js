@@ -12,11 +12,13 @@
         }
     ]);
 
-    module.controller('userCreateController', [
+    module.controller('userRegistrationController', [
         '$scope', 'userCommands', function($scope, commands) {
 
+            $scope.registration = {};
+
             $scope.save = function() {
-                commands.createUser($scope.email, $scope.password, $scope.confirmPassword)
+                commands.register($scope.registration)
                     .success(function(data) {
                         console.log(data);
                     });

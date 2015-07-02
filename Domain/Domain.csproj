@@ -77,7 +77,7 @@
     <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
-    <Compile Include="User\Commands\Create.cs" />
+    <Compile Include="User\Commands\Register.cs" />
     <Compile Include="User\Commands\Update.cs" />
     <Compile Include="User\Events\Registered.cs" />
     <Compile Include="User\Events\Updated.cs" />

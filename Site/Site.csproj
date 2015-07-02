@@ -229,6 +229,7 @@
     <Compile Include="Controllers\api\AuthController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
+    <Compile Include="Models\Authorization\AuthorizationDbContext.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
@@ -237,7 +238,7 @@
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
     <Compile Include="Models\Authorization\AccountBindingModels.cs" />
     <Compile Include="Models\Authorization\AccountViewModels.cs" />
-    <Compile Include="Models\Authorization\IdentityModels.cs" />
+    <Compile Include="Models\Authorization\ApplicationUser.cs" />
     <Compile Include="ViewModels\Benefits.cs" />
     <Compile Include="ViewModels\InsuranceVerification.cs" />
     <Compile Include="ViewModels\PatientDetails.cs" />
@@ -298,7 +299,7 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
-    <Content Include="Templates\Users\create.html" />
+    <Content Include="Templates\Users\register.html" />
     <Content Include="Templates\Users\list.html" />
     <Content Include="Templates\Users\login.html" />
     <Content Include="Templates\Patients\details.html" />

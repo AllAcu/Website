@@ -1,5 +1,5 @@
 ﻿(function (app) {
-    app.factory('userCommands', ['$http', function ($http) {
+    app.factory('userCommands', ['$api', function ($api) {
 
         return {
             login: function (userName, password) {
@@ -9,27 +9,10 @@
                     password: password
                 };
 
-                return $http({
-                    method: 'POST',
-                    url: '/Token',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    transformRequest: function (obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: loginData
-                });
+                return $api.auth.login(loginData);
             },
-            createUser: function (email, password, confirmPassword) {
-                return $http.post('/api/Account/Register', {
-                    Email: email,
-                    Password: password,
-                    ConfirmPassword: confirmPassword
-                });
+            register: function (registration) {
+                return $api.users.register(registration);
             }
         }
     }]);

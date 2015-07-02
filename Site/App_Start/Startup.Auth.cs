@@ -20,6 +20,8 @@ namespace AllAcu
             container.Register<IUserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(c.Resolve<AuthorizationDbContext>()));
             container.Register<IDataSerializer<AuthenticationTicket>>(c => c.Resolve<TicketSerializer>());
             container.Register(c => app.GetDataProtectionProvider());
+            // TODO (bremor) - Make a useful registration to support third party logins
+            container.Register<ISecureDataFormat<AuthenticationTicket>>(c => null);
 
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {

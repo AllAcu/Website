@@ -6,6 +6,7 @@ using AllAcu.Models.Providers;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
+using Domain.User;
 using Its.Configuration;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Sql;
@@ -35,9 +36,10 @@ namespace AllAcu
                 new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
             }
 
-            container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
             container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<CareProvider>());
+            container.Register(typeof(IEventSourcedRepository<User>), c => Microsoft.Its.Domain.Configuration.Current.Repository<User>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
+            container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
 
             // catch completely up
             new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
@@ -45,7 +47,7 @@ namespace AllAcu
 
             var immediateSubscriptions = new[]
             {
-                typeof (InsuranceVerificationViewModelHandler),
+                typeof(InsuranceVerificationViewModelHandler),
                 typeof(PatientDetailsViewModelHandler),
                 typeof(PatientListItemViewModelHandler),
                 typeof(InsuranceVerificationFormEventHandler)
@@ -62,15 +64,23 @@ namespace AllAcu
             container.RegisterSingle(c => catchup);
             catchup.PollEventStore();
 
-            Command<CareProvider>.AuthorizeDefault = (provider, command) => {
+            Command<CareProvider>.AuthorizeDefault = (provider, command) =>
+            {
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };
-            Command<Domain.Verification.InsuranceVerification>.AuthorizeDefault = (provider, command) => {
+            Command<Domain.Verification.InsuranceVerification>.AuthorizeDefault = (provider, command) =>
+            {
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };
-            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) => {
+            Command<User>.AuthorizeDefault = (provider, command) =>
+            {
+                command.Principal = new UserPrincipal(name: "Brett");
+                return true;
+            };
+            Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) =>
+            {
                 command.Principal = new UserPrincipal(name: "Brett");
                 return true;
             };
