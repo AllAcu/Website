@@ -53,6 +53,14 @@
       <HintPath>..\packages\Its.Configuration.1.0.0-beta\lib\net40\Its.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Its.Log, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Log.2.8.3\lib\net40\Its.Log.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Its.Log.Monitoring, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Log.Monitoring.1.8.4-beta\lib\net45\Its.Log.Monitoring.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Its.Validation">
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
@@ -229,6 +237,7 @@
     <Compile Include="Controllers\api\AuthController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
+    <Compile Include="Monitoring\Site.cs" />
     <Compile Include="Models\Authorization\AuthorizationDbContext.cs" />
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />

@@ -1,7 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using AllAcu;
 using Domain;
 using Domain.CareProvider;
+using Its.Log.Monitoring;
 using Microsoft.Its.Domain.Serialization;
 using Microsoft.Owin;
 using Owin;
@@ -27,6 +29,9 @@ namespace AllAcu
             ConfigureCqrs(app, container);
             ConfigureContainer(app, container, httpConfiguration);
             ConfigureAuth(app, container);
+
+            httpConfiguration.MapTestRoutes(configureTargets: targets => targets.Add("self", "self", new Uri("http://localhost:7822")));
+            httpConfiguration.MapSensorRoutes(_ => true);
 
             app.UseWebApi(httpConfiguration);
         }
