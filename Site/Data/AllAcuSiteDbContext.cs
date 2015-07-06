@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using AllAcu.Models.Providers;
 using Domain.Repository;
 using Microsoft.Its.Domain.Sql;
@@ -15,6 +17,7 @@ namespace AllAcu
         public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
+        public DbSet<UserDetailsViewModel> UserDetails { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -35,10 +38,15 @@ namespace AllAcu
             modelBuilder.Entity<CareProviderBusinessInfo>()
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
+            modelBuilder.Entity<UserDetailsViewModel>()
+                .HasKey(u => u.UserId);
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
             modelBuilder.ComplexType<PatientDetails.LatestVerification>();
+            modelBuilder.ComplexType<UserDetailsViewModel.ProviderIdList>()
+                .Property(p => p.Serialized)
+                .HasColumnName("Providers");
 
             modelBuilder.Entity<PatientDetails>()
                 .HasOptional(d => d.MedicalInsurance);

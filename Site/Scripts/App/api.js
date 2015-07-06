@@ -36,6 +36,17 @@
                             },
                             data: loginData
                         });
+                    },
+                    changePassword: function(oldPassword, newPassword, confirmPassword) {
+                        return $httpAuth({
+                            method: "POST",
+                            url: "api/Account/ChangePassword",
+                            data: {
+                                oldPassword: oldPassword,
+                                newPassword: newPassword,
+                                confirmPassword: confirmPassword
+                            }
+                        });
                     }
                 },
                 verifications: {
@@ -73,11 +84,20 @@
                     }
                 },
                 users: {
+                    get: function(id) {
+                        return $http.get("/api/user/" + id);
+                    },
                     getAll: function() {
                         return $http.get("/api/user");
                     },
                     register: function(data) {
                         return $http.post('/api/Account/Register', data);
+                    },
+                    join: function(userId, providerId) {
+                        return $http.post('/api/user/' + userId + "/join", { providerId: providerId });
+                    },
+                    leave: function (userId, providerId) {
+                        return $http.post('/api/user/' + userId + "/leave", { providerId: providerId });
                     }
                 }
             };

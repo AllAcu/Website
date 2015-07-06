@@ -122,4 +122,4 @@
         }
     ]);
 
-}(angular.module("insuranceApp")));
+}(angular.module("verificationApp")));

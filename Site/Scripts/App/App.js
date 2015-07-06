@@ -4,14 +4,17 @@
         'loginApp',
         'patientsApp',
         'providersApp',
-        'claimsApp'
+        'claimsApp',
+        'userApp',
+        'verificationApp'
     ]);
 
     angular.module("loginApp", []);
-    angular.module("patientsApp", ["insuranceApp"]);
+    angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", []);
+    angular.module("userApp", []);
     angular.module("claimsApp", []);
-    angular.module("insuranceApp", []);
+    angular.module("verificationApp", []);
 
     app.config([
         '$routeProvider',
@@ -83,7 +86,11 @@
                 })
                 .when('/users', {
                     templateUrl: '/Templates/Users/list.html',
-                    controller: 'userList'
+                    controller: 'userListController'
+                })
+                .when('/user/:id', {
+                    templateUrl: '/Templates/Users/details.html',
+                    controller: 'userDetailsController'
                 })
                 .when('/edit/:id', {
                     templateUrl: '/Templates/Claims/claimEdit.html',

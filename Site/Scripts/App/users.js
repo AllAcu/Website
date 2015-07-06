@@ -1,44 +1,67 @@
 ﻿(function (module) {
 
-    module.controller('loginController', [
-        '$scope', 'userCommands', 'authToken', function($scope, commands, authToken) {
-
-            $scope.login = function() {
-                commands.login($scope.userName, $scope.password)
-                    .success(function (data) {
-                        authToken.set(data.access_token);
-                    });
-            }
-        }
-    ]);
-
     module.controller('userRegistrationController', [
-        '$scope', 'userCommands', function($scope, commands) {
+        '$scope', 'userCommands', function ($scope, commands) {
 
             $scope.registration = {};
 
-            $scope.save = function() {
+            $scope.save = function () {
                 commands.register($scope.registration)
-                    .success(function(data) {
+                    .success(function (data) {
                         console.log(data);
                     });
             }
         }
     ]);
 
-    module.controller('userList', [
+    module.controller('userListController', [
         '$scope', '$api', function ($scope, $api) {
             var users = [];
-            $scope.users = function() { return users; };
+            $scope.users = function () { return users; };
 
-            $api.users.getAll().success(function(data) {
+            $scope.link = function (user) {
+                return "claims/#user/" + user.userId;
+            };
+
+            $api.users.getAll().success(function (data) {
                 users = data;
             });
+        }
+    ]);
 
-            $scope.create = function() {
-                console.log("create a user");
+    module.controller('userDetailsController', [
+        '$scope', '$routeParams', '$api', "careProviderRepository", function ($scope, $routeParams, $api, providerRepo) {
+            var userId = $routeParams["id"];
+            $scope.user = null;
+            $scope.providers = providerRepo.providers;
+
+            $scope.hasProvider = function(provider) {
+                return $scope.user && $scope.user.providers.some(function(p) { return p === provider.id; });
+            }
+
+            function refreshUser() {
+                $api.users.get(userId)
+                    .success(function(data) {
+                        $scope.user = data;
+                    });
+            }
+
+            refreshUser();
+
+            $scope.join = function (provider) {
+                $api.users.join(userId, provider.id)
+                    .success(function() {
+                        refreshUser();
+                    });
+            }
+
+            $scope.leave = function(provider) {
+                $api.users.leave(userId, provider.id)
+                    .success(function () {
+                        refreshUser();
+                    });
             }
         }
     ]);
 
-}(angular.module("loginApp")));
+}(angular.module("userApp")));

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Domain.CareProvider;
-using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Models.Providers

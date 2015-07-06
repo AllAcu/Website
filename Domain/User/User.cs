@@ -8,6 +8,7 @@ namespace Domain.User
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public IList<Guid> Providers { get; } = new List<Guid>();
 
         public User(Guid? id = default(Guid?)) : base(id)
         {

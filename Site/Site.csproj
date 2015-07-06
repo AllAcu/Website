@@ -230,6 +230,7 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Models\Authorization\AuthorizationDbContext.cs" />
+    <Compile Include="ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
@@ -260,10 +261,11 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\App\api.js" />
     <Content Include="Scripts\App\authToken.js" />
+    <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />
-    <Content Include="Scripts\App\insurance.js" />
+    <Content Include="Scripts\App\verifications.js" />
     <Content Include="Scripts\App\users.js" />
     <Content Include="Scripts\App\patientCommands.js" />
     <Content Include="Scripts\App\patients.js" />
@@ -299,6 +301,7 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
+    <Content Include="Templates\Users\details.html" />
     <Content Include="Templates\Users\register.html" />
     <Content Include="Templates\Users\list.html" />
     <Content Include="Templates\Users\login.html" />

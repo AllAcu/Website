@@ -1,0 +1,14 @@
+﻿
+<div>
+    <display-field label="Name" ng-model="user.name"></display-field>
+    <display-field label="Email address" ng-model="user.email"></display-field>
+
+    <label>Providers</label>
+    <ul ng-repeat="provider in providers()">
+        <li>{{provider.businessName}}
+            <button class="btn-primary" ng-show="!hasProvider(provider)" ng-click="join(provider)">Join</button>
+            <button class="btn-primary" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
+        </li>
+    </ul>
+
+</div>
