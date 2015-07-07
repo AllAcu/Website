@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.Authentication;
@@ -80,43 +81,43 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/request"), HttpPut]
-        public void UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
+        public async Task UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}"), HttpPut]
-        public void UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
+        public async Task UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/submit"), HttpPost]
-        public void SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitRequest command)
+        public async Task SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitRequest command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
-        public void ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.VerifyBenefits command)
+        public async Task ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.VerifyBenefits command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
-        public void ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
+        public async Task ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
         {
-            var verification = verificationEventSourcedRepository.GetLatest(verificationId);
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             command.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
     }
 }

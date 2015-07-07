@@ -40,13 +40,13 @@
     <Reference Include="Its.Validation">
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.0.11.7-beta\lib\net451\Microsoft.Its.Domain.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.Domain.Sql.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.Sql.0.11.7-beta\lib\net451\Microsoft.Its.Domain.Sql.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -89,7 +89,6 @@
     <Compile Include="Verification\Commands\VerifyBenefits.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
-    <Compile Include="CareProvider\Commands\Poke.cs" />
     <Compile Include="Verification\Commands\AssignToVerifier.cs" />
     <Compile Include="Verification\Commands\Complete.cs" />
     <Compile Include="Verification\Commands\ReturnToProvider.cs" />
@@ -111,7 +110,6 @@
     <Compile Include="CareProvider\Events\NewPatient.cs" />
     <Compile Include="CareProvider\Events\PatientContactInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
-    <Compile Include="CareProvider\Events\Poked.cs" />
     <Compile Include="Verification\Events\Approved.cs" />
     <Compile Include="Verification\Events\RequestSubmitted.cs" />
     <Compile Include="Verification\Events\DraftUpdated.cs" />

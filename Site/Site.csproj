@@ -77,13 +77,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Its.Domain, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.Domain.0.10.5-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.0.11.7-beta\lib\net451\Microsoft.Its.Domain.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.Domain.Sql.0.10.5-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.Sql.0.11.7-beta\lib\net451\Microsoft.Its.Domain.Sql.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>

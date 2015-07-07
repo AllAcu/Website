@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Domain.Verification;
-using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
 {
@@ -84,14 +81,6 @@ namespace Domain.CareProvider
             {
                 PatientId = command.PatientId,
                 TerminationDate = command.TerminationDate
-            });
-        }
-
-        public void EnactCommand(Poke command)
-        {
-            RecordEvent(new Poked
-            {
-                PokeId = command.PokeId
             });
         }
     }

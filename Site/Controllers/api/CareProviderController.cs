@@ -38,9 +38,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("who"), HttpGet]
-        public Guid? WhoIsProvider()
+        public async Task<Guid?> WhoIsProvider()
         {
-            return careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments)?.Id;
+            return (await careProviderEventRepository.CurrentProvider(ActionContext.ActionArguments))?.Id;
         }
 
         [Route(""), HttpGet]

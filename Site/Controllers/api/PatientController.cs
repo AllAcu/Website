@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using AllAcu.Models.Providers;
@@ -52,56 +53,44 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpPost]
-        public Guid Intake(CareProvider.IntakePatient command)
+        public async Task<Guid> Intake(CareProvider.IntakePatient command)
         {
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
-            providerEventSourcedRepository.Save(provider);
+            await providerEventSourcedRepository.Save(provider);
 
             return command.PatientId;
         }
 
         [Route("{PatientId}"), HttpPut]
-        public void Update(Guid patientId, CareProvider.UpdatePatientPersonalInformation command)
+        public async Task Update(Guid patientId, CareProvider.UpdatePatientPersonalInformation command)
         {
             command.PatientId = patientId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
-            providerEventSourcedRepository.Save(provider);
+            await providerEventSourcedRepository.Save(provider);
         }
 
         [Route("{PatientId}/insurance"), HttpPost]
-        public void UpdateInsurance(Guid patientId, CareProvider.UpdateInsurance command)
+        public async Task UpdateInsurance(Guid patientId, CareProvider.UpdateInsurance command)
         {
             command.PatientId = patientId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
-            providerEventSourcedRepository.Save(provider);
+            await providerEventSourcedRepository.Save(provider);
         }
 
         [Route("{PatientId}/contact"), HttpPut]
-        public void UpdateContactInfo(Guid patientId, CareProvider.UpdatePatientContactInformation command)
+        public async Task UpdateContactInfo(Guid patientId, CareProvider.UpdatePatientContactInformation command)
         {
             command.PatientId = patientId;
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
+            var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             command.ApplyTo(provider);
 
-            providerEventSourcedRepository.Save(provider);
-        }
-
-        [Route("poke"), HttpGet]
-        public Guid Poke()
-        {
-            var command = new CareProvider.Poke() { PokeId = Guid.NewGuid() };
-            var provider = providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
-            providerEventSourcedRepository.Save(provider);
-
-            return command.PokeId;
+            await providerEventSourcedRepository.Save(provider);
         }
     }
 }

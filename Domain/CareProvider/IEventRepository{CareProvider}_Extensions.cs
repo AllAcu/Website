@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
@@ -8,7 +9,7 @@ namespace Domain.CareProvider
     {
         public const string providerCookieName = "CareProviderId";
 
-        public static CareProvider CurrentProvider(this IEventSourcedRepository<CareProvider> repository, IDictionary<string, object> properties)
+        public static Task<CareProvider> CurrentProvider(this IEventSourcedRepository<CareProvider> repository, IDictionary<string, object> properties)
         {
             var id = properties.CurrentProviderId();
             return repository.GetLatest(id ?? new Guid());
