@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Domain.Test</RootNamespace>
     <AssemblyName>Domain.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>3d5783e8</NuGetPackageImportStamp>
   </PropertyGroup>
@@ -36,16 +36,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Its.Validation.1.4.0\lib\net45\Its.Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain">
-      <HintPath>..\packages\Its.Domain.0.11.0-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.0.11.7-beta\lib\net45\Microsoft.Its.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Its.Domain.Sql, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Its.Domain.Sql.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Sql.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Its.Domain.Testing">
-      <HintPath>..\packages\Its.Domain.Testing.0.11.0-beta\lib\net45\Microsoft.Its.Domain.Testing.dll</HintPath>
+    <Reference Include="Microsoft.Its.Domain.Testing, Version=0.11.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Its.Domain.Testing.0.11.7-beta\lib\net45\Microsoft.Its.Domain.Testing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,7 +65,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
