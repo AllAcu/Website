@@ -64,27 +64,27 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance/verification/submit"), HttpPost]
-        public void CreateAndSubmitVerificationRequest(Guid patientId, Domain.Verification.InsuranceVerification.SubmitRequest submitCommand)
+        public async Task CreateAndSubmitVerificationRequest(Guid patientId, Domain.Verification.InsuranceVerification.SubmitRequest command)
         {
             // kind of hacky
             var createCommmand = new Domain.Verification.InsuranceVerification.Create
             {
                 AggregateId = Guid.NewGuid(),
                 PatientId = patientId,
-                RequestDraft = submitCommand.Request
+                RequestDraft = command.Request
             };
 
             var verification = new Domain.Verification.InsuranceVerification(createCommmand);
 
-            submitCommand.ApplyTo(verification);
-            verificationEventSourcedRepository.Save(verification);
+            await command.ApplyToAsync(verification);
+            await verificationEventSourcedRepository.Save(verification);
         }
 
         [Route("insurance/verification/{VerificationId}/request"), HttpPut]
         public async Task UpdateVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
+            await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }
 
@@ -92,7 +92,7 @@ namespace AllAcu.Controllers.api
         public async Task UpdateVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
+            await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }
 
@@ -100,7 +100,7 @@ namespace AllAcu.Controllers.api
         public async Task SubmitVerificationRequest(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitRequest command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
+            await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }
 
@@ -108,7 +108,7 @@ namespace AllAcu.Controllers.api
         public async Task ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.VerifyBenefits command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
+            await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }
 
@@ -116,7 +116,7 @@ namespace AllAcu.Controllers.api
         public async Task ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            command.ApplyTo(verification);
+            await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }
     }

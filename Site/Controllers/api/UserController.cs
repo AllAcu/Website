@@ -38,7 +38,7 @@ namespace AllAcu.Controllers.api
         public async Task JoinProvider(Guid userId, User.JoinProvider command)
         {
             var user = await userEventSourcedRepository.GetLatest(userId);
-            command.ApplyTo(user);
+            await command.ApplyToAsync(user);
             await userEventSourcedRepository.Save(user);
         }
 

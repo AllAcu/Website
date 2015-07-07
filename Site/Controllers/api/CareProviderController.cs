@@ -28,11 +28,11 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("new"), HttpPost]
-        public Guid CreateProvider(CareProvider.CreateProvider command)
+        public async Task<Guid> CreateProvider(CareProvider.CreateProvider command)
         {
             command.AggregateId = Guid.NewGuid();
             var provider = new CareProvider(command);
-            careProviderEventRepository.Save(provider);
+            await careProviderEventRepository.Save(provider);
 
             return provider.Id;
         }
@@ -46,8 +46,8 @@ namespace AllAcu.Controllers.api
         [Route(""), HttpGet]
         public async Task<IEnumerable<CareProviderBusinessInfo>> GetProviders()
         {
-            var user = await dbContext.UserDetails.FindAsync(Guid.Parse(User.Identity.GetUserId()));
-            return dbContext.CareProviders.Where(p => user.Providers.Contains(p.Id));
+            //var user = await dbContext.UserDetails.FindAsync(Guid.Parse(User.Identity.GetUserId()));
+            return dbContext.CareProviders; //.Where(p => user.Providers.Contains(p.Id));
         }
 
         [Route("be/{providerId}"), HttpGet]

@@ -56,8 +56,7 @@ namespace AllAcu.Controllers.api
         public async Task<Guid> Intake(CareProvider.IntakePatient command)
         {
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
+            await command.ApplyToAsync(provider);
             await providerEventSourcedRepository.Save(provider);
 
             return command.PatientId;
@@ -68,8 +67,7 @@ namespace AllAcu.Controllers.api
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
+            await command.ApplyToAsync(provider);
             await providerEventSourcedRepository.Save(provider);
         }
 
@@ -78,8 +76,7 @@ namespace AllAcu.Controllers.api
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
+            await command.ApplyToAsync(provider);
             await providerEventSourcedRepository.Save(provider);
         }
 
@@ -88,8 +85,7 @@ namespace AllAcu.Controllers.api
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
-            command.ApplyTo(provider);
-
+            await command.ApplyToAsync(provider);
             await providerEventSourcedRepository.Save(provider);
         }
     }
