@@ -1,6 +1,6 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace AllAcu.Models
+namespace AllAcu.Authentication
 {
     public class AuthorizationDbContext : IdentityDbContext<ApplicationUser>
     {

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Http;
+using AllAcu.Authentication;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.Repository;
+using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
@@ -40,9 +44,10 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<CareProviderBusinessInfo> GetProviders()
+        public async Task<IEnumerable<CareProviderBusinessInfo>> GetProviders()
         {
-            return dbContext.CareProviders;
+            var user = await dbContext.UserDetails.FindAsync(Guid.Parse(User.Identity.GetUserId()));
+            return dbContext.CareProviders.Where(p => user.Providers.Contains(p.Id));
         }
 
         [Route("be/{providerId}"), HttpGet]

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace AllAcu.Models
+namespace AllAcu.Authentication
 {
     // Models returned by AccountController actions.
 

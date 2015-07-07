@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace Domain.Authentication
+namespace AllAcu.Authentication
 {
     public class CareProviderIdFilter : ActionFilterAttribute
     {

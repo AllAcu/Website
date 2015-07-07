@@ -1,4 +1,5 @@
 ﻿using System;
+using AllAcu.Authentication;
 using AllAcu.Models;
 using AllAcu.Providers;
 using Microsoft.AspNet.Identity;

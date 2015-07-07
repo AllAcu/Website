@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace AllAcu.Models
+namespace AllAcu.Authentication
 {
     // Models used as parameters to AccountController actions.
 

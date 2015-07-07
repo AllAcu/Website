@@ -71,7 +71,10 @@
                 },
                 providers: {
                     getAll: function () {
-                        return $http.get("/api/provider");
+                        return $httpAuth({
+                            method: "get",
+                            url: "/api/provider"
+                        });
                     },
                     who: function () {
                         return $http.get("/api/provider/who");

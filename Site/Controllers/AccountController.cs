@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using AllAcu.Authentication;
 using AllAcu.Models;
 using AllAcu.Providers;
 using AllAcu.Results;
@@ -75,6 +76,7 @@ namespace AllAcu.Controllers
                 return BadRequest(ModelState);
             }
 
+            var userId = Guid.NewGuid();
             var applicationUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
             var result = await UserManager.CreateAsync(applicationUser, model.Password);
 
@@ -82,10 +84,10 @@ namespace AllAcu.Controllers
             {
                 return GetErrorResult(result);
             }
-            
+
             var command = new User.Register
             {
-                AggregateId = Guid.NewGuid(),
+                AggregateId = userId,
                 Name = model.Name,
                 Email = model.Email,
             };
@@ -364,7 +366,7 @@ namespace AllAcu.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)

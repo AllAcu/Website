@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using AllAcu.Authentication;
 using AllAcu.Models;
 using AllAcu.Models.Providers;
 using Domain.Authentication;

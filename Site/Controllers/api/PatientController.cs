@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
+using AllAcu.Authentication;
 using AllAcu.Models.Providers;
 using Domain.Authentication;
 using Domain.CareProvider;

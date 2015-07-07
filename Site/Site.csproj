@@ -58,7 +58,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Its.Log.Monitoring, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Its.Log.Monitoring.1.8.4-beta\lib\net45\Its.Log.Monitoring.dll</HintPath>
+      <HintPath>..\packages\Its.Log.Monitoring.1.8.5-beta\lib\net45\Its.Log.Monitoring.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Its.Validation">
@@ -226,7 +226,7 @@
     <Compile Include="%28Pocket%29\System.Web.Http\HttpConfigurationExtensions.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="Authentication\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.Cqrs.cs" />
@@ -234,11 +234,10 @@
     <Compile Include="Authentication\CareProviderIdFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\CareProviderController.cs" />
-    <Compile Include="Controllers\api\AuthController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Monitoring\Site.cs" />
-    <Compile Include="Models\Authorization\AuthorizationDbContext.cs" />
+    <Compile Include="Authentication\AuthorizationDbContext.cs" />
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
@@ -246,9 +245,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DatabaseConnections.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
-    <Compile Include="Models\Authorization\AccountBindingModels.cs" />
-    <Compile Include="Models\Authorization\AccountViewModels.cs" />
-    <Compile Include="Models\Authorization\ApplicationUser.cs" />
+    <Compile Include="Authentication\AccountBindingModels.cs" />
+    <Compile Include="Authentication\AccountViewModels.cs" />
+    <Compile Include="Authentication\ApplicationUser.cs" />
     <Compile Include="ViewModels\Benefits.cs" />
     <Compile Include="ViewModels\InsuranceVerification.cs" />
     <Compile Include="ViewModels\PatientDetails.cs" />
