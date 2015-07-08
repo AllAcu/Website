@@ -18,7 +18,7 @@ namespace Domain.User
         {
         }
 
-        public User(Register command) : base(Guid.NewGuid())
+        public User(Register command) : base(command.AggregateId != Guid.Empty ? command.AggregateId : Guid.NewGuid())
         {
             RecordEvent(new Registered
             {

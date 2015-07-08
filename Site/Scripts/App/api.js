@@ -70,10 +70,16 @@
                     }
                 },
                 providers: {
-                    getAll: function () {
+                    get: function() {
                         return $httpAuth({
                             method: "get",
                             url: "/api/provider"
+                        });
+                    },
+                    getAll: function () {
+                        return $httpAuth({
+                            method: "get",
+                            url: "/api/provider/all"
                         });
                     },
                     who: function () {

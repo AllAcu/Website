@@ -77,7 +77,7 @@ namespace AllAcu.Controllers
             }
 
             var userId = Guid.NewGuid();
-            var applicationUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var applicationUser = new ApplicationUser { UserName = model.Email, Email = model.Email, UserId = userId };
             var result = await UserManager.CreateAsync(applicationUser, model.Password);
 
             if (!result.Succeeded)
@@ -92,7 +92,7 @@ namespace AllAcu.Controllers
                 Email = model.Email,
             };
             var user = new User(command);
-            userRepository.Save(user);
+            await userRepository.Save(user);
 
             return Ok();
         }

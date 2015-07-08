@@ -1,3 +1,5 @@
+using System.Data.Entity;
+using System.Diagnostics;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AllAcu.Authentication
@@ -9,6 +11,12 @@ namespace AllAcu.Authentication
         public AuthorizationDbContext() 
             : base(ConnectionString, throwIfV1Schema: false)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Trace.WriteLine("OnModelCreating");
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

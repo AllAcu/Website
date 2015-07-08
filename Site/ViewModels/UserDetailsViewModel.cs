@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Domain.User;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Serialization;
@@ -15,7 +15,7 @@ namespace AllAcu
 
         public ProviderIdList Providers { get; set; } = new ProviderIdList();
 
-        public class ProviderIdList : Collection<Guid>
+        public class ProviderIdList : HashSet<Guid>
         {
             public string Serialized
             {

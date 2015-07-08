@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -44,10 +45,17 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public async Task<IEnumerable<CareProviderBusinessInfo>> GetProviders()
+        public async Task<IEnumerable<CareProviderBusinessInfo>> GetUserProviders()
         {
-            //var user = await dbContext.UserDetails.FindAsync(Guid.Parse(User.Identity.GetUserId()));
-            return dbContext.CareProviders; //.Where(p => user.Providers.Contains(p.Id));
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var user = await dbContext.UserDetails.FindAsync(userId);
+            return user != null ? dbContext.CareProviders.Where(p => user.Providers.Contains(p.Id)) : Enumerable.Empty<CareProviderBusinessInfo>();
+        }
+
+        [Route("all"), HttpGet]
+        public Task<CareProviderBusinessInfo[]> GetProviders()
+        {
+            return dbContext.CareProviders.ToArrayAsync();
         }
 
         [Route("be/{providerId}"), HttpGet]

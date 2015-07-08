@@ -32,18 +32,25 @@
     module.controller('userDetailsController', [
         '$scope', '$routeParams', '$api', "careProviderRepository", function ($scope, $routeParams, $api, providerRepo) {
             var userId = $routeParams["id"];
+            var providers = [];
             $scope.user = null;
-            $scope.providers = providerRepo.providers;
+            $scope.providers = function() { return providers; };
 
             $scope.hasProvider = function(provider) {
                 return $scope.user && $scope.user.providers.some(function(p) { return p === provider.id; });
             }
+
+            $api.providers.getAll()
+                .success(function (data) {
+                    providers = data;
+                });
 
             function refreshUser() {
                 $api.users.get(userId)
                     .success(function(data) {
                         $scope.user = data;
                     });
+                providerRepo.refresh();
             }
 
             refreshUser();

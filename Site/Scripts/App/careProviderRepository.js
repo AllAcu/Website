@@ -14,19 +14,23 @@
             }
         }
 
-        $api.providers.getAll()
-             .success(function (data) {
-                 _providers = data;
-                 if (_providers) {
-                     $api.providers.who()
-                         .success(function (current) {
-                             _currentProvider = _providers.filter(function (p) { return p.id === current })[0];
-                             if (!_currentProvider) {
-                                 setCurrentProvider(_providers[0].id);
-                             }
-                         });
-                 }
-             });
+        function loadProviders() {
+            $api.providers.get()
+                .success(function(data) {
+                    _providers = data;
+                    if (_providers && _providers.length) {
+                        $api.providers.who()
+                            .success(function(current) {
+                                _currentProvider = _providers.filter(function(p) { return p.id === current })[0];
+                                if (!_currentProvider) {
+                                    setCurrentProvider(_providers[0].id);
+                                }
+                            });
+                    }
+                });
+        }
+
+        loadProviders();
 
         return {
             providers: function () {
@@ -41,6 +45,9 @@
             setCurrent: setCurrentProvider,
             create: function (provider) {
                 return $api.providers.create(provider);
+            },
+            refresh: function() {
+                loadProviders();
             }
         };
     }]);
