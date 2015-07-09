@@ -52,11 +52,11 @@
             $scope.link = function (verification) {
                 switch (verification.status) {
                     case "Draft":
-                        return "claims/#verification/" + verification.verificationId + "/edit";
+                        return "#verification/" + verification.verificationId + "/edit";
                     case "Submitted":
-                        return "claims/#verification/" + verification.verificationId + "/verify";
+                        return "#verification/" + verification.verificationId + "/verify";
                     case "Approved":
-                        return "claims/#verification/" + verification.verificationId + "/letter";
+                        return "#verification/" + verification.verificationId + "/letter";
                 }
             };
 

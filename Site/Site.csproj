@@ -241,7 +241,7 @@
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
-    <Compile Include="Controllers\ClaimsController.cs" />
+    <Compile Include="Controllers\AllAcuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DatabaseConnections.cs" />
     <Compile Include="Data\AllAcuSiteDbContext.cs" />
@@ -342,7 +342,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Claims\Claims.cshtml" />
+    <Content Include="Views\AllAcu\Index.cshtml" />
     <Content Include="Views\Shared\_Minimal.cshtml" />
   </ItemGroup>
   <ItemGroup>

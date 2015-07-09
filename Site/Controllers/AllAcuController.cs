@@ -2,11 +2,11 @@
 
 namespace AllAcu.Controllers
 {
-    public class ClaimsController : Controller
+    public class AllAcuController : Controller
     {
         public ActionResult Index()
         {
-            return View("Claims");
+            return View();
         }
     }
 }

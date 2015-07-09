@@ -20,7 +20,7 @@
             $scope.users = function () { return users; };
 
             $scope.link = function (user) {
-                return "claims/#user/" + user.userId;
+                return "#user/" + user.userId;
             };
 
             $api.users.getAll().success(function (data) {
