@@ -20,19 +20,13 @@
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider
-                .when('/', {
-                    templateUrl: '/Templates/Claims/claimsList.html',
-                    controller: 'claimsList'
-                })
                 .when('/login', {
                     templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController'
-                })
-                .when('/users/register', {
-                    templateUrl: '/Templates/Users/register.html',
-                    controller: 'userRegistrationController'
-                })
-                .when('/patient', {
+                });
+
+            $routeProvider
+                .when('/patients', {
                     templateUrl: '/Templates/Patients/patientList.html',
                     controller: 'patientList'
                 })
@@ -52,10 +46,6 @@
                     templateUrl: '/Templates/Patients/updateContactInfo.html',
                     controller: 'patientEditContactInfo'
                 })
-                .when('/provider/create', {
-                    templateUrl: '/Templates/Providers/providerEdit.html',
-                    controller: 'providerCreate'
-                })
                 .when('/patient/:id/insurance/edit', {
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
@@ -63,8 +53,16 @@
                 .when('/patient/:patientId/insurance/verification/start', {
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestCreate'
-                })
-                .when('/verification', {
+                });
+
+            $routeProvider
+                .when('/provider/create', {
+                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    controller: 'providerCreate'
+                });
+
+            $routeProvider
+                .when('/verifications', {
                     templateUrl: '/Templates/Verification/list.html',
                     controller: 'verifyInsuranceList'
                 })
@@ -83,25 +81,39 @@
                 .when('/verification/:verificationId/verify', {
                     templateUrl: '/Templates/Verification/verifyInsurance.html',
                     controller: 'verifyInsurance'
-                })
+                });
+
+            $routeProvider
                 .when('/users', {
                     templateUrl: '/Templates/Users/list.html',
                     controller: 'userListController'
                 })
+                .when('/users/register', {
+                    templateUrl: '/Templates/Users/register.html',
+                    controller: 'userRegistrationController'
+                })
                 .when('/user/:id', {
                     templateUrl: '/Templates/Users/details.html',
                     controller: 'userDetailsController'
+                });
+
+            $routeProvider
+                .when('/claims', {
+                    templateUrl: '/Templates/Claims/claimsList.html',
+                    controller: 'claimsList'
                 })
-                .when('/edit/:id', {
+                .when('/claim/edit/:id', {
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimEdit'
                 })
-                .when('/create', {
+                .when('/claim/create', {
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimCreate'
-                })
+                });
+
+            $routeProvider
                 .otherwise({
-                    redirectTo: '/'
+                    redirectTo: '/patient'
                 });
         }
     ]);
