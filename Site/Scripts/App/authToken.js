@@ -1,13 +1,18 @@
 ﻿(function (app) {
     app.factory('authToken', function () {
 
-        return {
+        var authToken = {
+            loggedIn: function() {
+                return !!authToken.get();
+            },
             get: function() {
                 return window.sessionStorage.getItem("accessToken");
             },
             set: function(token) {
                 window.sessionStorage.setItem("accessToken", token);
             }
-        }
+        };
+
+        return authToken;
     });
-}(angular.module("loginApp")));
+}(angular.module("authApp")));

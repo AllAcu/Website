@@ -1,7 +1,7 @@
 ﻿<h2>Login</h2>
-<div>
+<form ng-submit="login()">
     <edit-field label="User Name (email)" ng-model="userName"></edit-field>
     <edit-field label="Password" type="password" ng-model="password"></edit-field>
-</div>
 
-<button class="btn-primary" ng-click="login()">Log in</button>
+    <button class="btn-primary" type="submit">Log in</button>
+</form>

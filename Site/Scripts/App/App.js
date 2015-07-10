@@ -1,6 +1,7 @@
 ﻿(function (exports, angular) {
     var app = angular.module('allAcuApp', [
         'ngRoute',
+        'authApp',
         'loginApp',
         'patientsApp',
         'providersApp',
@@ -9,6 +10,7 @@
         'verificationApp'
     ]);
 
+    angular.module("authApp", []);
     angular.module("loginApp", []);
     angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", []);
@@ -22,7 +24,8 @@
             $routeProvider
                 .when('/login', {
                     templateUrl: '/Templates/Users/login.html',
-                    controller: 'loginController'
+                    controller: 'loginController',
+                    anonymous: true
                 });
 
             $routeProvider
@@ -113,10 +116,27 @@
 
             $routeProvider
                 .otherwise({
-                    redirectTo: '/patient'
+                    redirectTo: '/patients'
                 });
         }
-    ]);
+    ]).run(function ($rootScope, $location) {
+        $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
+            if (next.$$route) {
+                if (next.$$route.anonymous) {
+                    return;
+                }
+
+                if (!userLoggedIn()) {
+                    $location.path('/login');
+                }
+            }
+        });
+    });
+
+    function userLoggedIn() {
+        var authTokenService = angular.injector(['authApp']);
+        return authTokenService.get('authToken').loggedIn();
+    }
 
     app.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
         $scope.providers = function () { return $providers.providers(); }
