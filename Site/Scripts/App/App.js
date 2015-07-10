@@ -26,6 +26,10 @@
                     templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController',
                     anonymous: true
+                })
+                .when('/logout', {
+                    controller: 'logoutController',
+                    template: ''
                 });
 
             $routeProvider
@@ -148,7 +152,8 @@
                 { label: "Patients", link: "/AllAcu/#/patients" },
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
-                { label: "New Provider", link: "/AllAcu/#/provider/create" }
+                { label: "New Provider", link: "/AllAcu/#/provider/create" },
+                { label: "Logout", link: "/AllAcu/#/logout" }
         ];
 
         $scope.navItems = function () {
@@ -159,7 +164,7 @@
             return _navItems;
         }
 
-        $scope.loggedIn = function() {
+        $scope.loggedIn = function () {
             return authToken.loggedIn();
         }
     }]);

@@ -16,18 +16,21 @@
 
         function loadProviders() {
             $api.providers.get()
-                .success(function(data) {
+                .success(function (data) {
                     _providers = data;
                     if (_providers && _providers.length) {
                         $api.providers.who()
-                            .success(function(current) {
-                                _currentProvider = _providers.filter(function(p) { return p.id === current })[0];
+                            .success(function (current) {
+                                _currentProvider = _providers.filter(function (p) { return p.id === current })[0];
                                 if (!_currentProvider) {
                                     setCurrentProvider(_providers[0].id);
                                 }
                             });
                     }
-                });
+                })
+            .error(function () {
+                _providers = [];
+            });
         }
 
         loadProviders();
@@ -46,7 +49,7 @@
             create: function (provider) {
                 return $api.providers.create(provider);
             },
-            refresh: function() {
+            refresh: function () {
                 loadProviders();
             }
         };

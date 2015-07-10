@@ -10,6 +10,9 @@
             },
             set: function(token) {
                 window.sessionStorage.setItem("accessToken", token);
+            },
+            clear: function() {
+                window.sessionStorage.removeItem("accessToken");
             }
         };
 
