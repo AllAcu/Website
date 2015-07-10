@@ -152,23 +152,31 @@
         ];
 
         $scope.navItems = function () {
-            if (!authToken.loggedIn()) {
+            if (!$scope.loggedIn()) {
                 return _loginNavItems;
             }
 
             return _navItems;
         }
+
+        $scope.loggedIn = function() {
+            return authToken.loggedIn();
+        }
     }]);
 
-    app.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
-        $scope.providers = function () { return $providers.providers(); }
+    app.controller('header', ['$scope', 'authToken', 'careProviderRepository', function ($scope, authToken, providers) {
+        $scope.providers = function () { return providers.providers() || []; }
         $scope.currentProvider = function (provider) {
-            return $providers.current(provider);
+            return providers.current(provider);
         }
 
         $scope.setProvider = function () {
-            $providers.setCurrent($scope.currentProvider.id);
+            providers.setCurrent($scope.currentProvider.id);
         }
+
+        $scope.$watch(authToken.loggedIn, function () {
+            providers.refresh();
+        });
     }]);
 
     exports.app = app;

@@ -3,6 +3,16 @@
         '$http', 'authToken', function ($http, authToken) {
 
             function $httpAuth(options) {
+                if (!authToken.loggedIn()) {
+                    var response = {
+                        success: function() { return response; },
+                        error: function(errorCallback) {
+                            errorCallback();
+                            return response;
+                        }
+                    };
+                    return response;
+                }
                 return $http({
                     method: options.method,
                     url: options.url,
@@ -47,6 +57,9 @@
                                 confirmPassword: confirmPassword
                             }
                         });
+                    },
+                    loggedIn: function() {
+                        return authToken.loggedIn();
                     }
                 },
                 verifications: {
