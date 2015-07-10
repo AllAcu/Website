@@ -1,28 +1,39 @@
-﻿@{
-    Layout = "_Minimal.cshtml";
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
 }
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("All Acu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/AllAcu/#/verifications">Verifications</a></li>
-                <li><a href="/AllAcu/#/patients">Patients</a></li>
-                <li><a href="/AllAcu/#/users">Users</a></li>
-                <li><a href="/AllAcu/#/claims">Claims</a></li>
-                <li><a href="/AllAcu/#/provider/create">New Provider</a></li>
-                <li><a href="/AllAcu/#/login">Login</a></li>
-            </ul>
+<html ng-app="allAcuApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/Scripts/smart-table.js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/app")
+</head>
+<header width="100%">
+    <div style="display: inline-block;float: right" ng-controller="header">
+        <select ng-model="currentProvider"
+                ng-model-options="{ getterSetter: true }"
+                ng-options="p.businessName for p in providers()"></select>
+    </div>
+</header>
+<div class="container body-content">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container" ng-include="'/Templates/Site/nav.html'">
         </div>
     </div>
-</div>
 
-@RenderBody()
+    @RenderBody()
+
+    <div ng-include="'/Templates/Site/footer.html'"></div>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>

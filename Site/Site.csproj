@@ -309,6 +309,8 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
+    <Content Include="Templates\Site\footer.html" />
+    <Content Include="Templates\Site\nav.html" />
     <Content Include="Templates\Users\details.html" />
     <Content Include="Templates\Users\register.html" />
     <Content Include="Templates\Users\list.html" />
@@ -340,10 +342,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\AllAcu\Index.cshtml" />
-    <Content Include="Views\Shared\_Minimal.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".config\defaults\" />

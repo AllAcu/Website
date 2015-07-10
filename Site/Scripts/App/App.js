@@ -131,12 +131,34 @@
                 }
             }
         });
+        $rootScope.copyrightYear = new Date().getFullYear();
     });
 
     function userLoggedIn() {
         var authTokenService = angular.injector(['authApp']);
         return authTokenService.get('authToken').loggedIn();
     }
+
+    app.controller('nav', ['$scope', 'authToken', function ($scope, authToken) {
+        var _loginNavItems = [
+            { label: "Login", link: "/AllAcu/#/login" }
+        ];
+        var _navItems = [
+                { label: "Verifications", link: "/AllAcu/#/verifications" },
+                { label: "Patients", link: "/AllAcu/#/patients" },
+                { label: "Users", link: "/AllAcu/#/users" },
+                { label: "Claims", link: "/AllAcu/#/claims" },
+                { label: "New Provider", link: "/AllAcu/#/provider/create" }
+        ];
+
+        $scope.navItems = function () {
+            if (!authToken.loggedIn()) {
+                return _loginNavItems;
+            }
+
+            return _navItems;
+        }
+    }]);
 
     app.controller('header', ['$scope', 'careProviderRepository', function ($scope, $providers) {
         $scope.providers = function () { return $providers.providers(); }
