@@ -182,6 +182,10 @@
         $scope.$watch(authToken.loggedIn, function () {
             providers.refresh();
         });
+
+        $scope.available = function() {
+            return authToken.loggedIn();
+        }
     }]);
 
     exports.app = app;
