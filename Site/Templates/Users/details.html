@@ -5,9 +5,10 @@
 
     <label>Providers</label>
     <ul ng-repeat="provider in providers()">
-        <li>{{provider.businessName}}
+        <li style="list-style-type: none;">
             <button class="btn-primary" ng-show="!hasProvider(provider)" ng-click="join(provider)">Join</button>
             <button class="btn-primary" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
+            {{provider.businessName}}
         </li>
     </ul>
 
