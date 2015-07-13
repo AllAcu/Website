@@ -1,4 +1,3 @@
-﻿using System;
 using Microsoft.Its.Domain;
 
 namespace Domain
@@ -7,11 +6,10 @@ namespace Domain
     {
         ProcedureCode Code { get; set; }
         public string Name { get; set; }
-
     }
 
     public class ProcedureCode : String<ProcedureCode>
     {
-        
+
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
-namespace AllAcu.Models.Providers
+namespace AllAcu
 {
     public class PatientDetailsViewModelHandler :
         IUpdateProjectionWhen<CareProvider.NewPatient>,

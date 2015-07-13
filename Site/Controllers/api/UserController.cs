@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
-using Domain.Authentication;
 using Domain.User;
 using Microsoft.Its.Domain;
 

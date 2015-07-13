@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
-using AllAcu.Models.Providers;
-using Domain.Authentication;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 

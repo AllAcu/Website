@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AllAcu.Models.Providers
+namespace AllAcu
 {
     public class PatientDetails
     {

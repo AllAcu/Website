@@ -7,9 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
-using Domain.Authentication;
 using Domain.CareProvider;
-using Domain.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 

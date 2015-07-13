@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
-using Domain.Authentication;
-using Domain.CareProvider;
-using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api

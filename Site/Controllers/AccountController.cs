@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using AllAcu.Authentication;
-using AllAcu.Models;
 using AllAcu.Providers;
 using AllAcu.Results;
 using Domain.User;

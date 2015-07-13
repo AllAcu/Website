@@ -1,9 +1,21 @@
-﻿using Domain.CareProvider;
-using Domain.Repository;
+﻿using System;
+using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
-namespace AllAcu.Projections
+namespace AllAcu
 {
+    public class CareProviderBusinessInfo
+    {
+        public Guid Id { get; set; }
+        public string BusinessName { get; set; }
+        public string PractitionerName { get; set; }
+        public string City { get; set; }
+        public string NpiNumber { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string TaxId { get; set; }
+    }
+
     public class CareProviderInformationHandler : IUpdateProjectionWhen<CareProvider.NewProvider>
     {
         private readonly AllAcuSiteDbContext dbContext;
@@ -28,4 +40,5 @@ namespace AllAcu.Projections
             dbContext.SaveChanges();
         }
     }
+
 }

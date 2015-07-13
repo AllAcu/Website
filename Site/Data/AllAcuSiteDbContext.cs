@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using AllAcu.Models.Providers;
+using AllAcu;
 using Domain.Repository;
 using Microsoft.Its.Domain.Sql;
 

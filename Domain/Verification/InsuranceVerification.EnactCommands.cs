@@ -52,30 +52,17 @@ namespace Domain.Verification
                 });
             }
 
-            public async Task HandleScheduledCommandException(InsuranceVerification verification,
-                CommandFailed<UpdateRequestDraft> command)
-            {
-            }
-
             public async Task EnactCommand(InsuranceVerification verification, SubmitRequest command)
             {
-
-                //verification.RecordEvent(new VerificationStarted
-                //{
-                //    PatientId = command.PatientId,
-                //    VerificationId = verificationId
-                //});
-
-                //verification.RecordEvent(new VerificationDraftUpdated
-                //{
-                //    VerificationId = verificationId,
-                //    Request = command.RequestDraft
-                //});
-
                 verification.RecordEvent(new RequestSubmitted
                 {
                     
                 });
+            }
+
+            public async Task HandleScheduledCommandException(InsuranceVerification verification,
+                CommandFailed<UpdateRequestDraft> command)
+            {
             }
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,

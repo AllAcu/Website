@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using AllAcu.Authentication;
-using AllAcu.Models;
-using AllAcu.Models.Providers;
+using AllAcu;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
