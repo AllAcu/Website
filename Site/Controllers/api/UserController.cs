@@ -10,6 +10,7 @@ namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
     [RoutePrefix("api")]
+    [Authorize]
     public class UserController : ApiController
     {
         private readonly AllAcuSiteDbContext dbContext;

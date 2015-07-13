@@ -15,6 +15,7 @@ namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
     [RoutePrefix("api/provider")]
+    [Authorize]
     public class CareProviderController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;

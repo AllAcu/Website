@@ -10,6 +10,7 @@ namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
     [RoutePrefix("api")]
+    [Authorize]
     public class VerificationController : ApiController
     {
         private readonly IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository;
