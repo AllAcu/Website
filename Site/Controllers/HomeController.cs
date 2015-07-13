@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Domain.Repository;
 
 namespace AllAcu.Controllers
 {

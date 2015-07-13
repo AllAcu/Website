@@ -2,43 +2,16 @@
     app.service('$api', [
         '$http', 'authToken', function ($http, authToken) {
 
-            function $httpAuth(options) {
-                if (!authToken.loggedIn()) {
-                    var response = {
-                        success: function() { return response; },
-                        error: function(errorCallback) {
-                            errorCallback();
-                            return response;
-                        }
-                    };
-                    return response;
-                }
-                return $http({
-                    method: options.method,
-                    url: options.url,
-                    data: options.data,
-                    headers: {
-                        "Authorization": "Bearer " + authToken.get()
-                    },
-                    transformRequest: function (obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    }
-                });
-            }
-
             return {
                 auth: {
-                    login: function(loginData) {
+                    login: function (loginData) {
                         return $http({
                             method: 'POST',
                             url: '/Token',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
-                            transformRequest: function(obj) {
+                            transformRequest: function (obj) {
                                 var str = [];
                                 for (var p in obj)
                                     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
@@ -47,18 +20,15 @@
                             data: loginData
                         });
                     },
-                    changePassword: function(oldPassword, newPassword, confirmPassword) {
-                        return $httpAuth({
-                            method: "POST",
-                            url: "api/Account/ChangePassword",
-                            data: {
+                    changePassword: function (oldPassword, newPassword, confirmPassword) {
+                        return $http.post("api/Account/ChangePassword", {
                                 oldPassword: oldPassword,
                                 newPassword: newPassword,
                                 confirmPassword: confirmPassword
                             }
-                        });
+                        );
                     },
-                    loggedIn: function() {
+                    loggedIn: function () {
                         return authToken.loggedIn();
                     }
                 },
@@ -75,25 +45,59 @@
                                 verification.patientName = verification.patient.Name;
                             });
                     },
-                    getAuth: function () {
-                        return $httpAuth({
-                            method: 'GET',
-                            url: '/api/insurance/verification2'
-                        });
+                    update: function (verificationId, verification) {
+                        return $http.put("/api/insurance/verification/{verificationId}".replace("{verificationId}", verificationId), {
+                                verificationId: verificationId,
+                                benefits: verification.benefits
+                            }
+                        );
+                    },
+                    approve: function (verificationId, verification) {
+                        return $http.post("/api/insurance/verification/{verificationId}/approve"
+                            .replace("{verificationId}", verificationId), {
+                                verificationId: verificationId,
+                                benefits: verification.benefits
+                            });
+                    },
+                    revise: function (verificationId, reason) {
+                        return $http.post("/api/insurance/verification/{verificationId}/revise"
+                            .replace("{verificationId}", verificationId), {
+                                verificationId: verificationId,
+                                reason: reason
+                            });
                     }
                 },
-                providers: {
-                    get: function() {
-                        return $httpAuth({
-                            method: "get",
-                            url: "/api/provider"
-                        });
+                verificationRequests: {
+                    start: function (patientId, request) {
+                        return $http.post("/api/{PatientId}/insurance/verification/request"
+                            .replace("{PatientId}", patientId), {
+                                requestDraft: request
+                            });
+                    },
+                    submitNew: function (patientId, request) {
+                        return $http.post("/api/{PatientId}/insurance/verification/submit"
+                            .replace("{PatientId}", patientId), {
+                                request: request
+                            });
+                    },
+                    update: function (verificationId, request) {
+                        return $http.put("/api/insurance/verification/{VerificationId}/request"
+                            .replace("{VerificationId}", verificationId), {
+                                requestDraft: request
+                            });
+                    },
+                    submit: function (verificationId, request) {
+                        return $http.post("/api/insurance/verification/{VerificationId}/submit"
+                            .replace("{VerificationId}", verificationId), {
+                                request: request
+                            });
+                    }
+                }, providers: {
+                    get: function () {
+                        return $http.get("/api/provider");
                     },
                     getAll: function () {
-                        return $httpAuth({
-                            method: "get",
-                            url: "/api/provider/all"
-                        });
+                        return $http.get("/api/provider/all");
                     },
                     who: function () {
                         return $http.get("/api/provider/who");
@@ -106,16 +110,16 @@
                     }
                 },
                 users: {
-                    get: function(id) {
+                    get: function (id) {
                         return $http.get("/api/user/" + id);
                     },
-                    getAll: function() {
+                    getAll: function () {
                         return $http.get("/api/user");
                     },
-                    register: function(data) {
+                    register: function (data) {
                         return $http.post('/api/Account/Register', data);
                     },
-                    join: function(userId, providerId) {
+                    join: function (userId, providerId) {
                         return $http.post('/api/user/' + userId + "/join", { providerId: providerId });
                     },
                     leave: function (userId, providerId) {

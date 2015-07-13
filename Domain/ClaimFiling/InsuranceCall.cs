@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Repository;
 
 namespace Domain.ClaimFiling
 {

@@ -123,7 +123,7 @@
                     redirectTo: '/patients'
                 });
         }
-    ]).run(function ($rootScope, $location) {
+    ]).run(['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
         $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
             if (next.$$route) {
                 if (next.$$route.anonymous) {
@@ -136,11 +136,19 @@
             }
         });
         $rootScope.copyrightYear = new Date().getFullYear();
-    });
+        $http.defaults.headers.common.Authorization = getAuthHeader;
+    }]);
 
     function userLoggedIn() {
         var authTokenService = angular.injector(['authApp']);
         return authTokenService.get('authToken').loggedIn();
+    }
+
+    function getAuthHeader() {
+        var authToken = angular.injector(['authApp']).get('authToken');
+        if (authToken.loggedIn()) {
+            return 'Bearer ' + authToken.get();
+        }
     }
 
     app.controller('nav', ['$scope', 'authToken', function ($scope, authToken) {
@@ -183,7 +191,7 @@
             providers.refresh();
         });
 
-        $scope.available = function() {
+        $scope.available = function () {
             return authToken.loggedIn();
         }
     }]);

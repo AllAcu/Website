@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using AllAcu.Authentication;
-using AllAcu;
-using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
 using Domain.User;
@@ -67,26 +67,40 @@ namespace AllAcu
 
             Command<CareProvider>.AuthorizeDefault = (provider, command) =>
             {
-                command.Principal = new UserPrincipal(name: "Brett");
+                command.Principal = CurrentPrincipal();
                 return true;
             };
             Command<Domain.Verification.InsuranceVerification>.AuthorizeDefault = (provider, command) =>
             {
-                command.Principal = new UserPrincipal(name: "Brett");
+                command.Principal = CurrentPrincipal();
                 return true;
             };
             Command<User>.AuthorizeDefault = (provider, command) =>
             {
-                command.Principal = new UserPrincipal(name: "Brett");
+                command.Principal = CurrentPrincipal();
                 return true;
             };
             Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) =>
             {
-                command.Principal = new UserPrincipal(name: "Brett");
+                command.Principal = CurrentPrincipal();
                 return true;
             };
 
             Microsoft.Its.Domain.Configuration.Current.UseSqlEventStore();
+        }
+
+        private static IPrincipal CurrentPrincipal()
+        {
+            return HttpContext.Current.User.Identity.IsAuthenticated ? HttpContext.Current.User : new AnonymousPrincipal();
+        }
+
+        private class AnonymousPrincipal : IPrincipal, IIdentity
+        {
+            public string Name => "Anonymous";
+            public string AuthenticationType => "Anonymous";
+            public bool IsInRole(string role) => false;
+            public IIdentity Identity => this;
+            public bool IsAuthenticated => false;
         }
     }
 }

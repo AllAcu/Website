@@ -1,17 +1,17 @@
 ﻿(function (module) {
 
     module.controller('verificationRequestCreate', [
-        "$scope", "$routeParams", "$location", "verificationCommands", function ($scope, $routeParams, $location, commands) {
+        "$scope", "$routeParams", "$location", "$api", function ($scope, $routeParams, $location, $api) {
 
             var patientId = $routeParams["patientId"];
 
             $scope.save = function () {
-                commands.request.start(patientId, $scope.request).success(function () {
+                $api.verificationRequests.start(patientId, $scope.request).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }
             $scope.submit = function () {
-                commands.request.submitNew(patientId, $scope.request)
+                $api.verificationRequests.submitNew(patientId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
@@ -20,7 +20,7 @@
     ]);
 
     module.controller('verificationRequestEdit', [
-        "$scope", "$routeParams", "$location", "verificationRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, commands) {
+        "$scope", "$routeParams", "$location", "verificationRepository", "$api", function ($scope, $routeParams, $location, verifications, $api) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
             verifications.getVerification(verificationId)
@@ -30,13 +30,13 @@
                 });
 
             $scope.save = function () {
-                commands.request.update(verificationId, $scope.request)
+                $api.verificationRequests.update(verificationId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
             };
             $scope.submit = function () {
-                commands.request.submit(verificationId, $scope.request)
+                $api.verificationRequests.submit(verificationId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
@@ -67,7 +67,7 @@
     ]);
 
     module.controller('verifyInsurance', [
-        "$scope", "$routeParams", "$location", "verificationRepository", "patientRepository", "verificationCommands", function ($scope, $routeParams, $location, verifications, patients, commands) {
+        "$scope", "$routeParams", "$location", "verificationRepository", "patientRepository", "$api", function ($scope, $routeParams, $location, verifications, patients, $api) {
 
             var verificationId = $routeParams["verificationId"];
             var patientId;
@@ -83,19 +83,19 @@
                 });
 
             $scope.save = function () {
-                commands.verification.update(verificationId, $scope.verification).success(function () {
+                $api.verifications.update(verificationId, $scope.verification).success(function () {
                     console.log("saved " + verificationId);
                 });
             }
 
             $scope.complete = function () {
-                commands.verification.approve(verificationId, $scope.verification).success(function () {
+                $api.verifications.approve(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }
 
             $scope.revise = function () {
-                commands.verification.revise(verificationId, $scope.verification).success(function () {
+                $api.verifications.revise(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }

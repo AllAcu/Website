@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using AllAcu;
-using Domain.Repository;
+﻿using System.Data.Entity;
 using Microsoft.Its.Domain.Sql;
 
 namespace AllAcu

@@ -278,7 +278,6 @@
     <Content Include="Scripts\App\patientCommands.js" />
     <Content Include="Scripts\App\patients.js" />
     <Content Include="Scripts\App\providers.js" />
-    <Content Include="Scripts\App\verificationCommands.js" />
     <Content Include="Scripts\App\verificationRepository.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

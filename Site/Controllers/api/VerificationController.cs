@@ -33,13 +33,6 @@ namespace AllAcu.Controllers.api
             return allAcuSiteDbContext.VerificationList;
         }
 
-        [Authorize]
-        [Route("insurance/verification2"), HttpGet]
-        public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItemsAuthorized()
-        {
-            return allAcuSiteDbContext.VerificationList;
-        }
-
         [Route("insurance/verification/{VerificationId}")]
         public InsuranceVerification GetVerification(Guid verificationId)
         {
