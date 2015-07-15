@@ -11,7 +11,7 @@ namespace Domain.User
 
             public override void Update(User user)
             {
-                user.Providers.Add(ProviderId);
+                user.AddProviderAccess(ProviderId);
             }
         }
     }

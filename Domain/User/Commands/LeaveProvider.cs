@@ -13,7 +13,7 @@ namespace Domain.User
 
             public override IValidationRule<User> Validator
             {
-                get { return Validate.That<User>(u => u.Providers.Contains(ProviderId)); }
+                get { return Validate.That<User>(u => u.HasPermission(ProviderId)); }
             }
         }
     }

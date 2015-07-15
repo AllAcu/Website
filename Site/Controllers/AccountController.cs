@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using AllAcu.Authentication;
-using AllAcu.Providers;
-using AllAcu.Results;
 using Domain.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;

@@ -1,6 +1,5 @@
 ﻿using System;
 using AllAcu.Authentication;
-using AllAcu.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;

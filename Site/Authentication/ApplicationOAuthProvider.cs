@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AllAcu.Authentication;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 
-namespace AllAcu.Providers
+namespace AllAcu.Authentication
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
@@ -25,7 +18,7 @@ namespace AllAcu.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -33,17 +26,17 @@ namespace AllAcu.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
+            var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            var properties = CreateProperties(user.UserName);
+            var ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(oAuthIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
-            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            foreach (var property in context.Properties.Dictionary)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
@@ -66,7 +59,7 @@ namespace AllAcu.Providers
         {
             if (context.ClientId == PublicClientId)
             {
-                Uri expectedRootUri = new Uri(context.Request.Uri, "/");
+                var expectedRootUri = new Uri(context.Request.Uri, "/");
 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {
@@ -79,7 +72,7 @@ namespace AllAcu.Providers
 
         public static AuthenticationProperties CreateProperties(string userName)
         {
-            IDictionary<string, string> data = new Dictionary<string, string>
+            var data = new Dictionary<string, string>
             {
                 { "userName", userName }
             };
