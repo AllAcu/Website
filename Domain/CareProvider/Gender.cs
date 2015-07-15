@@ -22,9 +22,8 @@ namespace Domain
             if (string.Compare(value, "Female", StringComparison.OrdinalIgnoreCase) == 0)
                 return Female;
             throw new ArgumentException($"Not a recognized gender: {value}");
-
         }
         public static Gender Male = new Gender("Male");
-        public static Gender Female = new Gender("Female`");
+        public static Gender Female = new Gender("Female");
     }
 }
