@@ -7,9 +7,7 @@ namespace Domain.User
     public partial class User
     {
         public class UserCommandHandler :
-            ICommandHandler<User, Update>,
-            ICommandHandler<User, JoinProvider>,
-            ICommandHandler<User, LeaveProvider>
+            ICommandHandler<User, Update>
         {
             public async Task EnactCommand(User user, Update command)
             {
@@ -19,31 +17,7 @@ namespace Domain.User
                 });
             }
 
-            public async Task EnactCommand(User user, JoinProvider command)
-            {
-                user.RecordEvent(new JoinedProvider
-                {
-                    ProviderId = command.ProviderId
-                });
-            }
-
-            public async Task EnactCommand(User user, LeaveProvider command)
-            {
-                user.RecordEvent(new LeftProvider
-                {
-                    ProviderId = command.ProviderId
-                });
-            }
-
             public async Task HandleScheduledCommandException(User user, CommandFailed<Update> command)
-            {
-            }
-
-            public async Task HandleScheduledCommandException(User aggregate, CommandFailed<JoinProvider> command)
-            {
-            }
-
-            public async Task HandleScheduledCommandException(User aggregate, CommandFailed<LeaveProvider> command)
             {
             }
         }

@@ -30,7 +30,6 @@ namespace Domain.CareProvider
         public IList<Patient> Patients { get; } = new List<Patient>();
         public IList<string> Practitioners { get; } = new List<string>();
         public IList<ClaimDraft> ClaimDrafts { get; } = new List<ClaimDraft>();
-        public IList<PendingVerification> PendingVerifications { get; } = new List<PendingVerification>();
 
         public string BusinessName { get; set; }
         public string PractitionerName { get; set; }

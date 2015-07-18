@@ -22,10 +22,10 @@
                     },
                     changePassword: function (oldPassword, newPassword, confirmPassword) {
                         return $http.post("api/Account/ChangePassword", {
-                                oldPassword: oldPassword,
-                                newPassword: newPassword,
-                                confirmPassword: confirmPassword
-                            }
+                            oldPassword: oldPassword,
+                            newPassword: newPassword,
+                            confirmPassword: confirmPassword
+                        }
                         );
                     },
                     loggedIn: function () {
@@ -47,9 +47,9 @@
                     },
                     update: function (verificationId, verification) {
                         return $http.put("/api/insurance/verification/{verificationId}".replace("{verificationId}", verificationId), {
-                                verificationId: verificationId,
-                                benefits: verification.benefits
-                            }
+                            verificationId: verificationId,
+                            benefits: verification.benefits
+                        }
                         );
                     },
                     approve: function (verificationId, verification) {
@@ -118,7 +118,9 @@
                     },
                     register: function (data) {
                         return $http.post('/api/Account/Register', data);
-                    },
+                    }
+                },
+                organization: {
                     join: function (userId, providerId) {
                         return $http.post('/api/user/' + userId + "/join", { providerId: providerId });
                     },

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Its.Domain;
+﻿using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
 {

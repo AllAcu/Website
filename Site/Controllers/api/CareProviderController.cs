@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.CareProvider;
+using Domain.Organization;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
@@ -19,6 +20,7 @@ namespace AllAcu.Controllers.api
     public class CareProviderController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
+        private readonly IEventSourcedRepository<Organization> organizationEventRepository;
         private readonly AllAcuSiteDbContext dbContext;
 
         public CareProviderController(IEventSourcedRepository<CareProvider> careProviderEventRepository, AllAcuSiteDbContext dbContext)
@@ -33,6 +35,13 @@ namespace AllAcu.Controllers.api
             command.AggregateId = Guid.NewGuid();
             var provider = new CareProvider(command);
             await careProviderEventRepository.Save(provider);
+
+            // TODO (bremor) - use a schedule command instead for durability/ atomicity
+            var organization = new Organization
+            {
+                ProviderId = provider.Id
+            };
+            await organizationEventRepository.Save(organization);
 
             return provider.Id;
         }

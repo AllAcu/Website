@@ -33,21 +33,5 @@ namespace AllAcu.Controllers.api
         {
             return dbContext.UserList;
         }
-
-        [Route("user/{userId}/join"), HttpPost]
-        public async Task JoinProvider(Guid userId, User.JoinProvider command)
-        {
-            var user = await userEventSourcedRepository.GetLatest(userId);
-            await command.ApplyToAsync(user);
-            await userEventSourcedRepository.Save(user);
-        }
-
-        [Route("user/{userId}/leave"), HttpPost]
-        public async Task LeaveProvider(Guid userId, User.LeaveProvider command)
-        {
-            var user = await userEventSourcedRepository.GetLatest(userId);
-            await command.ApplyToAsync(user);
-            await userEventSourcedRepository.Save(user);
-        }
     }
 }

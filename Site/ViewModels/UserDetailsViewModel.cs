@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Organization;
 using Domain.User;
 using Microsoft.Its.Domain;
 using Microsoft.Its.Domain.Serialization;
@@ -35,8 +36,8 @@ namespace AllAcu
     public class UserDetailsViewModelHandler :
         IUpdateProjectionWhen<User.Registered>,
         IUpdateProjectionWhen<User.Updated>,
-        IUpdateProjectionWhen<User.JoinedProvider>,
-        IUpdateProjectionWhen<User.LeftProvider>
+        IUpdateProjectionWhen<Organization.UserJoined>,
+        IUpdateProjectionWhen<Organization.UserLeft>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -65,18 +66,18 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(User.JoinedProvider @event)
+        public void UpdateProjection(Organization.UserJoined @event)
         {
-            var user = dbContext.UserDetails.Find(@event.AggregateId);
-            user.Providers.Add(@event.ProviderId);
+            var user = dbContext.UserDetails.Find(@event.UserId);
+            user.Providers.Add(@event.AggregateId);
 
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(User.LeftProvider @event)
+        public void UpdateProjection(Organization.UserLeft @event)
         {
-            var user = dbContext.UserDetails.Find(@event.AggregateId);
-            user.Providers.Remove(@event.ProviderId);
+            var user = dbContext.UserDetails.Find(@event.UserId);
+            user.Providers.Remove(@event.AggregateId);
 
             dbContext.SaveChanges();
         }

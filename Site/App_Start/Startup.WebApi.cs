@@ -1,6 +1,4 @@
 ﻿using System.Web.Http;
-using Domain;
-using Domain.CareProvider;
 using Microsoft.Its.Domain.Serialization;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;

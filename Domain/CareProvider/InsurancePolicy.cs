@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.CareProvider;
+using Domain.Verification;
 
 namespace Domain
 {

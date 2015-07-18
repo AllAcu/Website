@@ -1,4 +1,4 @@
-﻿using Domain.CareProvider;
+﻿using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace Domain.Verification
@@ -9,7 +9,7 @@ namespace Domain.Verification
         {
             public override void Update(InsuranceVerification verification)
             {
-                verification.Status = PendingVerification.RequestStatus.Approved;
+                verification.Status = VerificationRequestStatus.Approved;
 
                 //var patient = provider.GetPatient(verification.PatientId);
                 //patient.InsurancePolicies.Last().Benefits = verification.Benefits;
