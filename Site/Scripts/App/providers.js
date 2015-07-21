@@ -16,16 +16,15 @@
 
             $providers.edit($routeParams["id"])
             .success(function (data) {
-                    $scope.provider = data;
-                });
+                $scope.provider = data;
+            });
 
             $scope.save = function () {
                 $commands.update($scope.provider).success(function () {
+                    $providers.refresh();
                     $location.path("/patient");
                 });
             }
         }]);
-
-
 
 }(angular.module("providersApp")));

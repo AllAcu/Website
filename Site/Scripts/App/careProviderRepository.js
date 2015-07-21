@@ -15,7 +15,7 @@
         }
 
         function loadProviders() {
-            $api.providers.get()
+            return $api.providers.get()
                 .success(function (data) {
                     _providers = data;
                     if (_providers && _providers.length) {
@@ -53,7 +53,7 @@
                 return $api.providers.create(provider);
             },
             refresh: function () {
-                loadProviders();
+                return loadProviders();
             }
         };
     }]);

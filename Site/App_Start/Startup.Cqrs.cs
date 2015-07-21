@@ -51,7 +51,8 @@ namespace AllAcu
                 typeof(PatientDetailsViewModelHandler),
                 typeof(PatientListItemViewModelHandler),
                 typeof(InsuranceVerificationFormEventHandler),
-                typeof(UserDetailsViewModelHandler)
+                typeof(UserDetailsViewModelHandler),
+                typeof(CareProviderInformationHandler)
             };
 
             _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
