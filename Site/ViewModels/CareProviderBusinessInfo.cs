@@ -16,7 +16,9 @@ namespace AllAcu
         public string TaxId { get; set; }
     }
 
-    public class CareProviderInformationHandler : IUpdateProjectionWhen<CareProvider.NewProvider>
+    public class CareProviderInformationHandler :
+        IUpdateProjectionWhen<CareProvider.NewProvider>,
+        IUpdateProjectionWhen<CareProvider.ProviderUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -31,7 +33,6 @@ namespace AllAcu
             {
                 Id = @event.AggregateId,
                 BusinessName = @event.BusinessName,
-                PractitionerName = @event.PractitionerName,
                 City = @event.City,
                 NpiNumber = @event.NpiNumber,
                 TaxId = @event.TaxId
@@ -39,6 +40,17 @@ namespace AllAcu
 
             dbContext.SaveChanges();
         }
-    }
 
+        public void UpdateProjection(CareProvider.ProviderUpdated @event)
+        {
+            var provider = dbContext.CareProviders.Find(@event.AggregateId);
+
+            provider.BusinessName = @event.BusinessName;
+            provider.City = @event.City;
+            provider.NpiNumber = @event.NpiNumber;
+            provider.TaxId = @event.TaxId;
+
+            dbContext.SaveChanges();
+        }
+    }
 }

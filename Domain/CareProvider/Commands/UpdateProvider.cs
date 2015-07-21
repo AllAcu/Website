@@ -11,8 +11,10 @@ namespace Domain.CareProvider
     {
         public class UpdateProvider : Command<CareProvider>
         {
-            public Guid ProviderId { get; set; }
             public string BusinessName { get; set; }
+            public string City { get; set; }
+            public string NpiNumber { get; set; }
+            public string TaxId { get; set; }
         }
     }
 }

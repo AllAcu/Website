@@ -112,6 +112,9 @@
                     create: function (provider) {
                         return $http.post("/api/provider/new", provider);
                     },
+                    update: function (provider) {
+                        return $http.put("/api/provider/{id}".replace("{id}", provider.id), provider);
+                    },
                     join: function (userId, providerId) {
                         return $http.post('/api/provider/' + providerId + "/join", { userId: userId });
                     },

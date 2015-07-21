@@ -78,6 +78,7 @@
     <Compile Include="CareProvider\CareProvider.cs" />
     <Compile Include="CareProvider\Commands\WelcomeUser.cs" />
     <Compile Include="CareProvider\Commands\DismissUser.cs" />
+    <Compile Include="CareProvider\Events\ProviderUpdated.cs" />
     <Compile Include="CareProvider\Events\UserJoined.cs" />
     <Compile Include="CareProvider\Events\UserLeft.cs" />
     <Compile Include="Procedure.cs" />

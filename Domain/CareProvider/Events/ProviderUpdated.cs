@@ -4,7 +4,7 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
-        public class NewProvider : Event<CareProvider>
+        public class ProviderUpdated : Event<CareProvider>
         {
             public string BusinessName { get; set; }
             public string City { get; set; }

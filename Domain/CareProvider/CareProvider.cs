@@ -20,7 +20,6 @@ namespace Domain.CareProvider
             RecordEvent(new NewProvider
             {
                 BusinessName = command.BusinessName,
-                PractitionerName = command.PractitionerName,
                 City = command.City,
                 NpiNumber = command.NpiNumber,
                 TaxId = command.TaxId
@@ -33,12 +32,16 @@ namespace Domain.CareProvider
         }
 
         public IList<Patient> Patients { get; } = new List<Patient>();
-        public IList<string> Practitioners { get; } = new List<string>();
+
+        public IList<UserAccess> Practitioners
+        {
+            get { return Users.Where(u => u.Roles.Contains(ProviderRoles.Practitioner)).ToArray(); }
+        }
+
         public IList<ClaimDraft> ClaimDrafts { get; } = new List<ClaimDraft>();
         public IList<UserAccess> Users { get; } = new List<UserAccess>();
 
         public string BusinessName { get; set; }
-        public string PractitionerName { get; set; }
         public string City { get; set; }
         public string NpiNumber { get; set; }
         public string TaxId { get; set; }

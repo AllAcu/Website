@@ -1,17 +1,17 @@
 ﻿(function (module) {
 
     module.controller('providerCreate', [
-        "$scope", "$location", "careProviderRepository", function ($scope, $location, $providers) {
+        "$scope", "$location", "careProviderRepository", "careProviderCommands", function ($scope, $location, $providers, $commands) {
             $scope.provider = {};
             $scope.save = function () {
-                $providers.create($scope.provider).success(function () {
+                $commands.create($scope.provider).success(function () {
                     $location.path("/patient");
                 });
             }
         }]);
 
     module.controller('providerEdit', [
-        "$scope", "$routeParams", "$location", "careProviderRepository", function ($scope, $routeParams, $location, $providers) {
+        "$scope", "$routeParams", "$location", "careProviderRepository", "careProviderCommands", function ($scope, $routeParams, $location, $providers, $commands) {
             $scope.provider = {};
 
             $providers.edit($routeParams["id"])
@@ -20,7 +20,7 @@
                 });
 
             $scope.save = function () {
-                $providers.create($scope.provider).success(function () {
+                $commands.update($scope.provider).success(function () {
                     $location.path("/patient");
                 });
             }

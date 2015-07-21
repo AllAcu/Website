@@ -38,6 +38,14 @@ namespace AllAcu.Controllers.api
             return provider.Id;
         }
 
+        [Route("{providerId}"), HttpPut]
+        public async Task Update(Guid providerId, CareProvider.UpdateProvider command)
+        {
+            var provider = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(provider);
+            await careProviderEventRepository.Save(provider);
+        }
+
         [Route("who"), HttpGet]
         public async Task<Guid?> WhoIsProvider()
         {

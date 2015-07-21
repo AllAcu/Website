@@ -5,6 +5,17 @@ namespace Domain.CareProvider
 {
     public partial class CareProvider
     {
+        public void EnactCommand(UpdateProvider command)
+        {
+            RecordEvent(new ProviderUpdated
+            {
+                BusinessName = command.BusinessName,
+                City = command.City,
+                NpiNumber = command.NpiNumber,
+                TaxId = command.TaxId
+            });
+        }
+
         public void EnactCommand(StartClaim command)
         {
             RecordEvent(new ClaimStarted
