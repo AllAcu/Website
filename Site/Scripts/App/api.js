@@ -92,8 +92,12 @@
                                 request: request
                             });
                     }
-                }, providers: {
-                    get: function () {
+                },
+                providers: {
+                    get: function (id) {
+                        if (id) {
+                            return $http.get("/api/provider/{id}".replace("{id}", id));
+                        }
                         return $http.get("/api/provider");
                     },
                     getAll: function () {
@@ -103,10 +107,16 @@
                         return $http.get("/api/provider/who");
                     },
                     be: function (id) {
-                        return $http.get("/api/provider/be/" + id);
+                        return $http.get("/api/provider/" + id + "/be");
                     },
                     create: function (provider) {
                         return $http.post("/api/provider/new", provider);
+                    },
+                    join: function (userId, providerId) {
+                        return $http.post('/api/provider/' + providerId + "/join", { userId: userId });
+                    },
+                    leave: function (userId, providerId) {
+                        return $http.post('/api/provider/' + providerId + "/leave", { userId: userId });
                     }
                 },
                 users: {
@@ -118,14 +128,6 @@
                     },
                     register: function (data) {
                         return $http.post('/api/Account/Register', data);
-                    }
-                },
-                organization: {
-                    join: function (userId, providerId) {
-                        return $http.post('/api/user/' + userId + "/join", { providerId: providerId });
-                    },
-                    leave: function (userId, providerId) {
-                        return $http.post('/api/user/' + userId + "/leave", { providerId: providerId });
                     }
                 }
             };

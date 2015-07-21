@@ -83,5 +83,21 @@ namespace Domain.CareProvider
                 TerminationDate = command.TerminationDate
             });
         }
+
+        public void EnactCommand(WelcomeUser command)
+        {
+            RecordEvent(new UserJoined
+            {
+                UserId = command.UserId
+            });
+        }
+
+        public void EnactCommand(DismissUser command)
+        {
+            RecordEvent(new UserLeft
+            {
+                UserId = command.UserId
+            });
+        }
     }
 }

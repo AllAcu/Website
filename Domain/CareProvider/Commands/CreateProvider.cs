@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.CareProvider
 {
@@ -6,6 +7,8 @@ namespace Domain.CareProvider
     {
         public class CreateProvider : ConstructorCommand<CareProvider>
         {
+            public Guid CreatingUserId { get; set; }
+
             public string BusinessName { get; set; }
             public string PractitionerName { get; set; }
             public string City { get; set; }

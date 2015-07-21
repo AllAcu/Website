@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.CareProvider;
-using Domain.Organization;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
@@ -20,7 +19,6 @@ namespace AllAcu.Controllers.api
     public class CareProviderController : ApiController
     {
         private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
-        private readonly IEventSourcedRepository<Organization> organizationEventRepository;
         private readonly AllAcuSiteDbContext dbContext;
 
         public CareProviderController(IEventSourcedRepository<CareProvider> careProviderEventRepository, AllAcuSiteDbContext dbContext)
@@ -33,15 +31,9 @@ namespace AllAcu.Controllers.api
         public async Task<Guid> CreateProvider(CareProvider.CreateProvider command)
         {
             command.AggregateId = Guid.NewGuid();
+            command.CreatingUserId = Guid.Parse(User.Identity.GetUserId());
             var provider = new CareProvider(command);
             await careProviderEventRepository.Save(provider);
-
-            // TODO (bremor) - use a schedule command instead for durability/ atomicity
-            var organization = new Organization
-            {
-                ProviderId = provider.Id
-            };
-            await organizationEventRepository.Save(organization);
 
             return provider.Id;
         }
@@ -53,11 +45,10 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public async Task<IEnumerable<CareProviderBusinessInfo>> GetUserProviders()
+        public Task<CareProviderChooserViewModel> GetUserProviders()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var user = await dbContext.UserDetails.FindAsync(userId);
-            return user != null ? dbContext.CareProviders.Where(p => user.Providers.Contains(p.Id)) : Enumerable.Empty<CareProviderBusinessInfo>();
+            return dbContext.ProviderChooser.FindAsync(userId);
         }
 
         [Route("all"), HttpGet]
@@ -66,7 +57,13 @@ namespace AllAcu.Controllers.api
             return dbContext.CareProviders.ToArrayAsync();
         }
 
-        [Route("be/{providerId}"), HttpGet]
+        [Route("{providerId}"), HttpGet]
+        public Task<CareProviderBusinessInfo> GetProvider(Guid providerId)
+        {
+            return dbContext.CareProviders.FindAsync(providerId);
+        }
+
+        [Route("{providerId}/be"), HttpGet]
         public HttpResponseMessage BeProvider(Guid providerId)
         {
             var response = Request.CreateResponse();
@@ -80,6 +77,22 @@ namespace AllAcu.Controllers.api
             response.Headers.AddCookies(new[] { cookie });
 
             return response;
+        }
+
+        [Route("{providerId}/join"), HttpPost]
+        public async Task JoinProvider(Guid providerId, CareProvider.WelcomeUser command)
+        {
+            var organization = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(organization);
+            await careProviderEventRepository.Save(organization);
+        }
+
+        [Route("{providerId}/leave"), HttpPost]
+        public async Task LeaveProvider(Guid providerId, CareProvider.DismissUser command)
+        {
+            var organization = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(organization);
+            await careProviderEventRepository.Save(organization);
         }
     }
 }

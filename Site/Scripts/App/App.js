@@ -66,6 +66,10 @@
                 .when('/provider/create', {
                     templateUrl: '/Templates/Providers/providerEdit.html',
                     controller: 'providerCreate'
+                })
+                .when('/provider/:id/edit', {
+                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    controller: 'providerEdit'
                 });
 
             $routeProvider

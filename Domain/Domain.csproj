@@ -76,11 +76,10 @@
   <ItemGroup>
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
-    <Compile Include="Organization\Commands\WelcomeUser.cs" />
-    <Compile Include="Organization\Commands\DismissUser.cs" />
-    <Compile Include="Organization\Events\UserJoined.cs" />
-    <Compile Include="Organization\Events\UserLeft.cs" />
-    <Compile Include="Organization\Organization.cs" />
+    <Compile Include="CareProvider\Commands\WelcomeUser.cs" />
+    <Compile Include="CareProvider\Commands\DismissUser.cs" />
+    <Compile Include="CareProvider\Events\UserJoined.cs" />
+    <Compile Include="CareProvider\Events\UserLeft.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="User\Commands\Register.cs" />
     <Compile Include="User\Commands\Update.cs" />

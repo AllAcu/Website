@@ -14,6 +14,7 @@ namespace AllAcu
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetailsViewModel> UserDetails { get; set; }
+        public DbSet<CareProviderChooserViewModel> ProviderChooser { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -36,6 +37,13 @@ namespace AllAcu
                 .ToTable("CareProviders");
             modelBuilder.Entity<UserDetailsViewModel>()
                 .HasKey(u => u.UserId);
+
+            modelBuilder.Entity<CareProviderChooserViewModel>()
+                .HasKey(u => u.UserId);
+
+            modelBuilder.ComplexType<CareProviderChooserViewModel.ProviderList>()
+                .Property(p => p.Serialized)
+                .HasColumnName("Providers");
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();

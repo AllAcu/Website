@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using Domain.Organization;
+using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Its.Domain;
-using Microsoft.Its.Domain.Serialization;
-using Newtonsoft.Json;
 
 namespace AllAcu
 {
@@ -16,28 +13,15 @@ namespace AllAcu
 
         public ProviderIdList Providers { get; set; } = new ProviderIdList();
 
-        public class ProviderIdList : HashSet<Guid>
-        {
-            public string Serialized
-            {
-                get { return this.ToJson(); }
-                set
-                {
-                    foreach (var item in JsonConvert.DeserializeObject<Guid[]>(value))
-                    {
-                        Add(item);
-                    }
-                }
-            }
-        }
+        public class ProviderIdList : SerialList<Guid>
+        { }
     }
-
 
     public class UserDetailsViewModelHandler :
         IUpdateProjectionWhen<User.Registered>,
         IUpdateProjectionWhen<User.Updated>,
-        IUpdateProjectionWhen<Organization.UserJoined>,
-        IUpdateProjectionWhen<Organization.UserLeft>
+        IUpdateProjectionWhen<CareProvider.UserJoined>,
+        IUpdateProjectionWhen<CareProvider.UserLeft>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -66,7 +50,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Organization.UserJoined @event)
+        public void UpdateProjection(CareProvider.UserJoined @event)
         {
             var user = dbContext.UserDetails.Find(@event.UserId);
             user.Providers.Add(@event.AggregateId);
@@ -74,7 +58,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Organization.UserLeft @event)
+        public void UpdateProjection(CareProvider.UserLeft @event)
         {
             var user = dbContext.UserDetails.Find(@event.UserId);
             user.Providers.Remove(@event.AggregateId);

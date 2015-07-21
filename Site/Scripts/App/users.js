@@ -56,14 +56,14 @@
             refreshUser();
 
             $scope.join = function (provider) {
-                $api.organization.join(userId, provider.id)
+                $api.providers.join(userId, provider.id)
                     .success(function() {
                         refreshUser();
                     });
             }
 
             $scope.leave = function(provider) {
-                $api.organization.leave(userId, provider.id)
+                $api.providers.leave(userId, provider.id)
                     .success(function () {
                         refreshUser();
                     });

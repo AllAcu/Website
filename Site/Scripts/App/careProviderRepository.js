@@ -17,7 +17,7 @@
         function loadProviders() {
             $api.providers.get()
                 .success(function (data) {
-                    _providers = data;
+                    _providers = data.providers;
                     if (_providers && _providers.length) {
                         $api.providers.who()
                             .success(function (current) {
@@ -44,6 +44,9 @@
                     setCurrentProvider(provider.id);
                 }
                 return _currentProvider;
+            },
+            edit: function(id) {
+                return $api.providers.get(id);
             },
             setCurrent: setCurrentProvider,
             create: function (provider) {
