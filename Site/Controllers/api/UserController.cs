@@ -23,7 +23,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("user/{userId}")]
-        public async Task<UserDetailsViewModel> GetUser(Guid userId)
+        public async Task<UserDetails> GetUser(Guid userId)
         {
             return await dbContext.UserDetails.FindAsync(userId);
         }

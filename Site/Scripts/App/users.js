@@ -37,7 +37,7 @@
             $scope.providers = function() { return providers; };
 
             $scope.hasProvider = function(provider) {
-                return $scope.user && $scope.user.providers.some(function(p) { return p === provider.id; });
+                return $scope.user && $scope.user.providers.some(function(p) { return p.id === provider.id; });
             }
 
             $api.providers.getAll()

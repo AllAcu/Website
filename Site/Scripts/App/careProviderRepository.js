@@ -17,7 +17,7 @@
         function loadProviders() {
             $api.providers.get()
                 .success(function (data) {
-                    _providers = data.providers;
+                    _providers = data;
                     if (_providers && _providers.length) {
                         $api.providers.who()
                             .success(function (current) {

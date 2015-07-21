@@ -4,11 +4,10 @@ using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class CareProviderBusinessInfo
+    public class CareProviderDetails
     {
         public Guid Id { get; set; }
         public string BusinessName { get; set; }
-        public string PractitionerName { get; set; }
         public string City { get; set; }
         public string NpiNumber { get; set; }
         public string Address { get; set; }
@@ -29,7 +28,7 @@ namespace AllAcu
 
         public void UpdateProjection(CareProvider.NewProvider @event)
         {
-            dbContext.CareProviders.Add(new CareProviderBusinessInfo
+            dbContext.CareProviders.Add(new CareProviderDetails
             {
                 Id = @event.AggregateId,
                 BusinessName = @event.BusinessName,

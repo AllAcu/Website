@@ -53,20 +53,21 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public Task<CareProviderChooserViewModel> GetUserProviders()
+        public async Task<IEnumerable<CareProviderDetails>> GetUserProviders()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return dbContext.ProviderChooser.FindAsync(userId);
+            var user = await dbContext.UserDetails.FindAsync(userId);
+            return user.Providers;
         }
 
         [Route("all"), HttpGet]
-        public Task<CareProviderBusinessInfo[]> GetProviders()
+        public Task<CareProviderDetails[]> GetProviders()
         {
             return dbContext.CareProviders.ToArrayAsync();
         }
 
         [Route("{providerId}"), HttpGet]
-        public Task<CareProviderBusinessInfo> GetProvider(Guid providerId)
+        public Task<CareProviderDetails> GetProvider(Guid providerId)
         {
             return dbContext.CareProviders.FindAsync(providerId);
         }

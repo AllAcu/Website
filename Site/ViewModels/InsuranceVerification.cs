@@ -92,7 +92,7 @@ namespace AllAcu
                 InsurancePhoneNumber = patient.MedicalInsurance != null
                     ? patient.MedicalInsurance.ProviderPhoneNumber
                     : patient.PersonalInjuryProtection.AdjusterPhone,
-                Acupuncturist = provider.PractitionerName,
+                Acupuncturist = "Jimmy Needles",
                 AcupuncturistNpiNumber = provider.NpiNumber,
                 AcupuncturistAddress = provider.Address,
                 AcupuncturistPhoneNumber = provider.PhoneNumber,

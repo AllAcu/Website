@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class UserDetailsViewModel
+    public class UserDetails
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
 
-        public ProviderIdList Providers { get; set; } = new ProviderIdList();
-
-        public class ProviderIdList : SerialList<Guid>
-        { }
+        public virtual IList<CareProviderDetails> Providers { get; set; } = new List<CareProviderDetails>();
     }
 
     public class UserDetailsViewModelHandler :
@@ -32,7 +30,7 @@ namespace AllAcu
 
         public void UpdateProjection(User.Registered @event)
         {
-            dbContext.UserDetails.Add(new UserDetailsViewModel
+            dbContext.UserDetails.Add(new UserDetails
             {
                 UserId = @event.AggregateId,
                 Name = @event.Name,
@@ -53,7 +51,8 @@ namespace AllAcu
         public void UpdateProjection(CareProvider.UserJoined @event)
         {
             var user = dbContext.UserDetails.Find(@event.UserId);
-            user.Providers.Add(@event.AggregateId);
+            var provider = dbContext.CareProviders.Find(@event.AggregateId);
+            user.Providers.Add(provider);
 
             dbContext.SaveChanges();
         }
@@ -61,7 +60,8 @@ namespace AllAcu
         public void UpdateProjection(CareProvider.UserLeft @event)
         {
             var user = dbContext.UserDetails.Find(@event.UserId);
-            user.Providers.Remove(@event.AggregateId);
+            var provider = dbContext.CareProviders.Find(@event.AggregateId);
+            user.Providers.Remove(provider);
 
             dbContext.SaveChanges();
         }

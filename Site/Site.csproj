@@ -238,10 +238,9 @@
     <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Monitoring\Site.cs" />
     <Compile Include="Authentication\AuthorizationDbContext.cs" />
-    <Compile Include="ViewModels\CareProviderBusinessInfo.cs" />
-    <Compile Include="ViewModels\CareProviderChooserViewModel.cs" />
+    <Compile Include="ViewModels\CareProviderDetails.cs" />
     <Compile Include="ViewModels\SerialList.cs" />
-    <Compile Include="ViewModels\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserDetails.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
     <Compile Include="Controllers\AllAcuController.cs" />

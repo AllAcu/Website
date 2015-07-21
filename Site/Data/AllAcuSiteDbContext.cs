@@ -7,14 +7,13 @@ namespace AllAcu
     {
         public static string ConnectionString;
 
-        public DbSet<CareProviderBusinessInfo> CareProviders { get; set; }
+        public DbSet<CareProviderDetails> CareProviders { get; set; }
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
         public DbSet<PatientDetails> PatientDetails { get; set; }
         public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
-        public DbSet<UserDetailsViewModel> UserDetails { get; set; }
-        public DbSet<CareProviderChooserViewModel> ProviderChooser { get; set; }
+        public DbSet<UserDetails> UserDetails { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -32,25 +31,19 @@ namespace AllAcu
                 .HasKey(i => i.VerificationId);
             modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId);
-            modelBuilder.Entity<CareProviderBusinessInfo>()
+
+            modelBuilder.Entity<CareProviderDetails>()
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
-            modelBuilder.Entity<UserDetailsViewModel>()
-                .HasKey(u => u.UserId);
 
-            modelBuilder.Entity<CareProviderChooserViewModel>()
-                .HasKey(u => u.UserId);
-
-            modelBuilder.ComplexType<CareProviderChooserViewModel.ProviderList>()
-                .Property(p => p.Serialized)
-                .HasColumnName("Providers");
+            modelBuilder.Entity<UserDetails>()
+                .HasKey(u => u.UserId)
+                .HasMany(u => u.Providers)
+                .WithMany();
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
             modelBuilder.ComplexType<PatientDetails.LatestVerification>();
-            modelBuilder.ComplexType<UserDetailsViewModel.ProviderIdList>()
-                .Property(p => p.Serialized)
-                .HasColumnName("Providers");
 
             modelBuilder.Entity<PatientDetails>()
                 .HasOptional(d => d.MedicalInsurance);
