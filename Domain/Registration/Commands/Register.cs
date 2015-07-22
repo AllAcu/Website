@@ -8,7 +8,7 @@ namespace Domain.Registration
         {
             public string Name { get; set; }
             public string Password { get; set; }
-            public string ConfirmPassword { get; set; }
+            public string Token { get; set; }
         }
     }
 }

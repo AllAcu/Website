@@ -86,15 +86,14 @@
     <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="Registration\Commands\Invite.cs" />
-    <Compile Include="Registration\Commands\ConfirmEmail.cs" />
     <Compile Include="Registration\EmailConfirmation.cs" />
-    <Compile Include="Registration\Events\EmailConfirmed.cs" />
     <Compile Include="Registration\Events\FirstUserInvite.cs" />
     <Compile Include="Registration\Events\InviteAddedToUser.cs" />
+    <Compile Include="Registration\Events\Registered.cs" />
+    <Compile Include="Registration\Events\SignedUp.cs" />
     <Compile Include="Registration\Invitation.cs" />
     <Compile Include="Registration\Commands\Register.cs" />
     <Compile Include="Registration\Registration.cs" />
-    <Compile Include="Registration\RegistrationInfo.cs" />
     <Compile Include="Registration\Commands\SignUp.cs" />
     <Compile Include="User\Commands\Register.cs" />
     <Compile Include="User\Commands\Update.cs" />

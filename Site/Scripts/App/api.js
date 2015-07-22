@@ -123,7 +123,25 @@
                     }
                 },
                 registration: {
-                    
+                    signup: function(email) {
+                        return $http.post("/api/registration/signup", {
+                            email: email
+                        });
+                    },
+                    invite: function(email, role) {
+                        return $http.post("/api/registration/invite", {
+                            email: email,
+                            role: role
+                        });
+                    },
+                    register: function(email, token, name, password) {
+                        return $http.post("/api/registration/register", {
+                            name: name,
+                            password: password,
+                            email: email,
+                            token: token
+                        });
+                    }
                 },
                 users: {
                     get: function (id) {

@@ -18,7 +18,7 @@ namespace AllAcu
         {
             public Guid InviteId { get; set; } = Guid.NewGuid();
             public CareProviderDetails Provider { get; set; }
-            public Role Role { get; set; }
+            public string Role { get; set; }
         }
     }
 
@@ -41,7 +41,7 @@ namespace AllAcu
             confirmation.Invites.Add(new OutstandingConfirmation.Invite
             {
                 Provider = provider,
-                Role = @event.Invitation.Role
+                Role = @event.Invitation.Role.ToString()
             });
 
             dbcontext.SaveChanges();
@@ -62,7 +62,7 @@ namespace AllAcu
                     new OutstandingConfirmation.Invite
                     {
                         Provider = provider,
-                        Role = @event.Invitation.Role
+                        Role = @event.Invitation.Role.ToString()
                     }
                 }
             });

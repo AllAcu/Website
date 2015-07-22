@@ -1,43 +1,70 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Its.Domain;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 namespace Domain.Registration
 {
     public partial class Registration
     {
-        public Func<DateTime> Now = () => DateTime.UtcNow;
-
-        public async Task EnactCommand(Invite command)
+        public class RegistrationCommandHandler :
+            ICommandHandler<Registration, Invite>,
+            ICommandHandler<Registration, Register>,
+            ICommandHandler<Registration, SignUp>
         {
-            RecordEvent(new InviteAddedToUser
+            public Func<DateTime> Now = () => DateTime.UtcNow;
+
+            public async Task EnactCommand(Registration registration, SignUp command)
             {
-                Invitation = new Invitation
+                registration.RecordEvent(new SignedUp
                 {
-                    ProviderId = command.ProviderId,
-                    Role = command.Role
-                }
-            });
-        }
+                    Email = command.Email,
+                    ConfirmationSentDate = Now(),
+                    Token = GenerateToken()
+                });
+            }
 
-        public async Task EnactCommand(ConfirmEmail command)
-        {
-            RecordEvent(new EmailConfirmed());
-        }
-
-        public async Task EnactCommand(Register command)
-        {
-            UserId = Guid.NewGuid();
-            var userCommand = new User.User.Register
+            public async Task EnactCommand(Registration registration, Invite command)
             {
-                AggregateId = UserId.Value,
-                Name = command.Name,
-                Email = Email,
-            };
+                registration.RecordEvent(new InviteAddedToUser
+                {
+                    Invitation = new Invitation
+                    {
+                        ProviderId = command.ProviderId,
+                        Role = command.Role
+                    }
+                });
+            }
 
-            // TODO (bremor) - figure out how to schedule this command
+            public async Task EnactCommand(Registration registration, Register command)
+            {
+                //UserId = Guid.NewGuid();
+                //var userCommand = new User.User.Register
+                //{
+                //    AggregateId = UserId.Value,
+                //    Name = command.Name,
+                //    Email = Email,
+                //};
 
+                //// TODO (bremor) - figure out how to schedule this command
 
+            }
+
+            public async Task HandleScheduledCommandException(Registration registration, CommandFailed<Register> command)
+            {
+            }
+
+            public async Task HandleScheduledCommandException(Registration registration, CommandFailed<Invite> command)
+            {
+            }
+
+            public Task HandleScheduledCommandException(Registration aggregate, CommandFailed<SignUp> command)
+            {
+                throw new NotImplementedException();
+            }
         }
 
     }
 }
+
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

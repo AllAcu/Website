@@ -274,6 +274,7 @@
     <Content Include="Scripts\App\authToken.js" />
     <Content Include="Scripts\App\careProviderCommands.js" />
     <Content Include="Scripts\App\login.js" />
+    <Content Include="Scripts\App\registrationCommands.js" />
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />
@@ -321,6 +322,7 @@
     <Content Include="Templates\Patients\details.html" />
     <Content Include="Templates\Patients\inputMedicalInsurance.html" />
     <Content Include="Templates\Patients\inputPersonalInjuryProtection.html" />
+    <Content Include="Templates\Users\signup.html" />
     <Content Include="Templates\Verification\insuranceVerificationDetails.html" />
     <Content Include="Templates\Patients\intake.html" />
     <Content Include="Templates\Patients\patientList.html" />

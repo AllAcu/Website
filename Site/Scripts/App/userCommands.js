@@ -11,6 +11,9 @@
 
                 return $api.auth.login(loginData);
             },
+            signup: function(email) {
+                return $api.registration.signup(email);
+            },
             register: function (registration) {
                 return $api.users.register(registration);
             }

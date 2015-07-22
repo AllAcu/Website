@@ -12,6 +12,7 @@
 
     angular.module("authApp", []);
     angular.module("loginApp", []);
+    angular.module("registrationApp", []);
     angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", []);
     angular.module("userApp", []);
@@ -25,6 +26,16 @@
                 .when('/login', {
                     templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController',
+                    anonymous: true
+                })
+                .when('/signup', {
+                    controller: 'signupController',
+                    templateUrl: '/Templates/Users/signup.html',
+                    anonymous: true
+                })
+                .when('/register', {
+                    controller: 'registrationController',
+                    templateUrl: '/Templates/Users/register.html',
                     anonymous: true
                 })
                 .when('/logout', {
@@ -99,10 +110,6 @@
                     templateUrl: '/Templates/Users/list.html',
                     controller: 'userListController'
                 })
-                .when('/users/register', {
-                    templateUrl: '/Templates/Users/register.html',
-                    controller: 'userRegistrationController'
-                })
                 .when('/user/:id', {
                     templateUrl: '/Templates/Users/details.html',
                     controller: 'userDetailsController'
@@ -157,7 +164,8 @@
 
     app.controller('nav', ['$scope', 'authToken', function ($scope, authToken) {
         var _loginNavItems = [
-            { label: "Login", link: "/AllAcu/#/login" }
+            { label: "Login", link: "/AllAcu/#/login" },
+            { label: "Sign up", link: "/Allacu/#/signup" }
         ];
         var _navItems = [
                 { label: "Verifications", link: "/AllAcu/#/verifications" },

@@ -1,6 +1,6 @@
 ﻿(function (module) {
 
-    module.controller('userRegistrationController', [
+    module.controller('registrationController', [
         '$scope', 'userCommands', function ($scope, commands) {
 
             $scope.registration = {};
@@ -75,6 +75,16 @@
         '$scope', '$routeParams', function($scope, $routeParams) {
             $scope.invite = function() {
                 console.log($scope.email);
+            }
+        }
+    ]);
+
+    module.controller('signupController', [
+        '$scope', '$routeParams', 'userCommands', function($scope, $routeParams, userCommands) {
+            $scope.signup = function () {
+                userCommands.signup($scope.email).success(function() {
+                    console.log("signed up!");
+                });
             }
         }
     ]);

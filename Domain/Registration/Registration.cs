@@ -6,23 +6,14 @@ namespace Domain.Registration
 {
     public partial class Registration : EventSourcedAggregate<Registration>
     {
+        public Func<DateTime> Now = () => DateTime.UtcNow;
         public string Email { get; set; }
         public IList<Invitation> Invitations { get; set; } = new List<Invitation>();
         public EmailConfirmation Confirmation { get; set; }
-        public RegistrationInfo Info { get; set; }
+        public string Name { get; set; }
         public Guid? UserId { get; set; }
 
-        public Registration(SignUp command) : base(command)
-        {
-            Email = command.Email;
-            Confirmation = new EmailConfirmation
-            {
-                ConfirmationSentDate = Now(),
-                Token = GenerateToken()
-            };
-        }
-
-        public Registration(Invite command) : base(command)
+        public Registration(Invite command) : base(command.AggregateId != Guid.Empty ? command.AggregateId : Guid.NewGuid())
         {
             RecordEvent(new FirstUserInvite
             {
@@ -32,11 +23,15 @@ namespace Domain.Registration
             });
         }
 
+        public Registration(ConstructorCommand<Registration> createCommand) : base(createCommand)
+        {
+        }
+
         public Registration(Guid id, IEnumerable<IEvent> eventHistory) : base(id, eventHistory)
         {
         }
 
-        private string GenerateToken()
+        protected static string GenerateToken()
         {
             return Guid.NewGuid().ToString().Replace("-", "").Replace("{", "").Replace("}", "");
         }

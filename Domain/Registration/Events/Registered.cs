@@ -4,11 +4,13 @@ namespace Domain.Registration
 {
     public partial class Registration
     {
-        public class EmailConfirmed : Event<Registration>
+        public class Registered : Event<Registration>
         {
+            public string Name { get; set; }
+            public string HashedPassword { get; set; }
+
             public override void Update(Registration registration)
             {
-                registration.Confirmation.ConfirmationReceivedDate = Timestamp.UtcDateTime;
             }
         }
     }
