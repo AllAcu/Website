@@ -64,11 +64,11 @@
 
             $routeProvider
                 .when('/provider/create', {
-                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    templateUrl: '/Templates/Providers/details.html',
                     controller: 'providerCreate'
                 })
                 .when('/provider/:id/edit', {
-                    templateUrl: '/Templates/Providers/providerEdit.html',
+                    templateUrl: '/Templates/Providers/details.html',
                     controller: 'providerEdit'
                 });
 

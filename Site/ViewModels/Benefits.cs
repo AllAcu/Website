@@ -38,7 +38,6 @@ namespace AllAcu
         public string OtherLimits { get; set; }
     }
 
-
     public static class Verification_Extensions
     {
         public static Benefits ToBenefits(this Domain.Benefits benefits)

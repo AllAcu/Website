@@ -81,7 +81,21 @@
     <Compile Include="CareProvider\Events\ProviderUpdated.cs" />
     <Compile Include="CareProvider\Events\UserJoined.cs" />
     <Compile Include="CareProvider\Events\UserLeft.cs" />
+    <Compile Include="Authentication\Role.cs" />
+    <Compile Include="Authentication\ProviderRoles.cs" />
+    <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Procedure.cs" />
+    <Compile Include="Registration\Commands\Invite.cs" />
+    <Compile Include="Registration\Commands\ConfirmEmail.cs" />
+    <Compile Include="Registration\EmailConfirmation.cs" />
+    <Compile Include="Registration\Events\EmailConfirmed.cs" />
+    <Compile Include="Registration\Events\FirstUserInvite.cs" />
+    <Compile Include="Registration\Events\InviteAddedToUser.cs" />
+    <Compile Include="Registration\Invitation.cs" />
+    <Compile Include="Registration\Commands\Register.cs" />
+    <Compile Include="Registration\Registration.cs" />
+    <Compile Include="Registration\RegistrationInfo.cs" />
+    <Compile Include="Registration\Commands\SignUp.cs" />
     <Compile Include="User\Commands\Register.cs" />
     <Compile Include="User\Commands\Update.cs" />
     <Compile Include="User\Events\Registered.cs" />
@@ -146,16 +160,14 @@
     <Compile Include="Verification\InsuranceVerification.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Authentication\" />
-    <Folder Include="CareProvider\EventHandlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />
     <None Include="packages.config" />
     <Compile Include="Verification\InsuranceVerification.EnactCommands.cs" />
     <Compile Include="User\User.EnactCommands.cs" />
+    <Compile Include="Registration\Registration.EnactCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -71,4 +71,12 @@
         }
     ]);
 
+    module.controller('inviteController', [
+        '$scope', '$routeParams', function($scope, $routeParams) {
+            $scope.invite = function() {
+                console.log($scope.email);
+            }
+        }
+    ]);
+
 }(angular.module("userApp")));

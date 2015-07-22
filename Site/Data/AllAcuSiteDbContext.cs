@@ -14,6 +14,7 @@ namespace AllAcu
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<OutstandingConfirmation> Confirmations { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -31,6 +32,12 @@ namespace AllAcu
                 .HasKey(i => i.VerificationId);
             modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId);
+
+            modelBuilder.Entity<OutstandingConfirmation>()
+                .HasKey(i => i.RegistrationId);
+
+            modelBuilder.Entity<OutstandingConfirmation.Invite>()
+                .HasRequired(i => i.Provider);
 
             modelBuilder.Entity<CareProviderDetails>()
                 .HasKey(p => p.Id)

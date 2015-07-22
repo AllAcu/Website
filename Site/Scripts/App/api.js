@@ -122,6 +122,9 @@
                         return $http.post('/api/provider/' + providerId + "/leave", { userId: userId });
                     }
                 },
+                registration: {
+                    
+                },
                 users: {
                     get: function (id) {
                         return $http.get("/api/user/" + id);
