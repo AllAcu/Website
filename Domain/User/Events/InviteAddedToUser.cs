@@ -1,14 +1,14 @@
 ﻿using Microsoft.Its.Domain;
 
-namespace Domain.Registration
+namespace Domain.User
 {
-    public partial class Registration
+    public partial class User
     {
-        public class InviteAddedToUser : Event<Registration>
+        public class Invited : Event<User>
         {
             public Invitation Invitation { get; set; }
 
-            public override void Update(Registration registration)
+            public override void Update(User registration)
             {
                 registration.Invitations.Add(Invitation);
             }

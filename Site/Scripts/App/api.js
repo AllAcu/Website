@@ -122,27 +122,6 @@
                         return $http.post('/api/provider/' + providerId + "/leave", { userId: userId });
                     }
                 },
-                registration: {
-                    signup: function(email) {
-                        return $http.post("/api/registration/signup", {
-                            email: email
-                        });
-                    },
-                    invite: function(email, role) {
-                        return $http.post("/api/registration/invite", {
-                            email: email,
-                            role: role
-                        });
-                    },
-                    register: function(email, token, name, password) {
-                        return $http.post("/api/registration/register", {
-                            name: name,
-                            password: password,
-                            email: email,
-                            token: token
-                        });
-                    }
-                },
                 users: {
                     get: function (id) {
                         return $http.get("/api/user/" + id);
@@ -150,8 +129,23 @@
                     getAll: function () {
                         return $http.get("/api/user");
                     },
-                    register: function (data) {
-                        return $http.post('/api/Account/Register', data);
+                    signup: function (email) {
+                        return $http.post("/api/user/signup", {
+                            email: email
+                        });
+                    },
+                    invite: function (email, role) {
+                        return $http.post("/api/user/invite", {
+                            email: email,
+                            role: role
+                        });
+                    },
+                    register: function (token, name, password) {
+                        return $http.post("/api/user/register", {
+                            name: name,
+                            password: password,
+                            token: token
+                        });
                     }
                 }
             };

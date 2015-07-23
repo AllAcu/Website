@@ -6,7 +6,6 @@ using System.Web;
 using AllAcu.Authentication;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
-using Domain.Registration;
 using Domain.User;
 using Its.Configuration;
 using Microsoft.Its.Domain;
@@ -41,7 +40,6 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<User>), c => Microsoft.Its.Domain.Configuration.Current.Repository<User>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
-            container.Register(typeof(IEventSourcedRepository<Registration>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Registration>());
 
 
             // catch completely up
@@ -85,11 +83,6 @@ namespace AllAcu
                 return true;
             };
             Command<ClaimFilingProcess>.AuthorizeDefault = (provider, command) =>
-            {
-                command.Principal = CurrentPrincipal();
-                return true;
-            };
-            Command<Registration>.AuthorizeDefault = (provider, command) =>
             {
                 command.Principal = CurrentPrincipal();
                 return true;

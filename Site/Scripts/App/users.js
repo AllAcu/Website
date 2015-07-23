@@ -1,14 +1,20 @@
 ﻿(function (module) {
 
     module.controller('registrationController', [
-        '$scope', 'userCommands', function ($scope, commands) {
+        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, commands) {
 
+            var token = $routeParams["token"];
             $scope.registration = {};
 
             $scope.save = function () {
-                commands.register($scope.registration)
-                    .success(function (data) {
-                        console.log(data);
+                if ($scope.password !== $scope.confirmPassword) {
+                    return;
+                }
+
+                commands.register(token, $scope.registration.name, $scope.registration.password)
+                    .success(function () {
+                        console.log("registered " + $scope.name);
+                        $location.path("/");
                     });
             }
         }
@@ -34,10 +40,10 @@
             var userId = $routeParams["id"];
             var providers = [];
             $scope.user = null;
-            $scope.providers = function() { return providers; };
+            $scope.providers = function () { return providers; };
 
-            $scope.hasProvider = function(provider) {
-                return $scope.user && $scope.user.providers.some(function(p) { return p.id === provider.id; });
+            $scope.hasProvider = function (provider) {
+                return $scope.user && $scope.user.providers.some(function (p) { return p.id === provider.id; });
             }
 
             $api.providers.getAll()
@@ -47,7 +53,7 @@
 
             function refreshUser() {
                 $api.users.get(userId)
-                    .success(function(data) {
+                    .success(function (data) {
                         $scope.user = data;
                     });
                 providerRepo.refresh();
@@ -57,12 +63,12 @@
 
             $scope.join = function (provider) {
                 $api.providers.join(userId, provider.id)
-                    .success(function() {
+                    .success(function () {
                         refreshUser();
                     });
             }
 
-            $scope.leave = function(provider) {
+            $scope.leave = function (provider) {
                 $api.providers.leave(userId, provider.id)
                     .success(function () {
                         refreshUser();
@@ -72,17 +78,17 @@
     ]);
 
     module.controller('inviteController', [
-        '$scope', '$routeParams', function($scope, $routeParams) {
-            $scope.invite = function() {
+        '$scope', '$routeParams', function ($scope, $routeParams) {
+            $scope.invite = function () {
                 console.log($scope.email);
             }
         }
     ]);
 
     module.controller('signupController', [
-        '$scope', '$routeParams', 'userCommands', function($scope, $routeParams, userCommands) {
+        '$scope', '$routeParams', 'userCommands', function ($scope, $routeParams, userCommands) {
             $scope.signup = function () {
-                userCommands.signup($scope.email).success(function() {
+                userCommands.signup($scope.email).success(function () {
                     console.log("signed up!");
                 });
             }

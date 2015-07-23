@@ -62,37 +62,6 @@ namespace AllAcu.Controllers
             };
         }
 
-        // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var userId = Guid.NewGuid();
-            var applicationUser = new ApplicationUser { UserName = model.Email, Email = model.Email, UserId = userId };
-            var result = await UserManager.CreateAsync(applicationUser, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            var command = new User.Register
-            {
-                AggregateId = userId,
-                Name = model.Name,
-                Email = model.Email,
-            };
-            var user = new User(command);
-            await userRepository.Save(user);
-
-            return Ok();
-        }
-
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)

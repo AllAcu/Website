@@ -6,13 +6,9 @@ namespace Domain.User
     {
         public class Registered : Event<User>
         {
-            public string Email { get; set; }
-            public string Name { get; set; }
-
             public override void Update(User user)
             {
-                user.Email = Email;
-                user.Name = Name;
+                user.Confirmed = true;
             }
         }
     }

@@ -24,11 +24,12 @@ namespace AllAcu
 
         public void UpdateProjection(User.Registered @event)
         {
+            var user = dbContext.UserDetails.Find(@event.AggregateId);
+
             dbContext.UserList.Add(new UserListItemViewModel
             {
                 UserId = @event.AggregateId,
-                Name = @event.Name,
-                Email = @event.Email
+                Email = user.Email
             });
 
             dbContext.SaveChanges();

@@ -1,9 +1,9 @@
 using System;
 using Domain.Authentication;
 
-namespace Domain.Registration
+namespace Domain.User
 {
-    public partial class Registration
+    public partial class User
     {
         public class Invitation
         {

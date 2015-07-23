@@ -12,7 +12,6 @@
 
     angular.module("authApp", []);
     angular.module("loginApp", []);
-    angular.module("registrationApp", []);
     angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", []);
     angular.module("userApp", []);
@@ -33,7 +32,7 @@
                     templateUrl: '/Templates/Users/signup.html',
                     anonymous: true
                 })
-                .when('/register', {
+                .when('/register/:token', {
                     controller: 'registrationController',
                     templateUrl: '/Templates/Users/register.html',
                     anonymous: true

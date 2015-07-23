@@ -85,20 +85,16 @@
     <Compile Include="Authentication\ProviderRoles.cs" />
     <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Procedure.cs" />
-    <Compile Include="Registration\Commands\Invite.cs" />
-    <Compile Include="Registration\EmailConfirmation.cs" />
-    <Compile Include="Registration\Events\FirstUserInvite.cs" />
-    <Compile Include="Registration\Events\InviteAddedToUser.cs" />
-    <Compile Include="Registration\Events\Registered.cs" />
-    <Compile Include="Registration\Events\SignedUp.cs" />
-    <Compile Include="Registration\Invitation.cs" />
-    <Compile Include="Registration\Commands\Register.cs" />
-    <Compile Include="Registration\Registration.cs" />
-    <Compile Include="Registration\Commands\SignUp.cs" />
+    <Compile Include="User\Commands\Invite.cs" />
+    <Compile Include="User\Events\InviteAddedToUser.cs" />
+    <Compile Include="User\Events\SignedUp.cs" />
+    <Compile Include="User\Invitation.cs" />
+    <Compile Include="User\Commands\SignUp.cs" />
     <Compile Include="User\Commands\Register.cs" />
     <Compile Include="User\Commands\Update.cs" />
     <Compile Include="User\Events\Registered.cs" />
     <Compile Include="User\Events\Updated.cs" />
+    <Compile Include="User\SignupToken.cs" />
     <Compile Include="User\User.cs" />
     <Compile Include="Verification\Commands\VerifyBenefits.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
@@ -166,7 +162,6 @@
     <None Include="packages.config" />
     <Compile Include="Verification\InsuranceVerification.EnactCommands.cs" />
     <Compile Include="User\User.EnactCommands.cs" />
-    <Compile Include="Registration\Registration.EnactCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

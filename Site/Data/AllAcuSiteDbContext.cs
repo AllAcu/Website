@@ -34,9 +34,9 @@ namespace AllAcu
                 .HasKey(i => i.VerificationId);
 
             modelBuilder.Entity<OutstandingConfirmation>()
-                .HasKey(i => i.RegistrationId);
+                .HasKey(i => i.UserId);
 
-            modelBuilder.Entity<OutstandingConfirmation.Invite>()
+            modelBuilder.Entity<Invite>()
                 .HasRequired(i => i.Provider);
 
             modelBuilder.Entity<CareProviderDetails>()

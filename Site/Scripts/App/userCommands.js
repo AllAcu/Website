@@ -12,10 +12,13 @@
                 return $api.auth.login(loginData);
             },
             signup: function(email) {
-                return $api.registration.signup(email);
+                return $api.users.signup(email);
             },
-            register: function (registration) {
-                return $api.users.register(registration);
+            invite: function (invite) {
+                return $api.user.invite(invite);
+            },
+            register: function (token, name, password) {
+                return $api.users.register(token, name, password);
             }
         }
     }]);

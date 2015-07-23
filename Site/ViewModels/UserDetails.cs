@@ -16,7 +16,7 @@ namespace AllAcu
     }
 
     public class UserDetailsViewModelHandler :
-        IUpdateProjectionWhen<User.Registered>,
+        IUpdateProjectionWhen<User.SignedUp>,
         IUpdateProjectionWhen<User.Updated>,
         IUpdateProjectionWhen<CareProvider.UserJoined>,
         IUpdateProjectionWhen<CareProvider.UserLeft>
@@ -28,12 +28,11 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(User.Registered @event)
+        public void UpdateProjection(User.SignedUp @event)
         {
             dbContext.UserDetails.Add(new UserDetails
             {
                 UserId = @event.AggregateId,
-                Name = @event.Name,
                 Email = @event.Email
             });
 
