@@ -14,8 +14,8 @@
             signup: function(email) {
                 return $api.users.signup(email);
             },
-            invite: function (invite) {
-                return $api.user.invite(invite);
+            invite: function (provider, email) {
+                return $api.users.invite(provider, email);
             },
             register: function (token, name, password) {
                 return $api.users.register(token, name, password);

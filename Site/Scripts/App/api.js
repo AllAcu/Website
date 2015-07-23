@@ -134,10 +134,10 @@
                             email: email
                         });
                     },
-                    invite: function (email, role) {
+                    invite: function (providerId, email) {
                         return $http.post("/api/user/invite", {
-                            email: email,
-                            role: role
+                            providerId: providerId,
+                            email: email
                         });
                     },
                     register: function (token, name, password) {

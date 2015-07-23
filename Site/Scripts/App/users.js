@@ -78,18 +78,25 @@
     ]);
 
     module.controller('inviteController', [
-        '$scope', '$routeParams', function ($scope, $routeParams) {
+        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, userCommands) {
+
+            var providerId = $routeParams["providerId"];
+
             $scope.invite = function () {
-                console.log($scope.email);
+                userCommands.invite(providerId, $scope.email).success(function() {
+                    console.log("invited " + $scope.email);
+                    $location.path("/providers");
+                });
             }
         }
     ]);
 
     module.controller('signupController', [
-        '$scope', '$routeParams', 'userCommands', function ($scope, $routeParams, userCommands) {
+        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, userCommands) {
             $scope.signup = function () {
                 userCommands.signup($scope.email).success(function () {
-                    console.log("signed up!");
+                    console.log("signed up " + $scope.email);
+                    $location.path("/");
                 });
             }
         }

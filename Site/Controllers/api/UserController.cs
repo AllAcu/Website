@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
+using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.User;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
@@ -44,7 +46,11 @@ namespace AllAcu.Controllers.api
         [AllowAnonymous]
         public async Task<IHttpActionResult> Signup(User.SignUp command)
         {
-            if (await dbContext.UserDetails.AnyAsync(u => u.Email == command.Email))
+            if (command.Email.IsNullOrWhiteSpace())
+            {
+                return NotFound();
+            }
+            if (await dbContext.UserDetails.AnyAsync(u => command.Email.Equals(u.Email, StringComparison.OrdinalIgnoreCase)))
             {
                 return Ok();
             }
@@ -59,7 +65,8 @@ namespace AllAcu.Controllers.api
         [Route("invite")]
         public async Task<IHttpActionResult> Invite(User.Invite command)
         {
-            command.ProviderId = ActionContext.ActionArguments.CurrentProviderId().Value;
+            command.Role = Roles.Provider.Practitioner;
+
             var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);
             var user = userDetails == null ?
                 new User(new User.SignUp { Email = command.Email }) :
@@ -70,6 +77,15 @@ namespace AllAcu.Controllers.api
 
             return Ok();
         }
+
+        //[Route("invites")]
+
+        //[Route("invite/{inviteId}/accept")]
+        //public void Accept(Guid inviteId)
+        //{
+            
+        //}
+
 
         [Route("register"), HttpPost]
         [AllowAnonymous]

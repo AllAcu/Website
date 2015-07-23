@@ -86,7 +86,7 @@
     <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Procedure.cs" />
     <Compile Include="User\Commands\Invite.cs" />
-    <Compile Include="User\Events\InviteAddedToUser.cs" />
+    <Compile Include="User\Events\Invited.cs" />
     <Compile Include="User\Events\SignedUp.cs" />
     <Compile Include="User\Invitation.cs" />
     <Compile Include="User\Commands\SignUp.cs" />
