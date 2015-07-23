@@ -66,12 +66,17 @@ namespace AllAcu.Controllers.api
         public async Task<IHttpActionResult> Invite(User.Invite command)
         {
             // TODO (bremor) - let user specify roles
-            command.Role = Roles.Provider.Practitioner;
+            command.Role = command.Role ?? Roles.Provider.Practitioner;
 
             var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);
             var user = userDetails == null ?
                 new User(new User.SignUp { Email = command.Email }) :
                 await userEventSourcedRepository.GetLatest(userDetails.UserId);
+
+            if (user.HasBeenInvited(command.ProviderId, command.Role))
+            {
+                return Ok();
+            }
 
             await user.ApplyAsync(command);
             await userEventSourcedRepository.Save(user);

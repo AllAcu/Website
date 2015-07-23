@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain.Authentication;
 using Its.Validation;
 using Its.Validation.Configuration;
@@ -23,6 +24,22 @@ namespace Domain.User
                         i.Role != null);
                 }
             }
+
+            public override IValidationRule<User> Validator
+            {
+                get
+                {
+                    return Validate.That<User>(u => !u.HasBeenInvited(ProviderId, Role));
+                }
+            }
+        }
+    }
+
+    public static class User_Extensions
+    {
+        public static bool HasBeenInvited(this User user, Guid providerId, Role role)
+        {
+            return user.Invitations.FirstOrDefault(i => i.ProviderId == providerId)?.Roles.Contains(role) == true;
         }
     }
 }
