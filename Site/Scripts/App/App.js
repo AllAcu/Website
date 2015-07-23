@@ -73,13 +73,17 @@
                 });
 
             $routeProvider
+                .when('/providers', {
+                    templateUrl: '/Templates/Providers/list.html',
+                    controller: 'providerList'
+                })
                 .when('/provider/create', {
                     templateUrl: '/Templates/Providers/details.html',
                     controller: 'providerCreate'
                 })
-                .when('/provider/:id/edit', {
+                .when('/provider/:id', {
                     templateUrl: '/Templates/Providers/details.html',
-                    controller: 'providerEdit'
+                    controller: 'providerDetails'
                 });
 
             $routeProvider
@@ -171,7 +175,7 @@
                 { label: "Patients", link: "/AllAcu/#/patients" },
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
-                { label: "New Provider", link: "/AllAcu/#/provider/create" },
+                { label: "Providers", link: "/AllAcu/#/providers" },
                 { label: "Logout", link: "/AllAcu/#/logout" }
         ];
 

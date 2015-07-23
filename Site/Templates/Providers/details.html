@@ -1,4 +1,4 @@
-﻿<h2>Edit provider information</h2>
+﻿<h2>{{provider.businessName || "New provider"}}</h2>
 <div>
     <edit-field label="Business Name" ng-model="provider.businessName"></edit-field>
     <edit-field label="City" ng-model="provider.city"></edit-field>
@@ -9,7 +9,7 @@
         <button ng-click="save()">Save</button>
     </div>
 
-    <label>Providers</label>
+    <h3>Users</h3>
     <ul ng-repeat="user in users()">
         <li style="list-style-type: none;">
             <!--<button class="btn-primary" ng-show="!hasProvider(provider)" ng-click="join(provider)">Join</button>
@@ -19,7 +19,6 @@
     </ul>
 
     <div ng-controller="inviteController">
-        <input type="text" ng-model="email"/>
+        <input type="text" ng-model="email"/><button ng-click="invite()">Invite</button>
     </div>
-
 </div>
