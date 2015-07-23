@@ -20,7 +20,6 @@ namespace Domain.User
                 {
                     return Validate.That<Invite>(i =>
                         i.ProviderId != Guid.Empty &&
-                        !string.IsNullOrEmpty(i.Email) &&
                         i.Role != null);
                 }
             }

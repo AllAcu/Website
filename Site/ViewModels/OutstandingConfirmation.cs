@@ -8,7 +8,7 @@ namespace AllAcu
         IUpdateProjectionWhen<User.SignedUp>,
         IUpdateProjectionWhen<User.Registered>
     {
-        private AllAcuSiteDbContext dbcontext;
+        private readonly AllAcuSiteDbContext dbcontext;
 
         public OutstandingConfirmationHandler(AllAcuSiteDbContext dbcontext)
         {
@@ -80,10 +80,15 @@ namespace AllAcu
         public DateTime WhenRequested { get; set; }
 
     }
-    public class Invite
+    public class Invitation
     {
         public Guid InviteId { get; set; } = Guid.NewGuid();
         public CareProviderDetails Provider { get; set; }
-        public string Role { get; set; }
+        public RoleList Roles { get; set; } = new RoleList();
+
+        public class RoleList : SerialList<string>
+        {
+
+        }
     }
 }

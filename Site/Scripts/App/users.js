@@ -80,7 +80,7 @@
     module.controller('inviteController', [
         '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, userCommands) {
 
-            var providerId = $routeParams["providerId"];
+            var providerId = $routeParams["id"];
 
             $scope.invite = function () {
                 userCommands.invite(providerId, $scope.email).success(function() {

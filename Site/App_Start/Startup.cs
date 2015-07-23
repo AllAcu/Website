@@ -2,6 +2,7 @@
 using System.Web.Http;
 using AllAcu;
 using Domain;
+using Domain.Authentication;
 using Domain.Verification;
 using Its.Log.Monitoring;
 using Microsoft.Its.Domain.Serialization;
@@ -42,6 +43,7 @@ namespace AllAcu
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new City(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PostalCode(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => new PhoneNumber(s.ToString()));
+            Serializer.AddPrimitiveConverter(s => s.ToString(), s => new Role(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => Gender.Parse(s.ToString()));
             Serializer.AddPrimitiveConverter(s => s.ToString(), s => VerificationRequestStatus.Parse(s.ToString()));
         }

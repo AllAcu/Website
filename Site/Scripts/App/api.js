@@ -136,8 +136,8 @@
                     },
                     invite: function (providerId, email) {
                         return $http.post("/api/user/invite", {
-                            providerId: providerId,
-                            email: email
+                            email: email,
+                            providerId: providerId
                         });
                     },
                     register: function (token, name, password) {

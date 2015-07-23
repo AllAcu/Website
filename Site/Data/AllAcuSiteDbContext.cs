@@ -36,8 +36,15 @@ namespace AllAcu
             modelBuilder.Entity<OutstandingConfirmation>()
                 .HasKey(i => i.UserId);
 
-            modelBuilder.Entity<Invite>()
+            modelBuilder.Entity<Invitation>()
+                .HasKey(i => i.InviteId)
                 .HasRequired(i => i.Provider);
+
+            modelBuilder.Entity<Invitation>()
+                .Property(i => i.Roles.Serialized)
+                .HasColumnName("Roles");
+
+            modelBuilder.ComplexType<Invitation.RoleList>();
 
             modelBuilder.Entity<CareProviderDetails>()
                 .HasKey(p => p.Id)

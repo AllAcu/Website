@@ -62,9 +62,10 @@ namespace AllAcu.Controllers.api
             return Ok();
         }
 
-        [Route("invite")]
+        [Route("invite"), HttpPost]
         public async Task<IHttpActionResult> Invite(User.Invite command)
         {
+            // TODO (bremor) - let user specify roles
             command.Role = Roles.Provider.Practitioner;
 
             var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);

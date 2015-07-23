@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain.Authentication;
 using Microsoft.Its.Domain;
 
@@ -11,13 +12,15 @@ namespace Domain.User
             public Guid ProviderId { get; set; }
             public Role Role { get; set; }
 
-            public override void Update(User registration)
+            public override void Update(User user)
             {
-                registration.Invitations.Add(new Invitation
+                var invite = user.Invitations.FirstOrDefault(i => i.ProviderId == ProviderId);
+                if (invite == null)
                 {
-                    ProviderId = ProviderId,
-                    Role = Role
-                });
+                    invite = new Invitation { ProviderId = ProviderId };
+                    user.Invitations.Add(invite);
+                }
+                invite.Roles.Add(Role);
             }
         }
     }

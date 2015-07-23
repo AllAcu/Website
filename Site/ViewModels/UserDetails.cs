@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Its.Domain;
@@ -13,7 +14,7 @@ namespace AllAcu
         public string Email { get; set; }
 
         public virtual IList<CareProviderDetails> Providers { get; set; } = new List<CareProviderDetails>();
-        public virtual IList<Invite> OutstandingInvites { get; set; } = new List<Invite>();
+        public virtual IList<Invitation> OutstandingInvites { get; set; } = new List<Invitation>();
     }
 
     public class UserDetailsViewModelHandler :
@@ -52,13 +53,20 @@ namespace AllAcu
         public void UpdateProjection(User.Invited @event)
         {
             var user = dbContext.UserDetails.Find(@event.AggregateId);
-            var provider = dbContext.CareProviders.Find(@event.ProviderId);
 
-            user.OutstandingInvites.Add(new Invite
+            var invite = user.OutstandingInvites.FirstOrDefault(i => i.Provider.Id == @event.ProviderId);
+
+            if (invite == null)
             {
-                Provider = provider,
-                Role = @event.Role.ToString()
-            });
+                var provider = dbContext.CareProviders.Find(@event.ProviderId);
+                invite = new Invitation
+                {
+                    Provider = provider
+                };
+                user.OutstandingInvites.Add(invite);
+            }
+
+            invite.Roles.Add(@event.Role.ToString());
 
             dbContext.SaveChanges();
         }
