@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.Authentication;
-using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -88,13 +87,7 @@ namespace AllAcu.Controllers.api
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetInvites(Guid userId)
         {
-            var userDetails = await dbContext.UserDetails.FindAsync(userId);
-            if (userDetails == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userDetails.OutstandingInvites.ToArray());
+            return Ok(dbContext.Invitations.Where(i => i.User.UserId == userId));
         }
 
         [Route("{userId}/accept")]

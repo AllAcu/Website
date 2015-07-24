@@ -20,8 +20,6 @@ namespace AllAcu
     public class UserDetailsViewModelHandler :
         IUpdateProjectionWhen<User.SignedUp>,
         IUpdateProjectionWhen<User.Updated>,
-        IUpdateProjectionWhen<User.Invited>,
-        IUpdateProjectionWhen<User.AcceptedInvite>,
         IUpdateProjectionWhen<CareProvider.UserJoined>,
         IUpdateProjectionWhen<CareProvider.UserLeft>
     {
@@ -47,36 +45,6 @@ namespace AllAcu
         {
             var user = dbContext.UserDetails.Find(@event.AggregateId);
             user.Name = @event.Name;
-
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(User.Invited @event)
-        {
-            var user = dbContext.UserDetails.Find(@event.AggregateId);
-
-            var invite = user.OutstandingInvites.FirstOrDefault(i => i.Provider.Id == @event.ProviderId);
-
-            if (invite == null)
-            {
-                var provider = dbContext.CareProviders.Find(@event.ProviderId);
-                invite = new Invitation
-                {
-                    Provider = provider
-                };
-                user.OutstandingInvites.Add(invite);
-            }
-
-            invite.Roles.Add(@event.Role.ToString());
-
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(User.AcceptedInvite @event)
-        {
-            var user = dbContext.UserDetails.Find(@event.AggregateId);
-
-            user.OutstandingInvites.Remove(user.OutstandingInvites.First(i => i.Provider.Id == @event.ProviderId));
 
             dbContext.SaveChanges();
         }

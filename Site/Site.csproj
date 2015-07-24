@@ -237,6 +237,7 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Smtp.cs" />
+    <Compile Include="ViewModels\Invitation.cs" />
     <Compile Include="ViewModels\OutstandingConfirmation.cs" />
     <Compile Include="Monitoring\Site.cs" />
     <Compile Include="Authentication\AuthorizationDbContext.cs" />

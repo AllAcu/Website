@@ -15,6 +15,7 @@ namespace AllAcu
         public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<OutstandingConfirmation> Confirmations { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -36,24 +37,33 @@ namespace AllAcu
             modelBuilder.Entity<OutstandingConfirmation>()
                 .HasKey(i => i.UserId);
 
-            modelBuilder.Entity<Invitation>()
-                .HasKey(i => i.InviteId)
-                .HasRequired(i => i.Provider);
+            modelBuilder.Entity<UserDetails>()
+                .HasKey(u => u.UserId);
 
-            modelBuilder.Entity<Invitation>()
-                .Property(i => i.Roles.Serialized)
-                .HasColumnName("Roles");
-
-            modelBuilder.ComplexType<Invitation.RoleList>();
+            modelBuilder.Entity<UserDetails>()
+                .HasMany(u => u.Providers)
+                .WithMany();
 
             modelBuilder.Entity<CareProviderDetails>()
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
 
+            modelBuilder.Entity<Invitation>()
+                .HasKey(i => i.InviteId)
+                .Property(i => i.Roles.Serialized)
+                .HasColumnName("Roles");
+
+            modelBuilder.ComplexType<Invitation.RoleList>();
+
+            modelBuilder.Entity<Invitation>()
+                .HasRequired(i => i.User);
+
+            modelBuilder.Entity<Invitation>()
+                .HasRequired(i => i.Provider);
+
             modelBuilder.Entity<UserDetails>()
-                .HasKey(u => u.UserId)
-                .HasMany(u => u.Providers)
-                .WithMany();
+                .HasMany(u => u.OutstandingInvites)
+                .WithRequired(i => i.User);
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
