@@ -137,8 +137,7 @@
                     invite: function (providerId, email) {
                         return $http.post("/api/user/invite", {
                             email: email,
-                            providerId: providerId,
-                            role: "owner"
+                            providerId: providerId
                         });
                     },
                     getInvites: function(userId) {
