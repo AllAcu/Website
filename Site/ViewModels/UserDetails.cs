@@ -21,6 +21,7 @@ namespace AllAcu
         IUpdateProjectionWhen<User.SignedUp>,
         IUpdateProjectionWhen<User.Updated>,
         IUpdateProjectionWhen<User.Invited>,
+        IUpdateProjectionWhen<User.AcceptedInvite>,
         IUpdateProjectionWhen<CareProvider.UserJoined>,
         IUpdateProjectionWhen<CareProvider.UserLeft>
     {
@@ -71,6 +72,15 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
+        public void UpdateProjection(User.AcceptedInvite @event)
+        {
+            var user = dbContext.UserDetails.Find(@event.AggregateId);
+
+            user.OutstandingInvites.Remove(user.OutstandingInvites.First(i => i.Provider.Id == @event.ProviderId));
+
+            dbContext.SaveChanges();
+        }
+
         public void UpdateProjection(CareProvider.UserJoined @event)
         {
             var user = dbContext.UserDetails.Find(@event.UserId);
@@ -88,6 +98,5 @@ namespace AllAcu
 
             dbContext.SaveChanges();
         }
-
     }
 }

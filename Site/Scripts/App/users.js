@@ -38,24 +38,14 @@
     module.controller('userDetailsController', [
         '$scope', '$routeParams', '$api', "careProviderRepository", function ($scope, $routeParams, $api, providerRepo) {
             var userId = $routeParams["id"];
-            var providers = [];
-            var invitations = [];
             $scope.user = null;
-            $scope.providers = function () { return providers; };
-            $scope.invitations = function () { return invitations; };
+            $scope.providers = function () { return $scope.user ? $scope.user.providers : []; };
+            $scope.invitations = function() {
+                 return $scope.user ? $scope.user.outstandingInvites : [];
+            };
             $scope.hasProvider = function (provider) {
                 return $scope.user && $scope.user.providers.some(function (p) { return p.id === provider.id; });
             }
-
-            $api.providers.getAll()
-                .success(function (data) {
-                    providers = data;
-                });
-
-            $api.users.getInvites(userId)
-                .success(function (data) {
-                    invitations = data;
-                });
 
             function refreshUser() {
                 $api.users.get(userId)
