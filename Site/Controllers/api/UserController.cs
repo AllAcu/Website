@@ -84,13 +84,33 @@ namespace AllAcu.Controllers.api
             return Ok();
         }
 
-        //[Route("invites")]
+        [Route("{userId}/invites")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetInvites(Guid userId)
+        {
+            var userDetails = await dbContext.UserDetails.FindAsync(userId);
+            if (userDetails == null)
+            {
+                return NotFound();
+            }
 
-        //[Route("invite/{inviteId}/accept")]
-        //public void Accept(Guid inviteId)
-        //{
-            
-        //}
+            return Ok(userDetails.OutstandingInvites.ToArray());
+        }
+
+        [Route("{userId}/accept")]
+        public async Task<IHttpActionResult> Accept(Guid userId, User.AcceptInvite command)
+        {
+            var user = await userEventSourcedRepository.GetLatest(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await user.ApplyAsync(command);
+            await userEventSourcedRepository.Save(user);
+
+            return Ok();
+        }
 
 
         [Route("register"), HttpPost]

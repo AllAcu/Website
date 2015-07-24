@@ -11,7 +11,8 @@ namespace Domain.User
             ICommandHandler<User, Update>,
             ICommandHandler<User, SignUp>,
             ICommandHandler<User, Register>,
-            ICommandHandler<User, Invite>
+            ICommandHandler<User, Invite>,
+            ICommandHandler<User, AcceptInvite>
         {
             public async Task EnactCommand(User user, Update command)
             {
@@ -49,6 +50,14 @@ namespace Domain.User
                 });
             }
 
+            public async Task EnactCommand(User user, AcceptInvite command)
+            {
+                user.RecordEvent(new AcceptedInvite
+                {
+                    ProviderId = command.ProviderId,
+                });
+            }
+
             public async Task HandleScheduledCommandException(User user, CommandFailed<Update> command)
             {
             }
@@ -61,7 +70,11 @@ namespace Domain.User
             {
             }
 
-            public async Task HandleScheduledCommandException(User aggregate, CommandFailed<Invite> command)
+            public async Task HandleScheduledCommandException(User user, CommandFailed<Invite> command)
+            {
+            }
+
+            public async Task HandleScheduledCommandException(User user, CommandFailed<AcceptInvite> command)
             {
             }
         }

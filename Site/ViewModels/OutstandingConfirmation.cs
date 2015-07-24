@@ -83,7 +83,7 @@ namespace AllAcu
     public class Invitation
     {
         public Guid InviteId { get; set; } = Guid.NewGuid();
-        public CareProviderDetails Provider { get; set; }
+        public virtual CareProviderDetails Provider { get; set; }
         public RoleList Roles { get; set; } = new RoleList();
 
         public class RoleList : SerialList<string>

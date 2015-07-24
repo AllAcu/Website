@@ -140,6 +140,15 @@
                             providerId: providerId
                         });
                     },
+                    getInvites: function(userId) {
+                        return $http.get("/api/user/{id}/invites".replace("{id}", userId));
+                    },
+                    accept: function(userId, providerId) {
+                        return $http.post("/api/user/{id}/accept".replace("{id}", userId),
+                        {
+                            providerId: providerId
+                        });
+                    },
                     register: function (token, name, password) {
                         return $http.post("/api/user/register", {
                             name: name,

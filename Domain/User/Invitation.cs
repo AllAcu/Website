@@ -8,7 +8,6 @@ namespace Domain.User
     {
         public class Invitation
         {
-            public Guid Id { get; set; }
             public Guid ProviderId { get; set; }
             public IList<Role> Roles { get; set; } = new List<Role>();
         }
