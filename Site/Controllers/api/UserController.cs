@@ -20,7 +20,7 @@ namespace AllAcu.Controllers.api
     {
         private readonly AllAcuSiteDbContext dbContext;
         private readonly IEventSourcedRepository<User> userEventSourcedRepository;
-        private ApplicationUserManager userManager;
+        private readonly ApplicationUserManager userManager;
 
         public UserController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<User> userEventSourcedRepository, ApplicationUserManager userManager)
         {
@@ -64,7 +64,6 @@ namespace AllAcu.Controllers.api
         [Route("invite"), HttpPost]
         public async Task<IHttpActionResult> Invite(User.Invite command)
         {
-            // TODO (bremor) - let user specify roles
             command.Role = command.Role ?? Roles.Provider.Practitioner;
 
             var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);
@@ -85,7 +84,7 @@ namespace AllAcu.Controllers.api
 
         [Route("{userId}/invites")]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetInvites(Guid userId)
+        public IHttpActionResult GetInvites(Guid userId)
         {
             return Ok(dbContext.Invitations.Where(i => i.User.UserId == userId));
         }
@@ -104,7 +103,6 @@ namespace AllAcu.Controllers.api
 
             return Ok();
         }
-
 
         [Route("register"), HttpPost]
         [AllowAnonymous]

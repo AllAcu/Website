@@ -14,6 +14,13 @@ namespace Domain.User
             ICommandHandler<User, Invite>,
             ICommandHandler<User, AcceptInvite>
         {
+            private ICommandScheduler<CareProvider.CareProvider> providerCommands;
+
+            public UserCommandHandler(ICommandScheduler<CareProvider.CareProvider> providerCommands)
+            {
+                this.providerCommands = providerCommands;
+            }
+
             public async Task EnactCommand(User user, Update command)
             {
                 user.RecordEvent(new Updated
@@ -55,6 +62,11 @@ namespace Domain.User
                 user.RecordEvent(new AcceptedInvite
                 {
                     ProviderId = command.ProviderId,
+                });
+
+                await providerCommands.Schedule(command.ProviderId, new CareProvider.CareProvider.WelcomeUser
+                {
+                    UserId = user.Id
                 });
             }
 
