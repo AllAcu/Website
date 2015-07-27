@@ -39,12 +39,12 @@
         '$scope', '$routeParams', '$api', "careProviderRepository", function ($scope, $routeParams, $api, providerRepo) {
             var userId = $routeParams["id"];
             $scope.user = null;
-            $scope.providers = function () { return $scope.user ? $scope.user.providers : []; };
+            $scope.providers = function () { return $scope.user ? $scope.user.providerRoles.map(function (r) { return r.provider; }) : []; };
             $scope.invitations = function() {
                  return $scope.user ? $scope.user.outstandingInvites : [];
             };
             $scope.hasProvider = function (provider) {
-                return $scope.user && $scope.user.providers.some(function (p) { return p.id === provider.id; });
+                return $scope.user && $scope.providers().some(function (p) { return p.id === provider.id; });
             }
 
             function refreshUser() {
@@ -59,13 +59,6 @@
 
             $scope.accept = function(invite) {
                 $api.users.accept(userId, invite.provider.id)
-                    .success(function () {
-                        refreshUser();
-                    });
-            }
-
-            $scope.join = function (provider) {
-                $api.providers.join(userId, provider.id)
                     .success(function () {
                         refreshUser();
                     });

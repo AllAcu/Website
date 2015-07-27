@@ -5,7 +5,6 @@
     <h3>Providers</h3>
     <ul>
         <li style="list-style-type: none;" ng-repeat="provider in providers()">
-            <button class="btn-primary" ng-show="!hasProvider(provider)" ng-click="join(provider)">Join</button>
             <button class="btn-primary" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
             {{provider.businessName}}
         </li>

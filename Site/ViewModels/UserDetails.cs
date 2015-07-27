@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Authentication;
 using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Its.Domain;
@@ -13,15 +14,13 @@ namespace AllAcu
         public string Name { get; set; }
         public string Email { get; set; }
 
-        public virtual IList<CareProviderDetails> Providers { get; set; } = new List<CareProviderDetails>();
+        public virtual IList<ProviderRole> ProviderRoles { get; set; } = new List<ProviderRole>();
         public virtual IList<Invitation> OutstandingInvites { get; set; } = new List<Invitation>();
     }
 
     public class UserDetailsViewModelHandler :
         IUpdateProjectionWhen<User.SignedUp>,
-        IUpdateProjectionWhen<User.Updated>,
-        IUpdateProjectionWhen<CareProvider.UserJoined>,
-        IUpdateProjectionWhen<CareProvider.UserLeft>
+        IUpdateProjectionWhen<User.Updated>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -45,24 +44,6 @@ namespace AllAcu
         {
             var user = dbContext.UserDetails.Find(@event.AggregateId);
             user.Name = @event.Name;
-
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(CareProvider.UserJoined @event)
-        {
-            var user = dbContext.UserDetails.Find(@event.UserId);
-            var provider = dbContext.CareProviders.Find(@event.AggregateId);
-            user.Providers.Add(provider);
-
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(CareProvider.UserLeft @event)
-        {
-            var user = dbContext.UserDetails.Find(@event.UserId);
-            var provider = dbContext.CareProviders.Find(@event.AggregateId);
-            user.Providers.Remove(provider);
 
             dbContext.SaveChanges();
         }

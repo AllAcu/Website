@@ -57,7 +57,7 @@ namespace AllAcu.Controllers.api
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var user = await dbContext.UserDetails.FindAsync(userId);
-            return user.Providers;
+            return user.ProviderRoles.Select(p => p.Provider);
         }
 
         [Route("all"), HttpGet]

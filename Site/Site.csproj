@@ -242,6 +242,7 @@
     <Compile Include="Monitoring\Site.cs" />
     <Compile Include="Authentication\AuthorizationDbContext.cs" />
     <Compile Include="ViewModels\CareProviderDetails.cs" />
+    <Compile Include="ViewModels\ProviderRole.cs" />
     <Compile Include="ViewModels\SerialList.cs" />
     <Compile Include="ViewModels\UserDetails.cs" />
     <Compile Include="ViewModels\UserListItemViewModel.cs" />

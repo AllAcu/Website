@@ -12,11 +12,11 @@ namespace AllAcu
         public virtual UserDetails User { get; set; }
         public virtual CareProviderDetails Provider { get; set; }
         public RoleList Roles { get; set; } = new RoleList();
+    }
 
-        public class RoleList : SerialList<string>
-        {
+    public class RoleList : SerialList<string>
+    {
 
-        }
     }
 
     public class InviteHandler :

@@ -54,7 +54,8 @@ namespace AllAcu
                 typeof(InsuranceVerificationFormEventHandler),
                 typeof(UserDetailsViewModelHandler),
                 typeof(CareProviderInformationHandler),
-                typeof(InviteHandler)
+                typeof(InviteHandler),
+                typeof(ProviderRoleHandler)
             };
 
             _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
