@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Domain;
 using Domain.Authentication;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
@@ -17,7 +18,9 @@ namespace AllAcu
 
     public class ProviderRoleHandler :
         IUpdateProjectionWhen<CareProvider.UserJoined>,
-        IUpdateProjectionWhen<CareProvider.UserLeft>
+        IUpdateProjectionWhen<CareProvider.UserLeft>,
+        IUpdateProjectionWhen<CareProvider.RolesGranted>,
+        IUpdateProjectionWhen<CareProvider.RolesRevoked>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -31,8 +34,7 @@ namespace AllAcu
             dbContext.ProviderRoles.Add(new ProviderRole
             {
                 Provider = dbContext.CareProviders.Find(@event.AggregateId),
-                User = dbContext.UserDetails.Find(@event.UserId),
-                Roles = new RoleList { Roles.Provider.Practitioner.ToString() }
+                User = dbContext.UserDetails.Find(@event.UserId)
             });
 
             dbContext.SaveChanges();
@@ -41,9 +43,21 @@ namespace AllAcu
         public void UpdateProjection(CareProvider.UserLeft @event)
         {
             var role = dbContext.ProviderRoles.FirstOrDefault(i => i.User.UserId == @event.UserId && i.Provider.Id == @event.AggregateId);
-
             dbContext.ProviderRoles.Remove(role);
+            dbContext.SaveChanges();
+        }
 
+        public void UpdateProjection(CareProvider.RolesGranted @event)
+        {
+            var role = dbContext.ProviderRoles.Single(i => i.User.UserId == @event.UserId && i.Provider.Id == @event.AggregateId);
+            @event.Roles.ForEach(r => role.Roles.Add(r.ToString()));
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(CareProvider.RolesRevoked @event)
+        {
+            var role = dbContext.ProviderRoles.Single(i => i.User.UserId == @event.UserId && i.Provider.Id == @event.AggregateId);
+            @event.Roles.ForEach(r => role.Roles.Remove(r.ToString()));
             dbContext.SaveChanges();
         }
     }

@@ -91,17 +91,33 @@ namespace AllAcu.Controllers.api
         [Route("{providerId}/join"), HttpPost]
         public async Task JoinProvider(Guid providerId, CareProvider.WelcomeUser command)
         {
-            var organization = await careProviderEventRepository.GetLatest(providerId);
-            await command.ApplyToAsync(organization);
-            await careProviderEventRepository.Save(organization);
+            var provider = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(provider);
+            await careProviderEventRepository.Save(provider);
         }
 
         [Route("{providerId}/leave"), HttpPost]
         public async Task LeaveProvider(Guid providerId, CareProvider.DismissUser command)
         {
-            var organization = await careProviderEventRepository.GetLatest(providerId);
-            await command.ApplyToAsync(organization);
-            await careProviderEventRepository.Save(organization);
+            var provider = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(provider);
+            await careProviderEventRepository.Save(provider);
+        }
+
+        [Route("{providerId}/grant")]
+        public async Task GrantUserRoles(Guid providerId, CareProvider.GrantRoles command)
+        {
+            var provider = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(provider);
+            await careProviderEventRepository.Save(provider);
+        }
+
+        [Route("{providerId}/revoke")]
+        public async Task RevokeUserRoles(Guid providerId, CareProvider.RevokeRoles command)
+        {
+            var provider = await careProviderEventRepository.GetLatest(providerId);
+            await command.ApplyToAsync(provider);
+            await careProviderEventRepository.Save(provider);
         }
     }
 }

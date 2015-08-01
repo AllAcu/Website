@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
@@ -16,7 +15,7 @@ namespace AllAcu
         public string PhoneNumber { get; set; }
         public string TaxId { get; set; }
 
-        public virtual IList<ProviderRole> Practitioners { get; set; } = new List<ProviderRole>();
+        public virtual IList<ProviderRole> Users { get; set; } = new List<ProviderRole>();
     }
 
     public class CareProviderInformationHandler :

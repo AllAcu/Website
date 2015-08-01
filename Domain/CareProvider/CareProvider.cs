@@ -30,6 +30,12 @@ namespace Domain.CareProvider
             {
                 UserId = command.CreatingUserId
             });
+
+            RecordEvent(new RolesGranted
+            {
+                UserId = command.CreatingUserId,
+                Roles = new[] { Roles.Provider.Owner }
+            });
         }
 
         public IList<Patient> Patients { get; } = new List<Patient>();
@@ -46,6 +52,11 @@ namespace Domain.CareProvider
         public string City { get; set; }
         public string NpiNumber { get; set; }
         public string TaxId { get; set; }
+
+        public UserAccess GetUser(Guid id)
+        {
+            return Users.SingleOrDefault(user => user.UserId == id);
+        }
 
         public Patient GetPatient(Guid id)
         {

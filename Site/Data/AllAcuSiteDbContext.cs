@@ -70,7 +70,7 @@ namespace AllAcu
 
             modelBuilder.Entity<ProviderRole>()
                 .HasRequired(r => r.Provider)
-                .WithMany(p => p.Practitioners);
+                .WithMany(p => p.Users);
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();

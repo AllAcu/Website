@@ -120,6 +120,12 @@
                     },
                     leave: function (userId, providerId) {
                         return $http.post('/api/provider/' + providerId + "/leave", { userId: userId });
+                    },
+                    grantRole: function(userId, providerId, role) {
+                        return $http.post('/api/provider/' + providerId + "/grant", { userId: userId, roles: [ role ] });
+                    },
+                    revokeRole: function(userId, providerId, role) {
+                        return $http.post('/api/provider/' + providerId + "/revoke", { userId: userId, roles: [role] });
                     }
                 },
                 users: {

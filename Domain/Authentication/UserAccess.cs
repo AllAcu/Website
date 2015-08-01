@@ -12,7 +12,7 @@ namespace Domain.Authentication
         public UserAccess(Guid userId, IEnumerable<Role> roles)
         {
             UserId = userId;
-            Roles = new HashSet<Role>(roles) { Authentication.Roles.Provider.Know };
+            Roles = new HashSet<Role>(roles);
         }
 
         public Guid UserId { get; }

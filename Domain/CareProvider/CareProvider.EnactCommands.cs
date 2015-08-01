@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Authentication;
 using Microsoft.Its.Domain;
-using Microsoft.Its.Domain.Serialization;
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
@@ -14,6 +13,8 @@ namespace Domain.CareProvider
         public class CareProviderCommandHandler :
             ICommandHandler<CareProvider, WelcomeUser>,
             ICommandHandler<CareProvider, DismissUser>,
+            ICommandHandler<CareProvider, GrantRoles>,
+            ICommandHandler<CareProvider, RevokeRoles>,
             ICommandHandler<CareProvider, UpdateProvider>,
             ICommandHandler<CareProvider, StartClaim>,
             ICommandHandler<CareProvider, UpdateClaimDraft>,
@@ -29,6 +30,12 @@ namespace Domain.CareProvider
                 {
                     UserId = command.UserId
                 });
+
+                provider.RecordEvent(new RolesGranted
+                {
+                    UserId = command.UserId,
+                    Roles = new[] { Roles.Provider.Practitioner }
+                });
             }
 
             public async Task EnactCommand(CareProvider provider, DismissUser command)
@@ -37,6 +44,34 @@ namespace Domain.CareProvider
                 {
                     UserId = command.UserId
                 });
+            }
+
+            public async Task EnactCommand(CareProvider provider, GrantRoles command)
+            {
+                provider.RecordEvent(new RolesGranted
+                {
+                    UserId = command.UserId,
+                    Roles = command.Roles.ToArray()
+                });
+            }
+
+            public async Task EnactCommand(CareProvider provider, RevokeRoles command)
+            {
+                if (provider.GetUser(command.UserId).Roles.Except(command.Roles).Any())
+                {
+                    provider.RecordEvent(new RolesRevoked
+                    {
+                        UserId = command.UserId,
+                        Roles = command.Roles.ToArray()
+                    });
+                }
+                else
+                {
+                    provider.RecordEvent(new UserLeft
+                    {
+                        UserId = command.UserId
+                    });
+                }
             }
 
             public async Task EnactCommand(CareProvider provider, UpdateProvider command)
@@ -95,7 +130,7 @@ namespace Domain.CareProvider
                     UpdatedName = (command.Name != patient.Name) ? command.Name : null,
                     UpdatedGender = (command.Gender != patient.Gender) ? command.Gender : null,
                     UpdatedDateOfBirth =
-                        (command.DateOfBirth != patient.DateOfBirth) ? command.DateOfBirth : (DateTime?) null
+                        (command.DateOfBirth != patient.DateOfBirth) ? command.DateOfBirth : (DateTime?)null
                 });
             }
 
@@ -167,6 +202,16 @@ namespace Domain.CareProvider
 
             public async Task HandleScheduledCommandException(CareProvider provider, CommandFailed<TerminateInsurance> command)
             {
+            }
+
+            public Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<GrantRoles> command)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task HandleScheduledCommandException(CareProvider aggregate, CommandFailed<RevokeRoles> command)
+            {
+                throw new NotImplementedException();
             }
         }
     }

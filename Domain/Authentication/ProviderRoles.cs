@@ -11,7 +11,6 @@ namespace Domain.Authentication
 
         public static class Provider
         {
-            public static Role Know => new Role("know");
             public static Role Owner => new Role("owner");
             public static Role Practitioner => new Role("practitioner");
             public static Role OfficeAdministrator => new Role("officeAdministrator");

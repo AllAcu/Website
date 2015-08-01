@@ -14,7 +14,7 @@ namespace Domain.User
             ICommandHandler<User, Invite>,
             ICommandHandler<User, AcceptInvite>
         {
-            private ICommandScheduler<CareProvider.CareProvider> providerCommands;
+            private readonly ICommandScheduler<CareProvider.CareProvider> providerCommands;
 
             public UserCommandHandler(ICommandScheduler<CareProvider.CareProvider> providerCommands)
             {

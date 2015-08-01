@@ -274,7 +274,6 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\App\api.js" />
     <Content Include="Scripts\App\authToken.js" />
-    <Content Include="Scripts\App\careProviderCommands.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
