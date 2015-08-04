@@ -41,15 +41,20 @@ namespace AllAcu
                 {
                     UserId = system.UserId,
                     UserName = system.Username,
-                    Email = system.Email 
+                    Email = system.Email
                 }, system.Password);
 
                 if (!result.Succeeded)
                 {
                     Trace.Write(result.Errors);
-                    throw new ConfigurationErrorsException("Could not create default system user account due to configuration problems.\r\n" + string.Join("\r\n", result.Errors));
+                    throw new ConfigurationErrorsException(
+                        "Could not create default system user account due to configuration problems.\r\n" +
+                        string.Join("\r\n", result.Errors));
                 }
+            }
 
+            if ((await container.Resolve<IEventSourcedRepository<User>>().GetLatest(system.UserId)) == null)
+            {
                 var user = new User(new User.CreateSystemUser
                 {
                     AggregateId = system.UserId,
