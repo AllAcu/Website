@@ -74,6 +74,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Biller\Biller.cs" />
+    <Compile Include="Biller\Commands\InitializeBiller.cs" />
+    <Compile Include="Biller\BillerEventStoreRepository_Extensions.cs" />
+    <Compile Include="Biller\Events\BillerInitialized.cs" />
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
     <Compile Include="CareProvider\Commands\GrantRoles.cs" />
@@ -90,11 +94,14 @@
     <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Enumerable_Extensions.cs" />
     <Compile Include="Procedure.cs" />
+    <Compile Include="SystemUser.cs" />
     <Compile Include="User\Commands\AcceptInvite.cs" />
+    <Compile Include="User\Commands\CreateSystemUser.cs" />
     <Compile Include="User\Commands\Invite.cs" />
     <Compile Include="User\Events\AcceptedInvite.cs" />
     <Compile Include="User\Events\Invited.cs" />
     <Compile Include="User\Events\SignedUp.cs" />
+    <Compile Include="User\Events\SystemUserInitialized.cs" />
     <Compile Include="User\Invitation.cs" />
     <Compile Include="User\Commands\SignUp.cs" />
     <Compile Include="User\Commands\Register.cs" />

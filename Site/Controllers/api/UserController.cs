@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.Authentication;
+using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -64,7 +65,7 @@ namespace AllAcu.Controllers.api
         [Route("invite"), HttpPost]
         public async Task<IHttpActionResult> Invite(User.Invite command)
         {
-            command.Role = command.Role ?? Roles.Provider.Practitioner;
+            command.Role = command.Role ?? CareProvider.Roles.Practitioner;
 
             var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);
             var user = userDetails == null ?

@@ -34,7 +34,7 @@ namespace Domain.CareProvider
                 provider.RecordEvent(new RolesGranted
                 {
                     UserId = command.UserId,
-                    Roles = new[] { Roles.Provider.Practitioner }
+                    Roles = new[] { Roles.Practitioner }
                 });
             }
 

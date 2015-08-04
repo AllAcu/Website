@@ -34,7 +34,7 @@ namespace Domain.CareProvider
             RecordEvent(new RolesGranted
             {
                 UserId = command.CreatingUserId,
-                Roles = new[] { Roles.Provider.Owner }
+                Roles = new[] { Roles.Owner }
             });
         }
 
@@ -42,7 +42,7 @@ namespace Domain.CareProvider
 
         public IList<UserAccess> Practitioners
         {
-            get { return Users.Where(u => u.Roles.Contains(Roles.Provider.Practitioner)).ToArray(); }
+            get { return Users.Where(u => u.Roles.Contains(Roles.Practitioner)).ToArray(); }
         }
 
         public IList<ClaimDraft> ClaimDrafts { get; } = new List<ClaimDraft>();
@@ -66,6 +66,13 @@ namespace Domain.CareProvider
         public bool PatientExists(Guid id)
         {
             return GetPatient(id) != null;
+        }
+
+        public static class Roles
+        {
+            public static Role Owner => new Role("owner");
+            public static Role Practitioner => new Role("practitioner");
+            public static Role OfficeAdministrator => new Role("officeAdministrator");
         }
     }
 }

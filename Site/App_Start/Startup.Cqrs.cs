@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using AllAcu.Authentication;
+using Domain.Biller;
 using Domain.CareProvider;
 using Domain.ClaimFiling;
 using Domain.User;
@@ -40,7 +41,7 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<User>), c => Microsoft.Its.Domain.Configuration.Current.Repository<User>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
-
+            container.Register(typeof(IEventSourcedRepository<Biller>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Biller>());
 
             // catch completely up
             new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
@@ -81,6 +82,11 @@ namespace AllAcu
             };
             Command<User>.AuthorizeDefault = (provider, command) =>
             {
+                if (command is User.CreateSystemUser)
+                {
+                    return true;
+                }
+
                 command.Principal = CurrentPrincipal();
                 return true;
             };

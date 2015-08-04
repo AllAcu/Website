@@ -226,6 +226,7 @@
     <Compile Include="%28Pocket%29\System.Web.Http\HttpConfigurationExtensions.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Startup.SiteBootstrap.cs" />
     <Compile Include="Authentication\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -295,6 +296,7 @@
     <Compile Include="App_Start\Startup.Container.cs" />
     <Compile Include="App_Start\Startup.WebApi.cs" />
     <Content Include=".config\defaults\Smtp.json" />
+    <Content Include=".config\defaults\SystemUser.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />

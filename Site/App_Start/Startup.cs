@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu;
 using Domain;
 using Domain.Authentication;
+using Domain.Biller;
 using Domain.Verification;
+using Its.Configuration;
 using Its.Log.Monitoring;
 using Microsoft.Its.Domain.Serialization;
 using Microsoft.Owin;
@@ -21,6 +24,11 @@ namespace AllAcu
 
         public void Configuration(IAppBuilder app)
         {
+            Task.WaitAll(Configure(app));
+        }
+
+        public async Task Configure(IAppBuilder app)
+        {
             container = new PocketContainer();
             httpConfiguration = new HttpConfiguration();
             RegisterStringT();
@@ -35,6 +43,9 @@ namespace AllAcu
             httpConfiguration.MapSensorRoutes(_ => true);
 
             app.UseWebApi(httpConfiguration);
+
+            await BootstrapSite(app, container);
+            BillerEventStoreRepository_Extensions.AllAcuBillerId = Settings.Get<SystemUser>().BillerId;
         }
 
         private static void RegisterStringT()

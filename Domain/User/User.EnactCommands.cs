@@ -12,7 +12,8 @@ namespace Domain.User
             ICommandHandler<User, SignUp>,
             ICommandHandler<User, Register>,
             ICommandHandler<User, Invite>,
-            ICommandHandler<User, AcceptInvite>
+            ICommandHandler<User, AcceptInvite>,
+            ICommandHandler<User, CreateSystemUser>
         {
             private readonly ICommandScheduler<CareProvider.CareProvider> providerCommands;
 
@@ -37,6 +38,11 @@ namespace Domain.User
                     ConfirmationSentDate = DateTime.UtcNow,
                     Token = SignupToken.GenerateToken()
                 });
+            }
+
+            public async Task EnactCommand(User user, CreateSystemUser command)
+            {
+                user.RecordEvent(new SystemUserInitialized());
             }
 
             public async Task EnactCommand(User user, Register command)
@@ -88,6 +94,11 @@ namespace Domain.User
 
             public async Task HandleScheduledCommandException(User user, CommandFailed<AcceptInvite> command)
             {
+            }
+
+            public Task HandleScheduledCommandException(User aggregate, CommandFailed<CreateSystemUser> command)
+            {
+                throw new NotImplementedException();
             }
         }
     }
