@@ -12,6 +12,7 @@ namespace Domain.Biller
         public class InitializeBiller : ConstructorCommand<Biller>
         {
             public string Name { get; set; }
+            public Guid SystemUserId { get; set; }
         } 
     }
 }

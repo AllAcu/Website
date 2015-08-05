@@ -238,6 +238,8 @@
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Smtp.cs" />
+    <Compile Include="ViewModels\BillerDetails.cs" />
+    <Compile Include="ViewModels\BillerRole.cs" />
     <Compile Include="ViewModels\Invitation.cs" />
     <Compile Include="ViewModels\OutstandingConfirmation.cs" />
     <Compile Include="Monitoring\Site.cs" />
@@ -296,7 +298,7 @@
     <Compile Include="App_Start\Startup.Container.cs" />
     <Compile Include="App_Start\Startup.WebApi.cs" />
     <Content Include=".config\defaults\Smtp.json" />
-    <Content Include=".config\defaults\SystemUser.json" />
+    <Content Include=".config\defaults\AllAcuBiller.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />
@@ -358,7 +360,6 @@
   <ItemGroup>
     <Folder Include=".config\prod\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CareProvider\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

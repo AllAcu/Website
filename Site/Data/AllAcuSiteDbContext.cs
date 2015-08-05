@@ -17,6 +17,8 @@ namespace AllAcu
         public DbSet<OutstandingConfirmation> Confirmations { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<ProviderRole> ProviderRoles { get; set; }
+        public DbSet<BillerRole> BillerRoles { get; set; }
+        public DbSet<BillerDetails> Billers { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -71,6 +73,22 @@ namespace AllAcu
             modelBuilder.Entity<ProviderRole>()
                 .HasRequired(r => r.Provider)
                 .WithMany(p => p.Users);
+
+            modelBuilder.Entity<BillerDetails>()
+                .HasKey(b => b.Id);
+
+            modelBuilder.Entity<BillerDetails>()
+                .HasMany(p => p.Users)
+                .WithRequired(p => p.Biller);
+
+            modelBuilder.Entity<BillerRole>()
+                .HasKey(r => r.Id)
+                .Property(r => r.Roles.Serialized)
+                .HasColumnName("Roles");
+
+            modelBuilder.Entity<BillerRole>()
+                .HasRequired(r => r.User)
+                .WithMany();
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Domain;
-using Domain.Authentication;
 using Domain.CareProvider;
 using Microsoft.Its.Domain;
 

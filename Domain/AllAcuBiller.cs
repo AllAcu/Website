@@ -2,7 +2,7 @@
 
 namespace Domain
 {
-    public class SystemUser
+    public class AllAcuBiller
     {
         public Guid BillerId { get; set; }
         public Guid UserId { get; set; }

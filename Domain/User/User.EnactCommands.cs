@@ -42,7 +42,11 @@ namespace Domain.User
 
             public async Task EnactCommand(User user, CreateSystemUser command)
             {
-                user.RecordEvent(new SystemUserInitialized());
+                user.RecordEvent(new BillerSystemUserInitialized
+                {
+                    Name = command.Username,
+                    Email = command.Email
+                });
             }
 
             public async Task EnactCommand(User user, Register command)

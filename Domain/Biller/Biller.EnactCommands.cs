@@ -9,7 +9,9 @@ namespace Domain.Biller
     {
         public class BillerCommandHandler :
             ICommandHandler<Biller, GrantRoles>,
-            ICommandHandler<Biller, RevokeRoles>
+            ICommandHandler<Biller, RevokeRoles>,
+            ICommandHandler<Biller, AddUser>,
+            ICommandHandler<Biller, RemoveUser>
         {
             public async Task EnactCommand(Biller biller, GrantRoles command)
             {
@@ -39,11 +41,41 @@ namespace Domain.Biller
                 }
             }
 
+            public async Task EnactCommand(Biller biller, AddUser command)
+            {
+                biller.RecordEvent(new UserAdded
+                {
+                    UserId = command.UserId
+                });
+
+                biller.RecordEvent(new RolesGranted
+                {
+                    UserId = command.UserId,
+                    Roles = new[] { Roles.Employee }
+                });
+            }
+
+            public async Task EnactCommand(Biller biller, RemoveUser command)
+            {
+                biller.RecordEvent(new UserRemoved
+                {
+                    UserId = command.UserId
+                });
+            }
+
             public async Task HandleScheduledCommandException(Biller biller, CommandFailed<GrantRoles> command)
             {
             }
 
             public async Task HandleScheduledCommandException(Biller biller, CommandFailed<RevokeRoles> command)
+            {
+            }
+
+            public async Task HandleScheduledCommandException(Biller aggregate, CommandFailed<AddUser> command)
+            {
+            }
+
+            public async Task HandleScheduledCommandException(Biller aggregate, CommandFailed<RemoveUser> command)
             {
             }
         }

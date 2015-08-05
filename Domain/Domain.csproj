@@ -77,12 +77,15 @@
     <Compile Include="Biller\Biller.cs" />
     <Compile Include="Biller\Biller.EnactCommands.cs" />
     <Compile Include="Biller\Biller_Extensions.cs" />
+    <Compile Include="Biller\Commands\RemoveUser.cs" />
     <Compile Include="Biller\Commands\GrantRoles.cs" />
     <Compile Include="Biller\Commands\InitializeBiller.cs" />
+    <Compile Include="Biller\Commands\AddUser.cs" />
     <Compile Include="Biller\Commands\RevokeRoles.cs" />
     <Compile Include="Biller\Events\BillerInitialized.cs" />
     <Compile Include="Biller\Events\RolesGranted.cs" />
     <Compile Include="Biller\Events\RolesRevoked.cs" />
+    <Compile Include="Biller\Events\UserAdded.cs" />
     <Compile Include="Biller\Events\UserRemoved.cs" />
     <Compile Include="CareProvider\Address.cs" />
     <Compile Include="CareProvider\CareProvider.cs" />
@@ -101,7 +104,7 @@
     <Compile Include="Authentication\UserAccess.cs" />
     <Compile Include="Enumerable_Extensions.cs" />
     <Compile Include="Procedure.cs" />
-    <Compile Include="SystemUser.cs" />
+    <Compile Include="AllAcuBiller.cs" />
     <Compile Include="User\Commands\AcceptInvite.cs" />
     <Compile Include="User\Commands\CreateSystemUser.cs" />
     <Compile Include="User\Commands\Invite.cs" />

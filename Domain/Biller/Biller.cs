@@ -29,6 +29,17 @@ namespace Domain.Biller
             {
                 Name = command.Name
             });
+
+            RecordEvent(new UserAdded
+            {
+                UserId = command.SystemUserId
+            });
+
+            RecordEvent(new RolesGranted
+            {
+                UserId = command.SystemUserId,
+                Roles = new[] { Roles.System }
+            });
         }
 
         public string Name { get; set; }
@@ -37,6 +48,7 @@ namespace Domain.Biller
         public static class Roles
         {
             public static Role System => new Role("system");
+            public static Role Employee => new Role("employee");
             public static Role Owner => new Role("owner");
             public static Role Approver => new Role("approver");
             public static Role Verifier => new Role("verifier");

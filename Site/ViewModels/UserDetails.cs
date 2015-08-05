@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Domain.Authentication;
-using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Its.Domain;
 
@@ -20,7 +17,8 @@ namespace AllAcu
 
     public class UserDetailsViewModelHandler :
         IUpdateProjectionWhen<User.SignedUp>,
-        IUpdateProjectionWhen<User.Updated>
+        IUpdateProjectionWhen<User.Updated>,
+        IUpdateProjectionWhen<User.BillerSystemUserInitialized>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -44,6 +42,18 @@ namespace AllAcu
         {
             var user = dbContext.UserDetails.Find(@event.AggregateId);
             user.Name = @event.Name;
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(User.BillerSystemUserInitialized @event)
+        {
+            dbContext.UserDetails.Add(new UserDetails
+            {
+                UserId = @event.AggregateId,
+                Name = @event.Name,
+                Email = @event.Email
+            });
 
             dbContext.SaveChanges();
         }
