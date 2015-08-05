@@ -76,6 +76,11 @@ namespace AllAcu
                 command.Principal = CurrentPrincipal();
                 return true;
             };
+            Command<Biller>.AuthorizeDefault = (biller, command) =>
+            {
+                command.Principal = CurrentPrincipal();
+                return true;
+            };
             Command<Domain.Verification.InsuranceVerification>.AuthorizeDefault = (provider, command) =>
             {
                 command.Principal = CurrentPrincipal();

@@ -5,6 +5,7 @@
         'loginApp',
         'patientsApp',
         'providersApp',
+        'billerApp',
         'claimsApp',
         'userApp',
         'verificationApp'
@@ -14,6 +15,7 @@
     angular.module("loginApp", []);
     angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", []);
+    angular.module("billerApp", []);
     angular.module("userApp", []);
     angular.module("claimsApp", []);
     angular.module("verificationApp", []);
@@ -106,6 +108,12 @@
                 .when('/verification/:verificationId/verify', {
                     templateUrl: '/Templates/Verification/verifyInsurance.html',
                     controller: 'verifyInsurance'
+                });
+
+            $routeProvider
+                .when('/biller', {
+                    templateUrl: '/Templates/Biller/details.html',
+                    controller: 'billerDetails'
                 });
 
             $routeProvider

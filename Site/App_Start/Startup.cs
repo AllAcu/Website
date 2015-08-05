@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu;
+using AllAcu.Controllers;
+using AllAcu.Controllers.api;
 using Domain;
 using Domain.Authentication;
 using Domain.Biller;
@@ -45,7 +47,7 @@ namespace AllAcu
             app.UseWebApi(httpConfiguration);
 
             Biller.AllAcuBillerId = 
-            BillerDetails.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
+            BillerDetails.AllAcuBillerId = BillerController.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
 
             await BootstrapSite(app, container);
         }

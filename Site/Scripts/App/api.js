@@ -128,6 +128,11 @@
                         return $http.post('/api/provider/' + providerId + "/revoke", { userId: userId, roles: [role] });
                     }
                 },
+                biller: {
+                    get: function () {
+                        return $http.get("/api/biller");
+                    }
+                },
                 users: {
                     get: function (id) {
                         return $http.get("/api/user/" + id);

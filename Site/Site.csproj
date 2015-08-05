@@ -234,6 +234,7 @@
     <Compile Include="App_Start\Startup.Mvc.cs" />
     <Compile Include="Authentication\CareProviderIdFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\BillerController.cs" />
     <Compile Include="Controllers\api\CareProviderController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
@@ -277,6 +278,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\App\api.js" />
     <Content Include="Scripts\App\authToken.js" />
+    <Content Include="Scripts\App\biller.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
@@ -316,6 +318,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
+    <Content Include="Templates\Biller\details.html" />
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
     <Content Include="Templates\Providers\list.html" />
