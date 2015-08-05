@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Authentication;
@@ -10,6 +9,8 @@ namespace Domain.Biller
 {
     public partial class Biller : EventSourcedAggregate<Biller>
     {
+        public static Guid AllAcuBillerId;
+
         protected Biller(Guid? id = default(Guid?)) : base(id)
         {
         }
@@ -35,6 +36,7 @@ namespace Domain.Biller
 
         public static class Roles
         {
+            public static Role System => new Role("system");
             public static Role Owner => new Role("owner");
             public static Role Approver => new Role("approver");
             public static Role Verifier => new Role("verifier");

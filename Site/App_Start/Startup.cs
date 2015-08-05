@@ -45,7 +45,7 @@ namespace AllAcu
             app.UseWebApi(httpConfiguration);
 
             await BootstrapSite(app, container);
-            BillerEventStoreRepository_Extensions.AllAcuBillerId = Settings.Get<SystemUser>().BillerId;
+            Biller.AllAcuBillerId = Settings.Get<SystemUser>().BillerId;
         }
 
         private static void RegisterStringT()

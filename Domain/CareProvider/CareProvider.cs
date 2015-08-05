@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Authentication;
 using Microsoft.Its.Domain;
 
@@ -39,12 +38,6 @@ namespace Domain.CareProvider
         }
 
         public IList<Patient> Patients { get; } = new List<Patient>();
-
-        public IList<UserAccess> Practitioners
-        {
-            get { return Users.Where(u => u.Roles.Contains(Roles.Practitioner)).ToArray(); }
-        }
-
         public IList<ClaimDraft> ClaimDrafts { get; } = new List<ClaimDraft>();
         public IList<UserAccess> Users { get; } = new List<UserAccess>();
 
@@ -52,21 +45,6 @@ namespace Domain.CareProvider
         public string City { get; set; }
         public string NpiNumber { get; set; }
         public string TaxId { get; set; }
-
-        public UserAccess GetUser(Guid id)
-        {
-            return Users.SingleOrDefault(user => user.UserId == id);
-        }
-
-        public Patient GetPatient(Guid id)
-        {
-            return Patients.SingleOrDefault(patient => patient.Id == id);
-        }
-
-        public bool PatientExists(Guid id)
-        {
-            return GetPatient(id) != null;
-        }
 
         public static class Roles
         {

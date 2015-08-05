@@ -96,9 +96,8 @@ namespace Domain.User
             {
             }
 
-            public Task HandleScheduledCommandException(User aggregate, CommandFailed<CreateSystemUser> command)
+            public async Task HandleScheduledCommandException(User user, CommandFailed<CreateSystemUser> command)
             {
-                throw new NotImplementedException();
             }
         }
     }
