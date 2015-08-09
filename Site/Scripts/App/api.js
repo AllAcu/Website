@@ -160,7 +160,7 @@
                     invite: function (providerId, email) {
                         return $http.post("/api/user/invite", {
                             email: email,
-                            providerId: providerId
+                            organizationId: providerId
                         });
                     },
                     getInvites: function(userId) {
@@ -169,7 +169,7 @@
                     accept: function(userId, providerId) {
                         return $http.post("/api/user/{id}/accept".replace("{id}", userId),
                         {
-                            providerId: providerId
+                            organizationId: providerId
                         });
                     },
                     register: function (token, name, password) {

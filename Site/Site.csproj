@@ -301,6 +301,7 @@
     <Compile Include="App_Start\Startup.WebApi.cs" />
     <Content Include=".config\defaults\Smtp.json" />
     <Content Include=".config\defaults\AllAcuBiller.json" />
+    <Content Include=".config\dev\AllAcuBiller.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />

@@ -41,7 +41,7 @@
             $scope.user = null;
             $scope.providers = function () { return $scope.user ? $scope.user.providerRoles.map(function (r) { return r.provider; }) : []; };
             $scope.invitations = function() {
-                 return $scope.user ? $scope.user.outstandingInvites : [];
+                 return $scope.user ? $scope.user.providerInvitations : [];
             };
             $scope.hasProvider = function (provider) {
                 return $scope.user && $scope.providers().some(function (p) { return p.id === provider.id; });
@@ -58,7 +58,7 @@
             refreshUser();
 
             $scope.accept = function(invite) {
-                $api.users.accept(userId, invite.provider.id)
+                $api.users.accept(userId, invite.organization.id)
                     .success(function () {
                         refreshUser();
                     });
