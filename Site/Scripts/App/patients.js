@@ -115,9 +115,9 @@
 
             $scope.insuranceTemplate = function () {
                 if ($scope.classification === "medical")
-                    return 'Templates/Patients/inputMedicalInsurance.html';
+                    return '/Templates/Patients/inputMedicalInsurance.html';
                 else if ($scope.classification === "pip")
-                    return 'Templates/Patients/inputPersonalInjuryProtection.html';
+                    return '/Templates/Patients/inputPersonalInjuryProtection.html';
                 return "";
             }
         }
