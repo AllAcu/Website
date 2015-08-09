@@ -2,13 +2,12 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Domain.Biller;
-using Domain.User;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
     [RoutePrefix("api/biller")]
-    //[Authorize]
+    [Authorize]
     public class BillerController : ApiController
     {
         public static Guid AllAcuBillerId { get; set; }

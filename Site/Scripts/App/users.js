@@ -40,8 +40,12 @@
             var userId = $routeParams["id"];
             $scope.user = null;
             $scope.providers = function () { return $scope.user ? $scope.user.providerRoles.map(function (r) { return r.provider; }) : []; };
-            $scope.invitations = function() {
+            $scope.billers = function () { return $scope.user ? $scope.user.billerRoles.map(function (r) { return r.biller; }) : []; };
+            $scope.providerInvitations = function() {
                  return $scope.user ? $scope.user.providerInvitations : [];
+            };
+            $scope.billerInvitations = function() {
+                 return $scope.user ? $scope.user.billerInvitations : [];
             };
             $scope.hasProvider = function (provider) {
                 return $scope.user && $scope.providers().some(function (p) { return p.id === provider.id; });

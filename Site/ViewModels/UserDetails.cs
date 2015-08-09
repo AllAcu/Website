@@ -13,6 +13,7 @@ namespace AllAcu
 
         public virtual IList<ProviderRole> ProviderRoles { get; set; } = new List<ProviderRole>();
         public virtual IList<ProviderInvitation> ProviderInvitations { get; set; } = new List<ProviderInvitation>();
+        public virtual IList<BillerRole> BillerRoles { get; set; } = new List<BillerRole>();
         public virtual IList<BillerInvitation> BillerInvitations { get; set; } = new List<BillerInvitation>();
     }
 

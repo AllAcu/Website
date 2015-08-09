@@ -78,9 +78,16 @@ namespace AllAcu
 
         public void UpdateProjection(User.AcceptedInvite @event)
         {
-            var invite = dbContext.ProviderInvitations.First(i => i.User.UserId == @event.AggregateId && i.Organization.Id == @event.ProviderId);
-
-            dbContext.ProviderInvitations.Remove(invite);
+            if (@event.IsBillerId())
+            {
+                var invite = dbContext.BillerInvitations.First(i => i.User.UserId == @event.AggregateId && i.Organization.Id == @event.OrganizationId);
+                dbContext.BillerInvitations.Remove(invite);
+            }
+            else
+            {
+                var invite = dbContext.ProviderInvitations.First(i => i.User.UserId == @event.AggregateId && i.Organization.Id == @event.OrganizationId);
+                dbContext.ProviderInvitations.Remove(invite);
+            }
 
             dbContext.SaveChanges();
         }

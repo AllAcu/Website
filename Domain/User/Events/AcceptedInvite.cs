@@ -8,10 +8,15 @@ namespace Domain.User
     {
         public class AcceptedInvite : Event<User>
         {
-            public Guid ProviderId { get; set; }
+            public Guid OrganizationId { get; set; }
             public override void Update(User user)
             {
-                user.Invitations.Remove(user.Invitations.First(i => i.ProviderId == ProviderId));
+                user.Invitations.Remove(user.Invitations.First(i => i.OrganizationId == OrganizationId));
+            }
+
+            public bool IsBillerId()
+            {
+                return OrganizationId == Biller.Biller.AllAcuBillerId;
             }
         }
     }

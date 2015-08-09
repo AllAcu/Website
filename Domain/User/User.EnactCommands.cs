@@ -18,9 +18,10 @@ namespace Domain.User
             private readonly ICommandScheduler<CareProvider.CareProvider> providerCommands;
             private readonly ICommandScheduler<Biller.Biller> billerCommands;
 
-            public UserCommandHandler(ICommandScheduler<CareProvider.CareProvider> providerCommands)
+            public UserCommandHandler(ICommandScheduler<CareProvider.CareProvider> providerCommands, ICommandScheduler<Biller.Biller> billerCommands)
             {
                 this.providerCommands = providerCommands;
+                this.billerCommands = billerCommands;
             }
 
             public async Task EnactCommand(User user, Update command)
@@ -72,7 +73,7 @@ namespace Domain.User
             {
                 user.RecordEvent(new AcceptedInvite
                 {
-                    ProviderId = command.OrganizationId,
+                    OrganizationId = command.OrganizationId,
                 });
 
                 if (command.OrganizationId == Biller.Biller.AllAcuBillerId)

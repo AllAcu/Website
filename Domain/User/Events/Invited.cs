@@ -14,10 +14,10 @@ namespace Domain.User
 
             public override void Update(User user)
             {
-                var invite = user.Invitations.FirstOrDefault(i => i.ProviderId == OrganizationId);
+                var invite = user.Invitations.FirstOrDefault(i => i.OrganizationId == OrganizationId);
                 if (invite == null)
                 {
-                    invite = new Invitation { ProviderId = OrganizationId };
+                    invite = new Invitation { OrganizationId = OrganizationId };
                     user.Invitations.Add(invite);
                 }
                 invite.Roles.Add(Role);

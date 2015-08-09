@@ -39,7 +39,7 @@ namespace Domain.User
     {
         public static bool HasBeenInvited(this User user, Guid providerId, Role role)
         {
-            return user.Invitations.FirstOrDefault(i => i.ProviderId == providerId)?.Roles.Contains(role) == true;
+            return user.Invitations.FirstOrDefault(i => i.OrganizationId == providerId)?.Roles.Contains(role) == true;
         }
     }
 }
