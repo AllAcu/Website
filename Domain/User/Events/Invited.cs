@@ -9,18 +9,23 @@ namespace Domain.User
     {
         public class Invited : Event<User>
         {
-            public Guid ProviderId { get; set; }
+            public Guid OrganizationId { get; set; }
             public Role Role { get; set; }
 
             public override void Update(User user)
             {
-                var invite = user.Invitations.FirstOrDefault(i => i.ProviderId == ProviderId);
+                var invite = user.Invitations.FirstOrDefault(i => i.ProviderId == OrganizationId);
                 if (invite == null)
                 {
-                    invite = new Invitation { ProviderId = ProviderId };
+                    invite = new Invitation { ProviderId = OrganizationId };
                     user.Invitations.Add(invite);
                 }
                 invite.Roles.Add(Role);
+            }
+
+            public bool IsBillerId()
+            {
+                return OrganizationId == Biller.Biller.AllAcuBillerId;
             }
         }
     }

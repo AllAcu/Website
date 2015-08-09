@@ -35,6 +35,9 @@ namespace AllAcu
             httpConfiguration = new HttpConfiguration();
             RegisterStringT();
 
+            Biller.AllAcuBillerId =
+            BillerDetails.AllAcuBillerId = BillerController.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
+
             ConfigureMvc(app, container);
             ConfigureWebApi(app, container, httpConfiguration);
             ConfigureCqrs(app, container);
@@ -45,9 +48,6 @@ namespace AllAcu
             httpConfiguration.MapSensorRoutes(_ => true);
 
             app.UseWebApi(httpConfiguration);
-
-            Biller.AllAcuBillerId = 
-            BillerDetails.AllAcuBillerId = BillerController.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
 
             await BootstrapSite(app, container);
         }

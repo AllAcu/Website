@@ -15,7 +15,8 @@ namespace AllAcu
         public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<OutstandingConfirmation> Confirmations { get; set; }
-        public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<ProviderInvitation> ProviderInvitations { get; set; }
+        public DbSet<BillerInvitation> BillerInvitations { get; set; }
         public DbSet<ProviderRole> ProviderRoles { get; set; }
         public DbSet<BillerRole> BillerRoles { get; set; }
         public DbSet<BillerDetails> Billers { get; set; }
@@ -49,17 +50,29 @@ namespace AllAcu
 
             modelBuilder.ComplexType<RoleList>();
 
-            modelBuilder.Entity<Invitation>()
+            modelBuilder.Entity<BillerInvitation>()
+                .HasKey(i => i.InviteId)
+                .Property(i => i.Roles.Serialized)
+                .HasColumnName("Roles");
+
+            modelBuilder.Entity<ProviderInvitation>()
                 .HasKey(i => i.InviteId)
                 .Property(i => i.Roles.Serialized)
                 .HasColumnName("Roles");
 
             modelBuilder.Entity<UserDetails>()
-                .HasMany(u => u.OutstandingInvites)
+                .HasMany(u => u.ProviderInvitations)
                 .WithRequired(i => i.User);
 
-            modelBuilder.Entity<Invitation>()
-                .HasRequired(i => i.Provider);
+            modelBuilder.Entity<UserDetails>()
+                .HasMany(u => u.BillerInvitations)
+                .WithRequired(i => i.User);
+
+            modelBuilder.Entity<ProviderInvitation>()
+                .HasRequired(i => i.Organization);
+
+            modelBuilder.Entity<BillerInvitation>()
+                .HasRequired(i => i.Organization);
 
             modelBuilder.Entity<ProviderRole>()
                 .HasKey(r => r.Id)

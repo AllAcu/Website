@@ -16,6 +16,7 @@ namespace Domain.User
             ICommandHandler<User, CreateSystemUser>
         {
             private readonly ICommandScheduler<CareProvider.CareProvider> providerCommands;
+            private readonly ICommandScheduler<Biller.Biller> billerCommands;
 
             public UserCommandHandler(ICommandScheduler<CareProvider.CareProvider> providerCommands)
             {
@@ -62,7 +63,7 @@ namespace Domain.User
             {
                 user.RecordEvent(new Invited
                 {
-                    ProviderId = command.ProviderId,
+                    OrganizationId = command.OrganizationId,
                     Role = command.Role
                 });
             }
@@ -71,13 +72,23 @@ namespace Domain.User
             {
                 user.RecordEvent(new AcceptedInvite
                 {
-                    ProviderId = command.ProviderId,
+                    ProviderId = command.OrganizationId,
                 });
 
-                await providerCommands.Schedule(command.ProviderId, new CareProvider.CareProvider.WelcomeUser
+                if (command.OrganizationId == Biller.Biller.AllAcuBillerId)
                 {
-                    UserId = user.Id
-                });
+                    await billerCommands.Schedule(command.OrganizationId, new Biller.Biller.AddUser
+                    {
+                        UserId = user.Id
+                    });
+                }
+                else
+                {
+                    await providerCommands.Schedule(command.OrganizationId, new CareProvider.CareProvider.WelcomeUser
+                    {
+                        UserId = user.Id
+                    });
+                }
             }
 
             public async Task HandleScheduledCommandException(User user, CommandFailed<Update> command)

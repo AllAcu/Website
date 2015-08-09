@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Domain;
 using Domain.Biller;
-using Domain.CareProvider;
+using Domain.User;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
@@ -19,7 +14,7 @@ namespace AllAcu.Controllers.api
         public static Guid AllAcuBillerId { get; set; }
 
         private readonly AllAcuSiteDbContext dbContext;
-        private readonly IEventSourcedRepository<Biller> billerEventSourcedRepository; 
+        private readonly IEventSourcedRepository<Biller> billerEventSourcedRepository;
 
         public BillerController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<Biller> billerEventSourcedRepository)
         {
@@ -28,41 +23,25 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public Task<BillerDetails> GetProvider()
+        public Task<BillerDetails> GetBiller()
         {
             return dbContext.Billers.FindAsync(AllAcuBillerId);
         }
 
-        [Route("add"), HttpPost]
-        public async Task JoinProvider(Guid providerId, Biller.AddUser command)
-        {
-            var provider = await billerEventSourcedRepository.GetLatest(providerId);
-            await command.ApplyToAsync(provider);
-            await billerEventSourcedRepository.Save(provider);
-        }
-
-        [Route("remove"), HttpPost]
-        public async Task LeaveProvider(Guid providerId, Biller.RemoveUser command)
-        {
-            var provider = await billerEventSourcedRepository.GetLatest(providerId);
-            await command.ApplyToAsync(provider);
-            await billerEventSourcedRepository.Save(provider);
-        }
-
         [Route("grant")]
-        public async Task GrantUserRoles(Guid providerId, Biller.GrantRoles command)
+        public async Task GrantUserRoles(Biller.GrantRoles command)
         {
-            var provider = await billerEventSourcedRepository.GetLatest(providerId);
-            await command.ApplyToAsync(provider);
-            await billerEventSourcedRepository.Save(provider);
+            var biller = await billerEventSourcedRepository.GetAllAcu();
+            await command.ApplyToAsync(biller);
+            await billerEventSourcedRepository.Save(biller);
         }
 
         [Route("revoke")]
-        public async Task RevokeUserRoles(Guid providerId, Biller.RevokeRoles command)
+        public async Task RevokeUserRoles(Biller.RevokeRoles command)
         {
-            var provider = await billerEventSourcedRepository.GetLatest(providerId);
-            await command.ApplyToAsync(provider);
-            await billerEventSourcedRepository.Save(provider);
+            var biller = await billerEventSourcedRepository.GetAllAcu();
+            await command.ApplyToAsync(biller);
+            await billerEventSourcedRepository.Save(biller);
         }
     }
 }

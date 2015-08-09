@@ -12,7 +12,7 @@ namespace Domain.User
         public class Invite : Command<User>
         {
             public string Email { get; set; }
-            public Guid ProviderId { get; set; }
+            public Guid OrganizationId { get; set; }
             public Role Role { get; set; }
 
             public override IValidationRule CommandValidator
@@ -20,7 +20,7 @@ namespace Domain.User
                 get
                 {
                     return Validate.That<Invite>(i =>
-                        i.ProviderId != Guid.Empty &&
+                        i.OrganizationId != Guid.Empty &&
                         i.Role != null);
                 }
             }
@@ -29,7 +29,7 @@ namespace Domain.User
             {
                 get
                 {
-                    return Validate.That<User>(u => !u.HasBeenInvited(ProviderId, Role));
+                    return Validate.That<User>(u => !u.HasBeenInvited(OrganizationId, Role));
                 }
             }
         }

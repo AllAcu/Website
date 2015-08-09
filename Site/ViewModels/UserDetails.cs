@@ -12,7 +12,8 @@ namespace AllAcu
         public string Email { get; set; }
 
         public virtual IList<ProviderRole> ProviderRoles { get; set; } = new List<ProviderRole>();
-        public virtual IList<Invitation> OutstandingInvites { get; set; } = new List<Invitation>();
+        public virtual IList<ProviderInvitation> ProviderInvitations { get; set; } = new List<ProviderInvitation>();
+        public virtual IList<BillerInvitation> BillerInvitations { get; set; } = new List<BillerInvitation>();
     }
 
     public class UserDetailsViewModelHandler :

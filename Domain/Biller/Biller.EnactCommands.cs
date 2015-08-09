@@ -63,6 +63,7 @@ namespace Domain.Biller
                 });
             }
 
+
             public async Task HandleScheduledCommandException(Biller biller, CommandFailed<GrantRoles> command)
             {
             }
@@ -71,11 +72,11 @@ namespace Domain.Biller
             {
             }
 
-            public async Task HandleScheduledCommandException(Biller aggregate, CommandFailed<AddUser> command)
+            public async Task HandleScheduledCommandException(Biller biller, CommandFailed<AddUser> command)
             {
             }
 
-            public async Task HandleScheduledCommandException(Biller aggregate, CommandFailed<RemoveUser> command)
+            public async Task HandleScheduledCommandException(Biller biller, CommandFailed<RemoveUser> command)
             {
             }
         }

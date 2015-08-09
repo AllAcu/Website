@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
 using Domain.Authentication;
+using Domain.Biller;
 using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Ajax.Utilities;
@@ -72,7 +73,7 @@ namespace AllAcu.Controllers.api
                 new User(new User.SignUp { Email = command.Email }) :
                 await userEventSourcedRepository.GetLatest(userDetails.UserId);
 
-            if (user.HasBeenInvited(command.ProviderId, command.Role))
+            if (user.HasBeenInvited(command.OrganizationId, command.Role))
             {
                 return Ok();
             }
@@ -83,11 +84,18 @@ namespace AllAcu.Controllers.api
             return Ok();
         }
 
+        [Route("inviteToBiller"), HttpPost]
+        public Task<IHttpActionResult> InviteToBiller(User.Invite command)
+        {
+            command.OrganizationId = Biller.AllAcuBillerId;
+            return Invite(command);
+        }
+
         [Route("{userId}/invites")]
         [AllowAnonymous]
         public IHttpActionResult GetInvites(Guid userId)
         {
-            return Ok(dbContext.Invitations.Where(i => i.User.UserId == userId));
+            return Ok(dbContext.ProviderInvitations.Where(i => i.User.UserId == userId));
         }
 
         [Route("{userId}/accept")]

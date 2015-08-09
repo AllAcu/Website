@@ -10,10 +10,10 @@ namespace Domain.User
     {
         public class AcceptInvite : Command<User>
         {
-            public Guid ProviderId { get; set; }
+            public Guid OrganizationId { get; set; }
 
             public override IValidationRule<User> Validator => 
-                Validate.That<User>(u => u.Invitations.Any(i => i.ProviderId == ProviderId));
+                Validate.That<User>(u => u.Invitations.Any(i => i.ProviderId == OrganizationId));
         }
     }
 }

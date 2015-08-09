@@ -2,7 +2,7 @@
 <div>
     <section>
         <h3>Users</h3>
-        <div ng-controller="providerPermissions">
+        <div ng-controller="billerPermissions">
             <ul ng-repeat="user in users()">
                 <li style="list-style-type: none;">
                     {{user.user.name}}
@@ -14,7 +14,7 @@
             </ul>
         </div>
         <hr/>
-        <div ng-controller="inviteController">
+        <div ng-controller="billerInvite">
             <input type="text" ng-model="email" /><button ng-click="invite()">Invite</button>
         </div>
     </section>

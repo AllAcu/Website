@@ -57,7 +57,8 @@ namespace AllAcu
                 typeof(CareProviderInformationHandler),
                 typeof(InviteHandler),
                 typeof(ProviderRoleHandler),
-                typeof(AllAcuBillerHandler)
+                typeof(AllAcuBillerHandler),
+                typeof(BillerRoleHandler)
             };
 
             _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(

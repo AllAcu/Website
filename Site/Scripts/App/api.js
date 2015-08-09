@@ -131,6 +131,18 @@
                 biller: {
                     get: function () {
                         return $http.get("/api/biller");
+                    },
+                    invite: function(email, role) {
+                        return $http.post("/api/user/inviteToBiller", {
+                            role: role,
+                            email: email
+                        });
+                    },
+                    grantRole: function(userId, role) {
+                        return $http.post('/api/biller/grant', { userId: userId, roles: [ role ] });
+                    },
+                    revokeRole: function(userId, role) {
+                        return $http.post('/api/biller/revoke', { userId: userId, roles: [role] });
                     }
                 },
                 users: {
