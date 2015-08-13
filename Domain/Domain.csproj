@@ -123,7 +123,7 @@
     <Compile Include="Verification\Commands\VerifyBenefits.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
-    <Compile Include="Verification\Commands\AssignToVerifier.cs" />
+    <Compile Include="Verification\Commands\Assign.cs" />
     <Compile Include="Verification\Commands\Complete.cs" />
     <Compile Include="Verification\Commands\ReturnToProvider.cs" />
     <Compile Include="Verification\Commands\SubmitRequest.cs" />

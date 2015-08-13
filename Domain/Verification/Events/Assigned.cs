@@ -8,10 +8,16 @@ namespace Domain.Verification
         public class Assigned : Event<InsuranceVerification>
         {
             public Guid UserId { get; set; }
-            public override void Update(InsuranceVerification aggregate)
+            public string Comments { get; set; }
+
+            public override void Update(InsuranceVerification verification)
             {
-                
+                verification.Assignment = new VerificationAssignment
+                {
+                    UserId = UserId,
+                    Comments = Comments
+                };
             }
-        } 
+        }
     }
 }

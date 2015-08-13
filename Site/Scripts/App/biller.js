@@ -32,7 +32,7 @@
             var refresh = $scope.$parent.refresh;
 
             $scope.grant = function (user) {
-                $api.biller.grantRole(user.user.userId, "ui").success(function (data) {
+                $api.biller.grantRole(user.user.userId, "approver").success(function (data) {
                     refresh();
                 });
             }

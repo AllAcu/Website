@@ -215,7 +215,7 @@
         });
 
         $scope.available = function () {
-            return authToken.loggedIn();
+            return authToken.loggedIn() && $scope.providers().length;
         }
     }]);
 

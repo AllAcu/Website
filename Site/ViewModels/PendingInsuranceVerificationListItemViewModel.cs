@@ -11,6 +11,8 @@ namespace AllAcu
         public Guid PatientId { get; set; }
         public string PatientName { get; set; }
         public string Status { get; set; }
+
+        public virtual UserDetails AssignedTo { get; set; }
     }
 
     public class InsuranceVerificationViewModelHandler :

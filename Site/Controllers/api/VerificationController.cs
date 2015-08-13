@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
+using Domain.Biller;
+using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
@@ -14,30 +16,41 @@ namespace AllAcu.Controllers.api
     public class VerificationController : ApiController
     {
         private readonly IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository;
-        private readonly AllAcuSiteDbContext allAcuSiteDbContext;
+        private readonly AllAcuSiteDbContext dbContext;
 
-        public VerificationController(IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext allAcuSiteDbContext)
+        public VerificationController(IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext dbContext)
         {
-            this.allAcuSiteDbContext = allAcuSiteDbContext;
+            this.dbContext = dbContext;
             this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
 
         [Route("{PatientId}/insurance/verification"), HttpGet]
         public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetListViewItems(Guid patientId)
         {
-            return allAcuSiteDbContext.VerificationList.Where(v => v.PatientId == patientId);
+            return dbContext.VerificationList.Where(v => v.PatientId == patientId);
         }
 
         [Route("insurance/verification"), HttpGet]
-        public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetAllListViewItems()
+        public async Task<IEnumerable<PendingInsuranceVerificationListItemViewModel>> GetAllListViewItems()
         {
-            return allAcuSiteDbContext.VerificationList;
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var user = await dbContext.UserDetails.FindAsync(userId);
+            var allAcu = user.BillerRoles.AllAcu();
+            if (allAcu != null)
+            {
+                if (allAcu.Roles.IsInRole(Biller.Roles.Approver))
+                {
+                    return dbContext.VerificationList;
+                }
+            }
+
+            return dbContext.VerificationList.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId);
         }
 
         [Route("insurance/verification/{VerificationId}")]
         public InsuranceVerification GetVerification(Guid verificationId)
         {
-            return allAcuSiteDbContext.Verifications.Find(verificationId);
+            return dbContext.Verifications.Find(verificationId);
         }
 
         [Route("{PatientId}/insurance/verification/request"), HttpPost]
@@ -103,6 +116,14 @@ namespace AllAcu.Controllers.api
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
         public async Task ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
+        {
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
+            await command.ApplyToAsync(verification);
+            await verificationEventSourcedRepository.Save(verification);
+        }
+
+        [Route("insurance/verification/{VerificationId}/assign"), HttpPost]
+        public async Task AssignVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Assign command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             await command.ApplyToAsync(verification);

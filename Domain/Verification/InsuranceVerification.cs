@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace Domain.Verification
@@ -10,6 +9,7 @@ namespace Domain.Verification
         public Guid PatientId { get; set; }
         public VerificationRequest Request { get; set; } = new VerificationRequest();
         public VerificationRequestStatus Status { get; set; } = VerificationRequestStatus.Draft;
+        public VerificationAssignment Assignment { get; set; }
 
         public InsuranceVerification(Guid? id = default(Guid?)) : base(id)
         {
@@ -30,6 +30,12 @@ namespace Domain.Verification
                 PatientId = command.PatientId,
                 Request = command.RequestDraft
             });
+        }
+
+        public class VerificationAssignment
+        {
+            public Guid UserId { get; set; }
+            public string Comments { get; set; }
         }
     }
 }
