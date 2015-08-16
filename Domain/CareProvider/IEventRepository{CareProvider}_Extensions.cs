@@ -11,13 +11,8 @@ namespace Domain.CareProvider
 
         public static Task<CareProvider> CurrentProvider(this IEventSourcedRepository<CareProvider> repository, IDictionary<string, object> properties)
         {
-            var id = properties.CurrentProviderId();
+            var id = properties[providerCookieName] != null ? Guid.Parse(properties[providerCookieName].ToString()) : (Guid?)null;
             return repository.GetLatest(id ?? new Guid());
-        }
-
-        public static Guid? CurrentProviderId(this IDictionary<string, object> properties)
-        {
-            return properties[providerCookieName] != null ? Guid.Parse(properties[providerCookieName].ToString()) : (Guid?)null;
         }
     }
 }

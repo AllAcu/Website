@@ -33,6 +33,7 @@ namespace AllAcu.Controllers.api
         [Route("insurance/verification"), HttpGet]
         public async Task<IEnumerable<PendingInsuranceVerificationListItemViewModel>> GetAllListViewItems()
         {
+            var currentProviderId = this.CurrentProviderId();
             var userId = Guid.Parse(User.Identity.GetUserId());
             var user = await dbContext.UserDetails.FindAsync(userId);
             var allAcu = user.BillerRoles.AllAcu();
@@ -42,6 +43,11 @@ namespace AllAcu.Controllers.api
                 {
                     return dbContext.VerificationList;
                 }
+            }
+
+            if (user.ProviderRoles.Any(r => r.Provider.Id == currentProviderId))
+            {
+                return dbContext.VerificationList.Where(v => v.ProviderId == currentProviderId);
             }
 
             return dbContext.VerificationList.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId);

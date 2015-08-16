@@ -10,10 +10,6 @@
                 });
         }
 
-        function refreshAuth() {
-            return $api.verifications.getAuth();
-        }
-
         refresh();
 
         return {
@@ -33,11 +29,6 @@
             },
             verifications: function () {
                 return verifications;
-            },
-            refresh: function () {
-                return refreshAuth().success(function (data) {
-                    verifications = data;
-                });
             }
         }
     }]);

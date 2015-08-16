@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Domain.CareProvider;
+using Domain.Verification;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -8,6 +9,7 @@ namespace AllAcu
     public class PendingInsuranceVerificationListItemViewModel
     {
         public Guid VerificationId { get; set; }
+        public Guid ProviderId { get; set; }
         public Guid PatientId { get; set; }
         public string PatientName { get; set; }
         public string Status { get; set; }
@@ -21,6 +23,7 @@ namespace AllAcu
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Assigned>,
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
@@ -38,10 +41,19 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.Assigned @event)
+        {
+            var verification = dbContext.VerificationList.Find(@event.AggregateId);
+            verification.AssignedTo = dbContext.UserDetails.Find(@event.UserId);
+
+            dbContext.SaveChanges();
+        }
+
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Started @event)
         {
             dbContext.VerificationList.Add(new PendingInsuranceVerificationListItemViewModel
             {
+                ProviderId = dbContext.PatientList.Find(@event.PatientId).ProviderId,
                 VerificationId = @event.AggregateId,
                 PatientId = @event.PatientId,
                 PatientName = dbContext.PatientDetails.Find(@event.PatientId)?.Name,

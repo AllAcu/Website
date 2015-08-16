@@ -27,7 +27,7 @@ namespace AllAcu.Controllers.api
         [Route(""), HttpGet]
         public IEnumerable<PatientListItemViewModel> GetAll()
         {
-            var currentProviderId = ActionContext.ActionArguments.CurrentProviderId();
+            var currentProviderId = this.CurrentProviderId();
             if (currentProviderId != null)
             {
                 return allAcuSiteDbContext.PatientList
