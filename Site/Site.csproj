@@ -284,6 +284,7 @@
     <Content Include="Scripts\App\userCommands.js" />
     <Content Include="Scripts\App\claims.js" />
     <Content Include="Scripts\App\directives.js" />
+    <Content Include="Scripts\App\userSession.js" />
     <Content Include="Scripts\App\verifications.js" />
     <Content Include="Scripts\App\users.js" />
     <Content Include="Scripts\App\patientCommands.js" />

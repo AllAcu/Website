@@ -1,18 +1,15 @@
 ﻿(function (app) {
-    app.factory('patientRepository', ['$http', function ($http) {
+    app.factory('patientRepository', ['$api', function ($api) {
 
         return {
             findAll: function () {
-                return $http.get("/api/patient");
+                return $api.patients.getAll();
             },
             details: function (id) {
-                return $http.get("/api/patient/" + id);
+                return $api.patients.get(id);
             },
             edit: function (id) {
-                return $http.get("/api/patient/edit/" + id).success(function (data) {
-                    data.dateOfBirth = new Date(data.dateOfBirth);
-                    return data;
-                });
+                return $api.patients.edit(id);
             }
         }
     }]);

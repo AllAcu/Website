@@ -14,8 +14,9 @@
     ]);
 
     module.controller('logoutController', [
-        '$scope', 'authToken', '$location', function ($scope, authToken, $location) {
+        '$scope', 'authToken', 'userSession', '$location', function ($scope, authToken, session, $location) {
             authToken.clear();
+            session().logout();
             $location.path("/");
         }
     ]);

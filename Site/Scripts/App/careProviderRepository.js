@@ -1,49 +1,51 @@
 ﻿(function (app) {
-    app.factory('careProviderRepository', ['$api', function ($api) {
-        var _providers = [];
-        var _currentProvider = null;
+    app.factory('careProviderRepository', ['$api', 'userSession', function ($api, session) {
 
         function setCurrentProvider(id) {
-            var previous = _currentProvider;
-            _currentProvider = _providers.filter(function (p) { return p.id === id })[0];
+            var previous = session().currentProvider;
+            session().currentProvider = session().providers.filter(function (p) { return p.id === id })[0];
 
-            if (previous !== _currentProvider) {
-                $api.providers.be(_currentProvider.id).success(function () {
+            if (previous !== session().currentProvider) {
+                $api.providers.be(session().currentProvider.id).success(function () {
                     location.reload();
                 });
             }
         }
 
-        function loadProviders() {
+        function refresh() {
             return $api.providers.get()
                 .success(function (data) {
-                    _providers = data;
-                    if (_providers && _providers.length) {
+                    session().providers = data;
+                    if (session().providers && session().providers.length) {
                         $api.providers.who()
                             .success(function (current) {
-                                _currentProvider = _providers.filter(function (p) { return p.id === current })[0];
-                                if (!_currentProvider) {
-                                    setCurrentProvider(_providers[0].id);
+                                session().currentProvider = session().providers.filter(function (p) { return p.id === current })[0];
+                                if (!session().currentProvider) {
+                                    setCurrentProvider(session().providers[0].id);
                                 }
                             });
                     }
                 })
             .error(function () {
-                _providers = [];
+                session().providers = [];
             });
         }
 
-        loadProviders();
+        refresh();
 
         return {
             providers: function () {
-                return _providers;
+                if (!session().providers) {
+                    session().providers = [];
+                    refresh();
+                }
+                return session().providers;
             },
             current: function (provider) {
                 if (provider) {
                     setCurrentProvider(provider.id);
                 }
-                return _currentProvider;
+                return session().currentProvider;
             },
             edit: function(id) {
                 return $api.providers.get(id);
@@ -53,7 +55,7 @@
                 return $api.providers.create(provider);
             },
             refresh: function () {
-                return loadProviders();
+                return refresh();
             }
         };
     }]);

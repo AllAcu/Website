@@ -145,6 +145,20 @@
                         return $http.post('/api/biller/revoke', { userId: userId, roles: [role] });
                     }
                 },
+                patients: {
+                    getAll: function () {
+                        return $http.get("/api/patient");
+                    },
+                    get: function (id) {
+                        return $http.get("/api/patient/" + id);
+                    },
+                    edit: function (id) {
+                        return $http.get("/api/patient/edit/" + id).success(function (data) {
+                            data.dateOfBirth = new Date(data.dateOfBirth);
+                            return data;
+                        });
+                    }
+                },
                 users: {
                     get: function (id) {
                         return $http.get("/api/user/" + id);

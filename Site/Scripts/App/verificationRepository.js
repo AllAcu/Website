@@ -1,12 +1,10 @@
 ﻿(function (app) {
-    app.service('verificationRepository', ['$api', function ($api) {
-
-        var verifications = {};
+    app.service('verificationRepository', ['$api', 'userSession', function ($api, session) {
 
         function refresh() {
             return $api.verifications.getAll()
                 .success(function (data) {
-                    verifications = data;
+                    session().verifications = data;
                 });
         }
 
@@ -14,21 +12,25 @@
 
         return {
             getVerification: function (id) {
-                if (verifications[id] && verifications[id].request) {
+                if (session().verifications && session().verifications[id] && session().verifications[id].request) {
                     return {
                         success: function (callback) {
-                            callback(verifications[id]);
+                            callback(session().verifications[id]);
                         }
                     }
                 };
 
                 return $api.verifications.get(id)
                             .success(function (verification) {
-                                verifications[verification.verificationId] = verification;
+                                session().verifications[verification.verificationId] = verification;
                             });
             },
             verifications: function () {
-                return verifications;
+                if (!session().verifications) {
+                    session().verifications = {};
+                    refresh();
+                }
+                return session().verifications;
             }
         }
     }]);
