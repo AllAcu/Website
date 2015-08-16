@@ -2,6 +2,9 @@
     app.service('verificationRepository', ['$api', 'userSession', function ($api, session) {
 
         function refresh() {
+            if (!session().verifications) {
+                session().verifications = {};
+            }
             return $api.verifications.getAll()
                 .success(function (data) {
                     session().verifications = data;

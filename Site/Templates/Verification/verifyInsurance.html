@@ -1,7 +1,21 @@
-﻿<div>
+﻿<h2>Verify Insurance</h2>
 
-    <h2>Verify Insurance</h2>
+<div class="col-md-2 btn-group">
+    <div>
+        <input type="button" class="btn" value="Revise" ng-click="revise()" />
+    </div>
+    <div>
+        <input type="button" class="btn" value="Save" ng-click="save()" />
+    </div>
+    <div>
+        <input type="button" class="btn" value="Complete" ng-click="complete()"/>
+    </div>
+    <div>
+        <input type="button" class="btn" value="Assign" ng-click="assign()"/>
+    </div>
+</div>
 
+<div class="col-md-10">
     <div>
         <div>
             <h4><display-field label="Insurance Carrier" ng-model="verification.patient.insuranceCarrier"></display-field></h4>
@@ -19,7 +33,6 @@
             <display-field label="Date of Birth" ng-model="verification.patient.patientDateOfBirth"></display-field>
             <display-field label="Insurance Policy/ Plan" ng-model="verification.patient.patientInsurancePolicy"></display-field>
         </div>
-        <input type="button" value="Revise" ng-click="revise()" />
     </div>
 
     <hr />
@@ -98,7 +111,7 @@
             <edit-field label="Other limits or provisions with regard to acupuncture services" ng-model="verification.benefits.otherLimits"></edit-field>
         </div>
 
-        <hr/>
+        <hr />
         <div>
 
             <edit-field label="Verification Status" ng-model="verification.approval.status"></edit-field>
@@ -108,8 +121,6 @@
             <edit-field label="Call Time" ng-model="verification.approval.callTime"></edit-field>
             <edit-field label="Assign To" ng-model="verification.approval.assignedTo"></edit-field>
         </div>
-        <input type="button" value="Save" ng-click="save()" />
-        <input type="button" value="Complete" ng-click="complete()" />
     </div>
 
 </div>

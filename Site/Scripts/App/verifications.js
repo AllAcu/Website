@@ -99,6 +99,10 @@
                     $location.path("/patient/" + patientId);
                 });
             }
+
+            $scope.assign = function() {
+                console.log("assign");
+            }
         }
     ]);
 
