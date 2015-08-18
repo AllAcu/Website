@@ -4,23 +4,23 @@
 
     <h3>Organizations</h3>
     <ul>
-        <li style="list-style-type: none;" ng-repeat="provider in providers()">
-            <button class="btn-primary" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
+        <li class="list-unstyled" ng-repeat="provider in providers()">
+            <button class="btn" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
             {{provider.businessName}}
         </li>
-        <li style="list-style-type: none;" ng-repeat="biller in billers()">
+        <li class="list-unstyled" ng-repeat="biller in billers()">
             <span style="font-weight: bold">{{biller.name}}</span>
         </li>
     </ul>
 
     <h3>Invitations</h3>
     <ul>
-        <li style="list-style-type: none;" ng-repeat="invite in providerInvitations()">
-            <button class="btn-primary" ng-click="accept(invite)">Accept</button>
+        <li class="list-unstyled" ng-repeat="invite in providerInvitations()">
+            <button class="btn" ng-click="accept(invite)">Accept</button>
             {{invite.organization.businessName}} - {{invite.roles.join(",")}}
         </li>
-        <li style="list-style-type: none;" ng-repeat="invite in billerInvitations()">
-            <button class="btn-primary" ng-click="accept(invite)">Accept</button>
+        <li class="list-unstyled" ng-repeat="invite in billerInvitations()">
+            <button class="btn" ng-click="accept(invite)">Accept</button>
             {{invite.organization.name}} - {{invite.roles.join(",")}}
         </li>
     </ul>

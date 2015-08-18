@@ -10,8 +10,10 @@
     <div>
         <input type="button" class="btn" value="Complete" ng-click="complete()"/>
     </div>
-    <div>
+    <div style="position: relative;">
         <input type="button" class="btn" value="Assign" ng-click="assign()"/>
+        <div style="position: absolute;" ng-include="'/Templates/Users/chooser.html'">
+        </div>
     </div>
 </div>
 

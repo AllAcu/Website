@@ -4,7 +4,7 @@
         <h3>Users</h3>
         <div ng-controller="billerPermissions">
             <ul ng-repeat="user in users()">
-                <li style="list-style-type: none;">
+                <li class="list-unstyled">
                     {{user.user.name}}
                     <div style="display: inline-block; background-color: #62abea; border-color: #357ebd;" ng-repeat="role in user.roles">
                         <button class="btn btn-primary" ng-click="revoke(user, role)">x</button>{{role}}

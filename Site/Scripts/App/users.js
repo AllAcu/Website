@@ -102,4 +102,15 @@
         }
     ]);
 
+    module.controller('userChooser', [
+        '$scope', '$api', function($scope, $api) {
+            var users = [];
+            $scope.users = function () { return users; };
+
+            $api.users.getAll().success(function (data) {
+                users = data;
+            });
+        }
+    ]);
+
 }(angular.module("userApp")));

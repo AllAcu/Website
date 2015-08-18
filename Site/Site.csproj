@@ -327,6 +327,7 @@
     <Content Include="Templates\Providers\list.html" />
     <Content Include="Templates\Site\footer.html" />
     <Content Include="Templates\Site\nav.html" />
+    <Content Include="Templates\Users\chooser.html" />
     <Content Include="Templates\Users\details.html" />
     <Content Include="Templates\Users\register.html" />
     <Content Include="Templates\Users\list.html" />
