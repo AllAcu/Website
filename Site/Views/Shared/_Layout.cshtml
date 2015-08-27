@@ -11,8 +11,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/angular.js")
-    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/Scripts/smart-table.js")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/app")
@@ -28,6 +27,5 @@
         <div ng-include="'/Templates/Site/footer.html'"></div>
     </div>
 </body>
-@Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 </html>

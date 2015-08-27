@@ -271,12 +271,21 @@
     <Compile Include="ViewModels\PendingInsuranceVerificationListItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular\angular-animate.js" />
+    <Content Include="Scripts\angular\angular-animate.min.js" />
+    <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-route.min.js" />
+    <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-custom-tpls-0.13.3.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-custom-tpls-0.13.3.min.js" />
     <Content Include="Scripts\App\api.js" />
     <Content Include="Scripts\App\authToken.js" />
     <Content Include="Scripts\App\biller.js" />
@@ -304,6 +313,15 @@
     <Content Include=".config\defaults\Smtp.json" />
     <Content Include=".config\defaults\AllAcuBiller.json" />
     <Content Include=".config\dev\AllAcuBiller.json" />
+    <Content Include="Content\css\bootstrap-theme.css.map" />
+    <Content Include="Content\css\bootstrap.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\angular\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular\angular-route.min.js.map" />
+    <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\careProviderRepository.js" />

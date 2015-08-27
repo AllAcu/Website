@@ -8,13 +8,9 @@
         <input type="button" class="btn" value="Save" ng-click="save()" />
     </div>
     <div>
-        <input type="button" class="btn" value="Complete" ng-click="complete()"/>
+        <input type="button" class="btn" value="Complete" ng-click="complete()" />
     </div>
-    <div style="position: relative;">
-        <input type="button" class="btn" value="Assign" ng-click="assign()"/>
-        <div style="position: absolute;" ng-include="'/Templates/Users/chooser.html'">
-        </div>
-    </div>
+    <button popover-template="'/Templates/Users/chooser.html'" popover-placement="right" popover-title="Choose a user" popover-trigger="mouseenter" type="button" class="btn">Assign</button>
 </div>
 
 <div class="col-md-10">

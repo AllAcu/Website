@@ -8,7 +8,8 @@
         'billerApp',
         'claimsApp',
         'userApp',
-        'verificationApp'
+        'verificationApp',
+        'ui.bootstrap'
     ]);
 
     angular.module("authApp", []);
