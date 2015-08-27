@@ -300,8 +300,6 @@
     <Content Include="Scripts\App\patients.js" />
     <Content Include="Scripts\App\providers.js" />
     <Content Include="Scripts\App\verificationRepository.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include=".config\local\DatabaseConnections.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -335,8 +333,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Biller\details.html" />
