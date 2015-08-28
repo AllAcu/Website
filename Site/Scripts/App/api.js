@@ -47,22 +47,25 @@
                     },
                     update: function (verificationId, verification) {
                         return $http.put("/api/insurance/verification/{verificationId}".replace("{verificationId}", verificationId), {
-                            verificationId: verificationId,
                             benefits: verification.benefits
                         }
                         );
                     },
+                    assign: function(verificationId, user) {
+                        return $http.post("/api/insurance/verification/{verificationId}/assign".replace("{verificationId}", verificationId), {
+                            userId: user.userId,
+                            comments: "from the chooser"
+                        });
+                    },
                     approve: function (verificationId, verification) {
                         return $http.post("/api/insurance/verification/{verificationId}/approve"
                             .replace("{verificationId}", verificationId), {
-                                verificationId: verificationId,
                                 benefits: verification.benefits
                             });
                     },
                     revise: function (verificationId, reason) {
                         return $http.post("/api/insurance/verification/{verificationId}/revise"
                             .replace("{verificationId}", verificationId), {
-                                verificationId: verificationId,
                                 reason: reason
                             });
                     }

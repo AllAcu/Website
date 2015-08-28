@@ -10,6 +10,7 @@ namespace Domain.Verification
             ICommandHandler<InsuranceVerification, UpdateRequestDraft>,
             ICommandHandler<InsuranceVerification, SubmitRequest>,
             ICommandHandler<InsuranceVerification, Update>,
+            ICommandHandler<InsuranceVerification, Assign>,
             ICommandHandler<InsuranceVerification, VerifyBenefits>,
             ICommandHandler<InsuranceVerification, ReturnToProvider>
         {
@@ -60,6 +61,16 @@ namespace Domain.Verification
                 });
             }
 
+            public async Task EnactCommand(InsuranceVerification verification, Assign command)
+            {
+                verification.RecordEvent(new Assigned
+                {
+                    UserId = command.UserId,
+                    Comments = command.Comments
+                });
+            }
+
+
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
                 CommandFailed<UpdateRequestDraft> command)
             {
@@ -82,6 +93,11 @@ namespace Domain.Verification
 
             public async Task HandleScheduledCommandException(InsuranceVerification verification,
                 CommandFailed<ReturnToProvider> command)
+            {
+            }
+
+            public async Task HandleScheduledCommandException(InsuranceVerification aggregate,
+                CommandFailed<Assign> command)
             {
             }
         }

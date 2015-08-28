@@ -100,8 +100,12 @@
                 });
             }
 
-            $scope.assign = function() {
+            $scope.assign = function (user) {
+                $api.verifications.assign(verificationId, user).success(function () {
+                    console.log("assigned!");
+                });
                 console.log("assign");
+                console.dir(user);
             }
         }
     ]);

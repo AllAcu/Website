@@ -45,7 +45,8 @@ namespace AllAcu
         IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Updated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Assigned>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -139,6 +140,14 @@ namespace AllAcu
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             verification.Status = "Draft";
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.Assigned @event)
+        {
+            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
+            verification.AssignedTo = dbContext.UserList.Find(@event.UserId).Name;
 
             dbContext.SaveChanges();
         }
