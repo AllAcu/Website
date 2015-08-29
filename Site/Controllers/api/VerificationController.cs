@@ -47,10 +47,10 @@ namespace AllAcu.Controllers.api
 
             if (user.ProviderRoles.Any(r => r.Provider.Id == currentProviderId))
             {
-                return dbContext.VerificationList.Where(v => v.ProviderId == currentProviderId);
+                return dbContext.VerificationList.Where(v => v.ProviderId == currentProviderId).ToArray();
             }
 
-            return dbContext.VerificationList.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId);
+            return dbContext.VerificationList.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArray();
         }
 
         [Route("insurance/verification/{VerificationId}")]

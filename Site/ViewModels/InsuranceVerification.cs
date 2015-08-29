@@ -34,7 +34,7 @@ namespace AllAcu
         public string ServiceCenterRepresentative { get; set; }
         public string CallReferenceNumber { get; set; }
         public string CallTime { get; set; }
-        public string AssignedTo { get; set; }
+        public UserDetails AssignedTo { get; set; }
         public DateTimeOffset? ApprovedTimestamp { get; set; }
     }
 
@@ -147,7 +147,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Assigned @event)
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
-            verification.AssignedTo = dbContext.UserList.Find(@event.UserId).Name;
+            verification.AssignedTo = dbContext.UserDetails.Find(@event.UserId);
 
             dbContext.SaveChanges();
         }

@@ -67,7 +67,7 @@ namespace AllAcu
     {
         public static BillerRole AllAcu(this IList<BillerRole> roles)
         {
-            return roles.FirstOrDefault(r => r.Biller.Id == Biller.AllAcuBillerId);
+            return roles?.FirstOrDefault(r => r.Biller.Id == Biller.AllAcuBillerId);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace AllAcu
     {
         public static string ConnectionString;
 
-        public DbSet<CareProviderDetails> CareProviders { get; set; }
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
         public DbSet<PatientDetails> PatientDetails { get; set; }
         public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
@@ -20,6 +19,7 @@ namespace AllAcu
         public DbSet<ProviderRole> ProviderRoles { get; set; }
         public DbSet<BillerRole> BillerRoles { get; set; }
         public DbSet<BillerDetails> Billers { get; set; }
+        public DbSet<CareProviderDetails> CareProviders { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -34,9 +34,11 @@ namespace AllAcu
             modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<PendingInsuranceVerificationListItemViewModel>()
-                .HasKey(i => i.VerificationId);
+                .HasKey(i => i.VerificationId)
+                .HasOptional(i => i.AssignedTo);
             modelBuilder.Entity<InsuranceVerification>()
-                .HasKey(i => i.VerificationId);
+                .HasKey(i => i.VerificationId)
+                .HasOptional(i => i.AssignedTo);
 
             modelBuilder.Entity<OutstandingConfirmation>()
                 .HasKey(i => i.UserId);
