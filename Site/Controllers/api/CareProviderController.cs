@@ -62,7 +62,7 @@ namespace AllAcu.Controllers.api
             {
                 return await dbContext.CareProviders.ToListAsync();
             }
-            return user.ProviderRoles.Select(p => p.Provider);
+            return user.ProviderRoles.Select(p => p.Provider).Distinct();
         }
 
         [Route("all"), HttpGet]
