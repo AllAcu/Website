@@ -9,7 +9,6 @@ namespace AllAcu
 
         public DbSet<PatientListItemViewModel> PatientList { get; set; }
         public DbSet<PatientDetails> PatientDetails { get; set; }
-        public DbSet<PendingInsuranceVerificationListItemViewModel> VerificationList { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
@@ -33,9 +32,6 @@ namespace AllAcu
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
-            modelBuilder.Entity<PendingInsuranceVerificationListItemViewModel>()
-                .HasKey(i => i.VerificationId)
-                .HasOptional(i => i.AssignedTo);
             modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId)
                 .HasOptional(i => i.AssignedTo);

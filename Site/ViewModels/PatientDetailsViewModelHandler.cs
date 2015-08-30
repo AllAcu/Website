@@ -27,7 +27,7 @@ namespace AllAcu
             dbContext.PatientDetails.Add(new PatientDetails
             {
                 PatientId = @event.PatientId,
-                ProviderId = @event.AggregateId,
+                Provider = dbContext.CareProviders.Find(@event.AggregateId),
                 Name = @event.Name,
                 DateOfBirth = @event.DateOfBirth.ToShortDateString(),
                 Gender = @event.Gender?.ToString(),
@@ -121,7 +121,7 @@ namespace AllAcu
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestSubmitted @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Submitted";
 
@@ -130,7 +130,7 @@ namespace AllAcu
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Approved @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Approved";
 
@@ -139,7 +139,7 @@ namespace AllAcu
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Rejected @event)
         {
-            var verification = dbContext.VerificationList.First(v => v.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Draft";
 

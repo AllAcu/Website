@@ -25,13 +25,13 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance/verification"), HttpGet]
-        public IEnumerable<PendingInsuranceVerificationListItemViewModel> GetListViewItems(Guid patientId)
+        public IEnumerable<InsuranceVerification> GetListViewItems(Guid patientId)
         {
-            return dbContext.VerificationList.Where(v => v.PatientId == patientId);
+            return dbContext.Verifications.Where(v => v.PatientId == patientId);
         }
 
         [Route("insurance/verification"), HttpGet]
-        public async Task<IEnumerable<PendingInsuranceVerificationListItemViewModel>> GetAllListViewItems()
+        public async Task<IEnumerable<InsuranceVerification>> GetAllListViewItems()
         {
             var currentProviderId = this.CurrentProviderId();
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -41,16 +41,16 @@ namespace AllAcu.Controllers.api
             {
                 if (allAcu.Roles.IsInRole(Biller.Roles.Approver))
                 {
-                    return dbContext.VerificationList;
+                    return dbContext.Verifications;
                 }
             }
 
             if (user.ProviderRoles.Any(r => r.Provider.Id == currentProviderId))
             {
-                return dbContext.VerificationList.Where(v => v.ProviderId == currentProviderId).ToArray();
+                return dbContext.Verifications.Where(v => v.Provider.Id == currentProviderId).ToArray();
             }
 
-            return dbContext.VerificationList.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArray();
+            return dbContext.Verifications.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArray();
         }
 
         [Route("insurance/verification/{VerificationId}")]

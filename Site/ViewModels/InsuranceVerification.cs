@@ -34,7 +34,8 @@ namespace AllAcu
         public string ServiceCenterRepresentative { get; set; }
         public string CallReferenceNumber { get; set; }
         public string CallTime { get; set; }
-        public UserDetails AssignedTo { get; set; }
+        public CareProviderDetails Provider { get; set; }
+        public virtual UserDetails AssignedTo { get; set; }
         public DateTimeOffset? ApprovedTimestamp { get; set; }
     }
 
@@ -61,6 +62,7 @@ namespace AllAcu
             {
                 PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
+                Provider = dbContext.PatientDetails.Find(@event.PatientId).Provider,
                 Request = @event.Request ?? new VerificationRequest(),
                 Status = "Draft"
             };
@@ -82,7 +84,7 @@ namespace AllAcu
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
-            var provider = dbContext.CareProviders.First(p => p.Id == patient.ProviderId);
+            var provider = patient.Provider;
 
             verification.Status = "Submitted";
             verification.Patient = new InsuranceVerification.PatientInfo
@@ -146,7 +148,7 @@ namespace AllAcu
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Assigned @event)
         {
-            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
             verification.AssignedTo = dbContext.UserDetails.Find(@event.UserId);
 
             dbContext.SaveChanges();

@@ -5,7 +5,7 @@ namespace AllAcu
     public class PatientDetails
     {
         public Guid PatientId { get; set; }
-        public Guid ProviderId { get; set; }
+        public virtual CareProviderDetails Provider { get; set; }
         public string Name { get; set; }
         public string DateOfBirth { get; set; }
         public string Gender { get; set; }
