@@ -12,18 +12,18 @@ namespace AllAcu
         public DateTime WhenRequested { get; set; }
     }
 
-    public class OutstandingConfirmationHandler :
-        IUpdateProjectionWhen<User.SignedUp>,
-        IUpdateProjectionWhen<User.Registered>
+    public class OutstandingConfirmationEventHandler :
+        IUpdateProjectionWhen<Domain.User.User.SignedUp>,
+        IUpdateProjectionWhen<Domain.User.User.Registered>
     {
         private readonly AllAcuSiteDbContext dbcontext;
 
-        public OutstandingConfirmationHandler(AllAcuSiteDbContext dbcontext)
+        public OutstandingConfirmationEventHandler(AllAcuSiteDbContext dbcontext)
         {
             this.dbcontext = dbcontext;
         }
 
-        public void UpdateProjection(User.SignedUp @event)
+        public void UpdateProjection(Domain.User.User.SignedUp @event)
         {
             if (dbcontext.Confirmations.Find(@event.AggregateId) != null) return;
 
@@ -37,7 +37,7 @@ namespace AllAcu
             dbcontext.SaveChanges();
         }
 
-        public void UpdateProjection(User.Registered @event)
+        public void UpdateProjection(Domain.User.User.Registered @event)
         {
             dbcontext.Confirmations.Remove(dbcontext.Confirmations.Find(@event.AggregateId));
 

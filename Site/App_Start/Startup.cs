@@ -2,11 +2,9 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu;
-using AllAcu.Controllers;
 using AllAcu.Controllers.api;
 using Domain;
 using Domain.Authentication;
-using Domain.Biller;
 using Domain.Verification;
 using Its.Configuration;
 using Its.Log.Monitoring;
@@ -35,8 +33,8 @@ namespace AllAcu
             httpConfiguration = new HttpConfiguration();
             RegisterStringT();
 
-            Biller.AllAcuBillerId =
-            BillerDetails.AllAcuBillerId = BillerController.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
+            Domain.Biller.Biller.AllAcuBillerId =
+            Biller.AllAcuBillerId = BillerController.AllAcuBillerId = Settings.Get<AllAcuBiller>().BillerId;
 
             ConfigureMvc(app, container);
             ConfigureWebApi(app, container, httpConfiguration);

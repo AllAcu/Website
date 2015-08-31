@@ -18,28 +18,28 @@ namespace AllAcu.Controllers.api
     [Authorize]
     public class CareProviderController : ApiController
     {
-        private readonly IEventSourcedRepository<CareProvider> careProviderEventRepository;
+        private readonly IEventSourcedRepository<Domain.CareProvider.CareProvider> careProviderEventRepository;
         private readonly AllAcuSiteDbContext dbContext;
 
-        public CareProviderController(IEventSourcedRepository<CareProvider> careProviderEventRepository, AllAcuSiteDbContext dbContext)
+        public CareProviderController(IEventSourcedRepository<Domain.CareProvider.CareProvider> careProviderEventRepository, AllAcuSiteDbContext dbContext)
         {
             this.careProviderEventRepository = careProviderEventRepository;
             this.dbContext = dbContext;
         }
 
         [Route("new"), HttpPost]
-        public async Task<Guid> CreateProvider(CareProvider.CreateProvider command)
+        public async Task<Guid> CreateProvider(Domain.CareProvider.CareProvider.CreateProvider command)
         {
             command.AggregateId = Guid.NewGuid();
             command.CreatingUserId = Guid.Parse(User.Identity.GetUserId());
-            var provider = new CareProvider(command);
+            var provider = new Domain.CareProvider.CareProvider(command);
             await careProviderEventRepository.Save(provider);
 
             return provider.Id;
         }
 
         [Route("{providerId}"), HttpPut]
-        public async Task Update(Guid providerId, CareProvider.UpdateProvider command)
+        public async Task Update(Guid providerId, Domain.CareProvider.CareProvider.UpdateProvider command)
         {
             var provider = await careProviderEventRepository.GetLatest(providerId);
             await command.ApplyToAsync(provider);
@@ -53,10 +53,10 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public async Task<IEnumerable<CareProviderDetails>> GetUserProviders()
+        public async Task<IEnumerable<CareProvider>> GetUserProviders()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var user = await dbContext.UserDetails.FindAsync(userId);
+            var user = await dbContext.Users.FindAsync(userId);
 
             if (user.BillerRoles.Any())
             {
@@ -66,13 +66,13 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("all"), HttpGet]
-        public Task<CareProviderDetails[]> GetProviders()
+        public Task<CareProvider[]> GetProviders()
         {
             return dbContext.CareProviders.ToArrayAsync();
         }
 
         [Route("{providerId}"), HttpGet]
-        public Task<CareProviderDetails> GetProvider(Guid providerId)
+        public Task<CareProvider> GetProvider(Guid providerId)
         {
             return dbContext.CareProviders.FindAsync(providerId);
         }
@@ -94,7 +94,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{providerId}/join"), HttpPost]
-        public async Task JoinProvider(Guid providerId, CareProvider.WelcomeUser command)
+        public async Task JoinProvider(Guid providerId, Domain.CareProvider.CareProvider.WelcomeUser command)
         {
             var provider = await careProviderEventRepository.GetLatest(providerId);
             await command.ApplyToAsync(provider);
@@ -102,7 +102,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{providerId}/leave"), HttpPost]
-        public async Task LeaveProvider(Guid providerId, CareProvider.DismissUser command)
+        public async Task LeaveProvider(Guid providerId, Domain.CareProvider.CareProvider.DismissUser command)
         {
             var provider = await careProviderEventRepository.GetLatest(providerId);
             await command.ApplyToAsync(provider);
@@ -110,7 +110,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{providerId}/grant")]
-        public async Task GrantUserRoles(Guid providerId, CareProvider.GrantRoles command)
+        public async Task GrantUserRoles(Guid providerId, Domain.CareProvider.CareProvider.GrantRoles command)
         {
             var provider = await careProviderEventRepository.GetLatest(providerId);
             await command.ApplyToAsync(provider);
@@ -118,7 +118,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{providerId}/revoke")]
-        public async Task RevokeUserRoles(Guid providerId, CareProvider.RevokeRoles command)
+        public async Task RevokeUserRoles(Guid providerId, Domain.CareProvider.CareProvider.RevokeRoles command)
         {
             var provider = await careProviderEventRepository.GetLatest(providerId);
             await command.ApplyToAsync(provider);

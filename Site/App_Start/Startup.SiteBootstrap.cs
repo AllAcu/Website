@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AllAcu.Authentication;
 using Domain;
-using Domain.Biller;
 using Domain.User;
 using Its.Configuration;
 using Microsoft.Its.Domain;
@@ -38,24 +37,24 @@ namespace AllAcu
                 }
             }
 
-            if ((await container.Resolve<IEventSourcedRepository<User>>().GetLatest(allAcuBiller.UserId)) == null)
+            if ((await container.Resolve<IEventSourcedRepository<Domain.User.User>>().GetLatest(allAcuBiller.UserId)) == null)
             {
-                var user = new User(new User.CreateSystemUser
+                var user = new Domain.User.User(new Domain.User.User.CreateSystemUser
                 {
                     AggregateId = allAcuBiller.UserId,
                     Username = allAcuBiller.Username,
                     Email = allAcuBiller.Email
                 });
-                await container.Resolve<IEventSourcedRepository<User>>().Save(user);
+                await container.Resolve<IEventSourcedRepository<Domain.User.User>>().Save(user);
             }
 
             // Set up biller
-            var billerRepo = container.Resolve<IEventSourcedRepository<Biller>>();
+            var billerRepo = container.Resolve<IEventSourcedRepository<Domain.Biller.Biller>>();
             var biller = await billerRepo.GetLatest(allAcuBiller.BillerId);
 
             if (biller == null)
             {
-                biller = new Biller(new Biller.InitializeBiller
+                biller = new Domain.Biller.Biller(new Domain.Biller.Biller.InitializeBiller
                 {
                     Name = "AllAcu Services",
                     SystemUserId = allAcuBiller.UserId,

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Biller;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class BillerDetails
+    public class Biller
     {
         public static Guid AllAcuBillerId;
 
@@ -14,19 +13,19 @@ namespace AllAcu
         public virtual IList<BillerRole> Users { get; set; } = new List<BillerRole>();
     }
 
-    public class AllAcuBillerHandler
-        : IUpdateProjectionWhen<Biller.BillerInitialized>
+    public class BillerEventHandler
+        : IUpdateProjectionWhen<Domain.Biller.Biller.BillerInitialized>
     {
         private readonly AllAcuSiteDbContext dbContext;
-        public AllAcuBillerHandler(AllAcuSiteDbContext dbContext)
+        public BillerEventHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
 
-        public void UpdateProjection(Biller.BillerInitialized @event)
+        public void UpdateProjection(Domain.Biller.Biller.BillerInitialized @event)
         {
-            dbContext.Billers.Add(new BillerDetails
+            dbContext.Billers.Add(new Biller
             {
                 Id = @event.AggregateId,
                 Name = @event.Name

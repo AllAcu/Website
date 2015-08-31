@@ -5,9 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
-using Domain.Authentication;
-using Domain.Biller;
-using Domain.CareProvider;
 using Domain.User;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -21,10 +18,10 @@ namespace AllAcu.Controllers.api
     public class UserController : ApiController
     {
         private readonly AllAcuSiteDbContext dbContext;
-        private readonly IEventSourcedRepository<User> userEventSourcedRepository;
+        private readonly IEventSourcedRepository<Domain.User.User> userEventSourcedRepository;
         private readonly ApplicationUserManager userManager;
 
-        public UserController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<User> userEventSourcedRepository, ApplicationUserManager userManager)
+        public UserController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<Domain.User.User> userEventSourcedRepository, ApplicationUserManager userManager)
         {
             this.dbContext = dbContext;
             this.userEventSourcedRepository = userEventSourcedRepository;
@@ -32,31 +29,31 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{userId}")]
-        public async Task<UserDetails> GetUser(Guid userId)
+        public async Task<User> GetUser(Guid userId)
         {
-            return await dbContext.UserDetails.FindAsync(userId);
+            return await dbContext.Users.FindAsync(userId);
         }
 
         [Route("")]
-        public async Task<IEnumerable<UserDetails>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            return await dbContext.UserDetails.ToArrayAsync();
+            return await dbContext.Users.ToArrayAsync();
         }
 
         [Route("signup"), HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Signup(User.SignUp command)
+        public async Task<IHttpActionResult> Signup(Domain.User.User.SignUp command)
         {
             if (command.Email.IsNullOrWhiteSpace())
             {
                 return NotFound();
             }
-            if (await dbContext.UserDetails.AnyAsync(u => command.Email.Equals(u.Email, StringComparison.OrdinalIgnoreCase)))
+            if (await dbContext.Users.AnyAsync(u => command.Email.Equals(u.Email, StringComparison.OrdinalIgnoreCase)))
             {
                 return Ok();
             }
 
-            var user = new User();
+            var user = new Domain.User.User();
             await user.ApplyAsync(command);
             await userEventSourcedRepository.Save(user);
 
@@ -64,13 +61,13 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("invite"), HttpPost]
-        public async Task<IHttpActionResult> Invite(User.Invite command)
+        public async Task<IHttpActionResult> Invite(Domain.User.User.Invite command)
         {
-            command.Role = command.Role ?? CareProvider.Roles.Practitioner;
+            command.Role = command.Role ?? Domain.CareProvider.CareProvider.Roles.Practitioner;
 
-            var userDetails = dbContext.UserDetails.FirstOrDefault(u => u.Email == command.Email);
+            var userDetails = dbContext.Users.FirstOrDefault(u => u.Email == command.Email);
             var user = userDetails == null ?
-                new User(new User.SignUp { Email = command.Email }) :
+                new Domain.User.User(new Domain.User.User.SignUp { Email = command.Email }) :
                 await userEventSourcedRepository.GetLatest(userDetails.UserId);
 
             if (user.HasBeenInvited(command.OrganizationId, command.Role))
@@ -85,9 +82,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("inviteToBiller"), HttpPost]
-        public Task<IHttpActionResult> InviteToBiller(User.Invite command)
+        public Task<IHttpActionResult> InviteToBiller(Domain.User.User.Invite command)
         {
-            command.OrganizationId = Biller.AllAcuBillerId;
+            command.OrganizationId = Domain.Biller.Biller.AllAcuBillerId;
             return Invite(command);
         }
 
@@ -99,7 +96,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{userId}/accept")]
-        public async Task<IHttpActionResult> Accept(Guid userId, User.AcceptInvite command)
+        public async Task<IHttpActionResult> Accept(Guid userId, Domain.User.User.AcceptInvite command)
         {
             var user = await userEventSourcedRepository.GetLatest(userId);
             if (user == null)
@@ -115,7 +112,7 @@ namespace AllAcu.Controllers.api
 
         [Route("register"), HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Register(User.Register command)
+        public async Task<IHttpActionResult> Register(Domain.User.User.Register command)
         {
             var confirmation = dbContext.Confirmations.FirstOrDefault(c => c.Token == command.Token);
 

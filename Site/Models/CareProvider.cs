@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class CareProviderDetails
+    public class CareProvider
     {
         public Guid Id { get; set; }
         public string BusinessName { get; set; }
@@ -18,20 +17,20 @@ namespace AllAcu
         public virtual IList<ProviderRole> Users { get; set; } = new List<ProviderRole>();
     }
 
-    public class CareProviderInformationHandler :
-        IUpdateProjectionWhen<CareProvider.NewProvider>,
-        IUpdateProjectionWhen<CareProvider.ProviderUpdated>
+    public class CareProviderEventHandler :
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.NewProvider>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.ProviderUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
-        public CareProviderInformationHandler(AllAcuSiteDbContext dbContext)
+        public CareProviderEventHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(CareProvider.NewProvider @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.NewProvider @event)
         {
-            dbContext.CareProviders.Add(new CareProviderDetails
+            dbContext.CareProviders.Add(new CareProvider
             {
                 Id = @event.AggregateId,
                 BusinessName = @event.BusinessName,
@@ -43,7 +42,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.ProviderUpdated @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.ProviderUpdated @event)
         {
             var provider = dbContext.CareProviders.Find(@event.AggregateId);
 

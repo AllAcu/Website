@@ -24,9 +24,9 @@ namespace AllAcu.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-        private IEventSourcedRepository<User> userRepository; 
+        private IEventSourcedRepository<Domain.User.User> userRepository; 
 
-        public AccountController(ApplicationUserManager userManager, ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IEventSourcedRepository<User> userRepository)
+        public AccountController(ApplicationUserManager userManager, ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IEventSourcedRepository<Domain.User.User> userRepository)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;

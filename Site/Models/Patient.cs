@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using Domain.CareProvider;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class PatientDetails
+    public class Patient
     {
         public Guid PatientId { get; set; }
-        public virtual CareProviderDetails Provider { get; set; }
+        public virtual CareProvider Provider { get; set; }
         public string Name { get; set; }
         public string DateOfBirth { get; set; }
         public string Gender { get; set; }
@@ -56,26 +55,26 @@ namespace AllAcu
         }
     }
 
-    public class PatientDetailsViewModelHandler :
-    IUpdateProjectionWhen<CareProvider.NewPatient>,
-    IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
-    IUpdateProjectionWhen<CareProvider.PatientContactInformationUpdated>,
-    IUpdateProjectionWhen<CareProvider.InsuranceUpdated>,
-    IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Started>,
-    IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
-    IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
-    IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>
+    public class PatientEventHandler :
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.NewPatient>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientContactInformationUpdated>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.InsuranceUpdated>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Started>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
-        public PatientDetailsViewModelHandler(AllAcuSiteDbContext dbContext)
+        public PatientEventHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(CareProvider.NewPatient @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.NewPatient @event)
         {
-            dbContext.PatientDetails.Add(new PatientDetails
+            dbContext.Patients.Add(new Patient
             {
                 PatientId = @event.PatientId,
                 Provider = dbContext.CareProviders.Find(@event.AggregateId),
@@ -93,7 +92,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.PatientInformationUpdated @event)
         {
             var patient = GetPatient(@event.PatientId);
 
@@ -104,7 +103,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.PatientContactInformationUpdated @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.PatientContactInformationUpdated @event)
         {
             var patient = GetPatient(@event.PatientId);
 
@@ -121,12 +120,12 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.InsuranceUpdated @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.InsuranceUpdated @event)
         {
             var patient = GetPatient(@event.PatientId);
 
             patient.MedicalInsurance = @event.MedicalInsurance == null ? null :
-                new PatientDetails.MedicalInsuranceDetails
+                new Patient.MedicalInsuranceDetails
                 {
                     InsuranceCompany = @event.MedicalInsurance.InsuranceCompany,
                     Plan = @event.MedicalInsurance.Plan,
@@ -136,7 +135,7 @@ namespace AllAcu
                 };
 
             patient.PersonalInjuryProtection = @event.PersonalInjuryProtection == null ? null :
-                new PatientDetails.PersonalInjuryProtectionDetails
+                new Patient.PersonalInjuryProtectionDetails
                 {
                     DateOfInjury = @event.PersonalInjuryProtection.DateOfInjury.ToShortDateString(),
                     PlaceOfAccident = @event.PersonalInjuryProtection.PlaceOfAccident,
@@ -153,15 +152,15 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        private PatientDetails GetPatient(Guid patientId)
+        private Patient GetPatient(Guid patientId)
         {
-            return dbContext.PatientDetails.First(p => p.PatientId == patientId);
+            return dbContext.Patients.First(p => p.PatientId == patientId);
         }
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Started @event)
         {
             var patient = GetPatient(@event.PatientId);
-            patient.CurrentVerification = new PatientDetails.LatestVerification
+            patient.CurrentVerification = new Patient.LatestVerification
             {
                 Id = @event.AggregateId,
                 Status = "Draft"

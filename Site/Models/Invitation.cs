@@ -14,15 +14,15 @@ namespace AllAcu
 
     public class Invitation<TOrganization> : Invitation
     {
-        public virtual UserDetails User { get; set; }
+        public virtual User User { get; set; }
         public virtual TOrganization Organization { get; set; }
     }
 
-    public class ProviderInvitation : Invitation<CareProviderDetails>
+    public class ProviderInvitation : Invitation<CareProvider>
     {
     }
 
-    public class BillerInvitation : Invitation<BillerDetails>
+    public class BillerInvitation : Invitation<Biller>
     {
 
     }
@@ -40,17 +40,17 @@ namespace AllAcu
         } 
     }
 
-    public class InviteHandler :
-        IUpdateProjectionWhen<User.Invited>,
-        IUpdateProjectionWhen<User.AcceptedInvite>
+    public class InvitionEventHandler :
+        IUpdateProjectionWhen<Domain.User.User.Invited>,
+        IUpdateProjectionWhen<Domain.User.User.AcceptedInvite>
     {
         private readonly AllAcuSiteDbContext dbContext;
-        public InviteHandler(AllAcuSiteDbContext dbContext)
+        public InvitionEventHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(User.Invited @event)
+        public void UpdateProjection(Domain.User.User.Invited @event)
         {
             Invitation invite;
             if (@event.IsBillerId())
@@ -60,7 +60,7 @@ namespace AllAcu
                 {
                     invite = new BillerInvitation
                     {
-                        User = dbContext.UserDetails.Find(@event.AggregateId),
+                        User = dbContext.Users.Find(@event.AggregateId),
                         Organization = dbContext.Billers.Find(@event.OrganizationId)
                     };
                     dbContext.BillerInvitations.Add((BillerInvitation)invite);
@@ -73,7 +73,7 @@ namespace AllAcu
                 {
                     invite = new ProviderInvitation
                     {
-                        User = dbContext.UserDetails.Find(@event.AggregateId),
+                        User = dbContext.Users.Find(@event.AggregateId),
                         Organization = dbContext.CareProviders.Find(@event.OrganizationId)
                     };
                     dbContext.ProviderInvitations.Add((ProviderInvitation)invite);
@@ -85,7 +85,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(User.AcceptedInvite @event)
+        public void UpdateProjection(Domain.User.User.AcceptedInvite @event)
         {
             if (@event.IsBillerId())
             {

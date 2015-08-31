@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Biller;
 
 namespace AllAcu.Repository
 {
@@ -24,16 +23,17 @@ namespace AllAcu.Repository
 
         public async Task<IEnumerable<InsuranceVerification>> Get(Guid userId)
         {
-            var user = await dbContext.UserDetails.FindAsync(userId);
+            var user = await dbContext.Users.FindAsync(userId);
             var allAcu = user.BillerRoles.AllAcu();
             if (allAcu != null)
             {
-                if (allAcu.Roles.IsInRole(Biller.Roles.Approver))
+                if (allAcu.Roles.IsInRole(Domain.Biller.Biller.Roles.Approver))
                 {
                     return await dbContext.Verifications.ToArrayAsync();
                 }
             }
 
+            // (TODO (bremor) this line is being problematic, not liking role as a primitive
             var providerVerifications = await dbContext.Verifications.Join(user.ProviderRoles, v => v.Provider.Id, r => r.Provider.Id, (verification, role) => verification).ToArrayAsync();
             return providerVerifications.Concat(await dbContext.Verifications.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArrayAsync());
         }

@@ -14,10 +14,10 @@ namespace AllAcu.Controllers.api
     [RoutePrefix("api/patient")]
     public class PatientController : ApiController
     {
-        private readonly IEventSourcedRepository<CareProvider> providerEventSourcedRepository;
+        private readonly IEventSourcedRepository<Domain.CareProvider.CareProvider> providerEventSourcedRepository;
         private readonly AllAcuSiteDbContext allAcuSiteDbContext;
 
-        public PatientController(IEventSourcedRepository<CareProvider> providerEventSourcedRepository,
+        public PatientController(IEventSourcedRepository<Domain.CareProvider.CareProvider> providerEventSourcedRepository,
             AllAcuSiteDbContext allAcuSiteDbContext)
         {
             this.providerEventSourcedRepository = providerEventSourcedRepository;
@@ -25,33 +25,33 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<PatientDetails> GetAll()
+        public IEnumerable<Patient> GetAll()
         {
             var currentProviderId = this.CurrentProviderId();
             if (currentProviderId != null)
             {
-                return allAcuSiteDbContext.PatientDetails
+                return allAcuSiteDbContext.Patients
                     .Where(p => p.Provider.Id == currentProviderId).ToArray();
             }
-            return Enumerable.Empty<PatientDetails>();
+            return Enumerable.Empty<Patient>();
         }
 
         [Route("{PatientId}"), HttpGet]
-        public PatientDetails Details(Guid patientId)
+        public Patient Details(Guid patientId)
         {
-            var patient = allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
+            var patient = allAcuSiteDbContext.Patients.FirstOrDefault(p => p.PatientId == patientId);
             Debug.WriteLine(patient?.MedicalInsurance?.Plan);
             return patient;
         }
 
         [Route("edit/{PatientId}"), HttpGet]
-        public PatientDetails Edit(Guid patientId)
+        public Patient Edit(Guid patientId)
         {
-            return allAcuSiteDbContext.PatientDetails.FirstOrDefault(p => p.PatientId == patientId);
+            return allAcuSiteDbContext.Patients.FirstOrDefault(p => p.PatientId == patientId);
         }
 
         [Route(""), HttpPost]
-        public async Task<Guid> Intake(CareProvider.IntakePatient command)
+        public async Task<Guid> Intake(Domain.CareProvider.CareProvider.IntakePatient command)
         {
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
             await command.ApplyToAsync(provider);
@@ -61,7 +61,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}"), HttpPut]
-        public async Task Update(Guid patientId, CareProvider.UpdatePatientPersonalInformation command)
+        public async Task Update(Guid patientId, Domain.CareProvider.CareProvider.UpdatePatientPersonalInformation command)
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
@@ -70,7 +70,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/insurance"), HttpPost]
-        public async Task UpdateInsurance(Guid patientId, CareProvider.UpdateInsurance command)
+        public async Task UpdateInsurance(Guid patientId, Domain.CareProvider.CareProvider.UpdateInsurance command)
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);
@@ -79,7 +79,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("{PatientId}/contact"), HttpPut]
-        public async Task UpdateContactInfo(Guid patientId, CareProvider.UpdatePatientContactInformation command)
+        public async Task UpdateContactInfo(Guid patientId, Domain.CareProvider.CareProvider.UpdatePatientContactInformation command)
         {
             command.PatientId = patientId;
             var provider = await providerEventSourcedRepository.CurrentProvider(ActionContext.ActionArguments);

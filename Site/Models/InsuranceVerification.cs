@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Domain.CareProvider;
 using Domain.Verification;
 using Microsoft.Its.Domain;
 
@@ -34,16 +33,16 @@ namespace AllAcu
         public string ServiceCenterRepresentative { get; set; }
         public string CallReferenceNumber { get; set; }
         public string CallTime { get; set; }
-        public virtual CareProviderDetails Provider { get; set; }
-        public virtual UserDetails AssignedTo { get; set; }
+        public virtual CareProvider Provider { get; set; }
+        public virtual User AssignedTo { get; set; }
         public DateTimeOffset? ApprovedTimestamp { get; set; }
     }
 
-    public class InsuranceVerificationFormEventHandler :
+    public class InsuranceVerificationEventHandler :
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Started>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.DraftUpdated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
-        IUpdateProjectionWhen<CareProvider.PatientInformationUpdated>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Updated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>,
@@ -51,7 +50,7 @@ namespace AllAcu
     {
         private readonly AllAcuSiteDbContext dbContext;
 
-        public InsuranceVerificationFormEventHandler(AllAcuSiteDbContext dbContext)
+        public InsuranceVerificationEventHandler(AllAcuSiteDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -62,7 +61,7 @@ namespace AllAcu
             {
                 PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
-                Provider = dbContext.PatientDetails.Find(@event.PatientId).Provider,
+                Provider = dbContext.Patients.Find(@event.PatientId).Provider,
                 Request = @event.Request ?? new VerificationRequest(),
                 Status = "Draft"
             };
@@ -83,7 +82,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestSubmitted @event)
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
-            var patient = dbContext.PatientDetails.First(p => p.PatientId == verification.PatientId);
+            var patient = dbContext.Patients.First(p => p.PatientId == verification.PatientId);
             var provider = patient.Provider;
 
             verification.Status = "Submitted";
@@ -110,7 +109,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(CareProvider.PatientInformationUpdated @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.PatientInformationUpdated @event)
         {
             var verification = dbContext.Verifications.SingleOrDefault(f => f.PatientId == @event.PatientId);
 
@@ -149,7 +148,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Assigned @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.AssignedTo = dbContext.UserDetails.Find(@event.UserId);
+            verification.AssignedTo = dbContext.Users.Find(@event.UserId);
 
             dbContext.SaveChanges();
         }

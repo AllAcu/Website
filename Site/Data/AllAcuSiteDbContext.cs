@@ -7,16 +7,16 @@ namespace AllAcu
     {
         public static string ConnectionString;
 
-        public DbSet<PatientDetails> PatientDetails { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
-        public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<OutstandingConfirmation> Confirmations { get; set; }
         public DbSet<ProviderInvitation> ProviderInvitations { get; set; }
         public DbSet<BillerInvitation> BillerInvitations { get; set; }
         public DbSet<ProviderRole> ProviderRoles { get; set; }
         public DbSet<BillerRole> BillerRoles { get; set; }
-        public DbSet<BillerDetails> Billers { get; set; }
-        public DbSet<CareProviderDetails> CareProviders { get; set; }
+        public DbSet<Biller> Billers { get; set; }
+        public DbSet<CareProvider> CareProviders { get; set; }
 
         public AllAcuSiteDbContext()
             : base(ConnectionString ?? NameOrConnectionString)
@@ -24,7 +24,7 @@ namespace AllAcu
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PatientDetails>()
+            modelBuilder.Entity<Patient>()
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId)
@@ -33,10 +33,10 @@ namespace AllAcu
             modelBuilder.Entity<OutstandingConfirmation>()
                 .HasKey(i => i.UserId);
 
-            modelBuilder.Entity<UserDetails>()
+            modelBuilder.Entity<User>()
                 .HasKey(u => u.UserId);
 
-            modelBuilder.Entity<CareProviderDetails>()
+            modelBuilder.Entity<CareProvider>()
                 .HasKey(p => p.Id)
                 .ToTable("CareProviders");
 
@@ -52,11 +52,11 @@ namespace AllAcu
                 .Property(i => i.Roles.Serialized)
                 .HasColumnName("Roles");
 
-            modelBuilder.Entity<UserDetails>()
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.ProviderInvitations)
                 .WithRequired(i => i.User);
 
-            modelBuilder.Entity<UserDetails>()
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.BillerInvitations)
                 .WithRequired(i => i.User);
 
@@ -79,10 +79,10 @@ namespace AllAcu
                 .HasRequired(r => r.Provider)
                 .WithMany(p => p.Users);
 
-            modelBuilder.Entity<BillerDetails>()
+            modelBuilder.Entity<Biller>()
                 .HasKey(b => b.Id);
 
-            modelBuilder.Entity<BillerDetails>()
+            modelBuilder.Entity<Biller>()
                 .HasMany(p => p.Users)
                 .WithRequired(p => p.Biller);
 
@@ -97,11 +97,11 @@ namespace AllAcu
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
-            modelBuilder.ComplexType<PatientDetails.LatestVerification>();
+            modelBuilder.ComplexType<Patient.LatestVerification>();
 
-            modelBuilder.Entity<PatientDetails>()
+            modelBuilder.Entity<Patient>()
                 .HasOptional(d => d.MedicalInsurance);
-            modelBuilder.Entity<PatientDetails>()
+            modelBuilder.Entity<Patient>()
                 .HasOptional(d => d.PersonalInjuryProtection);
 
             base.OnModelCreating(modelBuilder);

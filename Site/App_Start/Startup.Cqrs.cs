@@ -4,8 +4,6 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using AllAcu.Authentication;
-using Domain.Biller;
-using Domain.CareProvider;
 using Domain.ClaimFiling;
 using Domain.User;
 using Its.Configuration;
@@ -37,11 +35,11 @@ namespace AllAcu
                 new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
             }
 
-            container.Register(typeof(IEventSourcedRepository<CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<CareProvider>());
-            container.Register(typeof(IEventSourcedRepository<User>), c => Microsoft.Its.Domain.Configuration.Current.Repository<User>());
+            container.Register(typeof(IEventSourcedRepository<Domain.CareProvider.CareProvider>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.CareProvider.CareProvider>());
+            container.Register(typeof(IEventSourcedRepository<Domain.User.User>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.User.User>());
             container.Register(typeof(IEventSourcedRepository<Domain.Verification.InsuranceVerification>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Verification.InsuranceVerification>());
             container.Register(typeof(IEventSourcedRepository<ClaimFilingProcess>), c => Microsoft.Its.Domain.Configuration.Current.Repository<ClaimFilingProcess>());
-            container.Register(typeof(IEventSourcedRepository<Biller>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Biller>());
+            container.Register(typeof(IEventSourcedRepository<Domain.Biller.Biller>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Biller.Biller>());
 
             // catch completely up
             new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
@@ -49,14 +47,14 @@ namespace AllAcu
 
             var immediateSubscriptions = new[]
             {
-                typeof(PatientDetailsViewModelHandler),
-                typeof(InsuranceVerificationFormEventHandler),
-                typeof(UserDetailsViewModelHandler),
-                typeof(CareProviderInformationHandler),
-                typeof(InviteHandler),
-                typeof(ProviderRoleHandler),
-                typeof(AllAcuBillerHandler),
-                typeof(BillerRoleHandler)
+                typeof(PatientEventHandler),
+                typeof(InsuranceVerificationEventHandler),
+                typeof(UserEventHandler),
+                typeof(CareProviderEventHandler),
+                typeof(InvitionEventHandler),
+                typeof(ProviderRoleEventHandler),
+                typeof(BillerEventHandler),
+                typeof(BillerRoleEventHandler)
             };
 
             _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
@@ -70,12 +68,12 @@ namespace AllAcu
             container.RegisterSingle(c => catchup);
             catchup.PollEventStore();
 
-            Command<CareProvider>.AuthorizeDefault = (provider, command) =>
+            Command<Domain.CareProvider.CareProvider>.AuthorizeDefault = (provider, command) =>
             {
                 command.Principal = CurrentPrincipal();
                 return true;
             };
-            Command<Biller>.AuthorizeDefault = (biller, command) =>
+            Command<Domain.Biller.Biller>.AuthorizeDefault = (biller, command) =>
             {
                 command.Principal = CurrentPrincipal();
                 return true;
@@ -85,9 +83,9 @@ namespace AllAcu
                 command.Principal = CurrentPrincipal();
                 return true;
             };
-            Command<User>.AuthorizeDefault = (provider, command) =>
+            Command<Domain.User.User>.AuthorizeDefault = (provider, command) =>
             {
-                if (command is User.CreateSystemUser)
+                if (command is Domain.User.User.CreateSystemUser)
                 {
                     return true;
                 }
