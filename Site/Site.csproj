@@ -250,7 +250,6 @@
     <Compile Include="ViewModels\ProviderRole.cs" />
     <Compile Include="ViewModels\SerialList.cs" />
     <Compile Include="ViewModels\UserDetails.cs" />
-    <Compile Include="ViewModels\UserListItemViewModel.cs" />
     <Compile Include="Controllers\api\VerificationController.cs" />
     <Compile Include="Controllers\AllAcuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

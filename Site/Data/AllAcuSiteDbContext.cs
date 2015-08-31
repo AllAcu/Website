@@ -9,7 +9,6 @@ namespace AllAcu
 
         public DbSet<PatientDetails> PatientDetails { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
-        public DbSet<UserListItemViewModel> UserList { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<OutstandingConfirmation> Confirmations { get; set; }
         public DbSet<ProviderInvitation> ProviderInvitations { get; set; }
@@ -25,8 +24,6 @@ namespace AllAcu
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserListItemViewModel>()
-                .HasKey(i => i.UserId);
             modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<InsuranceVerification>()

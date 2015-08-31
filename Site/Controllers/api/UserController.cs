@@ -38,9 +38,9 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("")]
-        public IEnumerable<UserListItemViewModel> GetUsers()
+        public async Task<IEnumerable<UserDetails>> GetUsers()
         {
-            return dbContext.UserList;
+            return await dbContext.UserDetails.ToArrayAsync();
         }
 
         [Route("signup"), HttpPost]
