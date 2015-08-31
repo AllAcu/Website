@@ -34,7 +34,7 @@ namespace AllAcu
         public string ServiceCenterRepresentative { get; set; }
         public string CallReferenceNumber { get; set; }
         public string CallTime { get; set; }
-        public CareProviderDetails Provider { get; set; }
+        public virtual CareProviderDetails Provider { get; set; }
         public virtual UserDetails AssignedTo { get; set; }
         public DateTimeOffset? ApprovedTimestamp { get; set; }
     }

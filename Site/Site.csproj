@@ -239,6 +239,7 @@
     <Compile Include="Controllers\api\CareProviderController.cs" />
     <Compile Include="Controllers\api\PatientController.cs" />
     <Compile Include="Controllers\api\UserController.cs" />
+    <Compile Include="Repository\VerificationRepository.cs" />
     <Compile Include="Smtp.cs" />
     <Compile Include="Models\BillerDetails.cs" />
     <Compile Include="Models\BillerRole.cs" />

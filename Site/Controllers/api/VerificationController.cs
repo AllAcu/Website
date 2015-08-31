@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AllAcu.Authentication;
+using AllAcu.Repository;
 using Domain.Biller;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
@@ -17,10 +18,12 @@ namespace AllAcu.Controllers.api
     {
         private readonly IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository;
         private readonly AllAcuSiteDbContext dbContext;
+        private readonly VerificationRepository verificationRepository;
 
-        public VerificationController(IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext dbContext)
+        public VerificationController(IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository, AllAcuSiteDbContext dbContext, VerificationRepository verificationRepository)
         {
             this.dbContext = dbContext;
+            this.verificationRepository = verificationRepository;
             this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
 
@@ -31,26 +34,15 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification"), HttpGet]
-        public async Task<IEnumerable<InsuranceVerification>> GetAllListViewItems()
+        public async Task<IHttpActionResult> GetAllListViewItems()
         {
             var currentProviderId = this.CurrentProviderId();
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var user = await dbContext.UserDetails.FindAsync(userId);
-            var allAcu = user.BillerRoles.AllAcu();
-            if (allAcu != null)
+            if (currentProviderId == null)
             {
-                if (allAcu.Roles.IsInRole(Biller.Roles.Approver))
-                {
-                    return dbContext.Verifications;
-                }
+                return await Task.FromResult(NotFound());
             }
-
-            if (user.ProviderRoles.Any(r => r.Provider.Id == currentProviderId))
-            {
-                return dbContext.Verifications.Where(v => v.Provider.Id == currentProviderId).ToArray();
-            }
-
-            return dbContext.Verifications.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArray();
+            var content = await verificationRepository.Get(Guid.Parse(User.Identity.GetUserId()));
+            return Ok(content.Where(v => v.Provider.Id == currentProviderId.Value).ToArray());
         }
 
         [Route("insurance/verification/{VerificationId}")]
