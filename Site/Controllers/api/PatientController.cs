@@ -25,15 +25,15 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public IEnumerable<PatientListItemViewModel> GetAll()
+        public IEnumerable<PatientDetails> GetAll()
         {
             var currentProviderId = this.CurrentProviderId();
             if (currentProviderId != null)
             {
-                return allAcuSiteDbContext.PatientList
-                    .Where(p => p.ProviderId == currentProviderId);
+                return allAcuSiteDbContext.PatientDetails
+                    .Where(p => p.Provider.Id == currentProviderId).ToArray();
             }
-            return Enumerable.Empty<PatientListItemViewModel>();
+            return Enumerable.Empty<PatientDetails>();
         }
 
         [Route("{PatientId}"), HttpGet]

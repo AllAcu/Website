@@ -50,7 +50,6 @@ namespace AllAcu
             var immediateSubscriptions = new[]
             {
                 typeof(PatientDetailsViewModelHandler),
-                typeof(PatientListItemViewModelHandler),
                 typeof(InsuranceVerificationFormEventHandler),
                 typeof(UserDetailsViewModelHandler),
                 typeof(CareProviderInformationHandler),

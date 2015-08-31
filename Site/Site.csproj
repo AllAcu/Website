@@ -262,8 +262,6 @@
     <Compile Include="ViewModels\Benefits.cs" />
     <Compile Include="ViewModels\InsuranceVerification.cs" />
     <Compile Include="ViewModels\PatientDetails.cs" />
-    <Compile Include="ViewModels\PatientDetailsViewModelHandler.cs" />
-    <Compile Include="ViewModels\PatientListItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authentication\ApplicationOAuthProvider.cs" />
     <Compile Include="Authentication\ChallengeResult.cs" />

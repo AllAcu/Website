@@ -7,7 +7,6 @@ namespace AllAcu
     {
         public static string ConnectionString;
 
-        public DbSet<PatientListItemViewModel> PatientList { get; set; }
         public DbSet<PatientDetails> PatientDetails { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<UserListItemViewModel> UserList { get; set; }
@@ -28,8 +27,6 @@ namespace AllAcu
         {
             modelBuilder.Entity<UserListItemViewModel>()
                 .HasKey(i => i.UserId);
-            modelBuilder.Entity<PatientListItemViewModel>()
-                .HasKey(i => i.PatientId);
             modelBuilder.Entity<PatientDetails>()
                 .HasKey(i => i.PatientId);
             modelBuilder.Entity<InsuranceVerification>()
