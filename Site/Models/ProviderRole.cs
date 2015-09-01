@@ -1,17 +1,18 @@
 using System;
 using System.Linq;
+using AllAcu.Models;
 using Domain;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class ProviderRole
+    public class ProviderRole : UserRole<CareProvider>
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        public virtual User User { get; set; }
-        public virtual CareProvider Provider { get; set; }
-        public RoleList Roles { get; set; } = new RoleList();
+        public virtual CareProvider Provider
+        {
+            get { return Securable; }
+            set { Securable = value; }
+        }
     }
 
     public class ProviderRoleEventHandler :
@@ -31,8 +32,8 @@ namespace AllAcu
         {
             dbContext.ProviderRoles.Add(new ProviderRole
             {
-                Provider = dbContext.CareProviders.Find(@event.AggregateId),
-                User = dbContext.Users.Find(@event.UserId)
+                User = dbContext.Users.Find(@event.UserId),
+                Provider = dbContext.CareProviders.Find(@event.AggregateId)
             });
 
             dbContext.SaveChanges();

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Linq;
+using AllAcu.Models;
 using Domain;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
-    public class BillerRole
+    public class BillerRole : UserRole<Biller>
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        public virtual User User { get; set; }
-        public virtual Biller Biller { get; set; }
-        public RoleList Roles { get; set; } = new RoleList();
+        public virtual Biller Biller
+        {
+            get { return Securable; }
+            set { Securable = value; }
+        }
     }
 
     public class BillerRoleEventHandler :

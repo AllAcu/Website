@@ -20,6 +20,8 @@ namespace AllAcu.Repository
         // in that provider, so i get it due to my provider role...
         // Case to be made there's a patient query as well, as long as you have certain patient access?
 
+            // a couple days later, we're on track to do permissions this way.
+
 
         public async Task<IEnumerable<InsuranceVerification>> Get(Guid userId)
         {
@@ -33,8 +35,9 @@ namespace AllAcu.Repository
                 }
             }
 
-            // (TODO (bremor) this line is being problematic, not liking role as a primitive
-            var providerVerifications = await dbContext.Verifications.Join(user.ProviderRoles, v => v.Provider.Id, r => r.Provider.Id, (verification, role) => verification).ToArrayAsync();
+            var providers = user.ProviderRoles.Select(r => r.Provider.Id).ToArray();
+
+            var providerVerifications = await dbContext.Verifications.Where(v => providers.Any(p => p == v.Provider.Id)).ToArrayAsync();
             return providerVerifications.Concat(await dbContext.Verifications.Where(v => v.AssignedTo != null && v.AssignedTo.UserId == userId).ToArrayAsync());
         }
     }

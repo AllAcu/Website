@@ -95,6 +95,10 @@ namespace AllAcu
                 .HasRequired(r => r.User)
                 .WithMany(r => r.BillerRoles);
 
+            modelBuilder.Entity<BillerRole>()
+                .HasRequired(r => r.Biller)
+                .WithMany(p => p.Users);
+
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<Benefits>();
             modelBuilder.ComplexType<Patient.LatestVerification>();
