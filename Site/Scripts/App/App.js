@@ -6,10 +6,8 @@
         'patientsApp',
         'providersApp',
         'billerApp',
-        'claimsApp',
-        'userApp',
-        'verificationApp',
-        'ui.bootstrap'
+        'userApp'
+        //'ui.bootstrap'
     ]);
 
     angular.module("authApp", []);
