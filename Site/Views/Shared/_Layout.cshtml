@@ -23,9 +23,9 @@
         </div>
 
         @RenderBody()
-
-        <div ng-include="'/Templates/Site/footer.html'"></div>
     </div>
+
+    <ng-include src="'/Templates/Site/footer.html'"></ng-include>
 </body>
 @RenderSection("scripts", required: false)
 </html>
