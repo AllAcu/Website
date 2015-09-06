@@ -200,4 +200,4 @@
             };
         }
     ]);
-})(window.app);
+})(angular.module("api"));

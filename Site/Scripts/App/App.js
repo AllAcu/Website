@@ -1,19 +1,21 @@
 ﻿(function (exports, angular) {
     var app = angular.module('allAcuApp', [
         'ngRoute',
+        'api',
         'authApp',
         'loginApp',
         'patientsApp',
         'providersApp',
         'billerApp',
-        'userApp'
-        //'ui.bootstrap'
+        'userApp',
+        'ui.bootstrap'
     ]);
 
+    angular.module("api", []);
     angular.module("authApp", []);
     angular.module("loginApp", []);
     angular.module("patientsApp", ["verificationApp"]);
-    angular.module("providersApp", []);
+    angular.module("providersApp", ["api"]);
     angular.module("billerApp", []);
     angular.module("userApp", []);
     angular.module("claimsApp", []);
