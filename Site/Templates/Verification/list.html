@@ -1,19 +1,28 @@
 ﻿<h2>Verifications</h2>
 
+<!--
+TODO - Put assigned person and date in the list,
+    do some filtering so user can find assigned to them, open verifications (default)
+
+-->
+
+
 <table st-table="verifications" class="table table-striped">
     <thead>
         <tr>
             <th>Patient</th>
             <th>Status</th>
             <th>Provider</th>
+            <th>Assigned to</th>
             <th>Comments</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="verification in verifications()">
             <td> <a href='{{link(verification)}}'>{{verification.patient.patientName || "____"}}</a></td>
-            <td>{{verification.status}}</td>
+            <td>{{verification.status}} as of {{verification.date}}</td>
             <td>{{verification.provider.businessName}}</td>
+            <td>{{verification.assignedTo}}</td>
             <td>{{verification.comments}}</td>
         </tr>
     </tbody>

@@ -7,7 +7,7 @@
                 ngModel: "=ngModel",
                 label: "@label"
             },
-            template: '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4">{{ngModel}}</div></div>'
+            template: '<div class="row"><div class="col-md-3"><label>{{label}}</label></div><div class="col-md-4">{{ngModel}}</div></div>'
         };
     });
 
@@ -83,7 +83,7 @@
                 address: "=ngModel"
             },
             template: '<div class="row">' +
-                            '<div class="col-md-2">' +
+                            '<div class="col-md-3">' +
                                 '<label>Address</label>' +
                             '</div>' +
                             '<div class="col-md-4">' +

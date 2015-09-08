@@ -60,14 +60,14 @@
                 }
             };
 
-            $scope.refresh = function() {
+            $scope.refresh = function () {
                 repo.refresh();
             }
         }
     ]);
 
     module.controller('verifyInsurance', [
-        "$scope", "$routeParams", "$location", "verificationRepository", "patientRepository", "$api", function ($scope, $routeParams, $location, verifications, patients, $api) {
+        "$scope", "$routeParams", "$location", "$modal", "verificationRepository", "patientRepository", "$api", function ($scope, $routeParams, $location, $modal, verifications, patients, $api) {
 
             var verificationId = $routeParams["verificationId"];
             var patientId;
@@ -88,26 +88,79 @@
                 });
             }
 
+
             $scope.complete = function () {
-                $api.verifications.approve(verificationId, $scope.verification).success(function () {
-                    $location.path("/patient/" + patientId);
-                });
-            }
+                $scope.items = ["a", "b"];
 
-            $scope.revise = function () {
-                $api.verifications.revise(verificationId, $scope.verification).success(function () {
-                    $location.path("/patient/" + patientId);
+                var modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: '/Templates/Verification/assign.html',
+                    controller: 'handoffVerification',
+                    size: 'lg',
+                    resolve: {
+                        items: function () {
+                            return $scope.items;
+                        }
+                    }
                 });
-            }
 
-            $scope.assign = function (user) {
-                $api.verifications.assign(verificationId, user).success(function () {
-                    console.log("assigned!");
+                modalInstance.result.then(function (selectedItem) {
+                    $scope.selected = selectedItem;
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
                 });
-                console.log("assign");
-                console.dir(user);
             }
         }
+    ]);
+
+    module.controller('handoffVerification', ["$scope", "$routeParams", "$api", function ($scope, $routeParams, $api) {
+        var verificationId = $routeParams["verificationId"];
+
+        $scope.currentAction = "assign";
+        $scope.actions = function () {
+            return ["assign", "approve", "complete"];
+        }
+
+        $scope.actionTemplate = function () {
+            switch ($scope.currentAction) {
+                case "assign":
+                    return '/Templates/Verification/chooser.html';
+                case "approve":
+                    return '/Templates/Patients/inputPersonalInjuryProtection.html';
+                default:
+                    return "";
+            }
+        }
+
+        $scope.complete = function () {
+            $api.verifications.approve(verificationId, $scope.verification).success(function () {
+                $location.path("/patient/" + patientId);
+            });
+        }
+
+        $scope.revise = function () {
+            $api.verifications.revise(verificationId, $scope.verification).success(function () {
+                $location.path("/patient/" + patientId);
+            });
+        }
+
+        $scope.assign = function (user) {
+            $api.verifications.assign(verificationId, user).success(function () {
+                console.log("assigned!");
+            });
+            console.log("assign");
+            console.dir(user);
+        }
+    }]);
+
+    module.controller('userChooser', ['$scope', '$api', function ($scope, $api) {
+        var users = [];
+        $scope.users = function () { return users; };
+
+        $api.users.getAll().success(function (data) {
+            users = data;
+        });
+    }
     ]);
 
     module.controller('verificationDetails', [
