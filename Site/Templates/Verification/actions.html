@@ -1,0 +1,20 @@
+﻿<div>
+    <h2>{{verification.patient.patientName}}</h2>
+    <span>What would you like to do?</span>
+
+    <select ng-model="currentAction"
+            ng-model-options="{ getterSetter: true }"
+            ng-options="a for a in actions()"></select>
+
+    <div class="modal-content" ng-include="actionTemplate()">Actions</div>
+
+    <!--<div>Dropdown with actions</div>
+    <ul>
+        <li>Assign</li>
+        <li>Complete (after phone call)</li>
+        <li>Reject (after phone call)</li>
+        <li>Complete back to provider</li>
+    </ul>-->
+
+
+</div>

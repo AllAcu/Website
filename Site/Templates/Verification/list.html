@@ -22,7 +22,7 @@ TODO - Put assigned person and date in the list,
             <td> <a href='{{link(verification)}}'>{{verification.patient.patientName || "____"}}</a></td>
             <td>{{verification.status}} as of {{verification.date}}</td>
             <td>{{verification.provider.businessName}}</td>
-            <td>{{verification.assignedTo}}</td>
+            <td>{{verification.assignedTo.name}}</td>
             <td>{{verification.comments}}</td>
         </tr>
     </tbody>
