@@ -5,9 +5,8 @@ install:
 nuget:
   account_feed: true
 before_build:
-- 'before_build:'
-- '  - appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd'
-- '  - nuget-restore'
+- appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
+- nuget-restore
 build:
   publish_wap: true
   verbosity: normal
