@@ -20,7 +20,7 @@ TODO - Put assigned person and date in the list,
     <tbody>
         <tr ng-repeat="verification in verifications()">
             <td> <a href='{{link(verification)}}'>{{verification.patient.patientName || "____"}}</a></td>
-            <td>{{verification.status}} as of {{verification.date}}</td>
+            <td>{{verification.status}}<!-- as of -->{{verification.date}}</td>
             <td>{{verification.provider.businessName}}</td>
             <td>{{verification.assignedTo.name}}</td>
             <td>{{verification.comments}}</td>

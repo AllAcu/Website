@@ -111,4 +111,28 @@
         };
     });
 
+    app.directive('question', function () {
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                label: "@label",
+                ngModel: "=ngModel"
+            },
+            replace: true,
+            transclude: true,
+            template: '<fieldset class="panel panel-default question">' +
+                      '   <div class="panel-heading">' +
+                      '       <div class="checkbox">' +
+                      '           <label>' +
+                      '               <input type="checkbox" ng-model="ngModel"/>{{label}} ({{ngModel ? "yes" : "no"}})' +
+                      '           </label>' +
+                      '       </div>' +
+                      '   </div>' +
+                      '   <div class="panel-body" ng-show="ngModel" ng-transclude>' +
+                      '   </div>' +
+                      '</fieldset>'
+        };
+    });
+
 })(window.app)

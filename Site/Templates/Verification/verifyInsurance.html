@@ -34,83 +34,65 @@
 
     <hr />
     <div>
-        <label>
-            Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?
-        </label>
-        <edit-yes-no ng-model="verification.benefits.isCovered"></edit-yes-no>
+        <question ng-model="verification.benefits.isCovered" label="Is the patient covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)?">
 
-        <div ng-show="verification.benefits.isCovered">
-            <label>
-                Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)?
-            </label>
-            <edit-yes-no ng-model="verification.benefits.isDiagnosisRequirement"></edit-yes-no>
-            <edit-field ng-model="verification.benefits.diagnosisRequirement" ng-show="verification.benefits.isDiagnosisRequirement"></edit-field>
+            <question label="Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)?" ng-model="verification.benefits.isDiagnosisRequirement">
+                <edit-field ng-model="verification.benefits.diagnosisRequirement" ng-show="verification.benefits.isDiagnosisRequirement"></edit-field>
+            </question>
 
-            <label>Is a Referral Required?</label>
-            <edit-yes-no ng-model="verification.benefits.isReferralRequired"></edit-yes-no>
-            <edit-field label="From Who?" ng-model="verification.benefits.referralSource" ng-show="verification.benefits.isReferralRequired"></edit-field>
+            <question label="Is a Referral Required?" ng-model="verification.benefits.isReferralRequired">
+                <edit-field label="From Who?" ng-model="verification.benefits.referralSource" ng-show="verification.benefits.isReferralRequired"></edit-field>
+            </question>
 
-            <label>Are any Pre-certifications or Pre-authorizations required?</label>
-            <edit-yes-no ng-model="verification.benefits.isPreCertificationRequired"></edit-yes-no>
-            <edit-field label="How is it obtained?" ng-model="verification.benefits.preCertification" ng-show="verification.benefits.isPreCertificationRequired"></edit-field>
+            <question label="Are any Pre-certifications or Pre-authorizations required?" ng-model="verification.benefits.isPreCertificationRequired">
+                <edit-field label="How is it obtained?" ng-model="verification.benefits.preCertification" ng-show="verification.benefits.isPreCertificationRequired"></edit-field>
+            </question>
 
+            <question label="Is there an Office Visit Copay?" ng-model="verification.benefits.isOfficeVisitCopay">
+                <edit-field label="Copay Amount per visit" ng-model="verification.benefits.officeVisitCopay" ng-show="verification.benefits.isOfficeVisitCopay"></edit-field>
+            </question>
 
-            <label>Is there an Office Visit Copay?</label>
-            <edit-yes-no ng-model="verification.benefits.isOfficeVisitCopay"></edit-yes-no>
-            <edit-field label="Copay Amount per visit" ng-model="verification.benefits.officeVisitCopay" ng-show="verification.benefits.isOfficeVisitCopay"></edit-field>
-
-
-            <label>Is this a calendar year plan?</label>
-            <edit-yes-no ng-model="verification.benefits.isCalendarYearPlan"></edit-yes-no>
-            <div ng-show="verification.benefits.isCalendarYearPlan">
+            <question label="Is this a calendar year plan?" ng-model="verification.benefits.isCalendarYearPlan">
                 <edit-field label="Plan begin" type="date" ng-model="verification.benefits.calendarYearPlanBegin"></edit-field>
                 <edit-field label="Plan end" type="date" ng-model="verification.benefits.calendarYearPlanEnd"></edit-field>
                 <edit-field label="Comments" ng-model="verification.benefits.calendarYearComments"></edit-field>
-            </div>
+            </question>
 
-            <label>Is there a deductible?</label>
-            <edit-yes-no ng-model="verification.benefits.isDeductable"></edit-yes-no>
-            <div ng-show="verification.benefits.isDeductable">
+            <question label="Is there a deductible?" ng-model="verification.benefits.isDeductable">
                 <edit-field label="Annual Individual deductable" ng-model="verification.benefits.individualDeductable"></edit-field>
                 <edit-field label="used" ng-model="verification.benefits.individualDeductableUsed"></edit-field>
                 <edit-field label="Annual family deductable" ng-model="verification.benefits.familyDeductable"></edit-field>
                 <edit-field label="used" ng-model="verification.benefits.familyDeductableUsed"></edit-field>
-            </div>
+            </question>
 
             <edit-field label="Insurance covers the patient at% of approved charges." ng-model="verification.benefits.insurancePercentResponsibility"></edit-field>
             <edit-field label="Patient's responsibility percent of all billed services." ng-model="verification.benefits.patientPercentResponsiblity"></edit-field>
 
-
-            <label>Is there an Out-of-Pocket Maximum?</label>
-            <edit-yes-no ng-model="verification.benefits.isOutOfPocketMaximum"></edit-yes-no>
-            <div ng-show="verification.benefits.isOutOfPocketMaximum">
+            <question label="Is there an Out-of-Pocket Maximum?" ng-model="verification.benefits.isOutOfPocketMaximum">
                 <edit-field label="Individual annual Out-of-Pocket Maximum" ng-model="verification.benefits.annualIndividualOutOfPocketMaximum"></edit-field>
                 <edit-field label="used" ng-model="verification.benefits.annualIndividualOutOfPocketMaximumUsed"></edit-field>
                 <edit-field label="Family annual out-of-pocket maximum" ng-model="verification.benefits.annualFamilyOutOfPocketMaximum"></edit-field>
                 <edit-field label="used" ng-model="verification.benefits.annualFamilyOutOfPocketMaximumUsed"></edit-field>
-            </div>
+            </question>
 
-            <label>Is deductible applied towards Out-of-Pocket</label>
-            <edit-yes-no ng-model="verification.benefits.isDeductableAppliedTowardOutOfPocket"></edit-yes-no>
+            <question label="Is deductible applied towards Out-of-Pocket" ng-model="verification.benefits.isDeductableAppliedTowardOutOfPocket">
+            </question>
 
-            <label>Is there a limit on the number of visits allowed per year?</label>
-            <edit-yes-no ng-model="verification.benefits.hasAnnualVisitLimit"></edit-yes-no>
-            <div ng-show="verification.benefits.hasAnnualVisitLimit">
+            <question label="Is there a limit on the number of visits allowed per year?" ng-model="verification.benefits.hasAnnualVisitLimit">
                 <edit-field label="Number of allowed visits" ng-model="verification.benefits.annualVisitLimit"></edit-field>
                 <edit-field label="Number of visits used this year" ng-model="verification.benefits.annualVisitsUsed"></edit-field>
                 <edit-field label="Remaining visits for this year" ng-model="verification.benefits.annualVisitsRemaining"></edit-field>
-            </div>
+            </question>
 
-            <label>Can a licensed acupuncturist bill for code 99203 (evaluations/exams)?</label>
-            <edit-yes-no ng-model="verification.benefits.isBillableForCode99203"></edit-yes-no>
+            <question label="Can a licensed acupuncturist bill for code 99203 (evaluations/exams)?" ng-model="verification.benefits.isBillableForCode99203"></question>
 
-            <label>Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?</label>
-            <edit-field label="Other limits or provisions with regard to acupuncture services" ng-model="verification.benefits.otherLimits"></edit-field>
-        </div>
+            <question label="Can a licensed acupuncturist bill for the following code(s) without pre-authorization or pre-certification?" ng-model="verification.benefits.isOtherLimits">
+                <edit-field label="Other limits or provisions with regard to acupuncture services" ng-model="verification.benefits.otherLimits"></edit-field>
+            </question>
+        </question>
 
         <hr />
         <div>
-
             <edit-field label="Verification Status" ng-model="verification.approval.status"></edit-field>
 
             <edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>

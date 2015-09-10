@@ -45,3 +45,9 @@ body > .container {
 .actions input[type=button] {
     width: 100%;
 }
+
+fieldset.question .checkbox {
+    line-height: 22px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
