@@ -11,9 +11,9 @@
     <ul class="nav navbar-nav">
         <li ng-repeat="item in navItems()"><a href="{{item.link}}">{{item.label}}</a></li>
 
-        <li class="providers">
-            <span style="color: white;" >Provider: </span>
-            <span ng-controller="providerChooser">
+        <li class="providers" ng-controller="providerChooser">
+            <span style="color: white;" ng-show="shouldDisplay()">Provider: </span>
+            <span>
                 <span style="color: white;" ng-show="shouldDisplay() && !canChoose()">{{currentProvider().businessName}}</span>
                 <select ng-show="canChoose()"
                         ng-model="currentProvider"

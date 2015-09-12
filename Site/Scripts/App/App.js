@@ -219,11 +219,11 @@
         });
 
         $scope.canChoose = function () {
-            return $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
+            return $route.current && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
         }
 
         $scope.shouldDisplay = function () {
-            return authToken.loggedIn() && $scope.providers().length;
+            return authToken.loggedIn() && !!$scope.providers().length;
         }
     }]);
 
