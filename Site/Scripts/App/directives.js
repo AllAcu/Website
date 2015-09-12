@@ -19,7 +19,7 @@
                 ngModel: "=ngModel",
                 type: "@type"
             },
-            template: '<div class="row"><div class="col-md-2"><label>{{label}}</label></div><div class="col-md-4"><input type="{{type}}" ng-model="ngModel" /></div></div>'
+            template: '<div class="row"><div class="col-md-3"><label>{{label}}</label></div><div class="col-md-5"><input type="{{type}}" ng-model="ngModel" /></div></div>'
         };
     });
 

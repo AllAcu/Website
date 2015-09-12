@@ -12,11 +12,15 @@
         <li ng-repeat="item in navItems()"><a href="{{item.link}}">{{item.label}}</a></li>
 
         <li class="providers">
-            <span ng-controller="header" ng-show="available()">
-                <select ng-model="currentProvider"
+            <span style="color: white;" >Provider: </span>
+            <span ng-controller="providerChooser">
+                <span style="color: white;" ng-show="shouldDisplay() && !canChoose()">{{currentProvider().businessName}}</span>
+                <select ng-show="canChoose()"
+                        ng-model="currentProvider"
                         ng-model-options="{ getterSetter: true }"
                         ng-options="p.businessName for p in providers()"></select>
             </span>
         </li>
+
     </ul>
 </div>

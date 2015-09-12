@@ -48,7 +48,8 @@
             $routeProvider
                 .when('/patients', {
                     templateUrl: '/Templates/Patients/patientList.html',
-                    controller: 'patientList'
+                    controller: 'patientList',
+                    canChangeProviders: true
                 })
                 .when('/patient/intake', {
                     templateUrl: '/Templates/Patients/intake.html',
@@ -92,7 +93,8 @@
             $routeProvider
                 .when('/verifications', {
                     templateUrl: '/Templates/Verification/list.html',
-                    controller: 'verifyInsuranceList'
+                    controller: 'verifyInsuranceList',
+                    canChangeProviders: true
                 })
                 .when('/verification/:verificationId', {
                     templateUrl: '/Templates/Verification/insuranceVerificationDetails.html',
@@ -130,7 +132,8 @@
             $routeProvider
                 .when('/claims', {
                     templateUrl: '/Templates/Claims/claimsList.html',
-                    controller: 'claimsList'
+                    controller: 'claimsList',
+                    canChangeProviders: true
                 })
                 .when('/claim/edit/:id', {
                     templateUrl: '/Templates/Claims/claimEdit.html',
@@ -201,7 +204,7 @@
         }
     }]);
 
-    app.controller('header', ['$scope', 'authToken', 'careProviderRepository', function ($scope, authToken, providers) {
+    app.controller('providerChooser', ['$scope', '$route', 'authToken', 'careProviderRepository', function ($scope, $route, authToken, providers) {
         $scope.providers = function () { return providers.providers() || []; }
         $scope.currentProvider = function (provider) {
             return providers.current(provider);
@@ -215,7 +218,11 @@
             providers.refresh();
         });
 
-        $scope.available = function () {
+        $scope.canChoose = function () {
+            return $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
+        }
+
+        $scope.shouldDisplay = function () {
             return authToken.loggedIn() && $scope.providers().length;
         }
     }]);
