@@ -1,6 +1,7 @@
-﻿<div ng-controller="userChooser" style="border: whitesmoke 1px solid;">
-    <ul class="list-unstyled" ng-repeat="user in users()">
-        <li ng-click="select(user)" class="text-primary" ng-class="{'text-danger': selectedUser == user}">{{user.name}}</li>
+﻿<div class="assignment" ng-controller="userChooser">
+    <div>Currently assigned to: {{verification.assignedTo.name}}</div>
+    <ul class="list-unstyled">
+        <li ng-repeat="user in users()" ng-click="select(user)" class="text-primary" ng-class="{'selected': selectedUser == user}">{{user.name}}</li>
     </ul>
+    <button ng-click="save()">Assign</button>
 </div>
-<button ng-click="save()">Save</button>

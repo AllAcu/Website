@@ -1,18 +1,18 @@
 ﻿<h2>Verify Insurance</h2>
 
-<div class="col-md-2 btn-group">
+<div class="col-md-1 btn-group">
     <div>
         <input type="button" class="btn" value="Save" ng-click="save()" />
     </div>
     <div>
-        <input type="button" class="btn" value="Complete" ng-click="complete()" />
+        <input type="button" class="btn" value="Actions" ng-click="actions()" />
     </div>
 
     <!--popover-trigger="mouseenter" popover-enable="!assigned"-->
     <!--<button popover-template="'/Templates/Users/chooser.html'" popover-placement="right" popover-title="Choose a user" type="button" class="btn">Assign</button>-->
 </div>
 
-<div class="col-md-10">
+<div class="col-md-11">
     <div>
         <div>
             <h4><display-field label="Insurance Carrier" ng-model="verification.patient.insuranceCarrier"></display-field></h4>
@@ -91,15 +91,6 @@
             </question>
         </question>
 
-        <hr />
-        <div>
-            <edit-field label="Verification Status" ng-model="verification.approval.status"></edit-field>
-
-            <edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>
-            <edit-field label="Call Reference Number" ng-model="verification.approval.callReferenceNumber"></edit-field>
-            <edit-field label="Call Time" ng-model="verification.approval.callTime"></edit-field>
-            <edit-field label="Assign To" ng-model="verification.approval.assignedTo"></edit-field>
-        </div>
     </div>
 
 </div>

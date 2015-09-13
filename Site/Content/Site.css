@@ -31,6 +31,12 @@ li.providers {
     margin-left: 20px;
 }
 
+li.providers select {
+    display: inline-block;
+    width: auto;
+    margin-left: 10px;
+}
+
 .footer {
     bottom: 0;
     width: 95%;
@@ -50,4 +56,20 @@ fieldset.question .checkbox {
     line-height: 22px;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.modal-content {
+    padding: 10px;
+}
+
+.actions-content {
+    margin: 10px;
+}
+
+.assignment li {
+    line-height: 24px;
+}
+
+.assignment .selected {
+    background-color: #ddd;
 }

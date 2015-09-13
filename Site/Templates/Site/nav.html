@@ -15,7 +15,8 @@
             <span style="color: white;" ng-show="shouldDisplay()">Provider: </span>
             <span>
                 <span style="color: white;" ng-show="shouldDisplay() && !canChoose()">{{currentProvider().businessName}}</span>
-                <select ng-show="canChoose()"
+                <select class="form-control"
+                        ng-show="canChoose()"
                         ng-model="currentProvider"
                         ng-model-options="{ getterSetter: true }"
                         ng-options="p.businessName for p in providers()"></select>

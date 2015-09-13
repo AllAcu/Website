@@ -88,8 +88,7 @@
                 });
             }
 
-
-            $scope.complete = function () {
+            $scope.actions = function () {
                 $scope.items = ["a", "b"];
 
                 var modalInstance = $modal.open({
@@ -117,10 +116,17 @@
         "$scope", "$routeParams", "$api", "verificationRepository", function ($scope, $routeParams, $api, verifications) {
             var verificationId = $routeParams["verificationId"];
 
-            $scope.currentAction = "assign";
-            $scope.actions = function () {
-                return ["assign", "approve", "reject", "complete"];
-            }
+            var actions = 
+                 [
+                    { label: "assign", template: '/Templates/Verification/assign.html' },
+                    //{ label: "approve", template: '/Templates/Verification/approve.html' },
+                    //{ label: "reject", template: '/Templates/Verification/reject.html' },
+                    { label: "complete", template: '/Templates/Verification/complete.html' },
+                    { label: "startCall", template: '/Templates/Verification/startCall.html' }
+                ];
+
+            $scope.actions = function() { return actions; };
+            $scope.currentAction = $scope.actions()[0];
 
             verifications.getVerification(verificationId)
                 .success(function (data) {
@@ -128,18 +134,7 @@
                 });
 
             $scope.actionTemplate = function () {
-                switch ($scope.currentAction) {
-                    case "assign":
-                        return '/Templates/Verification/assign.html';
-                    case "reject":
-                        return '/Templates/Verification/reject.html';
-                    case "approve":
-                        return '/Templates/Verification/approve.html';
-                    case "complete":
-                        return '/Templates/Verification/complete.html';
-                    default:
-                        return "";
-                }
+                return $scope.currentAction.template;
             }
 
             $scope.complete = function () {
@@ -154,7 +149,7 @@
                 });
             }
 
-            $scope.select = function(user) {
+            $scope.select = function (user) {
                 $scope.selectedUser = user;
             };
 
