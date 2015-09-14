@@ -187,8 +187,7 @@
                 { label: "Patients", link: "/AllAcu/#/patients" },
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
-                { label: "Providers", link: "/AllAcu/#/providers" },
-                { label: "Logout", link: "/AllAcu/#/logout" }
+                { label: "Providers", link: "/AllAcu/#/providers" }
         ];
 
         $scope.navItems = function () {
@@ -219,7 +218,7 @@
         });
 
         $scope.canChoose = function () {
-            return $route.current && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
+            return $route.current && $route.current.$$route && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
         }
 
         $scope.shouldDisplay = function () {
