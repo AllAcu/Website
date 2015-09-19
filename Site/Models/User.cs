@@ -10,6 +10,7 @@ namespace AllAcu
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public bool Confirmed { get; set; }
 
         public virtual IList<ProviderRole> ProviderRoles { get; set; } = new List<ProviderRole>();
         public virtual IList<ProviderInvitation> ProviderInvitations { get; set; } = new List<ProviderInvitation>();
@@ -54,7 +55,8 @@ namespace AllAcu
             {
                 UserId = @event.AggregateId,
                 Name = @event.Name,
-                Email = @event.Email
+                Email = @event.Email,
+                Confirmed = true
             });
 
             dbContext.SaveChanges();

@@ -2,15 +2,21 @@
 
 <table st-table="users" class="table table-striped">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="user in users()">
-        <td> <a href='{{link(user)}}'>{{user.name}}</a></td>
-        <td>{{user.email}}</td>
-    </tr>
+        <tr ng-repeat="user in users()">
+            <td> <a href='{{link(user)}}'>{{user.name}}</a></td>
+            <td>{{user.email}}</td>
+        </tr>
     </tbody>
 </table>
+
+<h3>Outstanding Confirmations</h3>
+<ul ng-controller="oustandingInvites">
+    <li ng-repeat="confirmation in confirmations"><a href='{{link(confirmation)}}'>{{confirmation.email}}</a></li>
+</ul>
+

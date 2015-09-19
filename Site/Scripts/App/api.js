@@ -195,6 +195,9 @@
                             password: password,
                             token: token
                         });
+                    },
+                    getConfirmations: function() {
+                        return $http.get("/api/user/confirmations");
                     }
                 }
             };

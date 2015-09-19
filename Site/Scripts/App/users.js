@@ -113,4 +113,18 @@
         }
     ]);
 
+    module.controller('oustandingInvites', [
+        '$scope', '$routeParams', '$location', '$api', function($scope, $routeParams, $location, $api) {
+
+            $scope.confirmations = [];
+            $api.users.getConfirmations().success(function(data) {
+                $scope.confirmations = data;
+            });
+
+            $scope.link = function(confirmation) {
+                return "#register/" + confirmation.token;
+            }
+        }
+    ]);
+
 }(angular.module("userApp")));

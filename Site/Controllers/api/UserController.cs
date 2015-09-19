@@ -37,7 +37,7 @@ namespace AllAcu.Controllers.api
         [Route("")]
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await dbContext.Users.ToArrayAsync();
+            return await dbContext.Users.Where(u => u.Confirmed).ToArrayAsync();
         }
 
         [Route("signup"), HttpPost]
@@ -134,6 +134,12 @@ namespace AllAcu.Controllers.api
             await userEventSourcedRepository.Save(user);
 
             return Ok();
+        }
+
+        [Route("confirmations"), HttpGet]
+        public async Task<IHttpActionResult> Confirmations()
+        {
+            return Ok(await dbContext.Confirmations.ToListAsync());
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

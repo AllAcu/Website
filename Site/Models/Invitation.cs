@@ -98,6 +98,9 @@ namespace AllAcu
                 dbContext.ProviderInvitations.Remove(invite);
             }
 
+            var user = dbContext.Users.Find(@event.AggregateId);
+            user.Confirmed = true;
+
             dbContext.SaveChanges();
         }
     }
