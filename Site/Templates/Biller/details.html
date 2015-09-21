@@ -9,7 +9,9 @@
                     <div style="display: inline-block; background-color: #62abea; border-color: #357ebd;" ng-repeat="role in user.roles">
                         <button class="btn btn-primary" ng-click="revoke(user, role)">x</button>{{role}}
                     </div>
-                    <button class="btn btn-primary" ng-click="grant(user)">+</button>
+                    <a class="btn btn-primary" popover-template="'/Templates/Providers/roleChooser.html'" popover-placement="right"
+                       data-toggle="popover" data-trigger="focus me" tabindex="0"
+                       popover-title="Choose a role">+</a>
                 </li>
             </ul>
         </div>

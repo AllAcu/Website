@@ -25,10 +25,14 @@
             $scope.provider = {};
             $scope.users = function () { return $scope.provider.users; };
 
-            $providers.edit($routeParams["id"])
-                .success(function (data) {
-                    $scope.provider = data;
-                });
+            function refresh() {
+                $providers.edit($routeParams["id"])
+                    .success(function (data) {
+                        $scope.provider = data;
+                    });
+            }
+
+            refresh();
 
             $scope.save = function () {
                 $api.providers.update($scope.provider).success(function () {
@@ -36,16 +40,25 @@
                     $location.path("/providers");
                 });
             }
-            $scope.refresh = function() {
+            $scope.refresh = function () {
                 $providers.refresh();
+                refresh();
             }
         }]);
 
     module.controller('providerPermissions', [
         "$scope", "$api", function ($scope, $api) {
-            var provider = function () { return $scope.$parent.provider; }
+            $scope.provider = function () { return $scope.$parent.provider; }
             $scope.users = $scope.$parent.users;
-            var refresh = $scope.$parent.refresh;
+            var refresh = $scope.refresh = $scope.$parent.refresh;
+            $scope.roles = [
+            {
+                label: "Owner",
+                name: "owner"
+            }, {
+                label: "Practitioner",
+                name: "practitioner"
+            }];
 
             $scope.grant = function (user) {
                 $api.providers.grantRole(user.user.userId, provider().id, "ui").success(function (data) {
@@ -53,10 +66,19 @@
                 });
             }
             $scope.revoke = function (user, role) {
-                $api.providers.revokeRole(user.user.userId, provider().id, role).success(function (data) {
+                $api.providers.revokeRole(user.user.userId, $scope.provider().id, role).success(function (data) {
                     refresh();
                 });
             }
+        }
+    ]);
+
+    module.controller('roleChooser', [
+        "$scope", function ($scope) {
+            $scope.selectedRole;
+
+            $scope.roles = $scope.$parent.roles;
+            $scope.grant = $scope.$parent.grant;
         }
     ]);
 

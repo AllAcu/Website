@@ -40,6 +40,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.User.User.Registered @event)
         {
             dbcontext.Confirmations.Remove(dbcontext.Confirmations.Find(@event.AggregateId));
+            dbcontext.Users.Find(@event.AggregateId).Confirmed = true;
 
             dbcontext.SaveChanges();
         }

@@ -73,3 +73,7 @@ fieldset.question .checkbox {
 .assignment .selected {
     background-color: #ddd;
 }
+
+.roleChooser .selected {
+    background-color: #ddd;
+}

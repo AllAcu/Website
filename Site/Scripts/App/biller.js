@@ -31,6 +31,14 @@
             $scope.users = $scope.$parent.users;
             var refresh = $scope.$parent.refresh;
 
+            $scope.roles = [{
+                label: "Verifier",
+                name: "verifier"
+            }, {
+                label: "Approver",
+                name: "approver"
+            }];
+
             $scope.grant = function (user) {
                 $api.biller.grantRole(user.user.userId, "approver").success(function (data) {
                     refresh();

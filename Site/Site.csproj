@@ -340,6 +340,7 @@
     <Content Include="Templates\Claims\ClaimEdit.html" />
     <Content Include="Templates\Claims\ClaimsList.html" />
     <Content Include="Templates\Providers\list.html" />
+    <Content Include="Templates\Providers\roleChooser.html" />
     <Content Include="Templates\Site\footer.html" />
     <Content Include="Templates\Site\nav.html" />
     <Content Include="Templates\Users\chooser.html" />
