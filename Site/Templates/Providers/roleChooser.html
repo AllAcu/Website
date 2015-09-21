@@ -1,9 +1,10 @@
-﻿<div class="roleChooser" ng-controller="roleChooser">
+﻿<div class="assignment roles" ng-controller="roleChooser">
 
     <ul class="list-unstyled">
-        <li ng-repeat="role in roles" ng-class="{'selected': selectedRole == role}" ng-click="$parent.selectedRole = role">{{role.label}}</li>
+        <li ng-repeat="role in roles(user)" ng-class="{'selected': selectedRole == role}" ng-click="$parent.selectedRole = role">{{role.label}}</li>
     </ul>
 
-    <button ng-click="grant(user)">Grant</button>
-
+    <div>
+        <button class="btn btn-primary" ng-click="grant(user)">Grant</button>
+    </div>
 </div>

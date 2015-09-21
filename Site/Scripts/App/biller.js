@@ -39,8 +39,8 @@
                 name: "approver"
             }];
 
-            $scope.grant = function (user) {
-                $api.biller.grantRole(user.user.userId, "approver").success(function (data) {
+            $scope.grant = function (user, role) {
+                $api.biller.grantRole(user.user.userId, role.name).success(function (data) {
                     refresh();
                 });
             }

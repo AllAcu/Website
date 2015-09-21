@@ -187,7 +187,8 @@
                 { label: "Patients", link: "/AllAcu/#/patients" },
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
-                { label: "Providers", link: "/AllAcu/#/providers" }
+                { label: "Providers", link: "/AllAcu/#/providers" },
+                { label: "Biller", link: "/AllAcu/#/biller"}
         ];
 
         $scope.navItems = function () {

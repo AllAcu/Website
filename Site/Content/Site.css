@@ -68,12 +68,20 @@ fieldset.question .checkbox {
 
 .assignment li {
     line-height: 24px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
 }
-
+.assignment li:hover {
+    background-color: #eef;
+}
 .assignment .selected {
-    background-color: #ddd;
+    background-color: #ddf;
 }
 
-.roleChooser .selected {
-    background-color: #ddd;
+.assignment button {
+    margin-top: 10px;
+}
+
+.assignment.roles {
+    width: 250px;
 }

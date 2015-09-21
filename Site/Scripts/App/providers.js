@@ -48,7 +48,7 @@
 
     module.controller('providerPermissions', [
         "$scope", "$api", function ($scope, $api) {
-            $scope.provider = function () { return $scope.$parent.provider; }
+            var provider = function () { return $scope.$parent.provider; }
             $scope.users = $scope.$parent.users;
             var refresh = $scope.refresh = $scope.$parent.refresh;
             $scope.roles = [
@@ -60,26 +60,16 @@
                 name: "practitioner"
             }];
 
-            $scope.grant = function (user) {
-                $api.providers.grantRole(user.user.userId, provider().id, "ui").success(function (data) {
+            $scope.grant = function (user, role) {
+                $api.providers.grantRole(user.user.userId, provider().id, role.name).success(function (data) {
                     refresh();
                 });
             }
             $scope.revoke = function (user, role) {
-                $api.providers.revokeRole(user.user.userId, $scope.provider().id, role).success(function (data) {
+                $api.providers.revokeRole(user.user.userId, provider().id, role).success(function (data) {
                     refresh();
                 });
             }
         }
     ]);
-
-    module.controller('roleChooser', [
-        "$scope", function ($scope) {
-            $scope.selectedRole;
-
-            $scope.roles = $scope.$parent.roles;
-            $scope.grant = $scope.$parent.grant;
-        }
-    ]);
-
 }(angular.module("providersApp")));

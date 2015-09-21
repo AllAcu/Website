@@ -41,11 +41,11 @@
             $scope.user = null;
             $scope.providers = function () { return $scope.user ? $scope.user.providerRoles.map(function (r) { return r.provider; }) : []; };
             $scope.billers = function () { return $scope.user ? $scope.user.billerRoles.map(function (r) { return r.biller; }) : []; };
-            $scope.providerInvitations = function() {
-                 return $scope.user ? $scope.user.providerInvitations : [];
+            $scope.providerInvitations = function () {
+                return $scope.user ? $scope.user.providerInvitations : [];
             };
-            $scope.billerInvitations = function() {
-                 return $scope.user ? $scope.user.billerInvitations : [];
+            $scope.billerInvitations = function () {
+                return $scope.user ? $scope.user.billerInvitations : [];
             };
             $scope.hasProvider = function (provider) {
                 return $scope.user && $scope.providers().some(function (p) { return p.id === provider.id; });
@@ -61,7 +61,7 @@
 
             refreshUser();
 
-            $scope.accept = function(invite) {
+            $scope.accept = function (invite) {
                 $api.users.accept(userId, invite.organization.id)
                     .success(function () {
                         refreshUser();
@@ -103,7 +103,7 @@
     ]);
 
     module.controller('userChooser', [
-        '$scope', '$api', function($scope, $api) {
+        '$scope', '$api', function ($scope, $api) {
             var users = [];
             $scope.users = function () { return users; };
 
@@ -113,15 +113,32 @@
         }
     ]);
 
+    module.controller('roleChooser', [
+        "$scope", function ($scope) {
+            $scope.selectedRole;
+
+            $scope.roles = function (user) {
+                return $scope.$parent.roles.filter(function (role) {
+                    return !user.roles.some(function (r) { return r === role.name; });
+                });
+            }
+
+            $scope.grant = function(user) {
+                return $scope.$parent.grant(user, $scope.selectedRole);
+            }
+        }
+    ]);
+
+
     module.controller('oustandingInvites', [
-        '$scope', '$routeParams', '$location', '$api', function($scope, $routeParams, $location, $api) {
+        '$scope', '$routeParams', '$location', '$api', function ($scope, $routeParams, $location, $api) {
 
             $scope.confirmations = [];
-            $api.users.getConfirmations().success(function(data) {
+            $api.users.getConfirmations().success(function (data) {
                 $scope.confirmations = data;
             });
 
-            $scope.link = function(confirmation) {
+            $scope.link = function (confirmation) {
                 return "#register/" + confirmation.token;
             }
         }
