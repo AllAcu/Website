@@ -18,9 +18,9 @@
                     <div style="display: inline-block; background-color: #62abea; border-color: #357ebd;" ng-repeat="role in user.roles">
                         <button class="btn-primary" ng-click="revoke(user, role)">x</button>{{role}}
                     </div>
-                    <a class="btn btn-primary" popover-template="'/Templates/Providers/roleChooser.html'" popover-placement="right"
-                            data-toggle="popover" data-trigger="focus me" tabindex="0"
-                            popover-title="Choose a role">+</a>
+                    <button class="btn btn-primary" popover-template="'/Templates/Providers/roleChooser.html'" popover-placement="right"
+                            popover-toggle="popover" popover-trigger="focus" tabindex="0"
+                            popover-title="Choose a role">+</button>
                 </li>
             </ul>
         </div>

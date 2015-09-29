@@ -115,17 +115,13 @@
 
     module.controller('roleChooser', [
         "$scope", function ($scope) {
-            $scope.selectedRole;
-
             $scope.roles = function (user) {
                 return $scope.$parent.roles.filter(function (role) {
                     return !user.roles.some(function (r) { return r === role.name; });
                 });
             }
 
-            $scope.grant = function(user) {
-                return $scope.$parent.grant(user, $scope.selectedRole);
-            }
+            $scope.grant = $scope.$parent.grant;
         }
     ]);
 
