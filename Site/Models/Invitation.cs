@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Domain.Authentication;
 using Domain.User;
 using Microsoft.Its.Domain;
 
@@ -25,19 +24,6 @@ namespace AllAcu
     public class BillerInvitation : Invitation<Biller>
     {
 
-    }
-
-    public class RoleList : SerialList<string>
-    {
-        public bool IsInRole(string role)
-        {
-            return this.Contains(role, StringComparer.OrdinalIgnoreCase);
-        }
-
-        public bool IsInRole(Role role)
-        {
-            return IsInRole(role.ToString());
-        } 
     }
 
     public class InvitionEventHandler :
