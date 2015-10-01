@@ -1,2 +1,22 @@
-﻿<edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>
-<edit-field label="Call Reference Number" ng-model="verification.approval.callReferenceNumber"></edit-field>
+﻿<div class="startCall">
+    <display-field label="Date of Birth" ng-model="verification.patient.patientDateOfBirth"></display-field>
+
+    <div>
+        <div class="heading">
+            <display-field label="Insurance Carrier" ng-model="verification.patient.insuranceCarrier"></display-field>
+        </div>
+        <display-field label="Phone #" ng-model="verification.patient.insurancePhoneNumber"></display-field>
+        <display-field label="Insurance Policy/ Plan" ng-model="verification.patient.patientInsurancePolicy"></display-field>
+    </div>
+    <div>
+        <div class="heading">
+            <display-field label="Acupuncturist" ng-model="verification.patient.acupuncturist"></display-field>
+        </div>
+        <display-field label="NPI #" ng-model="verification.patient.acupuncturistNpiNumber"></display-field>
+        <display-field label="Tax ID #" ng-model="verification.patient.acupuncturistTaxId"></display-field>
+        <display-field label="Address" ng-model="verification.patient.acupuncturistAddress"></display-field>
+        <display-field label="Phone Number" ng-model="verification.patient.acupuncturistPhoneNumber"></display-field>
+    </div>
+
+    <edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>
+</div>

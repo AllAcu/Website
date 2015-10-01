@@ -180,7 +180,9 @@
     <Compile Include="Verification\InsuranceVerification.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Verification\Commands\VerificationCommands.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />

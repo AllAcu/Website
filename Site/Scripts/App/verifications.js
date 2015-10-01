@@ -82,10 +82,21 @@
                     patientId = data.patientId;
                 });
 
+            $scope.timeOnCall = function() {
+                if ($scope.verification && $scope.verification.startTime) {
+                    return Date() - startTime;
+                }
+                return "1:10";
+            }
+
             $scope.save = function () {
                 $api.verifications.update(verificationId, $scope.verification).success(function () {
                     console.log("saved " + verificationId);
                 });
+            }
+
+            $scope.startCall = function() {
+                console.log("Start Call");
             }
 
             $scope.actions = function () {
