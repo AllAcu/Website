@@ -60,10 +60,10 @@ namespace AllAcu
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientContactInformationUpdated>,
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.InsuranceUpdated>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Started>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.CallStarted>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Approved>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Rejected>
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Completed>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestRejected>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -157,7 +157,7 @@ namespace AllAcu
             return dbContext.Patients.First(p => p.PatientId == patientId);
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.Started @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.CallStarted @event)
         {
             var patient = GetPatient(@event.PatientId);
             patient.CurrentVerification = new Patient.LatestVerification
@@ -178,7 +178,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.Approved @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.Completed @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);
@@ -187,7 +187,7 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.Rejected @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestRejected @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);

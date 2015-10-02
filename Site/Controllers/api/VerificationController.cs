@@ -104,7 +104,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/approve"), HttpPost]
-        public async Task ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.VerifyBenefits command)
+        public async Task ApproveVerification(Guid verificationId, Domain.Verification.InsuranceVerification.StartCall command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             await command.ApplyToAsync(verification);
@@ -112,7 +112,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/revise"), HttpPost]
-        public async Task ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.ReturnToProvider command)
+        public async Task ReviseVerification(Guid verificationId, Domain.Verification.InsuranceVerification.RejectRequest command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             await command.ApplyToAsync(verification);
@@ -120,7 +120,7 @@ namespace AllAcu.Controllers.api
         }
 
         [Route("insurance/verification/{VerificationId}/assign"), HttpPost]
-        public async Task AssignVerification(Guid verificationId, Domain.Verification.InsuranceVerification.Assign command)
+        public async Task AssignVerification(Guid verificationId, Domain.Verification.InsuranceVerification.DelegateRequest command)
         {
             var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             await command.ApplyToAsync(verification);

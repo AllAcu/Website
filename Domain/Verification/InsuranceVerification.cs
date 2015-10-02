@@ -25,7 +25,7 @@ namespace Domain.Verification
             Request = command.RequestDraft ??  new VerificationRequest();
             Status = VerificationRequestStatus.Draft;
 
-            RecordEvent(new Started
+            RecordEvent(new CallStarted
             {
                 PatientId = command.PatientId,
                 Request = command.RequestDraft

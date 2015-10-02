@@ -37,14 +37,23 @@
     She submits for approval the verification back to Rob
     Rob reviews and completes verification
     
-    SubmitVerificationRequest
-    DelegateVerificationRequest
-    StartVerification
-    CompleteVerification
-    SubmitVerificationForApproval
-    ApproveVerification
-    RejectVerificationRequest
+    ----
 
+    Create
+    UpdateRequestDraft
+    Update (Save)
+
+    SubmitRequest
+    DelegateRequest
+    RejectRequest (keep reference to previous verification work?)
+    StartVerification (is this StartCall/EndCall?)
+    SubmitForApproval
+    Complete
+
+    StartCall
+    EndCall
+
+    ----
 
     verificationdetails page:
         Should only be a "Start Call" button

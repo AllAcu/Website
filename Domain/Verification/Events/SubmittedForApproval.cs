@@ -4,13 +4,11 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class DraftUpdated : Event<InsuranceVerification>
+        public class SubmittedForApproval : Event<InsuranceVerification>
         {
-            public VerificationRequest Request { get; set; }
-
             public override void Update(InsuranceVerification verification)
             {
-                verification.Request = Request;
+                
             }
         }
     }

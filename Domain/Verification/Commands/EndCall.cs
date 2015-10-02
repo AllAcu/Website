@@ -4,7 +4,7 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class Complete : Command<InsuranceVerification>
+        public class EndCall : Command<InsuranceVerification>
         {
         }
     }
