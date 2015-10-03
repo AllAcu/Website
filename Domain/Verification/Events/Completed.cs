@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.Verification
 {
@@ -6,6 +7,9 @@ namespace Domain.Verification
     {
         public class Completed : Event<InsuranceVerification>
         {
+            public Guid ApproverUserId { get; set; }
+            public string Comments { get; set; }
+
             public override void Update(InsuranceVerification verification)
             {
                 verification.Status = VerificationRequestStatus.Approved;
@@ -13,6 +17,7 @@ namespace Domain.Verification
                 //var patient = provider.GetPatient(verification.PatientId);
                 //patient.InsurancePolicies.Last().Benefits = verification.Benefits;
             }
+
         }
     }
 }

@@ -60,7 +60,7 @@ namespace AllAcu
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>,
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientContactInformationUpdated>,
         IUpdateProjectionWhen<Domain.CareProvider.CareProvider.InsuranceUpdated>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.CallStarted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.NewVerification>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Completed>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestRejected>
@@ -157,18 +157,6 @@ namespace AllAcu
             return dbContext.Patients.First(p => p.PatientId == patientId);
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.CallStarted @event)
-        {
-            var patient = GetPatient(@event.PatientId);
-            patient.CurrentVerification = new Patient.LatestVerification
-            {
-                Id = @event.AggregateId,
-                Status = "Draft"
-            };
-
-            dbContext.SaveChanges();
-        }
-
         public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestSubmitted @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
@@ -192,6 +180,18 @@ namespace AllAcu
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             var patient = GetPatient(verification.PatientId);
             patient.CurrentVerification.Status = "Draft";
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.NewVerification @event)
+        {
+            var patient = GetPatient(@event.PatientId);
+            patient.CurrentVerification = new Patient.LatestVerification
+            {
+                Id = @event.AggregateId,
+                Status = "Draft"
+            };
 
             dbContext.SaveChanges();
         }

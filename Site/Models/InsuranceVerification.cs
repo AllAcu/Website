@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Verification;
 using Microsoft.Its.Domain;
@@ -29,24 +30,61 @@ namespace AllAcu
             public string PatientInsurancePolicy { get; set; }
         }
 
-        public string Approval { get; set; }
+        public class VerificationCall
+        {
+            public DateTimeOffset StartTime { get; set; }
+            public DateTimeOffset EndTime { get; set; }
+            public string ServiceCenterRepresentative { get; set; }
+            public string ReferenceNumber { get; set; }
+            public string Result { get; set; }
+            public string Comments { get; set; }
+        }
+
+        public class Assignment
+        {
+            public DateTimeOffset AssignmentDate { get; set; }
+            public User AssignedTo { get; set; }
+            public string Comments { get; set; }
+        }
+
+        public class BillerApproval
+        {
+            public DateTimeOffset ApprovalDate { get; set; }
+            public User Approver { get; set; }
+        }
+
         public string ServiceCenterRepresentative { get; set; }
         public string CallReferenceNumber { get; set; }
         public string CallTime { get; set; }
         public virtual CareProvider Provider { get; set; }
         public virtual User AssignedTo { get; set; }
-        public DateTimeOffset? ApprovedTimestamp { get; set; }
+        public DateTimeOffset AssignmentTime { get; set; }
+        public CallList CallHistory { get; set; } = new CallList();
+        public AssignmentList AssignmentHistory { get; set; } = new AssignmentList();
+        public virtual BillerApproval Approval { get; set; }
+        public string RejectionReason { get; set; }
+
+        public class CallList : SerialList<VerificationCall>
+        {
+        }
+        public class AssignmentList : SerialList<Assignment>
+        {
+        }
     }
 
+
     public class InsuranceVerificationEventHandler :
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.NewVerification>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.CallEnded>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.CallStarted>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Completed>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Delegated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.DraftUpdated>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestSubmitted>,
-        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Updated>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Completed>,
         IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.RequestRejected>,
-        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Delegated>
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.SubmittedForApproval>,
+        IUpdateProjectionWhen<Domain.Verification.InsuranceVerification.Updated>,
+        IUpdateProjectionWhen<Domain.CareProvider.CareProvider.PatientInformationUpdated>
     {
         private readonly AllAcuSiteDbContext dbContext;
 
@@ -55,14 +93,14 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.CallStarted @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.NewVerification @event)
         {
             var request = new InsuranceVerification
             {
                 PatientId = @event.PatientId,
                 VerificationId = @event.AggregateId,
                 Provider = dbContext.Patients.Find(@event.PatientId).Provider,
-                Request = @event.Request ?? new VerificationRequest(),
+                Request = @event.RequestDraft ?? new VerificationRequest(),
                 Status = "Draft"
             };
 
@@ -71,10 +109,70 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.CallStarted @event)
+        {
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Status = "Call Started";
+
+            verification.CallHistory.Add(new InsuranceVerification.VerificationCall
+            {
+                StartTime = @event.TimeStarted,
+                ServiceCenterRepresentative = @event.ServiceCenterRepresentative
+            });
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.CallEnded @event)
+        {
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Status = "Call Started";
+
+            var call = verification.CallHistory.Last();
+            call.EndTime = @event.TimeEnded;
+            call.Comments = @event.Comments;
+            call.Result = @event.Result;
+            call.ServiceCenterRepresentative = @event.ServiceCenterRepresentative;
+            call.ReferenceNumber = @event.ReferenceNumber;
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.Completed @event)
+        {
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Status = "Complete";
+            verification.Approval = new InsuranceVerification.BillerApproval
+            {
+                ApprovalDate = @event.Timestamp,
+                Approver = dbContext.Users.Find(@event.ApproverUserId)
+            };
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.Delegated @event)
+        {
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.AssignedTo = dbContext.Users.Find(@event.AssignedToUserId);
+            verification.AssignmentTime = @event.Timestamp;
+
+            dbContext.SaveChanges();
+        }
+
         public void UpdateProjection(Domain.Verification.InsuranceVerification.DraftUpdated @event)
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             verification.Request = @event.Request;
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestRejected @event)
+        {
+            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
+            verification.Status = "Rejected";
+            verification.RejectionReason = @event.Reason;
 
             dbContext.SaveChanges();
         }
@@ -109,16 +207,19 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Domain.CareProvider.CareProvider.PatientInformationUpdated @event)
+        public void UpdateProjection(Domain.Verification.InsuranceVerification.SubmittedForApproval @event)
         {
-            var verification = dbContext.Verifications.SingleOrDefault(f => f.PatientId == @event.PatientId);
-
-            if (verification != null)
+            var verification = dbContext.Verifications.Find(@event.AggregateId);
+            verification.Status = "Needs Approval";
+            verification.AssignmentTime = @event.Timestamp;
+            verification.AssignmentHistory.Add(new InsuranceVerification.Assignment
             {
-                verification.Patient.PatientName = @event.UpdatedName ?? verification.Patient.PatientName;
-                verification.Patient.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
-                                                  verification.Patient.PatientDateOfBirth;
-            }
+                AssignedTo = dbContext.Users.Find(@event.AssignedToUserId),
+                Comments = @event.Comments,
+                AssignmentDate = @event.Timestamp
+            });
+
+            dbContext.SaveChanges();
         }
 
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Updated @event)
@@ -129,28 +230,16 @@ namespace AllAcu
             dbContext.SaveChanges();
         }
 
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.Completed @event)
+        public void UpdateProjection(Domain.CareProvider.CareProvider.PatientInformationUpdated @event)
         {
-            var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.Status = "Approved";
+            var verification = dbContext.Verifications.SingleOrDefault(f => f.PatientId == @event.PatientId);
 
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.RequestRejected @event)
-        {
-            var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
-            verification.Status = "Draft";
-
-            dbContext.SaveChanges();
-        }
-
-        public void UpdateProjection(Domain.Verification.InsuranceVerification.Delegated @event)
-        {
-            var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.AssignedTo = dbContext.Users.Find(@event.UserId);
-
-            dbContext.SaveChanges();
+            if (verification != null)
+            {
+                verification.Patient.PatientName = @event.UpdatedName ?? verification.Patient.PatientName;
+                verification.Patient.PatientDateOfBirth = @event.UpdatedDateOfBirth?.ToShortDateString() ??
+                                                          verification.Patient.PatientDateOfBirth;
+            }
         }
     }
 }

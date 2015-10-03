@@ -26,9 +26,18 @@ namespace AllAcu
         {
             modelBuilder.Entity<Patient>()
                 .HasKey(i => i.PatientId);
+
             modelBuilder.Entity<InsuranceVerification>()
                 .HasKey(i => i.VerificationId)
                 .HasOptional(i => i.AssignedTo);
+
+            modelBuilder.Entity<InsuranceVerification>()
+                .Property(v => v.CallHistory.Serialized)
+                .HasColumnName("CallHistory");
+
+            modelBuilder.Entity<InsuranceVerification>()
+                .Property(v => v.AssignmentHistory.Serialized)
+                .HasColumnName("AssignmentHistory");
 
             modelBuilder.Entity<OutstandingConfirmation>()
                 .HasKey(i => i.UserId);
@@ -100,6 +109,9 @@ namespace AllAcu
                 .WithMany(p => p.Users);
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
+            modelBuilder.ComplexType<InsuranceVerification.BillerApproval>();
+            modelBuilder.ComplexType<InsuranceVerification.Assignment>();
+            modelBuilder.ComplexType<InsuranceVerification.VerificationCall>();
             modelBuilder.ComplexType<Benefits>();
             modelBuilder.ComplexType<Patient.LatestVerification>();
 

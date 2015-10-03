@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.Verification
 {
@@ -6,8 +7,8 @@ namespace Domain.Verification
     {
         public class StartCall : Command<InsuranceVerification>
         {
-            public Benefits Benefits { get; set; }
-            public InsuranceCompanyCall ApprovalCall { get; set; }
+            public string ServiceCenterRepresentative { get; set; }
+            public DateTimeOffset? TimeStarted { get; set; }
         }
     }
 }

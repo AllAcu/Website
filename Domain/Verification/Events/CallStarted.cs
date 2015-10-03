@@ -7,8 +7,8 @@ namespace Domain.Verification
     {
         public class CallStarted : Event<InsuranceVerification>
         {
-            public Guid PatientId { get; set; }
-            public VerificationRequest Request { get; set; }
+            public string ServiceCenterRepresentative { get; set; }
+            public DateTimeOffset TimeStarted { get; set; }
 
             public override void Update(InsuranceVerification verification)
             {

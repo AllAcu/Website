@@ -7,14 +7,14 @@ namespace Domain.Verification
     {
         public class Delegated : Event<InsuranceVerification>
         {
-            public Guid UserId { get; set; }
+            public Guid AssignedToUserId { get; set; }
             public string Comments { get; set; }
 
             public override void Update(InsuranceVerification verification)
             {
                 verification.Assignment = new VerificationAssignment
                 {
-                    UserId = UserId,
+                    UserId = AssignedToUserId,
                     Comments = Comments
                 };
             }

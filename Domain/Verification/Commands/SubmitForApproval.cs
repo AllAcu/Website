@@ -1,4 +1,5 @@
-﻿using Microsoft.Its.Domain;
+﻿using System;
+using Microsoft.Its.Domain;
 
 namespace Domain.Verification
 {
@@ -6,8 +7,10 @@ namespace Domain.Verification
     {
         public class SubmitForApproval : Command<InsuranceVerification>
         {
+            public Guid AssignedToUserId { get; set; }
             public Benefits Benefits { get; set; }
             public string Comments { get; set; }
+            public string Result { get; set; }
         }
     }
 }

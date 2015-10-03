@@ -139,7 +139,7 @@
     <Compile Include="Verification\Commands\UpdateRequestDraft.cs" />
     <Compile Include="Verification\Events\CallEnded.cs" />
     <Compile Include="Verification\Events\Delegated.cs" />
-    <Compile Include="Verification\Events\ReturnedToProvider.cs" />
+    <Compile Include="Verification\Events\NewVerification.cs" />
     <Compile Include="Verification\Events\RequestRejected.cs" />
     <Compile Include="Verification\Events\SubmittedForApproval.cs" />
     <Compile Include="Verification\VerificationRequest.cs" />

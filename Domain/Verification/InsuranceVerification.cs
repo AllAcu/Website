@@ -21,14 +21,10 @@ namespace Domain.Verification
 
         public InsuranceVerification(Create command) : base(command.AggregateId)
         {
-            PatientId = command.PatientId;
-            Request = command.RequestDraft ??  new VerificationRequest();
-            Status = VerificationRequestStatus.Draft;
-
-            RecordEvent(new CallStarted
+            RecordEvent(new NewVerification
             {
                 PatientId = command.PatientId,
-                Request = command.RequestDraft
+                RequestDraft = command.RequestDraft ?? new VerificationRequest()
             });
         }
 

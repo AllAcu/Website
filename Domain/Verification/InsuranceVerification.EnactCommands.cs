@@ -10,7 +10,7 @@ namespace Domain.Verification
     {
         public class VerificationCommandHandler :
             ICommandHandler<InsuranceVerification, Complete>,
-            ICommandHandler<InsuranceVerification, DelegateRequest>,
+            ICommandHandler<InsuranceVerification, Delegate>,
             ICommandHandler<InsuranceVerification, EndCall>,
             ICommandHandler<InsuranceVerification, RejectRequest>,
             ICommandHandler<InsuranceVerification, StartCall>,
@@ -21,21 +21,36 @@ namespace Domain.Verification
         {
             public async Task EnactCommand(InsuranceVerification verification, Complete command)
             {
-                verification.RecordEvent(new Completed());
+                verification.RecordEvent(new Completed()
+                {
+                    Comments = command.Comments
+                });
             }
 
-            public async Task EnactCommand(InsuranceVerification verification, DelegateRequest command)
+            public async Task EnactCommand(InsuranceVerification verification, Delegate command)
             {
                 verification.RecordEvent(new Delegated
                 {
-                    UserId = command.AssignedToUserId,
+                    AssignedToUserId = command.AssignedToUserId,
                     Comments = command.Comments
                 });
             }
 
             public async Task EnactCommand(InsuranceVerification verification, EndCall command)
             {
-                verification.RecordEvent(new CallEnded());
+                verification.RecordEvent(new Updated
+                {
+                    Benefits = command.Benefits
+                });
+
+                verification.RecordEvent(new CallEnded
+                {
+                    ServiceCenterRepresentative = command.ServiceCenterRepresentative,
+                    ReferenceNumber = command.ReferenceNumber,
+                    TimeEnded = command.TimeEnded ?? DateTimeOffset.UtcNow,
+                    Result = command.Result,
+                    Comments = command.Comments
+                });
             }
 
             public async Task EnactCommand(InsuranceVerification verification, RejectRequest command)
@@ -48,24 +63,31 @@ namespace Domain.Verification
 
             public async Task EnactCommand(InsuranceVerification verification, StartCall command)
             {
-                if (command.Benefits != null)
+                verification.RecordEvent(new CallStarted
                 {
-                    verification.RecordEvent(new Updated
-                    {
-                        Benefits = command.Benefits
-                    });
-                }
-
-                verification.RecordEvent(new Completed());
+                    ServiceCenterRepresentative = command.ServiceCenterRepresentative,
+                    TimeStarted = command.TimeStarted ?? DateTimeOffset.UtcNow
+                });
             }
 
             public async Task EnactCommand(InsuranceVerification verification, SubmitForApproval command)
             {
-                verification.RecordEvent(new SubmittedForApproval());
+                verification.RecordEvent(new Updated
+                {
+                    Benefits = command.Benefits
+                });
+
+                verification.RecordEvent(new SubmittedForApproval
+                {
+                    AssignedToUserId = command.AssignedToUserId,
+                    Comments = command.Comments,
+                    Result = command.Result
+                });
             }
 
             public async Task EnactCommand(InsuranceVerification verification, SubmitRequest command)
             {
+                verification.RecordEvent(new DraftUpdated { Request = command.Request });
                 verification.RecordEvent(new RequestSubmitted());
             }
 
@@ -89,7 +111,7 @@ namespace Domain.Verification
             {
             }
 
-            public async Task HandleScheduledCommandException(InsuranceVerification verification, CommandFailed<DelegateRequest> command)
+            public async Task HandleScheduledCommandException(InsuranceVerification verification, CommandFailed<Delegate> command)
             {
             }
 
