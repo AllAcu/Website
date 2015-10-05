@@ -10,7 +10,7 @@ namespace Domain.Verification
 
             public override void Update(InsuranceVerification verification)
             {
-                verification.Status = VerificationRequestStatus.Draft;
+                verification.Status = VerificationRequestStatus.Rejected;
             }
         }
     }

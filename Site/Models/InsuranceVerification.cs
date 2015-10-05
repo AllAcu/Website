@@ -11,6 +11,7 @@ namespace AllAcu
         public Guid VerificationId { get; set; }
         public Guid PatientId { get; set; }
         public string Status { get; set; }
+        public string ProviderStatus { get; set; }
 
         public VerificationRequest Request { get; set; }
         public PatientInfo Patient { get; set; } = new PatientInfo();
@@ -101,7 +102,8 @@ namespace AllAcu
                 VerificationId = @event.AggregateId,
                 Provider = dbContext.Patients.Find(@event.PatientId).Provider,
                 Request = @event.RequestDraft ?? new VerificationRequest(),
-                Status = "Draft"
+                Status = "Draft",
+                ProviderStatus = "Draft"
             };
 
             dbContext.Verifications.Add(request);
@@ -141,7 +143,8 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.Completed @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.Status = "Complete";
+            verification.Status = "Verified";
+            verification.ProviderStatus = "Verified";
             verification.Approval = new InsuranceVerification.BillerApproval
             {
                 ApprovalDate = @event.Timestamp,
@@ -156,6 +159,7 @@ namespace AllAcu
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             verification.AssignedTo = dbContext.Users.Find(@event.AssignedToUserId);
             verification.AssignmentTime = @event.Timestamp;
+            verification.Status = "Assigned";
 
             dbContext.SaveChanges();
         }
@@ -172,6 +176,7 @@ namespace AllAcu
         {
             var verification = dbContext.Verifications.First(f => f.VerificationId == @event.AggregateId);
             verification.Status = "Rejected";
+            verification.ProviderStatus = "Missing Information";
             verification.RejectionReason = @event.Reason;
 
             dbContext.SaveChanges();
@@ -184,6 +189,7 @@ namespace AllAcu
             var provider = patient.Provider;
 
             verification.Status = "Submitted";
+            verification.ProviderStatus = "Submitted";
             verification.Patient = new InsuranceVerification.PatientInfo
             {
                 InsuranceCarrier = patient.MedicalInsurance != null
@@ -210,7 +216,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.SubmittedForApproval @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.Status = "Needs Approval";
+            verification.Status = "Pending Approval";
             verification.AssignmentTime = @event.Timestamp;
             verification.AssignmentHistory.Add(new InsuranceVerification.Assignment
             {

@@ -12,12 +12,8 @@ namespace Domain.Verification
 
             public override void Update(InsuranceVerification verification)
             {
-                verification.Status = VerificationRequestStatus.Approved;
-
-                //var patient = provider.GetPatient(verification.PatientId);
-                //patient.InsurancePolicies.Last().Benefits = verification.Benefits;
+                verification.Status = VerificationRequestStatus.Verified;
             }
-
         }
     }
 }

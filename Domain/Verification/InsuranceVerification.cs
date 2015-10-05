@@ -9,7 +9,8 @@ namespace Domain.Verification
         public Guid PatientId { get; set; }
         public VerificationRequest Request { get; set; } = new VerificationRequest();
         public VerificationRequestStatus Status { get; set; } = VerificationRequestStatus.Draft;
-        public VerificationAssignment Assignment { get; set; }
+        public Guid AssignedTo { get; set; }
+        public Benefits Benefits { get; set; }
 
         public InsuranceVerification(Guid? id = default(Guid?)) : base(id)
         {
@@ -26,12 +27,6 @@ namespace Domain.Verification
                 PatientId = command.PatientId,
                 RequestDraft = command.RequestDraft ?? new VerificationRequest()
             });
-        }
-
-        public class VerificationAssignment
-        {
-            public Guid UserId { get; set; }
-            public string Comments { get; set; }
         }
     }
 }

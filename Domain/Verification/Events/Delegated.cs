@@ -12,11 +12,7 @@ namespace Domain.Verification
 
             public override void Update(InsuranceVerification verification)
             {
-                verification.Assignment = new VerificationAssignment
-                {
-                    UserId = AssignedToUserId,
-                    Comments = Comments
-                };
+                verification.AssignedTo = AssignedToUserId;
             }
         }
     }
