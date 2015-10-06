@@ -45,54 +45,65 @@
                                 verification.patientName = verification.patient.Name;
                             });
                     },
-                    update: function (verificationId, verification) {
-                        return $http.put("/api/insurance/verification/{verificationId}".replace("{verificationId}", verificationId), {
-                            benefits: verification.benefits
-                        }
-                        );
-                    },
-                    assign: function(verificationId, user) {
-                        return $http.post("/api/insurance/verification/{verificationId}/assign".replace("{verificationId}", verificationId), {
-                            userId: user.userId,
-                            comments: "from the chooser"
-                        });
-                    },
-                    approve: function (verificationId, verification) {
-                        return $http.post("/api/insurance/verification/{verificationId}/approve"
-                            .replace("{verificationId}", verificationId), {
-                                benefits: verification.benefits
-                            });
-                    },
-                    revise: function (verificationId, reason) {
-                        return $http.post("/api/insurance/verification/{verificationId}/revise"
-                            .replace("{verificationId}", verificationId), {
-                                reason: reason
-                            });
-                    }
-                },
-                verificationRequests: {
                     start: function (patientId, request) {
                         return $http.post("/api/{PatientId}/insurance/verification/request"
                             .replace("{PatientId}", patientId), {
                                 requestDraft: request
                             });
                     },
-                    submitNew: function (patientId, request) {
-                        return $http.post("/api/{PatientId}/insurance/verification/submit"
-                            .replace("{PatientId}", patientId), {
-                                request: request
-                            });
-                    },
-                    update: function (verificationId, request) {
+                    updateRequest: function (verificationId, request) {
                         return $http.put("/api/insurance/verification/{VerificationId}/request"
                             .replace("{VerificationId}", verificationId), {
                                 requestDraft: request
                             });
                     },
-                    submit: function (verificationId, request) {
-                        return $http.post("/api/insurance/verification/{VerificationId}/submit"
+                    submitNewRequest: function (patientId, request) {
+                        return $http.post("/api/{PatientId}/insurance/verification/submitRequest"
+                            .replace("{PatientId}", patientId), {
+                                request: request
+                            });
+                    },
+                    submitRequest: function (verificationId, request) {
+                        return $http.post("/api/insurance/verification/{VerificationId}/submitRequest"
                             .replace("{VerificationId}", verificationId), {
                                 request: request
+                            });
+                    },
+                    reject: function (verificationId, reason) {
+                        return $http.post("/api/insurance/verification/{verificationId}/rejectRequest"
+                            .replace("{verificationId}", verificationId), {
+                                reason: reason
+                            });
+                    },
+                    delegate: function (verificationId, assignTo) {
+                        return $http.post("/api/insurance/verification/{verificationId}/delegate"
+                            .replace("{verificationId}", verificationId), {
+                                userId: assignTo,
+                                comments: "from the chooser"
+                            });
+                    },
+                    startCall: function (verificationId) {
+                        return $http.post("/api/insurance/verification/{VerificationId}/startCall"
+                            .replace("{verificationId}", verificationId));
+                    },
+                    update: function (verificationId, verification) {
+                        return $http.put("/api/insurance/verification/{verificationId}"
+                            .replace("{verificationId}", verificationId), {
+                                benefits: verification.benefits
+                            });
+                    },
+                    endCall: function (verificationId) {
+                        return $http.post("insurance/verification/{VerificationId}/endCall")
+                            .replace("{verificationId}", verificationId);
+                    },
+                    submitForApproval: function (verificationId) {
+                        return $http.post("insurance/verification/{VerificationId}/submitForApproval")
+                            .replace("{verificationId}", verificationId);
+                    },
+                    complete: function (verificationId, verification) {
+                        return $http.post("/api/insurance/verification/{verificationId}/complete"
+                            .replace("{verificationId}", verificationId), {
+                                benefits: verification.benefits
                             });
                     }
                 },
@@ -124,10 +135,10 @@
                     leave: function (userId, providerId) {
                         return $http.post('/api/provider/' + providerId + "/leave", { userId: userId });
                     },
-                    grantRole: function(userId, providerId, role) {
-                        return $http.post('/api/provider/' + providerId + "/grant", { userId: userId, roles: [ role ] });
+                    grantRole: function (userId, providerId, role) {
+                        return $http.post('/api/provider/' + providerId + "/grant", { userId: userId, roles: [role] });
                     },
-                    revokeRole: function(userId, providerId, role) {
+                    revokeRole: function (userId, providerId, role) {
                         return $http.post('/api/provider/' + providerId + "/revoke", { userId: userId, roles: [role] });
                     }
                 },
@@ -135,16 +146,16 @@
                     get: function () {
                         return $http.get("/api/biller");
                     },
-                    invite: function(email, role) {
+                    invite: function (email, role) {
                         return $http.post("/api/user/inviteToBiller", {
                             role: role,
                             email: email
                         });
                     },
-                    grantRole: function(userId, role) {
-                        return $http.post('/api/biller/grant', { userId: userId, roles: [ role ] });
+                    grantRole: function (userId, role) {
+                        return $http.post('/api/biller/grant', { userId: userId, roles: [role] });
                     },
-                    revokeRole: function(userId, role) {
+                    revokeRole: function (userId, role) {
                         return $http.post('/api/biller/revoke', { userId: userId, roles: [role] });
                     }
                 },
@@ -180,10 +191,10 @@
                             organizationId: providerId
                         });
                     },
-                    getInvites: function(userId) {
+                    getInvites: function (userId) {
                         return $http.get("/api/user/{id}/invites".replace("{id}", userId));
                     },
-                    accept: function(userId, providerId) {
+                    accept: function (userId, providerId) {
                         return $http.post("/api/user/{id}/accept".replace("{id}", userId),
                         {
                             organizationId: providerId
@@ -196,7 +207,7 @@
                             token: token
                         });
                     },
-                    getConfirmations: function() {
+                    getConfirmations: function () {
                         return $http.get("/api/user/confirmations");
                     }
                 }

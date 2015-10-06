@@ -44,7 +44,7 @@ namespace AllAcu.Controllers.api
             return Ok(content.Where(v => v.Provider.Id == currentProviderId.Value).ToArray());
         }
 
-        [Route("insurance/verification/{VerificationId}")]
+        [Route("insurance/verification/{VerificationId}"), HttpGet]
         public InsuranceVerification GetVerification(Guid verificationId)
         {
             return dbContext.Verifications.Find(verificationId);
@@ -62,38 +62,8 @@ namespace AllAcu.Controllers.api
             return verification.Id;
         }
 
-        [Route("insurance/verification/{VerificationId}/startCall"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.StartCall command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/endCall"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.EndCall command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/complete"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Complete command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/delegate"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Delegate command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/rejectRequest"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.RejectRequest command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/submitForApproval"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitForApproval command)
+        [Route("insurance/verification/{VerificationId}/request"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
         {
             await ApplyCommandToVerification(verificationId, command);
         }
@@ -103,27 +73,6 @@ namespace AllAcu.Controllers.api
         {
             await ApplyCommandToVerification(verificationId, command);
         }
-
-        private async Task ApplyCommandToVerification<TCommand>(Guid verificationId, TCommand command)
-            where TCommand : Command<Domain.Verification.InsuranceVerification>
-        {
-            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
-            await command.ApplyToAsync(verification);
-            await verificationEventSourcedRepository.Save(verification);
-        }
-
-        [Route("insurance/verification/{VerificationId}/Update"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
-        [Route("insurance/verification/{VerificationId}/UpdateRequestDraft"), HttpPost]
-        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.UpdateRequestDraft command)
-        {
-            await ApplyCommandToVerification(verificationId, command);
-        }
-
 
         [Route("{PatientId}/insurance/verification/submit"), HttpPost]
         public async Task AcceptPatientCommand(Guid patientId, Domain.Verification.InsuranceVerification.SubmitRequest command)
@@ -138,6 +87,56 @@ namespace AllAcu.Controllers.api
 
             var verification = new Domain.Verification.InsuranceVerification(createCommmand);
 
+            await command.ApplyToAsync(verification);
+            await verificationEventSourcedRepository.Save(verification);
+        }
+
+        [Route("insurance/verification/{VerificationId}/rejectRequest"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.RejectRequest command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}/delegate"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Delegate command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}/startCall"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.StartCall command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}/endCall"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.EndCall command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}/submitForApproval"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.SubmitForApproval command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        [Route("insurance/verification/{VerificationId}/complete"), HttpPost]
+        public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Complete command)
+        {
+            await ApplyCommandToVerification(verificationId, command);
+        }
+
+        private async Task ApplyCommandToVerification<TCommand>(Guid verificationId, TCommand command)
+            where TCommand : Command<Domain.Verification.InsuranceVerification>
+        {
+            var verification = await verificationEventSourcedRepository.GetLatest(verificationId);
             await command.ApplyToAsync(verification);
             await verificationEventSourcedRepository.Save(verification);
         }

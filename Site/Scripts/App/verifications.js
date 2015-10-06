@@ -6,12 +6,12 @@
             var patientId = $routeParams["patientId"];
 
             $scope.save = function () {
-                $api.verificationRequests.start(patientId, $scope.request).success(function () {
+                $api.verifications.start(patientId, $scope.request).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }
             $scope.submit = function () {
-                $api.verificationRequests.submitNew(patientId, $scope.request)
+                $api.verification.submitNewRequest(patientId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
@@ -30,13 +30,13 @@
                 });
 
             $scope.save = function () {
-                $api.verificationRequests.update(verificationId, $scope.request)
+                $api.verifications.updateRequest(verificationId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
             };
             $scope.submit = function () {
-                $api.verificationRequests.submit(verificationId, $scope.request)
+                $api.verifications.submitRequest(verificationId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
@@ -149,13 +149,13 @@
             }
 
             $scope.complete = function () {
-                $api.verifications.approve(verificationId, $scope.verification).success(function () {
+                $api.verifications.complete(verificationId, $scope.verification).success(function () {
                     $location.path("/verifications");
                 });
             }
 
-            $scope.revise = function () {
-                $api.verifications.revise(verificationId, $scope.verification).success(function () {
+            $scope.reject = function () {
+                $api.verifications.reject(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }
@@ -165,7 +165,7 @@
             };
 
             $scope.save = function () {
-                $api.verifications.assign(verificationId, $scope.selectedUser);
+                $api.verifications.delegate(verificationId, $scope.selectedUser);
             }
         }
     ]);
