@@ -51,7 +51,7 @@ namespace AllAcu
         public class BillerApproval
         {
             public DateTimeOffset ApprovalDate { get; set; }
-            public User Approver { get; set; }
+            public string ApproverName { get; set; }
         }
 
         public string ServiceCenterRepresentative { get; set; }
@@ -62,7 +62,7 @@ namespace AllAcu
         public DateTimeOffset AssignmentTime { get; set; }
         public CallList CallHistory { get; set; } = new CallList();
         public AssignmentList AssignmentHistory { get; set; } = new AssignmentList();
-        public virtual BillerApproval Approval { get; set; }
+        public virtual BillerApproval Approval { get; set; } = new BillerApproval();
         public string RejectionReason { get; set; }
 
         public class CallList : SerialList<VerificationCall>
@@ -148,7 +148,7 @@ namespace AllAcu
             verification.Approval = new InsuranceVerification.BillerApproval
             {
                 ApprovalDate = @event.Timestamp,
-                Approver = dbContext.Users.Find(@event.ApproverUserId)
+                ApproverName = dbContext.Users.Find(@event.ApproverUserId).Name
             };
 
             dbContext.SaveChanges();

@@ -110,8 +110,6 @@ namespace AllAcu
 
             modelBuilder.ComplexType<InsuranceVerification.PatientInfo>();
             modelBuilder.ComplexType<InsuranceVerification.BillerApproval>();
-            modelBuilder.ComplexType<InsuranceVerification.Assignment>();
-            modelBuilder.ComplexType<InsuranceVerification.VerificationCall>();
             modelBuilder.ComplexType<Benefits>();
             modelBuilder.ComplexType<Patient.LatestVerification>();
 
