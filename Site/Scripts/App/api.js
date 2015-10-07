@@ -78,7 +78,7 @@
                     delegate: function (verificationId, assignTo) {
                         return $http.post("/api/insurance/verification/{verificationId}/delegate"
                             .replace("{verificationId}", verificationId), {
-                                userId: assignTo,
+                                assignToUserId: assignTo,
                                 comments: "from the chooser"
                             });
                     },

@@ -31,7 +31,7 @@ namespace Domain.Verification
             {
                 verification.RecordEvent(new Delegated
                 {
-                    AssignedToUserId = command.AssignedToUserId,
+                    AssignedToUserId = command.AssignToUserId,
                     Comments = command.Comments
                 });
             }

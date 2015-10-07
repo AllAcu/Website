@@ -7,7 +7,7 @@ namespace Domain.Verification
     {
         public class Delegate : Command<InsuranceVerification>
         {
-            public Guid AssignedToUserId { get; set; }
+            public Guid AssignToUserId { get; set; }
             public string Comments { get; set; }
         }
     }

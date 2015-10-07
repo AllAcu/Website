@@ -53,10 +53,17 @@
                 switch (verification.status) {
                     case "Draft":
                         return "#verification/" + verification.verificationId + "/edit";
+                    case "Assigned":
                     case "Submitted":
+                    case "PendingApproval":
                         return "#verification/" + verification.verificationId + "/verify";
                     case "Approved":
                         return "#verification/" + verification.verificationId + "/letter";
+                    case "Flagged":
+                    case "Verified":
+                        return "#verification/" + verification.verificationId + "/letter";
+                    case "Rejected":
+                        return "#verification/" + verification.verificationId + "/edit";
                 }
             };
 
@@ -82,7 +89,7 @@
                     patientId = data.patientId;
                 });
 
-            $scope.timeOnCall = function() {
+            $scope.timeOnCall = function () {
                 if ($scope.verification && $scope.verification.startTime) {
                     return Date() - startTime;
                 }
@@ -95,7 +102,7 @@
                 });
             }
 
-            $scope.startCall = function() {
+            $scope.startCall = function () {
                 console.log("Start Call");
             }
 
@@ -127,16 +134,16 @@
         "$scope", "$routeParams", "$api", "verificationRepository", function ($scope, $routeParams, $api, verifications) {
             var verificationId = $routeParams["verificationId"];
 
-            var actions = 
+            var actions =
                  [
                     { label: "assign", template: '/Templates/Verification/assign.html' },
                     //{ label: "approve", template: '/Templates/Verification/approve.html' },
                     //{ label: "reject", template: '/Templates/Verification/reject.html' },
                     { label: "complete", template: '/Templates/Verification/complete.html' },
                     { label: "startCall", template: '/Templates/Verification/startCall.html' }
-                ];
+                 ];
 
-            $scope.actions = function() { return actions; };
+            $scope.actions = function () { return actions; };
             $scope.currentAction = $scope.actions()[0];
 
             verifications.getVerification(verificationId)
@@ -165,7 +172,7 @@
             };
 
             $scope.save = function () {
-                $api.verifications.delegate(verificationId, $scope.selectedUser);
+                $api.verifications.delegate(verificationId, $scope.selectedUser.userId);
             }
         }
     ]);
