@@ -51,8 +51,8 @@
             }
 
             var actions = {
-                assign: { name: "Assign", handler: "assign" },
-                startCall: { name: "Start Call", handler: "dummy" },
+                assign: { name: "Assign", handler: "startAssignment" },
+                startCall: { name: "Start Call", handler: "startCall" },
                 endCall: { name: "End Call", handler: "dummy" },
                 save: { name: "Save", handler: "save" },
                 saveDraft: { name: "Save", handler: "saveDraft" },
@@ -83,7 +83,7 @@
                 console.log("Dummy callback");
             }
 
-            $scope.call = function (method) {
+            $scope.handleClick = function (method) {
                 $scope[method]();
             }
 
@@ -98,8 +98,12 @@
                     });
             };
 
-            $scope.assign = function() {
+            $scope.startAssignment = function () {
                 popup("/Templates/Verification/assign.html");
+            }
+
+            $scope.startCall = function () {
+                popup("/Templates/Verification/startCall.html");
             }
 
             $scope.save = function () {
@@ -108,22 +112,18 @@
                 });
             }
 
-            $scope.reject = function () {
-                $api.verifications.reject(verificationId, $scope.verification).success(function () {
-                    $location.path("/patient/" + patientId);
-                });
-            }
-
             function popup(templateUrl) {
-                $scope.templateUrl = templateUrl;
                 var modalInstance = $modal.open({
                     animation: true,
                     templateUrl: '/Templates/Verification/actions.html',
                     controller: 'verificationActions',
                     size: 'lg',
                     resolve: {
-                        items: function () {
-                            return $scope.items;
+                        template: function() {
+                            return templateUrl;
+                        },
+                        patientName: function () {
+                            return $scope.verification.patient.patientName;
                         }
                     }
                 });
@@ -153,29 +153,11 @@
     ]);
 
     module.controller('verificationActions', [
-        "$scope", "$routeParams", "$api", "verificationRepository", function ($scope, $routeParams, $api, verifications) {
+        "$scope", "$routeParams", "$api", "patientName", "template", function ($scope, $routeParams, $api, patientName, template) {
             var verificationId = $routeParams["verificationId"];
 
-            var actions =
-                 [
-                    { label: "assign", template: '/Templates/Verification/assign.html' },
-                    //{ label: "approve", template: '/Templates/Verification/approve.html' },
-                    //{ label: "reject", template: '/Templates/Verification/reject.html' },
-                    { label: "complete", template: '/Templates/Verification/complete.html' },
-                    { label: "startCall", template: '/Templates/Verification/startCall.html' }
-                 ];
-
-            $scope.actions = function () { return actions; };
-            $scope.currentAction = $scope.actions()[0];
-
-            verifications.getVerification(verificationId)
-                .success(function (data) {
-                    $scope.verification = data;
-                });
-
-            $scope.actionTemplate = function () {
-                return $scope.currentAction.template;
-            }
+            $scope.actionTemplate = template;
+            $scope.patientName = patientName;
 
             $scope.complete = function () {
                 $api.verifications.complete(verificationId, $scope.verification).success(function () {
@@ -187,7 +169,13 @@
                 $scope.selectedUser = user;
             };
 
-            $scope.save = function () {
+            $scope.reject = function () {
+                $api.verifications.reject(verificationId, $scope.verification).success(function () {
+                    $location.path("/patient/" + patientId);
+                });
+            }
+
+            $scope.assign = function () {
                 $api.verifications.delegate(verificationId, $scope.selectedUser.userId);
             }
         }

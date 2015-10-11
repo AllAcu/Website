@@ -3,5 +3,5 @@
     <ul class="list-unstyled">
         <li ng-repeat="user in users()" ng-click="select(user)" class="text-primary" ng-class="{'selected': selectedUser == user}">{{user.name}}</li>
     </ul>
-    <button ng-click="save()">Assign</button>
+    <button ng-click="assign()">Assign</button>
 </div>

@@ -1,6 +1,6 @@
 ﻿<div class="row navbar actions">
     <ul class="nav navbar-nav navbar-right">
-        <li ng-repeat="action in availableActions()"><input type="button" class="btn" value="{{action.name}}" ng-click="call(action.handler)"/></li>
+        <li ng-repeat="action in availableActions()"><input type="button" class="btn" value="{{action.name}}" ng-click="handleClick(action.handler)"/></li>
     </ul>
 </div>
 
