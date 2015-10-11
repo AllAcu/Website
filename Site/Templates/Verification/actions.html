@@ -1,12 +1,5 @@
 ﻿<div>
     <h2>{{verification.patient.patientName}}</h2>
-    <span>What would you like to do?</span>
 
-    <select class="form-control" ng-model="currentAction"
-            ng-model-options="{ getterSetter: true }"
-            ng-options="a.label for a in actions()"></select>
-
-    <div class="actions-content" ng-include="actionTemplate()">Actions</div>
-
-
+    <div class="actions-content" ng-include="actionTemplate()"></div>
 </div>

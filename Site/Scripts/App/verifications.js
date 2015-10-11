@@ -19,7 +19,7 @@
     ]);
 
     module.controller('verification', [
-        "$scope", "$routeParams", "$location", "verificationRepository", "$api", function ($scope, $routeParams, $location, verifications, $api) {
+        "$scope", "$routeParams", "$location", "$modal", "verificationRepository", "$api", function ($scope, $routeParams, $location, $modal, verifications, $api) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
 
@@ -51,7 +51,7 @@
             }
 
             var actions = {
-                assign: { name: "Assign", handler: "dummy" },
+                assign: { name: "Assign", handler: "assign" },
                 startCall: { name: "Start Call", handler: "dummy" },
                 endCall: { name: "End Call", handler: "dummy" },
                 save: { name: "Save", handler: "save" },
@@ -68,7 +68,7 @@
                     case "Submitted":
                         return [actions.assign];
                     case "Assigned":
-                        return [actions.startCall];
+                        return [actions.startCall, actions.assign];
                     case "In Progress":
                         return [actions.save, actions.endCall];
                     case "PendingApproval":
@@ -98,15 +98,24 @@
                     });
             };
 
+            $scope.assign = function() {
+                popup("/Templates/Verification/assign.html");
+            }
+
             $scope.save = function () {
                 $api.verifications.update(verificationId, $scope.verification).success(function () {
                     console.log("saved " + verificationId);
                 });
             }
 
-            $scope.actions = function () {
-                $scope.items = ["a", "b"];
+            $scope.reject = function () {
+                $api.verifications.reject(verificationId, $scope.verification).success(function () {
+                    $location.path("/patient/" + patientId);
+                });
+            }
 
+            function popup(templateUrl) {
+                $scope.templateUrl = templateUrl;
                 var modalInstance = $modal.open({
                     animation: true,
                     templateUrl: '/Templates/Verification/actions.html',
@@ -119,8 +128,8 @@
                     }
                 });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (result) {
+                    console.dir(result);
                 }, function () {
                     console.info('Modal dismissed at: ' + new Date());
                 });
@@ -171,12 +180,6 @@
             $scope.complete = function () {
                 $api.verifications.complete(verificationId, $scope.verification).success(function () {
                     $location.path("/verifications");
-                });
-            }
-
-            $scope.reject = function () {
-                $api.verifications.reject(verificationId, $scope.verification).success(function () {
-                    $location.path("/patient/" + patientId);
                 });
             }
 
