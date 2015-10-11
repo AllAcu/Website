@@ -119,6 +119,9 @@
                     controller: 'verificationActions',
                     size: 'lg',
                     resolve: {
+                        verification: function() {
+                            return $scope.verification;
+                        },
                         template: function() {
                             return templateUrl;
                         },
@@ -153,9 +156,9 @@
     ]);
 
     module.controller('verificationActions', [
-        "$scope", "$routeParams", "$api", "patientName", "template", function ($scope, $routeParams, $api, patientName, template) {
-            var verificationId = $routeParams["verificationId"];
-
+        "$scope", "$api", "verification", "patientName", "template", function ($scope, $api, verification, patientName, template) {
+            var verificationId = verification.id;
+            $scope.verification = verification;
             $scope.actionTemplate = template;
             $scope.patientName = patientName;
 
