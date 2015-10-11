@@ -1,30 +1,5 @@
 ﻿<div class="verification">
-    <div class="row navbar actions">
-        <ul class="nav navbar-nav navbar-right">
-            <li><input type="button" class="btn" value="Actions" ng-click="actions()" /></li>
-            <li><input type="button" class="btn" value="Start Call" ng-click="startCall()" /></li>
-        </ul>
-    </div>
     <div class="row">
-        <div class="sidebar col-sm-2" ng-show="falseS">
-            <div>
-                <div class="heading">
-                    <display-field label="Insurance Carrier" ng-model="verification.patient.insuranceCarrier"></display-field>
-                </div>
-                <display-field label="Phone #" ng-model="verification.patient.insurancePhoneNumber"></display-field>
-                <display-field label="Insurance Policy/ Plan" ng-model="verification.patient.patientInsurancePolicy"></display-field>
-            </div>
-            <div>
-                <div class="heading">
-                    <display-field label="Acupuncturist" ng-model="verification.patient.acupuncturist"></display-field>
-                </div>
-                <display-field label="NPI #" ng-model="verification.patient.acupuncturistNpiNumber"></display-field>
-                <display-field label="Tax ID #" ng-model="verification.patient.acupuncturistTaxId"></display-field>
-                <display-field label="Address" ng-model="verification.patient.acupuncturistAddress"></display-field>
-                <display-field label="Phone Number" ng-model="verification.patient.acupuncturistPhoneNumber"></display-field>
-            </div>
-        </div>
-
         <div class="col-sm-12">
             <h4>{{verification.patient.patientName}}</h4>
             <div>

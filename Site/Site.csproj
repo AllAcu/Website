@@ -355,10 +355,8 @@
     <Content Include="Templates\Users\signup.html" />
     <Content Include="Templates\Verification\actions.html" />
     <Content Include="Templates\Verification\insuranceVerification.html" />
-    <Content Include="Templates\Verification\startCall.html" />
-    <Content Include="Templates\Verification\approve.html" />
+    <Content Include="Templates\Verification\displayRequest.html" />
     <Content Include="Templates\Verification\complete.html" />
-    <Content Include="Templates\Verification\reject.html" />
     <Content Include="Templates\Verification\assign.html" />
     <Content Include="Templates\Verification\insuranceVerificationDetails.html" />
     <Content Include="Templates\Patients\intake.html" />

@@ -38,7 +38,7 @@
                     case "Submitted":
                         return "/Templates/Verification/verifyInsurance.html";
                     case "Assigned":
-                        return "/Templates/Verification/verifyInsurance.html";
+                        return "/Templates/Verification/displayRequest.html";
                     case "In Progress":
                         return "/Templates/Verification/verifyInsurance.html";
                     case "PendingApproval":
@@ -50,31 +50,45 @@
                 return "";
             }
 
-            $scope.availableActions = function () {
-                return ["assign", "startCall"];
+            var actions = {
+                assign: { name: "Assign", handler: "dummy" },
+                startCall: { name: "Start Call", handler: "dummy" },
+                endCall: { name: "End Call", handler: "dummy" },
+                save: { name: "Save", handler: "save" },
+                saveDraft: { name: "Save", handler: "saveDraft" },
+                approve: { name: "Approve", handler: "dummy" },
+                reject: { name: "Reject", handler: "dummy" }
             }
 
-            //switch (verification.status) {
-            //    case "Draft":
-            //    case "Rejected":
-            //        $scope.mode = "request";
-            //    case "Submitted":
-            //        $scope.mode = "unassigned";
-            //    case "Assigned":
-            //        $scope.mode = "ready";
-            //    case "In Progress":
-            //        $scope.mode = "verifying";
-            //    case "PendingApproval":
-            //        $scope.mode = "review";
-            //    case "Verified":
-            //        $scope.mode = "letter";
-            //}
+            $scope.availableActions = function () {
+                switch ($scope.verification && $scope.verification.status) {
+                    case "Draft":
+                    case "Rejected":
+                        return [actions.saveDraft];
+                    case "Submitted":
+                        return [actions.assign];
+                    case "Assigned":
+                        return [actions.startCall];
+                    case "In Progress":
+                        return [actions.save, actions.endCall];
+                    case "PendingApproval":
+                        return [actions.approve, actions.reject];
+                    case "Verified":
+                        return [];
+                }
+                return [];
+            }
+
+            $scope.dummy = function () {
+                console.log("Dummy callback");
+            }
+
+            $scope.call = function (method) {
+                $scope[method]();
+            }
 
             $scope.saveDraft = function () {
-                $api.verifications.updateRequest(verificationId, $scope.request)
-                    .success(function () {
-                        $location.path("/patient/" + patientId);
-                    });
+                $api.verifications.updateRequest(verificationId, $scope.request);
             };
 
             $scope.submit = function () {
@@ -88,10 +102,6 @@
                 $api.verifications.update(verificationId, $scope.verification).success(function () {
                     console.log("saved " + verificationId);
                 });
-            }
-
-            $scope.startCall = function () {
-                console.log("Start Call");
             }
 
             $scope.actions = function () {
