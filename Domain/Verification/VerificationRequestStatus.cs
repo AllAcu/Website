@@ -16,19 +16,19 @@ namespace Domain.Verification
             switch (value)
             {
                 case "Draft":
-                    return VerificationRequestStatus.Draft;
+                    return Draft;
                 case "Submitted":
-                    return VerificationRequestStatus.Submitted;
+                    return Submitted;
                 case "Assigned":
-                    return VerificationRequestStatus.Assigned;
+                    return Assigned;
+                case "InProgress":
+                    return InProgress;
                 case "PendingApproval":
-                    return VerificationRequestStatus.PendingApproval;
-                case "Flagged":
-                    return VerificationRequestStatus.Flagged;
+                    return PendingApproval;
                 case "Verified":
-                    return VerificationRequestStatus.Verified;
+                    return Verified;
                 case "Rejected":
-                    return VerificationRequestStatus.Rejected;
+                    return Rejected;
             }
             throw new ArgumentException($"Not a valid request status: {value}");
         }
@@ -36,8 +36,8 @@ namespace Domain.Verification
         public static readonly VerificationRequestStatus Draft = new VerificationRequestStatus("Draft");
         public static readonly VerificationRequestStatus Submitted = new VerificationRequestStatus("Submitted");
         public static readonly VerificationRequestStatus Assigned = new VerificationRequestStatus("Assigned");
+        public static readonly VerificationRequestStatus InProgress = new VerificationRequestStatus("InProgress");
         public static readonly VerificationRequestStatus PendingApproval = new VerificationRequestStatus("PendingApproval");
-        public static readonly VerificationRequestStatus Flagged = new VerificationRequestStatus("Flagged");
         public static readonly VerificationRequestStatus Verified = new VerificationRequestStatus("Verified");
         public static readonly VerificationRequestStatus Rejected = new VerificationRequestStatus("Rejected");
     }

@@ -354,6 +354,7 @@
     <Content Include="Templates\Patients\inputPersonalInjuryProtection.html" />
     <Content Include="Templates\Users\signup.html" />
     <Content Include="Templates\Verification\actions.html" />
+    <Content Include="Templates\Verification\insuranceVerification.html" />
     <Content Include="Templates\Verification\startCall.html" />
     <Content Include="Templates\Verification\approve.html" />
     <Content Include="Templates\Verification\complete.html" />

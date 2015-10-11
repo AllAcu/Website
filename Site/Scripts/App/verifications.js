@@ -2,12 +2,11 @@
 
     module.controller('verificationRequestCreate', [
         "$scope", "$routeParams", "$location", "$api", function ($scope, $routeParams, $location, $api) {
-
             var patientId = $routeParams["patientId"];
 
             $scope.save = function () {
-                $api.verifications.start(patientId, $scope.request).success(function () {
-                    $location.path("/patient/" + patientId);
+                $api.verifications.start(patientId, $scope.request).success(function (response) {
+                    $location.path("/verification/" + response);
                 });
             }
             $scope.submit = function () {
@@ -19,69 +18,10 @@
         }
     ]);
 
-    module.controller('verificationRequestEdit', [
+    module.controller('verification', [
         "$scope", "$routeParams", "$location", "verificationRepository", "$api", function ($scope, $routeParams, $location, verifications, $api) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
-            verifications.getVerification(verificationId)
-                .success(function (data) {
-                    $scope.request = data.request;
-                    patientId = data.patientId;
-                });
-
-            $scope.save = function () {
-                $api.verifications.updateRequest(verificationId, $scope.request)
-                    .success(function () {
-                        $location.path("/patient/" + patientId);
-                    });
-            };
-            $scope.submit = function () {
-                $api.verifications.submitRequest(verificationId, $scope.request)
-                    .success(function () {
-                        $location.path("/patient/" + patientId);
-                    });
-            };
-        }
-    ]);
-
-    module.controller('verifyInsuranceList', [
-        "$scope", "verificationRepository", function ($scope, repo) {
-
-            $scope.verifications = repo.verifications;
-
-            $scope.link = function (verification) {
-                switch (verification.status) {
-                    case "Draft":
-                        return "#verification/" + verification.verificationId + "/edit";
-                    case "Assigned":
-                    case "Submitted":
-                    case "PendingApproval":
-                        return "#verification/" + verification.verificationId + "/verify";
-                    case "Approved":
-                        return "#verification/" + verification.verificationId + "/letter";
-                    case "Flagged":
-                    case "Verified":
-                        return "#verification/" + verification.verificationId + "/letter";
-                    case "Rejected":
-                        return "#verification/" + verification.verificationId + "/edit";
-                }
-            };
-
-            $scope.refresh = function () {
-                repo.refresh();
-            }
-        }
-    ]);
-
-    module.controller('verifyInsurance', [
-        "$scope", "$routeParams", "$location", "$modal", "verificationRepository", "patientRepository", "$api", function ($scope, $routeParams, $location, $modal, verifications, patients, $api) {
-
-            var verificationId = $routeParams["verificationId"];
-            var patientId;
-
-            $scope.verification = {
-                isCovered: "true"
-            };
 
             verifications.getVerification(verificationId)
                 .success(function (data) {
@@ -89,12 +29,60 @@
                     patientId = data.patientId;
                 });
 
-            $scope.timeOnCall = function () {
-                if ($scope.verification && $scope.verification.startTime) {
-                    return Date() - startTime;
+            $scope.verificationTemplate = function () {
+
+                switch ($scope.verification && $scope.verification.status) {
+                    case "Draft":
+                    case "Rejected":
+                        return "/Templates/Verification/verifyInsuranceRequest.html";
+                    case "Submitted":
+                        return "/Templates/Verification/verifyInsurance.html";
+                    case "Assigned":
+                        return "/Templates/Verification/verifyInsurance.html";
+                    case "In Progress":
+                        return "/Templates/Verification/verifyInsurance.html";
+                    case "PendingApproval":
+                        return "/Templates/Verification/verifyInsurance.html";
+                    case "Verified":
+                        return "/Templates/Verification/insuranceVerificationLetter.html";
                 }
-                return "1:10";
+
+                return "";
             }
+
+            $scope.availableActions = function () {
+                return ["assign", "startCall"];
+            }
+
+            //switch (verification.status) {
+            //    case "Draft":
+            //    case "Rejected":
+            //        $scope.mode = "request";
+            //    case "Submitted":
+            //        $scope.mode = "unassigned";
+            //    case "Assigned":
+            //        $scope.mode = "ready";
+            //    case "In Progress":
+            //        $scope.mode = "verifying";
+            //    case "PendingApproval":
+            //        $scope.mode = "review";
+            //    case "Verified":
+            //        $scope.mode = "letter";
+            //}
+
+            $scope.saveDraft = function () {
+                $api.verifications.updateRequest(verificationId, $scope.request)
+                    .success(function () {
+                        $location.path("/patient/" + patientId);
+                    });
+            };
+
+            $scope.submit = function () {
+                $api.verifications.submitRequest(verificationId, $scope.request)
+                    .success(function () {
+                        $location.path("/patient/" + patientId);
+                    });
+            };
 
             $scope.save = function () {
                 $api.verifications.update(verificationId, $scope.verification).success(function () {
@@ -126,6 +114,21 @@
                 }, function () {
                     console.info('Modal dismissed at: ' + new Date());
                 });
+            }
+        }
+    ]);
+
+    module.controller('insuranceVerificationList', [
+        "$scope", "verificationRepository", function ($scope, repo) {
+
+            $scope.verifications = repo.verifications;
+
+            $scope.link = function (verification) {
+                return "#verification/" + verification.verificationId;
+            };
+
+            $scope.refresh = function () {
+                repo.refresh();
             }
         }
     ]);
@@ -185,26 +188,6 @@
             $api.users.getAll().success(function (data) {
                 users = data;
             });
-        }
-    ]);
-
-    module.controller('verificationDetails', [
-        "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
-            var verificationId = $routeParams["verificationId"];
-            verifications.getVerification(verificationId)
-                .success(function (data) {
-                    $scope.benefits = data.benefits;
-                });
-        }
-    ]);
-
-    module.controller('verificationLetter', [
-        "$scope", "$routeParams", "verificationRepository", function ($scope, $routeParams, verifications) {
-            var verificationId = $routeParams["verificationId"];
-            verifications.getVerification(verificationId)
-                .success(function (data) {
-                    $scope.benefits = data.benefits;
-                });
         }
     ]);
 

@@ -37,7 +37,7 @@
         <h3>Verification: {{patient.currentVerification.status || "None"}}</h3>
 
         <div ng-show="patient.medicalInsurance || patient.personalInjuryProtection">
-            <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/verification/start" class="btn btn-sm" ng-show="insuranceLinks.create()">Request insurance verification</a></div>
+            <div class="row"><a href="#/patient/{{patient.patientId}}/insurance/verification/request" class="btn btn-sm" ng-show="insuranceLinks.create()">Request insurance verification</a></div>
             <div class="row"><a href="#/verification/{{patient.currentVerification.id}}/edit" class="btn btn-sm" ng-show="insuranceLinks.editRequest()">Edit verification request</a></div>
             <div class="row"><a href="#/verification/{{patient.currentVerification.id}}/verify" class="btn btn-sm" ng-show="insuranceLinks.viewSubmitted()">View submitted verification</a></div>
             <div class="row"><a href="#/verification/{{patient.currentVerification.id}}/letter" class="btn btn-sm" ng-show="insuranceLinks.viewVerification()">View current verification</a></div>

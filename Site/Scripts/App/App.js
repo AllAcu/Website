@@ -71,7 +71,7 @@
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
                 })
-                .when('/patient/:patientId/insurance/verification/start', {
+                .when('/patient/:patientId/insurance/verification/request', {
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestCreate'
                 });
@@ -93,24 +93,12 @@
             $routeProvider
                 .when('/verifications', {
                     templateUrl: '/Templates/Verification/list.html',
-                    controller: 'verifyInsuranceList',
+                    controller: 'insuranceVerificationList',
                     canChangeProviders: true
                 })
                 .when('/verification/:verificationId', {
-                    templateUrl: '/Templates/Verification/insuranceVerificationDetails.html',
-                    controller: 'verificationDetails'
-                })
-                .when('/verification/:verificationId/letter', {
-                    templateUrl: '/Templates/Verification/insuranceVerificationLetter.html',
-                    controller: 'verificationLetter'
-                })
-                .when('/verification/:verificationId/edit', {
-                    templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
-                    controller: 'verificationRequestEdit'
-                })
-                .when('/verification/:verificationId/verify', {
-                    templateUrl: '/Templates/Verification/verifyInsurance.html',
-                    controller: 'verifyInsurance'
+                    templateUrl: '/Templates/Verification/insuranceVerification.html',
+                    controller: 'verification'
                 });
 
             $routeProvider

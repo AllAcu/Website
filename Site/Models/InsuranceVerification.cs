@@ -114,7 +114,7 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.CallStarted @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.Status = "Call Started";
+            verification.Status = "In Progress";
 
             verification.CallHistory.Add(new InsuranceVerification.VerificationCall
             {
