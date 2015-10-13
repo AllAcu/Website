@@ -31,11 +31,11 @@ li.providers {
     margin-left: 20px;
 }
 
-li.providers select {
-    display: inline-block;
-    width: auto;
-    margin-left: 10px;
-}
+    li.providers select {
+        display: inline-block;
+        width: auto;
+        margin-left: 10px;
+    }
 
 .footer {
     bottom: 0;
@@ -67,9 +67,11 @@ fieldset.question .checkbox {
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
-.assignment li:hover {
-    background-color: #eef;
-}
+
+    .assignment li:hover {
+        background-color: #eef;
+    }
+
 .assignment .selected {
     background-color: #ddf;
 }
@@ -109,4 +111,16 @@ fieldset.question .checkbox {
 
 .actions .timer {
     padding-left: 10px;
+}
+
+display-field {
+    padding-bottom: 10px;
+}
+
+display-field div.displayLabel {
+    font-weight: bold;
+}
+
+display-field div.displayValue {
+    padding-left: 15px;
 }

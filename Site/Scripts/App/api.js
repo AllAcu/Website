@@ -82,9 +82,9 @@
                                 comments: "from the chooser"
                             });
                     },
-                    startCall: function (verificationId) {
-                        return $http.post("/api/insurance/verification/{VerificationId}/startCall"
-                            .replace("{verificationId}", verificationId));
+                    startCall: function (verificationId, callData) {
+                        return $http.post("/api/insurance/verification/{verificationId}/startCall"
+                            .replace("{verificationId}", verificationId), callData);
                     },
                     update: function (verificationId, verification) {
                         return $http.put("/api/insurance/verification/{verificationId}"

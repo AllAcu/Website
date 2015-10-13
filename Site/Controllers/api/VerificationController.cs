@@ -109,7 +109,7 @@ namespace AllAcu.Controllers.api
             await ApplyCommandToVerification(verificationId, command);
         }
 
-        [Route("insurance/verification/{VerificationId}"), HttpPost]
+        [Route("insurance/verification/{VerificationId}"), HttpPut]
         public async Task AcceptCommand(Guid verificationId, Domain.Verification.InsuranceVerification.Update command)
         {
             await ApplyCommandToVerification(verificationId, command);

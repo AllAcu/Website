@@ -1,3 +1,13 @@
-﻿<h2>start call</h2>
+﻿<div ng-controller="verification.startCall">
+    <div class="well">
+        <display-field label="Insurance Carrier" ng-model="verification.patient.insuranceCarrier"></display-field>
+        <display-field label="Phone #" ng-model="verification.patient.insurancePhoneNumber"></display-field>
+        <display-field label="Insurance Policy/ Plan" ng-model="verification.patient.patientInsurancePolicy"></display-field>
+    </div>
 
-<div>hi</div>
+    <fieldset class="well" ng-controller="verification.startCall">
+        <edit-field label="Service Center Representative" ng-model="serviceCenterRepresentative"></edit-field>
+
+        <button class="btn" ng-click="startCall()">Start Call</button>
+    </fieldset>
+</div>

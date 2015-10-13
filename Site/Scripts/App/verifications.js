@@ -119,10 +119,10 @@
                     controller: 'verificationActions',
                     size: 'lg',
                     resolve: {
-                        verification: function() {
+                        verification: function () {
                             return $scope.verification;
                         },
-                        template: function() {
+                        template: function () {
                             return templateUrl;
                         },
                         patientName: function () {
@@ -183,6 +183,21 @@
             }
         }
     ]);
+
+    module.controller('verification.startCall', [
+        "$scope", "$api", function($scope, $api) {
+            var verificationId = $scope.$parent.verification.verificationId;
+            $scope.startCall = function() {
+
+                console.log("starting call: " + verificationId);
+
+                $api.verifications.startCall(verificationId, {
+                    serviceCenterRepresentative: $scope.serviceCenterRepresentative
+                });
+            }
+        }
+    ]);
+
 
     module.controller('userChooser', [
         '$scope', '$api', function ($scope, $api) {
