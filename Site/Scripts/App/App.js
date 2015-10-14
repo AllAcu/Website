@@ -1,6 +1,8 @@
 ﻿(function (exports, angular) {
     var app = angular.module('allAcuApp', [
         'ngRoute',
+        'timer',
+        'angular-humanize-duration',
         'api',
         'authApp',
         'loginApp',

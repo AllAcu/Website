@@ -34,7 +34,7 @@ namespace AllAcu
         public class VerificationCall
         {
             public DateTimeOffset StartTime { get; set; }
-            public DateTimeOffset EndTime { get; set; }
+            public DateTimeOffset? EndTime { get; set; }
             public string ServiceCenterRepresentative { get; set; }
             public string ReferenceNumber { get; set; }
             public string Result { get; set; }
@@ -60,6 +60,7 @@ namespace AllAcu
         public virtual CareProvider Provider { get; set; }
         public virtual User AssignedTo { get; set; }
         public DateTimeOffset AssignmentTime { get; set; }
+        public DateTimeOffset? CurrentCallStartTime { get; set; }
         public CallList CallHistory { get; set; } = new CallList();
         public AssignmentList AssignmentHistory { get; set; } = new AssignmentList();
         public virtual BillerApproval Approval { get; set; } = new BillerApproval();
@@ -115,6 +116,7 @@ namespace AllAcu
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             verification.Status = "In Progress";
+            verification.CurrentCallStartTime = @event.TimeStarted;
 
             verification.CallHistory.Add(new InsuranceVerification.VerificationCall
             {
@@ -128,7 +130,8 @@ namespace AllAcu
         public void UpdateProjection(Domain.Verification.InsuranceVerification.CallEnded @event)
         {
             var verification = dbContext.Verifications.Find(@event.AggregateId);
-            verification.Status = "Call Started";
+            verification.Status = "Assigned";
+            verification.CurrentCallStartTime = null;
 
             var call = verification.CallHistory.Last();
             call.EndTime = @event.TimeEnded;

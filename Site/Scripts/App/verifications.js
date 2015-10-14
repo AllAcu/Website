@@ -106,12 +106,6 @@
                 popup("/Templates/Verification/startCall.html");
             }
 
-            $scope.save = function () {
-                $api.verifications.update(verificationId, $scope.verification).success(function () {
-                    console.log("saved " + verificationId);
-                });
-            }
-
             function popup(templateUrl) {
                 var modalInstance = $modal.open({
                     animation: true,
@@ -185,9 +179,9 @@
     ]);
 
     module.controller('verification.startCall', [
-        "$scope", "$api", function($scope, $api) {
+        "$scope", "$api", function ($scope, $api) {
             var verificationId = $scope.$parent.verification.verificationId;
-            $scope.startCall = function() {
+            $scope.startCall = function () {
 
                 console.log("starting call: " + verificationId);
 
@@ -198,6 +192,25 @@
         }
     ]);
 
+    module.controller('verification.onCall', [
+        "$scope", "$api", function ($scope, $api) {
+            $scope.verification = $scope.$parent.verification;
+            var verificationId = $scope.$parent.verification.verificationId;
+             $scope.callStart = function () {
+                return new Date($scope.verification.currentCallStartTime).getTime();
+            }
+
+            $scope.save = function () {
+                $api.verifications.update(verificationId, $scope.verification).success(function () {
+                    console.log("saved " + verificationId);
+                });
+            }
+        }
+    ]);
+
+    module.controller('verification.endCall', [
+        "$scope", "$api", function ($scope, $api) {
+        }]);
 
     module.controller('userChooser', [
         '$scope', '$api', function ($scope, $api) {

@@ -279,8 +279,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
+    <Content Include="Scripts\angular\angular-humanize-duration.js" />
     <Content Include="Scripts\angular\angular-route.js" />
     <Content Include="Scripts\angular\angular-route.min.js" />
+    <Content Include="Scripts\angular\angular-timer.js" />
+    <Content Include="Scripts\angular\angular-timer.min.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular\ui-bootstrap-custom-tpls-0.13.4.js" />
@@ -325,6 +328,7 @@
     <Content Include="Scripts\App\claimsRepository.js" />
     <Content Include="Scripts\App\patientRepository.js" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\humanize-duration.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.map" />
@@ -335,6 +339,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Templates\Biller\details.html" />
