@@ -1,8 +1,6 @@
-﻿<div>
-    <edit-field label="Service Center Representative" ng-model="verification.approval.serviceCenterRepresentative"></edit-field>
-    <edit-field label="Call Reference Number" ng-model="verification.approval.callReferenceNumber"></edit-field>
-    <edit-field label="Call Time" ng-model="verification.approval.callTime"></edit-field>
-    <edit-field label="Assign To" ng-model="verification.approval.assignedTo"></edit-field>
+﻿<div ng-controller="verification.endCall">
+    <edit-field label="Service Center Representative" ng-model="serviceCenterRepresentative"></edit-field>
+    <edit-field label="Call Reference Number" ng-model="callReferenceNumber"></edit-field>
 
-    <button ng-click="save()">Save</button>
+    <button ng-click="endCall()">End Call</button>
 </div>

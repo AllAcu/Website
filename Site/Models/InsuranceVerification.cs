@@ -117,6 +117,7 @@ namespace AllAcu
             var verification = dbContext.Verifications.Find(@event.AggregateId);
             verification.Status = "In Progress";
             verification.CurrentCallStartTime = @event.TimeStarted;
+            verification.ServiceCenterRepresentative = @event.ServiceCenterRepresentative;
 
             verification.CallHistory.Add(new InsuranceVerification.VerificationCall
             {

@@ -53,7 +53,7 @@
             var actions = {
                 assign: { name: "Assign", handler: "startAssignment" },
                 startCall: { name: "Start Call", handler: "startCall" },
-                endCall: { name: "End Call", handler: "dummy" },
+                endCall: { name: "End Call", handler: "endCall" },
                 save: { name: "Save", handler: "save" },
                 saveDraft: { name: "Save", handler: "saveDraft" },
                 approve: { name: "Approve", handler: "dummy" },
@@ -104,6 +104,10 @@
 
             $scope.startCall = function () {
                 popup("/Templates/Verification/startCall.html");
+            }
+
+            $scope.endCall = function() {
+                popup("/Templates/Verification/endCall.html");
             }
 
             function popup(templateUrl) {
@@ -210,6 +214,17 @@
 
     module.controller('verification.endCall', [
         "$scope", "$api", function ($scope, $api) {
+            $scope.verification = $scope.$parent.verification;
+            var verificationId = $scope.$parent.verification.verificationId;
+            $scope.serviceCenterRepresentative = $scope.verification.serviceCenterRepresentative;
+
+            $scope.endCall = function () {
+                $api.verifications.endCall(verificationId, {
+                    serviceCenterRepresentative: $scope.serviceCenterRepresentative,
+                    callReferenceNumber: $scope.callReferenceNumber
+                });
+            }
+
         }]);
 
     module.controller('userChooser', [

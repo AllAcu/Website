@@ -37,7 +37,7 @@
                         return $http.get("/api/insurance/verification");
                     },
                     get: function (id) {
-                        return $http.get("/api/insurance/verification/{VerificationId}".replace("{VerificationId}", id))
+                        return $http.get("/api/insurance/verification/{verificationId}".replace("{verificationId}", id))
                             .success(function (verification) {
                                 var benefits = verification.benefits;
                                 benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;
@@ -52,8 +52,8 @@
                             });
                     },
                     updateRequest: function (verificationId, request) {
-                        return $http.put("/api/insurance/verification/{VerificationId}/request"
-                            .replace("{VerificationId}", verificationId), {
+                        return $http.put("/api/insurance/verification/{verificationId}/request"
+                            .replace("{verificationId}", verificationId), {
                                 requestDraft: request
                             });
                     },
@@ -64,8 +64,8 @@
                             });
                     },
                     submitRequest: function (verificationId, request) {
-                        return $http.post("/api/insurance/verification/{VerificationId}/submitRequest"
-                            .replace("{VerificationId}", verificationId), {
+                        return $http.post("/api/insurance/verification/{verificationId}/submitRequest"
+                            .replace("{verificationId}", verificationId), {
                                 request: request
                             });
                     },
@@ -92,12 +92,12 @@
                                 benefits: verification.benefits
                             });
                     },
-                    endCall: function (verificationId) {
-                        return $http.post("insurance/verification/{VerificationId}/endCall")
-                            .replace("{verificationId}", verificationId);
+                    endCall: function (verificationId, callData) {
+                        return $http.post("/api/insurance/verification/{verificationId}/endCall"
+                            .replace("{verificationId}", verificationId), callData);
                     },
                     submitForApproval: function (verificationId) {
-                        return $http.post("insurance/verification/{VerificationId}/submitForApproval")
+                        return $http.post("insurance/verification/{verificationId}/submitForApproval")
                             .replace("{verificationId}", verificationId);
                     },
                     complete: function (verificationId, verification) {
