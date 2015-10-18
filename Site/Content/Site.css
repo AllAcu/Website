@@ -31,11 +31,11 @@ li.providers {
     margin-left: 20px;
 }
 
-li.providers select {
-    display: inline-block;
-    width: auto;
-    margin-left: 10px;
-}
+    li.providers select {
+        display: inline-block;
+        width: auto;
+        margin-left: 10px;
+    }
 
 .footer {
     bottom: 0;
@@ -46,10 +46,6 @@ li.providers select {
 
 body > .container {
     padding: 40px 15px 0;
-}
-
-.actions input[type=button] {
-    width: 100%;
 }
 
 fieldset.question .checkbox {
@@ -71,9 +67,11 @@ fieldset.question .checkbox {
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
-.assignment li:hover {
-    background-color: #eef;
-}
+
+    .assignment li:hover {
+        background-color: #eef;
+    }
+
 .assignment .selected {
     background-color: #ddf;
 }
@@ -84,4 +82,45 @@ fieldset.question .checkbox {
 
 .assignment.roles {
     width: 250px;
+}
+
+.verification {
+    margin-top: -20px;
+}
+
+.request div.heading label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #00008b;
+}
+
+.request display-field label {
+    font-size: 11px;
+    font-weight: normal;
+    color: #00008b;
+}
+
+.request display-field div.displayLabel {
+    display: block;
+}
+
+.request display-field div.displayValue {
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.actions .timer {
+    padding-left: 10px;
+}
+
+display-field {
+    padding-bottom: 10px;
+}
+
+display-field div.displayLabel {
+    font-weight: bold;
+}
+
+display-field div.displayValue {
+    padding-left: 15px;
 }

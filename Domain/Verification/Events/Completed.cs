@@ -5,13 +5,14 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class Started : Event<InsuranceVerification>
+        public class Completed : Event<InsuranceVerification>
         {
-            public Guid PatientId { get; set; }
-            public VerificationRequest Request { get; set; }
+            public Guid ApproverUserId { get; set; }
+            public string Comments { get; set; }
 
             public override void Update(InsuranceVerification verification)
             {
+                verification.Status = VerificationRequestStatus.Verified;
             }
         }
     }

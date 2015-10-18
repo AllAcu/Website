@@ -8,10 +8,9 @@ namespace Domain.Verification
         {
             public Benefits Benefits { get; set; }
 
-            public override void Update(InsuranceVerification provider)
+            public override void Update(InsuranceVerification verification)
             {
-                //var existingVerification = provider.PendingVerifications.First(v => v.Id == VerificationId);
-                //existingVerification.Benefits = Benefits;
+                verification.Benefits = Benefits;
             }
         }
     }

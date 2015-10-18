@@ -4,9 +4,9 @@ namespace Domain.Verification
 {
     public partial class InsuranceVerification
     {
-        public class ReturnToProvider : Command<InsuranceVerification>
+        public class RejectRequest : Command<InsuranceVerification>
         {
-            public string Reason { get; set; }
+            public string Comments { get; set; }
         }
     }
 }

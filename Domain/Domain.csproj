@@ -121,12 +121,14 @@
     <Compile Include="User\Events\Updated.cs" />
     <Compile Include="User\SignupToken.cs" />
     <Compile Include="User\User.cs" />
-    <Compile Include="Verification\Commands\VerifyBenefits.cs" />
+    <Compile Include="Verification\Commands\Complete.cs" />
+    <Compile Include="Verification\Commands\EndCall.cs" />
+    <Compile Include="Verification\Commands\StartCall.cs" />
     <Compile Include="CareProvider\Commands\CreateProvider.cs" />
     <Compile Include="CareProvider\Commands\IntakePatient.cs" />
-    <Compile Include="Verification\Commands\Assign.cs" />
-    <Compile Include="Verification\Commands\Complete.cs" />
-    <Compile Include="Verification\Commands\ReturnToProvider.cs" />
+    <Compile Include="Verification\Commands\DelegateRequest.cs" />
+    <Compile Include="Verification\Commands\SubmitForApproval.cs" />
+    <Compile Include="Verification\Commands\RejectRequest.cs" />
     <Compile Include="Verification\Commands\SubmitRequest.cs" />
     <Compile Include="CareProvider\Commands\TerminateInsurance.cs" />
     <Compile Include="CareProvider\Commands\UpdateInsurance.cs" />
@@ -135,9 +137,11 @@
     <Compile Include="CareProvider\Commands\UpdateProvider.cs" />
     <Compile Include="Verification\Commands\Update.cs" />
     <Compile Include="Verification\Commands\UpdateRequestDraft.cs" />
-    <Compile Include="Verification\Events\Assigned.cs" />
-    <Compile Include="Verification\Events\ReturnedToProvider.cs" />
-    <Compile Include="Verification\Events\Rejected.cs" />
+    <Compile Include="Verification\Events\CallEnded.cs" />
+    <Compile Include="Verification\Events\Delegated.cs" />
+    <Compile Include="Verification\Events\NewVerification.cs" />
+    <Compile Include="Verification\Events\RequestRejected.cs" />
+    <Compile Include="Verification\Events\SubmittedForApproval.cs" />
     <Compile Include="Verification\VerificationRequest.cs" />
     <Compile Include="CareProvider\Events\InsuranceTerminated.cs" />
     <Compile Include="CareProvider\Events\InsuranceUpdated.cs" />
@@ -145,7 +149,7 @@
     <Compile Include="CareProvider\Events\NewPatient.cs" />
     <Compile Include="CareProvider\Events\PatientContactInformationUpdated.cs" />
     <Compile Include="CareProvider\Events\PatientInformationUpdated.cs" />
-    <Compile Include="Verification\Events\Approved.cs" />
+    <Compile Include="Verification\Events\Completed.cs" />
     <Compile Include="Verification\Events\RequestSubmitted.cs" />
     <Compile Include="Verification\Events\DraftUpdated.cs" />
     <Compile Include="Verification\Events\Updated.cs" />
@@ -176,11 +180,13 @@
     <Compile Include="CareProvider\Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verification\Commands\Create.cs" />
-    <Compile Include="Verification\Events\Started.cs" />
+    <Compile Include="Verification\Events\CallStarted.cs" />
     <Compile Include="Verification\InsuranceVerification.cs" />
     <Compile Include="Visit.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Verification\Commands\VerificationCommands.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="CareProvider\CareProvider.EnactCommands.cs" />

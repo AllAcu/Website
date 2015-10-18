@@ -15,6 +15,10 @@ namespace AllAcu
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/libs")
+                .Include("~/Scripts/moment.js")
+                .Include("~/Scripts/humanize-duration.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/angular")
                 .Include("~/Scripts/angular/angular.js")
                 .IncludeDirectory("~/Scripts/angular", "*.js", false));

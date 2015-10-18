@@ -1,0 +1,63 @@
+﻿	- Provider submits a request
+	- Reviewed by Rob for enough information to assign
+	- Assigned to a team member
+	- Team member does the phone call, fills in the verification
+	- Assigned back to Rob
+	- Rob can review and edit (capital letters, wrong data)
+	- Rob completes and sends back to provider
+
+    	- Rejected back to provider with comments (possibly links back to correct data)
+        	- Service center indicates incorrect data/ can't find the patient
+	- Rejected back to Rob with comment about incorrect data (wrong DoB, can't find customer, bad phone number)
+
+	- Rob notices something doesn't make sense
+	- Rob assigns back to Angela to make another call
+	- Angela makes call and corrects information
+	- Assigned back to Rob with comments
+	- Rob can review and edit (capital letters, wrong data)
+	- Rob completes and sends back to provider
+
+
+    Submit to biller
+    Assign to team member
+    Submit for Approval
+
+
+    Verifier (Angela), Approver (Rob)
+
+    Provider submits verification request to Biller
+    Rob delegates verification request to Angela
+    Angela opens verifications view and sees verifications assigned to her
+    She clicks to open a verification
+    She clicks to start verification phone call
+    Timer starts in upper corner
+    She makes a phone call based on the information in the call
+    She fills in the information from the call
+    She ends the call and fills in the call reference information
+    She submits for approval the verification back to Rob
+    Rob reviews and completes verification
+    
+    ----
+
+    Create
+    UpdateRequestDraft
+    Update (Save)
+
+    SubmitRequest
+    DelegateRequest
+    RejectRequest (keep reference to previous verification work?)
+    StartVerification (is this StartCall/EndCall?)
+    SubmitForApproval
+    Complete
+
+    StartCall
+    EndCall
+
+    ----
+
+    verificationdetails page:
+        Should only be a "Start Call" button
+        After starting the call, timer and Save button in upper right
+        Left column can be patient info?
+
+

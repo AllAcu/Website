@@ -1,5 +1,4 @@
-﻿using Domain.Verification;
-using Microsoft.Its.Domain;
+﻿using Microsoft.Its.Domain;
 
 namespace Domain.Verification
 {
