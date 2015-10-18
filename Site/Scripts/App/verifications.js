@@ -106,7 +106,7 @@
                 popup("/Templates/Verification/startCall.html");
             }
 
-            $scope.endCall = function() {
+            $scope.endCall = function () {
                 popup("/Templates/Verification/endCall.html");
             }
 
@@ -183,7 +183,7 @@
     ]);
 
     module.controller('verification.startCall', [
-        "$scope", "$api", function ($scope, $api) {
+        "$scope", "$location", "$api", function ($scope, $location, $api) {
             var verificationId = $scope.$parent.verification.verificationId;
             $scope.startCall = function () {
 
@@ -191,6 +191,8 @@
 
                 $api.verifications.startCall(verificationId, {
                     serviceCenterRepresentative: $scope.serviceCenterRepresentative
+                }).success(function () {
+                    $location.path("/verification/" + verificationId);
                 });
             }
         }
@@ -200,7 +202,7 @@
         "$scope", "$api", function ($scope, $api) {
             $scope.verification = $scope.$parent.verification;
             var verificationId = $scope.$parent.verification.verificationId;
-             $scope.callStart = function () {
+            $scope.callStart = function () {
                 return new Date($scope.verification.currentCallStartTime).getTime();
             }
 

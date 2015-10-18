@@ -286,8 +286,8 @@
     <Content Include="Scripts\angular\angular-timer.min.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
-    <Content Include="Scripts\angular\ui-bootstrap-custom-tpls-0.13.4.js" />
-    <Content Include="Scripts\angular\ui-bootstrap-custom-tpls-0.13.4.min.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-tpls-0.14.2.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-tpls-0.14.2.min.js" />
     <Content Include="Scripts\App\api.js" />
     <Content Include="Scripts\App\authToken.js" />
     <Content Include="Scripts\App\biller.js" />

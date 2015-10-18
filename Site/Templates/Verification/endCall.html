@@ -1,6 +1,12 @@
 ﻿<div ng-controller="verification.endCall">
-    <edit-field label="Service Center Representative" ng-model="serviceCenterRepresentative"></edit-field>
-    <edit-field label="Call Reference Number" ng-model="callReferenceNumber"></edit-field>
+    <div class="well">
+        <edit-field label="Service Center Representative" ng-model="serviceCenterRepresentative"></edit-field>
+        <edit-field label="Call Reference Number" ng-model="callReferenceNumber"></edit-field>
 
+        <div>
+            <label style="vertical-align: top">Notes</label><textarea ng-model="comments"></textarea>
+        </div>
+
+    </div>
     <button ng-click="endCall()">End Call</button>
 </div>
