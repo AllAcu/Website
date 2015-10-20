@@ -18,15 +18,20 @@
     @Scripts.Render("~/bundles/app")
 </head>
 <body>
-    <div class="container body-content">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container" ng-include="'/Templates/Site/nav.html'"></div>
-        </div>
-
-        @RenderBody()
+<div class="container body-content">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container" ng-include="'/Templates/Site/nav.html'"></div>
     </div>
 
-    <div class="container" ng-include="'/Templates/Site/footer.html'"></div>
+    @RenderBody()
+</div>
+    <div id="content"></div>
+<div class="container" ng-include="'/Templates/Site/footer.html'"></div>
 </body>
+
+<script src="https://fb.me/react-0.14.0.js"></script>
+<script src="https://fb.me/react-dom-0.14.0.js"></script>
+<script src="/Scripts/App/wing.jsx"></script>
+
 @RenderSection("scripts", required: false)
 </html>

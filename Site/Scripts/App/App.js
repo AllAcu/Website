@@ -13,7 +13,7 @@
         'ui.bootstrap'
     ]);
 
-    angular.module("api", []);
+    angular.module("api", ["authApp"]);
     angular.module("authApp", []);
     angular.module("loginApp", []);
     angular.module("patientsApp", ["verificationApp"]);
