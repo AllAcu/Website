@@ -1,4 +1,5 @@
 ﻿using System.Web.Optimization;
+using System.Web.Optimization.React;
 
 namespace AllAcu
 {
@@ -29,6 +30,12 @@ namespace AllAcu
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .Include("~/Scripts/App/app.js")
                 .IncludeDirectory("~/Scripts/App", "*.js", true));
+
+            bundles.Add(new BabelBundle("~/bundles/jsx")
+                .Include("~/Scripts/App/header.jsx")
+                .Include("~/Scripts/App/footer.jsx")
+                .Include("~/Scripts/App/wing.jsx")
+                .IncludeDirectory("~/Scripts/App", "*.jsx", false));
         }
     }
 }
