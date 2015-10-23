@@ -1,0 +1,7 @@
+﻿<edit-choice label="Type of insurance" ng-model="classification" options="[ { label: 'Medical Insurance', value: 'medical' }, { label: 'Private Injury Protection', value: 'pip' }]"></edit-choice>
+
+<div ng-include="insuranceTemplate()">Insurances</div>
+
+<div>
+    <button ng-click="save()">Save</button>
+</div>

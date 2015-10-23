@@ -1,0 +1,23 @@
+﻿<h2>{{biller.name}}</h2>
+<div>
+    <section>
+        <h3>Users</h3>
+        <div ng-controller="billerPermissions">
+            <ul ng-repeat="user in users()">
+                <li class="list-unstyled">
+                    {{user.user.name}}
+                    <div style="display: inline-block; background-color: #62abea; border-color: #357ebd;" ng-repeat="role in user.roles">
+                        <button class="btn btn-primary" ng-click="revoke(user, role)">x</button>{{role}}
+                    </div>
+                    <a class="btn btn-primary" popover-template="'/Templates/Providers/roleChooser.html'" popover-placement="right"
+                       popover-toggle="popover" popover-trigger="focus" tabindex="0"
+                       popover-title="Choose a role">+</a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div ng-controller="billerInvite">
+            <input type="text" ng-model="email" /><button class="btn btn-primary" ng-click="invite()">Invite</button>
+        </div>
+    </section>
+</div>

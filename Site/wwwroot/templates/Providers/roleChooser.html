@@ -1,0 +1,8 @@
+﻿<div class="assignment roles" ng-controller="roleChooser">
+
+    <ul class="list-unstyled" ng-show="roles(user).length">
+        <li ng-repeat="role in roles(user)" ng-click="grant(user, role)">{{role.label}}</li>
+    </ul>
+
+    <span ng-show="!roles(user).length">No more available roles</span>
+</div>
