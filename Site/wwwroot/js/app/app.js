@@ -1,8 +1,7 @@
-﻿(function (exports, angular) {
+﻿(function(exports, angular) {
     var app = angular.module('allAcuApp', [
         'ngRoute',
         'timer',
-        'angular-humanize-duration',
         'api',
         'authApp',
         'loginApp',
@@ -25,7 +24,7 @@
 
     app.config([
         '$routeProvider',
-        function ($routeProvider) {
+        function($routeProvider) {
             $routeProvider
                 .when('/login', {
                     templateUrl: '/Templates/Users/login.html',
@@ -139,21 +138,23 @@
                     redirectTo: '/patients'
                 });
         }
-    ]).run(['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
-        $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
-            if (next.$$route) {
-                if (next.$$route.anonymous) {
-                    return;
-                }
+    ]).run([
+        '$rootScope', '$location', '$http', function($rootScope, $location, $http) {
+            $rootScope.$on('$routeChangeStart', function(ev, next, curr) {
+                if (next.$$route) {
+                    if (next.$$route.anonymous) {
+                        return;
+                    }
 
-                if (!userLoggedIn()) {
-                    $location.path('/login');
+                    if (!userLoggedIn()) {
+                        $location.path('/login');
+                    }
                 }
-            }
-        });
-        $rootScope.copyrightYear = new Date().getFullYear();
-        $http.defaults.headers.common.Authorization = getAuthHeader;
-    }]);
+            });
+            $rootScope.copyrightYear = new Date().getFullYear();
+            $http.defaults.headers.common.Authorization = getAuthHeader;
+        }
+    ]);
 
     function userLoggedIn() {
         var authTokenService = angular.injector(['authApp']);
@@ -167,56 +168,60 @@
         }
     }
 
-    app.controller('nav', ['$scope', 'authToken', function ($scope, authToken) {
-        var _loginNavItems = [
-            { label: "Login", link: "/AllAcu/#/login" },
-            { label: "Sign up", link: "/Allacu/#/signup" }
-        ];
-        var _navItems = [
+    app.controller('nav', [
+        '$scope', 'authToken', function($scope, authToken) {
+            var _loginNavItems = [
+                { label: "Login", link: "/AllAcu/#/login" },
+                { label: "Sign up", link: "/Allacu/#/signup" }
+            ];
+            var _navItems = [
                 { label: "Verifications", link: "/AllAcu/#/verifications" },
                 { label: "Patients", link: "/AllAcu/#/patients" },
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
                 { label: "Providers", link: "/AllAcu/#/providers" },
-                { label: "Biller", link: "/AllAcu/#/biller"}
-        ];
+                { label: "Biller", link: "/AllAcu/#/biller" }
+            ];
 
-        $scope.navItems = function () {
-            if (!$scope.loggedIn()) {
-                return _loginNavItems;
+            $scope.navItems = function() {
+                if (!$scope.loggedIn()) {
+                    return _loginNavItems;
+                }
+
+                return _navItems;
             }
 
-            return _navItems;
+            $scope.loggedIn = function() {
+                return authToken.loggedIn();
+            }
         }
+    ]);
 
-        $scope.loggedIn = function () {
-            return authToken.loggedIn();
+    app.controller('providerChooser', [
+        '$scope', '$route', 'authToken', 'careProviderRepository', function($scope, $route, authToken, providers) {
+            $scope.providers = function() { return providers.providers() || []; }
+            $scope.currentProvider = function(provider) {
+                return providers.current(provider);
+            }
+
+            $scope.setProvider = function() {
+                providers.setCurrent($scope.currentProvider.id);
+            }
+
+            $scope.$watch(authToken.loggedIn, function() {
+                providers.refresh();
+            });
+
+            $scope.canChoose = function() {
+                return $route.current && $route.current.$$route && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
+            }
+
+            $scope.shouldDisplay = function() {
+                return authToken.loggedIn() && !!$scope.providers().length;
+            }
         }
-    }]);
-
-    app.controller('providerChooser', ['$scope', '$route', 'authToken', 'careProviderRepository', function ($scope, $route, authToken, providers) {
-        $scope.providers = function () { return providers.providers() || []; }
-        $scope.currentProvider = function (provider) {
-            return providers.current(provider);
-        }
-
-        $scope.setProvider = function () {
-            providers.setCurrent($scope.currentProvider.id);
-        }
-
-        $scope.$watch(authToken.loggedIn, function () {
-            providers.refresh();
-        });
-
-        $scope.canChoose = function () {
-            return $route.current && $route.current.$$route && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
-        }
-
-        $scope.shouldDisplay = function () {
-            return authToken.loggedIn() && !!$scope.providers().length;
-        }
-    }]);
+    ]);
 
     exports.app = app;
 
-})(window, angular)
+})(window, angular);

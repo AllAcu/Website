@@ -17,6 +17,7 @@ paths.css = paths.webroot + "css/**/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
 paths.concatJsDest = paths.webroot + "js/site.min.js";
 paths.concatCssDest = paths.webroot + "css/site.min.css";
+paths.appJs = paths.webroot + "js/app/*.js";
 
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);
@@ -40,6 +41,12 @@ gulp.task("min:css", function () {
         .pipe(concat(paths.concatCssDest))
         .pipe(cssmin())
         .pipe(gulp.dest("."));
+});
+
+gulp.task("app", function() {
+    gulp.src([paths.webroot + "js/app/app.js", paths.appJs])
+        .pipe(concat("acuApp.js"))
+        .pipe(gulp.dest(paths.webroot + "/js"));
 });
 
 gulp.task("min", ["min:js", "min:css"]);
