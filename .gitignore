@@ -195,4 +195,7 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 artifacts/
+
+# Custom ignores
 Site/wwwroot/lib/
+Site/wwwroot/js/acuApp.js

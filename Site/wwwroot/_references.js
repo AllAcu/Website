@@ -1,6 +1,5 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
-/// <reference path="js/acuapp.js" />
 /// <reference path="js/app/api.js" />
 /// <reference path="js/app/app.js" />
 /// <reference path="js/app/authtoken.js" />
