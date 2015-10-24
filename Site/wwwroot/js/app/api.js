@@ -126,25 +126,25 @@
                         return $http.get(url("/provider/who"));
                     },
                     be: function (id) {
-                        return $http.get(url("/provider/" + id + "/be"));
+                        return $http.get(url("/provider/{id}/be".replace("{id}", id)));
                     },
                     create: function (provider) {
-                        return $http.post(url("/provider/new", provider));
+                        return $http.post(url("/provider/new"), provider);
                     },
                     update: function (provider) {
                         return $http.put(url("/provider/{id}".replace("{id}", provider.id), provider));
                     },
                     join: function (userId, providerId) {
-                        return $http.post(url("/provider/" + providerId + "/join"), { userId: userId });
+                        return $http.post(url("/provider/{id}/join".replace("{id}", providerId)), { userId: userId });
                     },
                     leave: function (userId, providerId) {
-                        return $http.post(url("/provider/" + providerId + "/leave"), { userId: userId });
+                        return $http.post(url("/provider/{id}/leave".replace("{id}", providerId)), { userId: userId });
                     },
                     grantRole: function (userId, providerId, role) {
-                        return $http.post(url("/provider/" + providerId + "/grant"), { userId: userId, roles: [role] });
+                        return $http.post(url("/provider/{id}/grant".replace("{id}", providerId)), { userId: userId, roles: [role] });
                     },
                     revokeRole: function (userId, providerId, role) {
-                        return $http.post(url("/provider/" + providerId + "/revoke"), { userId: userId, roles: [role] });
+                        return $http.post(url("/provider/{id}/revoke".replace("{id}", providerId)), { userId: userId, roles: [role] });
                     }
                 },
                 biller: {

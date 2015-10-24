@@ -175,12 +175,12 @@
                 { label: "Sign up", link: "/#/signup" }
             ];
             var _navItems = [
-                { label: "Verifications", link: "/AllAcu/#/verifications" },
-                { label: "Patients", link: "/AllAcu/#/patients" },
-                { label: "Users", link: "/AllAcu/#/users" },
-                { label: "Claims", link: "/AllAcu/#/claims" },
-                { label: "Providers", link: "/AllAcu/#/providers" },
-                { label: "Biller", link: "/AllAcu/#/biller" }
+                { label: "Verifications", link: "/#/verifications" },
+                { label: "Patients", link: "/#/patients" },
+                { label: "Users", link: "/#/users" },
+                { label: "Claims", link: "/#/claims" },
+                { label: "Providers", link: "/#/providers" },
+                { label: "Biller", link: "/#/biller" }
             ];
 
             $scope.navItems = function() {
