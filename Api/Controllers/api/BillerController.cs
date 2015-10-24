@@ -6,7 +6,7 @@ using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers.api
 {
-    [RoutePrefix("api/biller")]
+    [RoutePrefix("biller")]
     [Authorize]
     public class BillerController : ApiController
     {

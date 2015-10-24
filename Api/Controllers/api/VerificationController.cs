@@ -11,7 +11,6 @@ using Microsoft.Its.Domain;
 namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
-    [RoutePrefix("api")]
     [Authorize]
     public class VerificationController : ApiController
     {

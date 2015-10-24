@@ -11,7 +11,7 @@ using Microsoft.Its.Domain;
 namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
-    [RoutePrefix("api/patient")]
+    [RoutePrefix("patient")]
     public class PatientController : ApiController
     {
         private readonly IEventSourcedRepository<Domain.CareProvider.CareProvider> providerEventSourcedRepository;

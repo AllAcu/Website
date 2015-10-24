@@ -171,8 +171,8 @@
     app.controller('nav', [
         '$scope', 'authToken', function($scope, authToken) {
             var _loginNavItems = [
-                { label: "Login", link: "/AllAcu/#/login" },
-                { label: "Sign up", link: "/Allacu/#/signup" }
+                { label: "Login", link: "/#/login" },
+                { label: "Sign up", link: "/#/signup" }
             ];
             var _navItems = [
                 { label: "Verifications", link: "/AllAcu/#/verifications" },

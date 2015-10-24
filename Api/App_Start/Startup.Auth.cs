@@ -27,7 +27,7 @@ namespace AllAcu
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/Token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(8),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AuthorizeEndpointPath = new PathString("/Account/ExternalLogin"),
                 Provider = container.Resolve<ApplicationOAuthProvider>(),
             });
 

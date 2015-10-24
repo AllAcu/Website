@@ -14,7 +14,7 @@ using Microsoft.Its.Domain;
 namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
-    [RoutePrefix("api/provider")]
+    [RoutePrefix("provider")]
     [Authorize]
     public class CareProviderController : ApiController
     {

@@ -13,7 +13,7 @@ using Microsoft.Its.Domain;
 namespace AllAcu.Controllers.api
 {
     [CareProviderIdFilter]
-    [RoutePrefix("api/user")]
+    [RoutePrefix("user")]
     [Authorize]
     public class UserController : ApiController
     {

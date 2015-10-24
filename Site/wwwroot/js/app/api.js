@@ -12,7 +12,7 @@
                     login: function (loginData) {
                         return $http({
                             method: 'POST',
-                            url: '/Token',
+                            url: '/api/Token',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
