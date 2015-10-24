@@ -4,7 +4,7 @@ using System.Web.Http;
 using Domain.Biller;
 using Microsoft.Its.Domain;
 
-namespace AllAcu.Controllers.api
+namespace AllAcu.Controllers
 {
     [RoutePrefix("biller")]
     [Authorize]

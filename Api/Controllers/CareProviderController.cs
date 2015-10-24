@@ -11,7 +11,7 @@ using Domain.CareProvider;
 using Microsoft.AspNet.Identity;
 using Microsoft.Its.Domain;
 
-namespace AllAcu.Controllers.api
+namespace AllAcu.Controllers
 {
     [CareProviderIdFilter]
     [RoutePrefix("provider")]
