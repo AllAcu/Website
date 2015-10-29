@@ -15,6 +15,7 @@ using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
+using React.AspNet;
 using Site.Models;
 using Site.Services;
 
@@ -60,6 +61,8 @@ namespace Site
             // Add MVC services to the services container.
             services.AddMvc();
 
+            services.AddReact();
+
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
@@ -94,6 +97,10 @@ namespace Site
 
             // Add the platform handler to the request pipeline.
             app.UseIISPlatformHandler();
+
+            app.UseReact(config =>
+            {
+            });
 
             // Add static files to the request pipeline.
             app.UseStaticFiles();
