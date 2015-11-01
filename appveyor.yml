@@ -1,16 +1,14 @@
 version: 1.0.{build}
 os: Visual Studio 2015
 install:
-- cmd: >-
-    set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-    dnvm install 1.0.0-beta8
+  - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+  - dnvm install 1.0.0-beta8
 nuget:
   account_feed: true
 before_build:
-- cmd: >-
-    nuget restore .\Api\packages.config -PackagesDirectory .\packages
-    npm install -g gulp
-    dnu restore
+  - nuget restore .\Api\packages.config -PackagesDirectory .\packages
+  - npm install -g gulp
+  - dnu restore
 build:
   publish_wap_xcopy: true
   verbosity: normal
