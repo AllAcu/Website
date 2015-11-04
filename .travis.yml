@@ -1,0 +1,13 @@
+language: CSharp
+install:
+  - nuget restore -source "https://www.nuget.org/api/v2/;https://api.nuget.org/v3/" AllAcu.sln
+  - curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh && source ~/.k/kvm/kvm.sh
+  - kvm upgrade
+  - kpm restore --no-cache
+  - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh
+  - source ~/.dnx/dnvm/dnvm.sh
+  - dnvm upgrade
+solution: AllAcu.sln
+
+script:
+  - dnu restore
