@@ -11,8 +11,8 @@ namespace Domain.Authentication
 
         public UserAccess(Guid userId, IEnumerable<Role> roles)
         {
-            UserId = userId;
-            Roles = new HashSet<Role>(roles);
+            this.UserId = userId;
+            this.Roles = new HashSet<Role>(roles);
         }
 
         public Guid UserId { get; }
