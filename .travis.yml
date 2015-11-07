@@ -1,6 +1,6 @@
 language: CSharp
 install:
-  - nuget restore -source "https://www.nuget.org/api/v2;https://s3-us-west-1.amazonaws.com/allacusite/privatePackages" AllAcu.sln
+  - nuget restore AllAcu.sln
   - curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh && source ~/.k/kvm/kvm.sh
   - kvm upgrade
   - kpm restore --no-cache
