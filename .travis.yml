@@ -6,3 +6,4 @@ install:
   - kpm restore --no-cache
   - ./PreBuild.ps1
 solution: AllAcu.sln
+script_windows: .\PreBuild.ps1
