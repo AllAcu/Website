@@ -4,5 +4,6 @@ install:
   - curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh && source ~/.k/kvm/kvm.sh
   - kvm upgrade
   - kpm restore --no-cache
+  - dnvm upgrade -u
   - dnu restore .\Api
 solution: AllAcu.sln
