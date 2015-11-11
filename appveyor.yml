@@ -1,25 +1,40 @@
 version: 1.0.{build}
 os: Visual Studio 2015
 install:
-  - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - dnvm install 1.0.0-beta8
+- set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- dnvm install 1.0.0-beta8
 nuget:
   account_feed: true
 before_build:
-  - nuget restore .\Api\packages.config -PackagesDirectory .\packages
-  - npm install -g gulp
-  - dnu restore
+- nuget restore .\Api\packages.config -PackagesDirectory .\packages
+- npm install -g gulp
+- dnu restore
 build:
-  publish_wap_xcopy: true
+  publish_wap: true
   verbosity: normal
+artifacts:
+- path: ./artifacts/bin/Site/Release/PublishOutput
+  name: site
+- path: ./artifacts/bin/Api/Release/Api.zip
+  name: api
+  type: WebDeployPackage
 deploy:
 - provider: WebDeploy
   server: 52.0.7.4
-  website: AllAcuSite
+  website: AllAcu
   username: WDeployAdmin
   password:
     secure: qgom/B6r4+K/+JjUZDDUZq4GYTv5aYQkr8Y5Y8Oa5hQ=
   ntlm: true
   remove_files: true
-  artifact: 
+  artifact: Site
   aspnet5: true
+- provider: WebDeploy
+  server: 52.0.7.4
+  website: AllAcu
+  username: WDeployAdmin
+  password:
+    secure: qgom/B6r4+K/+JjUZDDUZq4GYTv5aYQkr8Y5Y8Oa5hQ=
+  ntlm: true
+  remove_files: true
+  artifact: Api
