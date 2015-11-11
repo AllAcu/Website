@@ -6,7 +6,8 @@ install:
 nuget:
   account_feed: true
 before_build:
-- nuget restore .\Api\packages.config -PackagesDirectory .\packages
+- appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
+- .\nuget-restore.cmd .\Api\packages.config -PackagesDirectory .\packages
 - npm install -g gulp
 - dnu restore
 build:
