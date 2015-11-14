@@ -1,5 +1,6 @@
 version: 1.0.{build}
 os: Visual Studio 2015
+configuration: Release
 install:
 - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 - dnvm install 1.0.0-beta8
@@ -13,10 +14,12 @@ before_build:
 build:
   publish_wap: true
   verbosity: normal
+after_build:
+- dnu publish ".\Site" --out "%APPVEYOR_BUILD_FOLDER%\artifacts\bin\Site\Release\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
+- dir ./artifacts/bin/Site/Release
 artifacts:
-- path: ./artifacts/bin/Site/Release/PublishOutput
+- path: ./artifacts/bin/Site/Release/publish
   name: Site
-  type: WebDeployPackage
 - path: ./artifacts/bin/Api/Release/Api.zip
   name: Api
   type: WebDeployPackage
@@ -33,7 +36,7 @@ deploy:
   aspnet5: true
 - provider: WebDeploy
   server: 52.0.7.4
-  website: AllAcu
+  website: AllAcu/Api
   username: WDeployAdmin
   password:
     secure: qgom/B6r4+K/+JjUZDDUZq4GYTv5aYQkr8Y5Y8Oa5hQ=
