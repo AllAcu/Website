@@ -28,6 +28,13 @@ namespace AllAcu.Controllers
             this.userManager = userManager;
         }
 
+        [Route("ping")]
+        [AllowAnonymous]
+        public IHttpActionResult Ping()
+        {
+            return Ok("Pong");
+        }
+
         [Route("{userId}")]
         public async Task<User> GetUser(Guid userId)
         {

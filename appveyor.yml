@@ -15,9 +15,10 @@ build:
   verbosity: normal
 artifacts:
 - path: ./artifacts/bin/Site/Release/PublishOutput
-  name: site
+  name: Site
+  type: WebDeployPackage
 - path: ./artifacts/bin/Api/Release/Api.zip
-  name: api
+  name: Api
   type: WebDeployPackage
 deploy:
 - provider: WebDeploy
