@@ -3,43 +3,46 @@ os: Visual Studio 2015
 configuration: Release
 install:
 - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-- dnvm install 1.0.0-beta8
+- dnvm install -arch x64 1.0.0-beta8
+- dnvm install -arch x86 1.0.0-beta8
 nuget:
   account_feed: true
 before_build:
 - appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
 - .\nuget-restore.cmd .\Api\packages.config -PackagesDirectory .\packages
 - npm install -g gulp
+- npm install -g bower
 - dnu restore
 build:
   publish_wap: true
-  verbosity: normal
+  verbosity: detailed
 after_build:
-- dnu publish ".\Site" --out "%APPVEYOR_BUILD_FOLDER%\artifacts\bin\Site\Release\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
-- dir ./artifacts/bin/Site/Release
+- dnu publish ".\Site" --out "%APPVEYOR_BUILD_FOLDER%\artifacts\bin\Site\Release" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
 artifacts:
-- path: ./artifacts/bin/Site/Release/publish
+- path: ./artifacts/bin/Site/Release
   name: Site
 - path: ./artifacts/bin/Api/Release/Api.zip
   name: Api
   type: WebDeployPackage
 deploy:
 - provider: WebDeploy
-  server: 52.0.7.4
+  server: https://52.0.7.4:8172/MSDeploy.axd?site=AllAcu
   website: AllAcu
   username: WDeployAdmin
   password:
     secure: qgom/B6r4+K/+JjUZDDUZq4GYTv5aYQkr8Y5Y8Oa5hQ=
   ntlm: true
-  remove_files: true
+  remove_files: false
+  app_offline: false
   artifact: Site
   aspnet5: true
 - provider: WebDeploy
   server: 52.0.7.4
-  website: AllAcu/Api
+  website: AllAcuApi
   username: WDeployAdmin
   password:
     secure: qgom/B6r4+K/+JjUZDDUZq4GYTv5aYQkr8Y5Y8Oa5hQ=
   ntlm: true
   remove_files: true
+  app_offline: false
   artifact: Api
