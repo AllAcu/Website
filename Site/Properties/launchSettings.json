@@ -1,0 +1,21 @@
+{
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "http://allacu.dev",
+      "environmentVariables": {
+        "ASPNET_ENV": "Development"
+      }
+    },
+    "web": {
+      "commandName": "web",
+      "workingDirectory": "C:\\dev\\AllAcu\\artifacts\\bin\\Site\\Release\\PublishOutput\\wwwroot",
+      "launchBrowser": true,
+      "launchUrl": "http://allacu.dev",
+      "environmentVariables": {
+        "ASPNET_ENV": "Development"
+      }
+    }
+  }
+}

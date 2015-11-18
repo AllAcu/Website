@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html ng-app="allAcuApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="https://fb.me/react-0.14.0.js"></script>
+    <script src="https://fb.me/react-dom-0.14.0.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/libs")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/Scripts/smart-table.js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/app")
+
+</head>
+<body>
+    <div class="container body-content">
+
+        @RenderBody()
+    </div>
+    <div id="content"></div>
+<footerA copyrightYear="2016"></footerA>
+</body>
+
+@Scripts.Render("~/bundles/jsx")
+@RenderSection("scripts", required: false)
+</html>
