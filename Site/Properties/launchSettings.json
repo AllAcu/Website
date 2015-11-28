@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50842/",
+      "applicationUrl": "http://localhost:50537/",
       "sslPort": 0
     }
   },
@@ -13,14 +13,11 @@
       "launchBrowser": true,
       "launchUrl": "http://allacu.dev",
       "environmentVariables": {
-        "ASPNET_ENV": "Development"
+        "Hosting:Environment": "Development"
       }
     },
     "web": {
       "commandName": "web",
-      "workingDirectory": "C:\\dev\\AllAcu\\artifacts\\bin\\Site\\Release\\PublishOutput\\wwwroot",
-      "launchBrowser": true,
-      "launchUrl": "http://allacu.dev",
       "environmentVariables": {
         "Hosting:Environment": "Development"
       }
