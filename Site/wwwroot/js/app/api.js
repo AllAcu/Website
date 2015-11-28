@@ -42,7 +42,7 @@
                         return $http.get(url("/insurance/verification"));
                     },
                     get: function (verificationId) {
-                        return $http.get(url("/insurance/verification/{verificationId}".replace("{verificationId}"), verificationId))
+                        return $http.get(url("/insurance/verification/{verificationId}".replace("{verificationId}", verificationId)))
                             .success(function (verification) {
                                 var benefits = verification.benefits;
                                 benefits.calendarYearPlanEnd = benefits.calendarYearPlanEnd ? new Date(benefits.calendarYearPlanEnd) : null;

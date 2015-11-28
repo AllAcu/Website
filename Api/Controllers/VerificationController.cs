@@ -73,7 +73,7 @@ namespace AllAcu.Controllers
             await ApplyCommandToVerification(verificationId, command);
         }
 
-        [Route("{PatientId}/insurance/verification/submit"), HttpPost]
+        [Route("{PatientId}/insurance/verification/submitRequest"), HttpPost]
         public async Task AcceptPatientCommand(Guid patientId, Domain.Verification.InsuranceVerification.SubmitRequest command)
         {
             // kind of hacky

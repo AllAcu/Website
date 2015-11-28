@@ -155,7 +155,7 @@
 
     module.controller('verificationActions', [
         "$scope", "$api", "verification", "patientName", "template", function ($scope, $api, verification, patientName, template) {
-            var verificationId = verification.id;
+            var verificationId = verification.verificationId;
             $scope.verification = verification;
             $scope.actionTemplate = template;
             $scope.patientName = patientName;
