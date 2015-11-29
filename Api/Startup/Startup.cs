@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AllAcu.Authentication;
 using AllAcu.Services;
 using Microsoft.AspNet.Builder;
@@ -11,7 +8,6 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using Pocket;
 
 namespace AllAcu
@@ -65,7 +61,9 @@ namespace AllAcu
                 return result != null ? (Func<PocketContainer, object>) (_ => result) : null;
             });
 
-            return new PocketServiceProvider(container);
+            container.Populate();
+
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,20 +115,5 @@ namespace AllAcu
 
         // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
-    }
-
-    internal class PocketServiceProvider : IServiceProvider
-    {
-        private readonly PocketContainer container;
-
-        public PocketServiceProvider(PocketContainer container)
-        {
-            this.container = container;
-        }
-
-        public object GetService(Type serviceType)
-        {
-            return container.Resolve(serviceType);
-        }
     }
 }
