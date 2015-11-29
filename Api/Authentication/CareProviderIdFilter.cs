@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using Microsoft.AspNet.Mvc.Filters;
 
 namespace AllAcu.Authentication
 {
@@ -12,14 +8,14 @@ namespace AllAcu.Authentication
     {
         public const string providerCookieName = "CareProviderId";
 
-        public override Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
+        public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var cookie = actionContext.Request.Headers.GetCookies(providerCookieName).FirstOrDefault();
+            var cookie = context.ActionArguments.ContainsKey(providerCookieName) ? context.ActionArguments[providerCookieName] : null;
 
-            actionContext.ActionArguments[providerCookieName] = cookie != null
-                ? (object) Guid.Parse(cookie[providerCookieName].Value)
+            context.ActionArguments[providerCookieName] = cookie != null
+                ? (object) Guid.Parse(cookie.ToString())
                 : null;
-            return base.OnActionExecutingAsync(actionContext, cancellationToken);
+            return base.OnActionExecutionAsync(context, next);
         }
     }
 }

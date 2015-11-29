@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Http;
 using AllAcu.Authentication;
 using AllAcu.Repository;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 using Microsoft.Its.Domain;
 
 namespace AllAcu.Controllers
 {
     [CareProviderIdFilter]
-    [Authorize]
-    public class VerificationController : ApiController
+    //[Authorize]
+    public class VerificationController : Controller
     {
         private readonly IEventSourcedRepository<Domain.Verification.InsuranceVerification> verificationEventSourcedRepository;
         private readonly AllAcuSiteDbContext dbContext;
@@ -25,6 +26,15 @@ namespace AllAcu.Controllers
             this.verificationEventSourcedRepository = verificationEventSourcedRepository;
         }
 
+        [Route("verification/test"), HttpGet]
+        public object TestEndpoint()
+        {
+            return new
+            {
+                Message = "Success"
+            };
+        }
+
         [Route("{PatientId}/insurance/verification"), HttpGet]
         public IEnumerable<InsuranceVerification> GetListViewItems(Guid patientId)
         {
@@ -32,14 +42,14 @@ namespace AllAcu.Controllers
         }
 
         [Route("insurance/verification"), HttpGet]
-        public async Task<IHttpActionResult> GetAllListViewItems()
+        public async Task<ActionResult> GetAllListViewItems()
         {
             var currentProviderId = this.CurrentProviderId();
             if (currentProviderId == null)
             {
-                return await Task.FromResult(NotFound());
+                return await Task.FromResult(HttpNotFound());
             }
-            var content = await verificationRepository.Get(Guid.Parse(User.Identity.GetUserId()));
+            var content = await verificationRepository.Get(Guid.Parse(User.GetUserId()));
             return Ok(content.Where(v => v.Provider.Id == currentProviderId.Value).ToArray());
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.User;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
