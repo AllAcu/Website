@@ -33,13 +33,13 @@ namespace AllAcu
             EventStoreDbContext.NameOrConnectionString = dbConnections.EventStore;
             //AuthorizationDbContext.ConnectionString = dbConnections.Authentication;
 
-            using (var eventStore = new EventStoreDbContext())
-            {
-                new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
-            }
             using (var db = new AllAcuSiteDbContext())
             {
                 new ReadModelDatabaseInitializer<AllAcuSiteDbContext>().InitializeDatabase(db);
+            }
+            using (var eventStore = new EventStoreDbContext())
+            {
+                new EventStoreDatabaseInitializer<EventStoreDbContext>().InitializeDatabase(eventStore);
             }
 
 
