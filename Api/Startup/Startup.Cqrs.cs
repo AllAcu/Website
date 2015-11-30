@@ -25,7 +25,7 @@ namespace AllAcu
         {
             var appEnv = container.Resolve<IApplicationEnvironment>();
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(appEnv.ApplicationBasePath, "App_Data"));
-            Settings.SettingsDirectory = "./.config";
+            Settings.SettingsDirectory = System.IO.Path.Combine(appEnv.ApplicationBasePath, ".config");
             Its.Configuration.Settings.Precedence = new[] { "local", "defaults" };
 
             var dbConnections = Settings.Get<DatabaseConnections>();
