@@ -1,0 +1,2543 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Its.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Its.Recipes.MaybeExtensions">
+            <summary>
+                Supports chaining of expressions when intermediate values may be null, to support a fluent API style using common .NET types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Else``1(Microsoft.Its.Recipes.Maybe{``0},System.Func{``0})">
+            <summary>
+                Specifies a function that will be evaluated if the source <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+            <param name="maybe">The source maybe.</param>
+            <param name="otherValue">The value to be returned if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.</param>
+            <returns>
+                The value of the Maybe if it has a value; otherwise, the value returned by <paramref name="otherValue"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Else``1(Microsoft.Its.Recipes.Maybe{``0},System.Func{Microsoft.Its.Recipes.Maybe{``0}})">
+            <summary>
+                Specifies a function that will be evaluated if the source <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+            <param name="maybe">The source maybe.</param>
+            <param name="other">The value to be returned if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.</param>
+            <returns>
+                The value of the Maybe if it has a value; otherwise, the value returned by <paramref name="other"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Else``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}},System.Func{``0})">
+            <summary>
+                Specifies a function that will be evaluated if the source <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+            <param name="maybe">The source maybe.</param>
+            <param name="otherValue">The value to be returned if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.</param>
+            <returns>
+                The value of the Maybe if it has a value; otherwise, the value returned by <paramref name="otherValue"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Else``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}}},System.Func{``0})">
+            <summary>
+                Specifies a function that will be evaluated if the source <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+            <param name="maybe">The source maybe.</param>
+            <param name="otherValue">The value to be returned if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.</param>
+            <returns>
+                The value of the Maybe if it has a value; otherwise, the value returned by <paramref name="otherValue"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Else``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}}}},System.Func{``0})">
+            <summary>
+                Specifies a function that will be evaluated if the source <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+            <param name="maybe">The source maybe.</param>
+            <param name="otherValue">The value to be returned if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.</param>
+            <returns>
+                The value of the Maybe if it has a value; otherwise, the value returned by <paramref name="otherValue"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseDefault``1(Microsoft.Its.Recipes.Maybe{``0})">
+            <summary>
+            Returns the default value for <typeparamref name="T"/> if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseDefault``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}})">
+            <summary>
+            Returns the default value for <typeparamref name="T"/> if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseDefault``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}}})">
+            <summary>
+            Returns the default value for <typeparamref name="T"/> if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseDefault``1(Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{Microsoft.Its.Recipes.Maybe{``0}}}})">
+            <summary>
+            Returns the default value for <typeparamref name="T"/> if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseNull``1(Microsoft.Its.Recipes.Maybe{``0})">
+            <summary>
+            Returns null if the source has no value.
+            </summary>
+            <typeparam name="T">The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseDo``1(Microsoft.Its.Recipes.Maybe{``0},System.Action)">
+            <summary>
+            Performs an action if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ElseThrow``1(Microsoft.Its.Recipes.Maybe{``0},System.Func{System.Exception})">
+            <summary>
+            Throws an exception if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has no value.
+            </summary>
+            <typeparam name="T">The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.</typeparam>
+            <param name="maybe">The maybe.</param>
+            <param name="exception">A function that returns the exception to be thrown.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfContains``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+                If the dictionary contains a value for a specified key, executes an action passing the corresponding value.
+            </summary>
+            <typeparam name="TKey"> The type of the key. </typeparam>
+            <typeparam name="TValue"> The type of the value. </typeparam>
+            <param name="dictionary"> The dictionary. </param>
+            <param name="key"> The key. </param>
+            <exception cref="T:System.ArgumentNullException">dictionary</exception>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.And``1(Microsoft.Its.Recipes.Maybe{``0})">
+            <summary>
+            Allows two maybes to be combined so that the resulting maybe has its value transformed by the second if and only if the first has a value.
+            </summary>
+            <typeparam name="T1">The type of the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.</typeparam>
+            <param name="first">The first maybe.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfHas``1(System.Object,System.Func{System.Object,``0})">
+            <summary>
+            Attempts to retrieve a value dynamically.
+            </summary>
+            <typeparam name="T">The type of the value expected to be returned.</typeparam>
+            <param name="source">The source object.</param>
+            <param name="getValue">A delegate that attempts to return a value via a dynamic invocation on the source object.</param>
+            <remarks>This method will not cast the result value to <typeparamref name="T"/>. If the returned value is not of this type, then a negative <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> will be returned.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfNotNull``1(``0)">
+            <summary>
+            Creates a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that has a value if <paramref name="source"/> is not null. 
+            </summary>
+            <typeparam name="T">The type of the instance wrapped by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.</typeparam>
+            <param name="source">The source instance, which may be null.</param>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfNotNull``1(Microsoft.Its.Recipes.Maybe{``0})">
+            <summary>
+            Creates a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that has a value if <paramref name="source"/> has a value. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfNotNull``1(System.Nullable{``0})">
+            <summary>
+            Creates a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that has a value if <paramref name="source"/> is not null. 
+            </summary>
+            <typeparam name="T">The type of the instance wrapped by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.</typeparam>
+            <param name="source">The source instance, which may be null.</param>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfNotNullOrEmptyOrWhitespace(System.String)">
+            <summary>
+            Creates a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that has a value if <paramref name="source"/> is not null, empty, or entirely whitespace. 
+            </summary>
+            <param name="source">The string.</param>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.IfTypeIs``1(System.Object)">
+            <summary>
+            Creates a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that has a value if <paramref name="source"/> is assignable to type <typeparamref name="T"/>. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.OrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Returns either the <paramref name="source"/> or, if it is null, an empty <see cref="T:System.Collections.Generic.IEnumerable`1"/> sequence.
+            </summary>
+            <typeparam name="T"> The type of the objects in the sequence. </typeparam>
+            <param name="source"> The source sequence. </param>
+            <returns> The source sequence or, if it is null, an empty sequence. </returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Out``2(``0,Microsoft.Its.Recipes.TryGetOutParameter{``0,``1})">
+            <summary>
+            Attempts to get the value of a Try* method with an out parameter, for example <see cref="M:System.Collections.Generic.Dictionary`2.TryGetValue(`0,`1@)"/> or <see cref="M:System.Collections.Concurrent.ConcurrentQueue`1.TryDequeue(`0@)"/>.
+            </summary>
+            <typeparam name="T">The type of the source object.</typeparam>
+            <typeparam name="TOut">The type the out parameter.</typeparam>
+            <param name="source">The source object exposing the Try* method.</param>
+            <param name="tryTryGetValue">A delegate to call the Try* method.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Then``2(Microsoft.Its.Recipes.Maybe{``0},System.Func{``0,``1})">
+            <summary>
+            Specifies the result of a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has a value.
+            </summary>
+            <typeparam name="TIn">The type of source object.</typeparam>
+            <typeparam name="TOut">The type of result.</typeparam>
+            <param name="maybe">The maybe.</param>
+            <param name="getValue">A delegate to get the value from the source object.</param>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.ThenDo``1(Microsoft.Its.Recipes.Maybe{``0},System.Action{``0})">
+            <summary>
+            Performs an action if the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> has a value.
+            </summary>
+            <typeparam name="T">
+                The type held by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.MaybeExtensions.Try``2(``0,System.Func{``0,``1},System.Func{System.Exception,System.Boolean})">
+            <summary>
+            Tries to call the specified method and catches exceptions if they occur.
+            </summary>
+            <typeparam name="TIn">The type of source object.</typeparam>
+            <typeparam name="TOut">The type of result.</typeparam>
+            <param name="source">The source object.</param>
+            <param name="getValue">A delegate to get the value from the source object.</param>
+            <param name="ignore">A predicate to determine whether the exception should be ignored. If this is not specified, all exceptions are ignored. If it is specified and an exception is thrown that matches the predicate, the exception is ignored and a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> having no value is returned. If it is specified and an exception is thrown that does not match the predicate, the exception is allowed to propagate.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Its.Recipes.Maybe`1">
+            <summary>
+            Represents an object that may or may not contain a value, allowing optional chained results to be specified for both possibilities.
+            </summary>
+            <typeparam name="T">The type of the possible value.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.Maybe`1.Yes(`0)">
+            <summary>
+            Returns a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that contains a value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Microsoft.Its.Recipes.Maybe`1.No">
+            <summary>
+            Returns a <see cref="T:Microsoft.Its.Recipes.Maybe`1"/> that does not contain a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Recipes.Maybe`1.Value">
+            <summary>
+            Gets the value contained by the <see cref="T:Microsoft.Its.Recipes.Maybe`1"/>.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="P:Microsoft.Its.Recipes.Maybe`1.HasValue">
+            <summary>
+            Gets a value indicating whether this instance has a value.
+            </summary>
+            <value>
+              <c>true</c> if this instance has value; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Microsoft.Its.Recipes.TryGetOutParameter`2">
+            <summary>
+            A delegate used to return an out parameter from a Try* method that indicates success via a boolean return value.
+            </summary>
+            <typeparam name="T">The type of the source object.</typeparam>
+            <typeparam name="TOut">The type of the out parameter.</typeparam>
+            <param name="source">The source.</param>
+            <param name="outValue">The out parameter's value.</param>
+            <returns>true if the out parameter was set; otherwise, false.</returns>
+        </member>
+        <member name="T:Microsoft.Its.Recipes.Unit">
+            <summary>
+            A type representing a void return type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Its.Recipes.Unit.Default">
+            <summary>
+            The default instance.
+            </summary>
+        </member>
+        <member name="T:System.Dynamic.TypeExtensions">
+            <summary>
+                Provides dynamic methods to assist in reflection-based tasks.
+            </summary>
+        </member>
+        <member name="M:System.Dynamic.TypeExtensions.Member(System.Type)">
+            <summary>
+                Provides dynamic access to a static member on the specified type.
+            </summary>
+            <param name="type">The type on which to access the member.</param>
+            <returns>The value, if any, of the member.</returns>
+        </member>
+        <member name="T:System.Dynamic.TypeExtensions.StaticMemberInvoker">
+            <summary>
+                Forwards dynamc calls to static members on a target type.
+            </summary>
+        </member>
+        <member name="M:System.Dynamic.TypeExtensions.StaticMemberInvoker.#ctor(System.Type)">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Dynamic.TypeExtensions.StaticMemberInvoker"/> class.
+            </summary>
+            <param name="targetType">The type.</param>
+            <exception cref="T:System.ArgumentNullException">type</exception>
+        </member>
+        <member name="M:System.Dynamic.TypeExtensions.StaticMemberInvoker.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+                Provides the implementation for operations that get member values. Classes derived from the
+                <see
+                    cref="T:System.Dynamic.DynamicObject" />
+                class can override this method to specify dynamic behavior for operations such as getting a value for a property.
+            </summary>
+            <returns>
+                true if the operation is successful; otherwise, false. If this method returns false, the run-time binder of the language determines the behavior. (In most cases, a run-time exception is thrown.)
+            </returns>
+            <param name="binder">
+                Provides information about the object that called the dynamic operation. The binder.Name property provides the name of the member on which the dynamic operation is performed. For example, for the Console.WriteLine(sampleObject.SampleProperty) statement, where sampleObject is an instance of the class derived from the
+                <see
+                    cref="T:System.Dynamic.DynamicObject" />
+                class, binder.Name returns "SampleProperty". The binder.IgnoreCase property specifies whether the member name is case-sensitive.
+            </param>
+            <param name="result">
+                The result of the get operation. For example, if the method is called for a property, you can assign the property value to
+                <paramref
+                    name="result" />
+                .
+            </param>
+        </member>
+        <member name="M:System.Dynamic.TypeExtensions.StaticMemberInvoker.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
+            <summary>
+                Provides the implementation for operations that invoke a member. Classes derived from the
+                <see
+                    cref="T:System.Dynamic.DynamicObject" />
+                class can override this method to specify dynamic behavior for operations such as calling a method.
+            </summary>
+            <returns>
+                true if the operation is successful; otherwise, false. If this method returns false, the run-time binder of the language determines the behavior. (In most cases, a language-specific run-time exception is thrown.)
+            </returns>
+            <param name="binder">
+                Provides information about the dynamic operation. The binder.Name property provides the name of the member on which the dynamic operation is performed. For example, for the statement sampleObject.SampleMethod(100), where sampleObject is an instance of the class derived from the
+                <see
+                    cref="T:System.Dynamic.DynamicObject" />
+                class, binder.Name returns "SampleMethod". The binder.IgnoreCase property specifies whether the member name is case-sensitive.
+            </param>
+            <param name="args">
+                The arguments that are passed to the object member during the invoke operation. For example, for the statement sampleObject.SampleMethod(100), where sampleObject is derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <paramref name="args" /> is equal to 100.
+            </param>
+            <param name="result">The result of the member invocation.</param>
+        </member>
+        <member name="T:System.Linq.Expressions.MappingExpression.From`1">
+            <summary>
+                Builds expressions for mapping property and field values between objects.
+            </summary>
+            <typeparam name="TFrom">The type of the object from which member values will be taken.</typeparam>
+        </member>
+        <member name="M:System.Linq.Expressions.MappingExpression.From`1.ToNew``1">
+            <summary>
+                Creates an expression that will instantiate a new instance of TTo and populate its members based on a source instance of TFrom.
+            </summary>
+            <typeparam name="TTo">The type of the object to be instantiated.</typeparam>
+        </member>
+        <member name="M:System.Linq.Expressions.MappingExpression.From`1.ToExisting``1">
+            <summary>
+                Creates an expression that will populate the members of an instance of TTo from a source instance of TFrom.
+            </summary>
+            <typeparam name="TTo">The type of the object whose members will be set.</typeparam>
+        </member>
+        <member name="T:Pocket.PocketContainer">
+            <summary>
+            An embedded dependency injection container, for when you want to use a container without adding an assembly dependency.
+            </summary>
+            <remarks>The default resolution strategy follows Unity's conventions. A concrete type can be resolved without explicit registration. It will choose the longest constructor and resolve the types to satisfy its arguments. This continues recursively until the graph is built or it fails to build a dependency.</remarks>
+        </member>
+        <member name="M:Pocket.PocketContainer.Clone">
+            <summary>
+            Clones the container, allowing for selectively overriding registrations without affecting the state of the original container.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Pocket.PocketContainer"/> class.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.Resolve``1">
+            <summary>
+            Resolves an instance of the specified type.
+            </summary>
+        </member>
+        <member name="F:Pocket.PocketContainer.OnFailedResolve">
+            <summary>
+            Returns an exception to be thrown when resolve fails.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.Resolve(System.Type)">
+            <summary>
+            Resolves an instance of the specified type.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.AddStrategy(System.Func{System.Type,System.Func{Pocket.PocketContainer,System.Object}},System.Boolean)">
+            <remarks>When an unregistered type is resolved for the first time, the strategies are checked until one returns a delegate. This delegate will be used in the future to resolve the specified type.</remarks>
+        </member>
+        <member name="M:Pocket.PocketContainer.Register``1(System.Func{Pocket.PocketContainer,``0})">
+            <summary>
+            Registers a delegate to retrieve instances of the specified type.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.Register(System.Type,System.Func{Pocket.PocketContainer,System.Object})">
+            <summary>
+            Registers a delegate to retrieve instances of the specified type.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.RegisterSingle``1(System.Func{Pocket.PocketContainer,``0})">
+            <summary>
+            Registers a delegate to retrieve an instance of the specified type when it is first resolved. This instance will be reused for the lifetime of the container.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.RegisterSingle(System.Type,System.Func{Pocket.PocketContainer,System.Object})">
+            <summary>
+            Registers a delegate to retrieve an instance of the specified type when it is first resolved. This instance will be reused for the lifetime of the container.
+            </summary>
+        </member>
+        <member name="M:Pocket.PocketContainer.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Pocket.PocketContainer.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Pocket.PocketContainerOpenGenericStrategy.RegisterGeneric(Pocket.PocketContainer,System.Type,System.Type)">
+            <summary>
+            Registers an open generic type to another open generic type, allowing, for example, IService&amp;T&amp; to be registered to resolve to Service&amp;T&amp;.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="variantsOf">The open generic interface that callers will attempt to resolve, e.g. typeof(IService&amp;T&amp;).</param>
+            <param name="to">The open generic type to resolve, e.g. typeof(Service&amp;T&amp;).</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">
+            Parameter 'variantsOf' is not an open generic type, e.g. typeof(IService&amp;T&amp;)
+            or
+            Parameter 'to' is not an open generic type, e.g. typeof(Service&amp;T&amp;)
+            </exception>
+        </member>
+        <member name="M:Pocket.PocketContainerPrimitiveAvoidanceStrategy.AvoidConstructorsWithPrimitiveTypes(Pocket.PocketContainer)">
+            <summary>
+            Configures a <see cref="T:Pocket.PocketContainer"/> to prefer constructors that do not contain primitive types. 
+            </summary>
+            <remarks>Primitive types include any type for which <see cref="P:System.Type.IsPrimitive"/> is true, as well as <see cref="T:System.String"/>, <see cref="T:System.DateTime"/>, and <see cref="T:System.DateTimeOffset"/>.</remarks>
+            <param name="container">The same container instance.</param>
+        </member>
+        <member name="M:Pocket.PocketContainerPrimitiveAvoidanceStrategy.IsPrimitive(System.Type)">
+            <summary>
+            Determines whether the specified type is primitive.
+            </summary>
+            <remarks>This method defines primitive more broadly than the <see cref="P:System.Type.IsPrimitive"/> property. <see cref="T:System.String"/>, for example, is considered primitive because as a type it carries no semantic information specific to a responsibility, so resolving it by convention will almost never be appropriate.</remarks>
+            <param name="type">The type.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.AggregateType`1">
+            <summary>
+            Provides information about an aggregate type.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        </member>
+        <member name="P:Microsoft.Its.Domain.AggregateType`1.EventStreamName">
+            <summary>
+            Gets or sets the name of the event stream where this aggregate type's events are stored.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Command`1">
+            <summary>
+            A command that can be applied to an aggregate to trigger some action and record an applicable state change.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ICommand">
+            <summary>
+                A command that can be applied to an aggregate to trigger some action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ICommand.CommandName">
+            <summary>
+                Gets the name of the command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ICommand.ETag">
+            <summary>
+            Gets the ETag for the command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ICommand.Principal">
+            <summary>
+                Gets or sets the principal on whose behalf the command will be authorized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ICommand.RequiresDurableScheduling">
+            <summary>
+            Gets a value indicating whether the command requires durability, even when scheduled for immediate delivery.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.Command"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command.CommandName">
+            <summary>
+            Gets the name of the command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command.ETag">
+            <summary>
+            Gets the ETag for the command.
+            </summary>
+            <remarks>By defalut, this is set to a new Guid, to prevent the same command instance from ever being applied twice. This behavior can be overridden by setting this property to a different value.</remarks>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command.Principal">
+            <summary>
+                Gets or sets the principal on whose behalf the command will be authorized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command.RequiresDurableScheduling">
+            <summary>
+            Gets a value indicating whether the command requires durability, even when scheduled for immediate delivery.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command.KnownTypes">
+            <summary>
+            Gets all known <see cref="T:Microsoft.Its.Domain.Command"/> types.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ICommand`1">
+            <summary>
+                A command that can be applied to an aggregate to trigger some action and record an applicable state change.
+            </summary>
+            <typeparam name="T">The type of the aggregate.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommand`1.ApplyTo(`0)">
+            <summary>
+                Performs the action of the command upon the aggregate.
+            </summary>
+            <param name="aggregate">The aggregate to which to apply the command.</param>
+            <exception cref="T:Microsoft.Its.Domain.CommandValidationException">
+                If the command cannot be applied due its state or the state of the aggregate, it should throw a
+                <see cref="T:Microsoft.Its.Domain.CommandValidationException"/>
+                indicating the specifics of the failure.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommand`1.ApplyToAsync(`0)">
+            <summary>
+                Performs the action of the command upon the aggregate.
+            </summary>
+            <param name="aggregate">The aggregate to which to apply the command.</param>
+            <exception cref="T:Microsoft.Its.Domain.CommandValidationException">
+                If the command cannot be applied due its state or the state of the aggregate, it should throw a
+                <see cref="T:Microsoft.Its.Domain.CommandValidationException"/>
+                indicating the specifics of the failure.
+            </exception>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ICommand`1.Validator">
+            <summary>
+                Gets a validator that can be used to check the valididty of the command against the state of the aggregate before it is applied.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Its.Domain.Command`1.AuthorizeDefault">
+            <summary>
+                The default authorization method used by all commands for <typeparamref name="TAggregate" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.ApplyTo(`0)">
+            <summary>
+                Performs the action of the command upon the aggregate.
+            </summary>
+            <param name="aggregate">The aggregate to which to apply the command.</param>
+            <exception cref="T:Microsoft.Its.Domain.CommandValidationException">
+                If the command cannot be applied due its state or the state of the aggregate, it should throw a
+                <see cref="T:Microsoft.Its.Domain.CommandValidationException"/>
+                indicating the specifics of the failure.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.ApplyToAsync(`0)">
+            <summary>
+                Performs the action of the command upon the aggregate.
+            </summary>
+            <param name="aggregate">The aggregate to which to apply the command.</param>
+            <exception cref="T:Microsoft.Its.Domain.CommandValidationException">
+                If the command cannot be applied due its state or the state of the aggregate, it should throw a
+                <see cref="T:Microsoft.Its.Domain.CommandValidationException"/>
+                indicating the specifics of the failure.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.EnactCommand(`0)">
+            <summary>
+            Enacts the command once authorizations and validations have succeeded.
+            </summary>
+            <param name="aggregate">The aggregate upon which to enact the command.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.EnactCommandAsync(`0)">
+            <summary>
+            Enacts the command once authorizations and validations have succeeded.
+            </summary>
+            <param name="aggregate">The aggregate upon which to enact the command.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.Authorize(`0)">
+            <summary>
+                Determines whether the command is authorized to be applied to the specified aggregate.
+            </summary>
+            <param name="aggregate">The aggregate.</param>
+            <returns>true if the command is authorized; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Command`1.Named(System.String)">
+            <summary>
+                Gets the command type having the specified name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command`1.AppliesToVersion">
+            <summary>
+            If set, requires that the command be applied to this version of the aggregate; otherwise, <see cref="M:Microsoft.Its.Domain.Command`1.ApplyTo(`0)"/> will throw..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command`1.Validator">
+            <summary>
+                Gets a validator that can be used to check the valididty of the command against the state of the aggregate before it is applied.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command`1.CommandValidator">
+            <summary>
+                Gets a validator to check the state of the command in and of itself, as distinct from an aggregate.
+            </summary>
+            <remarks>
+                By default, this returns a <see cref="T:Its.Validation.ValidationPlan`1"/> where TCommand is the command's actual type, with rules built up from any System.ComponentModel.DataAnnotations attributes applied to its properties.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command`1.CommandName">
+            <summary>
+                Gets the name of the command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Command`1.KnownTypes">
+            <summary>
+                Gets all of the the types implementing <see cref="T:Microsoft.Its.Domain.Command`1"/> discovered within the AppDomain.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Event`1">
+            <summary>
+            An domain event pertaining to a specific aggregate type.
+            </summary>
+            <typeparam name="TAggregate"></typeparam>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Event">
+            <summary>
+                An event signifying some change in the domain.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IEvent">
+            <summary>
+            A sequential event applicable to a specific type, which can be used to rebuild the object's historical states.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEvent.SequenceNumber">
+            <summary>
+            Gets the position of the event within the source object's event sequence.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEvent.AggregateId">
+            <summary>
+            Gets the id of the aggregate to which this event applies.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEvent.Timestamp">
+            <summary>
+            Gets the time at which the event was originally recorded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEvent.ETag">
+            <summary>
+            Gets the event's ETag, which is used to support idempotency within the event stream.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Event.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.Event"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Event.KnownTypesForAggregateType(System.Type)">
+            <summary>
+            Returns the known event types for the specified aggregate type.
+            </summary>
+            <param name="aggregateType">Type of the aggregate.</param>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event.SequenceNumber">
+            <summary>
+                Gets the position of the event within the event stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event.AggregateId">
+            <summary>
+                Gets the unique id of the source object to which this event applies.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event.Timestamp">
+            <summary>
+            Gets the time at which the event was originally recorded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event.ETag">
+            <summary>
+            Gets or sets the event's ETag, which is used to support idempotency within the event stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event.Metadata">
+            <summary>
+            Gets a dynamic metadata object that can be used to pass extensibility information along with the event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IEvent`1">
+            <summary>
+            A sequential event applicable to a specific type, which can be used to rebuild the object's historical states.
+            </summary>
+            <typeparam name="T">The type to which the event applies.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEvent`1.Update(`0)">
+            <summary>
+            Updates the specified object when the event is applied.
+            </summary>
+            <param name="aggregate">The aggregate to which the event pertains.</param>
+            <remarks>This is used to update the object's state either upon applying a command, or when building up the object from an event source. Execution of this method should not create an side effects outside the object's state.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Event`1.Update(`0)">
+            <summary>
+                Updates an aggregate to a new state.
+            </summary>
+            <param name="aggregate">The aggregate to be updated.</param>
+            <remarks>This method is called when materializing an aggregate from an event stream.</remarks>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event`1.KnownTypes">
+            <summary>
+                Gets all known event types (derived from <see cref="T:Microsoft.Its.Domain.IEvent`1"/>) in the loaded assemblies.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Event`1.KnownHandlerTypes">
+            <summary>
+                Gets all known event handler types in the loaded assemblies.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IClock">
+            <summary>
+            Provides access to time for the domain.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IClock.Now">
+            <summary>
+            Gets the current time.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationExtensions">
+            <summary>
+            Provides methods for performing authorization checks.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationExtensions.IsAuthorizedTo``3(``2,``1,``0)">
+            <summary>
+            Determines whether the principal is authorized to apply a command to a resource.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TPrincipal">The type of the principal.</typeparam>
+            <param name="principal">The principal.</param>
+            <param name="command">The command.</param>
+            <param name="resource">The resource.</param>
+            <returns>
+              <c>true</c> if the principal is authorized; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationPolicy.RelevantTypeFor(System.Type)">
+            <summary>
+            Looks up a non-dynamic base type, for the case in which the actual runtime type is proxied (e.g. by Entity Framework) from the configured type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationQuery">
+            <summary>
+                Represents the query for an authorization check.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationQuery.Create``3(``0,``1,``2)">
+            <summary>
+                Creates an AuthorizationQuery.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TPrincipal">The type of the principal.</typeparam>
+            <param name="resource">The resource.</param>
+            <param name="command">The command.</param>
+            <param name="principal">The principal.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationFor`1">
+            <summary>
+                Provides methods for specifying authorization rules.
+            </summary>
+            <typeparam name="TPrincipal">The type of the principal.</typeparam>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApply`1">
+            <summary>
+                Specifies an authorization rule for a specific command type.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApply`1.IsDenied">
+            <summary>
+            Denies authorization.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApply`1.ToA`1">
+            <summary>
+                Specifies an authorization rule for a specific resource type.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApply`1.ToA`1.Requires(System.Func{`0,`1,`2,System.Boolean},System.String)">
+            <summary>
+                Specifies an authorization rule for a principal applying a specific command type to a specific resource type.
+            </summary>
+            <param name="requirement">The requirement.</param>
+            <param name="message">A message indicating the reason for the authorization failure. This message is intended for diagnostic and monitoring purposes only.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApply`1.ToA`1.IsDenied">
+            <summary>
+            Denies authorization.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApplyAnyCommand">
+            <summary>
+                Specifies authorization rules applied to all commands.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApplyAnyCommand.ToA`1">
+            <summary>
+                Specifies an authorization rule for a specific resource type.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationFor`1.ToApplyAnyCommand.ToA`1.Requires(System.Func{`0,`1,System.Boolean},System.String)">
+            <summary>
+                Specifies an authorization rule for a principal applying any command to a specific resource type.
+            </summary>
+            <param name="requirement">The requirement.</param>
+            <param name="message">A message indicating the reason for the authorization failure. This message is intended for diagnostic and monitoring purposes only.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3">
+            <summary>
+                Represents a check for whether a principal can issue a specific command pertaining to a specific resource.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Authorization.IAuthorizationQuery`3">
+            <summary>
+                Represents a check for whether a principal can issue a specific command pertaining to a specific resource.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TPrincipal">The type of the principal.</typeparam>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.IAuthorizationQuery`3.Command">
+            <summary>
+                Gets the command to be authorized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.IAuthorizationQuery`3.Resource">
+            <summary>
+                Gets the resource to which the command would be applied.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.IAuthorizationQuery`3.Principal">
+            <summary>
+                Gets the principal that would apply the command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3.#ctor(`0,`1,`2)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3"/> class.
+            </summary>
+            <param name="resource">The resource.</param>
+            <param name="command">The command.</param>
+            <param name="principal">The principal.</param>
+            <exception cref="T:System.ArgumentNullException">principal</exception>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3.Command">
+            <summary>
+                Gets the command to be authorized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3.Resource">
+            <summary>
+                Gets the resource to which the command would be applied.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Authorization.AuthorizationQuery`3.Principal">
+            <summary>
+                Gets the principal that would apply the command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Clock">
+            <summary>
+            Provides access to time for the domain.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Clock.#cctor">
+            <summary>
+            Initializes the <see cref="T:Microsoft.Its.Domain.Clock"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Clock.Create(System.Func{System.DateTimeOffset})">
+            <summary>
+            Creates an <see cref="T:Microsoft.Its.Domain.IClock"/> instance that calls the provided delegate to return the current time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Clock.Now">
+            <summary>
+            Gets the current time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Clock.Current">
+            <summary>
+            Gets or sets the current clock.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.CommandAuthorizationException">
+            <summary>
+            An exception thrown when a command is unathorized.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandAuthorizationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.CommandAuthorizationException"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandAuthorizationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.CommandAuthorizationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.CommandContext">
+            <summary>
+            Provides context for a chain of causality beginning with a command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandContext.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Microsoft.Its.Domain.CommandContext"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandContext.Establish(Microsoft.Its.Domain.ICommand,Microsoft.Its.Domain.IClock)">
+            <summary>
+            Establishes a command context.
+            </summary>
+            <param name="command">The command.</param>
+            <param name="clock">The clock used by the command and any events that result.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandContext.Command">
+            <summary>
+            Gets the command that is currently being applied.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandContext.Clock">
+            <summary>
+            Gets or sets the clock used within the command context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandContext.Current">
+            <summary>
+            Gets the current command context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationContext.#ctor(Microsoft.Its.Domain.Configuration)">
+            <summary>
+            Prevents a default instance of the <see cref="T:Microsoft.Its.Domain.ConfigurationContext"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.Repository``1(Microsoft.Its.Domain.Configuration)">
+            <summary>
+            Gets an <see cref="T:Microsoft.Its.Domain.IEventSourcedRepository`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.CommandScheduler``1(Microsoft.Its.Domain.Configuration)">
+            <summary>
+            Gets an <see cref="T:Microsoft.Its.Domain.ICommandScheduler`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.UseEventBus(Microsoft.Its.Domain.Configuration,Microsoft.Its.Domain.IEventBus)">
+            <summary>
+            Configures the domain to use the specified event bus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.UseDependency``1(Microsoft.Its.Domain.Configuration,System.Func{System.Func{System.Type,System.Object},``0})">
+            <summary>
+            Enables Its.Domain to instantiate dependencies of command or event handlers.
+            </summary>
+            <typeparam name="T">The type of the dependency.</typeparam>
+            <param name="configuration">The configuration.</param>
+            <param name="resolve">A delegate that will be called each time the specified type is needed by an object that Its.Domain is instantiating.</param>
+            <returns></returns>
+            <remarks>This method is called when Its.Domain instantiates an implementation of one of its interfaces (e.g. <see cref="T:Microsoft.Its.Domain.ICommandHandler`2"/>) that depends on a type that is owned by application code. The typical usage of this method is to wire up an IoC container that you've configured for your application.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.UseDependencies(Microsoft.Its.Domain.Configuration,System.Func{System.Type,System.Func{System.Object}})">
+            <summary>
+            Enables Its.Domain to instantiate dependencies of command or event handlers.
+            </summary>
+            <remarks>
+             This method is called when Its.Domain instantiates an implementation of one of its interfaces (e.g. <see cref="T:Microsoft.Its.Domain.ICommandHandler`2"/>) that depends on a type that is owned by application code. The typical usage of this method is to wire up an IoC container that you've configured for your application.
+            
+            Usage example:
+            
+            <code>
+            
+            MyContainer myContainer; 
+            
+            configuration.UseDependencies(
+                type =&gt; {       
+                   if (myContainer.IsRegistered(type)) 
+                   {  
+                        return () =&gt; myContainer.Resolve(type);
+                   } 
+                   
+                   return null;
+            
+                });
+            
+            </code>
+            
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.TraceScheduledCommands(Microsoft.Its.Domain.Configuration,System.Action{Microsoft.Its.Domain.IScheduledCommand},System.Action{Microsoft.Its.Domain.IScheduledCommand},System.Action{Microsoft.Its.Domain.IScheduledCommand},System.Action{Microsoft.Its.Domain.IScheduledCommand})">
+            <summary>
+            Writes trace information during command scheduling and delivery for all aggregate types. By default, output is send to <see cref="T:System.Diagnostics.Trace"/>.
+            </summary>
+            <param name="configuration">The domain configuration.</param>
+            <param name="onScheduling">An optional delegate to trace information about a command before calling Schedule on the inner scheduler.</param>
+            <param name="onScheduled">An optional delegate to trace information about a command after calling Schedule on the inner scheduler.</param>
+            <param name="onDelivering">An optional delegate to trace information about a command before calling Deliver on the inner scheduler.</param>
+            <param name="onDelivered">An optional delegate to trace information about a command after calling Deliver on the inner scheduler.</param>
+            <returns>The same configuration object.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConfigurationExtensions.AddToCommandSchedulerPipeline``1(Microsoft.Its.Domain.Configuration,Microsoft.Its.Domain.ScheduledCommandInterceptor{``0},Microsoft.Its.Domain.ScheduledCommandInterceptor{``0})">
+            <summary>
+            Adds a pipeline interceptor to command scheduler pipeline for a specific aggregate type.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="configuration">The configuration.</param>
+            <param name="schedule">An optional delegate to intercept calls to Schedule.</param>
+            <param name="deliver">An optional delegate to intercept calls to Deliver.</param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">Legacy SQL command scheduler cannot be used with the command scheduler pipeline.</exception>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IHaveConsequencesWhen`1">
+            <summary>
+            Triggers a business process upon receiving an event.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <remarks>Typically these are actions that should not be repeated, e.g. charging for an order.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IHaveConsequencesWhen`1.HaveConsequences(`0)">
+            <summary>
+            Triggers consequences of the specified event.
+            </summary>
+            <param name="event">The event.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.INamedEventHandler">
+            <summary>
+            Provides a way to differentiate event handlers having the same type but different implementations, e.g. anonymous and composite handlers.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IUpdateProjectionWhen`1">
+            <summary>
+            Updates a projection based on events and stores the updated projection.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <remarks>Implementations should be idempotent so that the events can be replayed and the projection rebuilt as needed.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IUpdateProjectionWhen`1.UpdateProjection(`0)">
+            <summary>
+            Updates the projection based on the incoming event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IEventHandler">
+            <summary>
+            Handles events published on an <see cref="T:Microsoft.Its.Domain.IEventBus"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventHandlerBinder.SubscribeToBus(System.Object,Microsoft.Its.Domain.IEventBus)">
+            <summary>
+            Subscribes the specified handler to the event bus.
+            </summary>
+            <param name="handler">The handler.</param>
+            <param name="bus">The bus.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventHandler.Name(System.Object)">
+            <summary>
+            Gets a short (non-namespace qualified) name for the specified event handler.
+            </summary>
+            <param name="handler">The event handler.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventHandler.InnerHandler(System.Object)">
+            <summary>
+            Gets the innermost handler in a handler chain, or the handler itself if it is not chained.
+            </summary>
+            <param name="handler">The handler.</param> 
+        </member>
+        <member name="T:Microsoft.Its.Domain.Handle`1">
+            <summary>
+            Handles an event, including calling the next handler in a chain.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="event">The event.</param>
+            <param name="nextHandler">The next handler.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.EventNameAttribute">
+            <summary>
+            Specifies the name used to store an event type in the event store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventNameAttribute.EventName">
+            <summary>
+            Gets or sets the name used to store the event in the event store.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ICommandHandler`2">
+            <summary>
+            Handles commands.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommandHandler`2.EnactCommand(`0,`1)">
+            <summary>
+            Called when a command has passed validation and authorization checks.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommandHandler`2.HandleScheduledCommandException(`0,Microsoft.Its.Domain.CommandFailed{`1})">
+            <summary>
+            Handles any exception that occurs during delivery of a scheduled command.
+            </summary>
+            <remarks>The aggregate can use this method to control retry and cancelation of the command.</remarks>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ISynchronousReservationService">
+            <summary>
+            Reserves values in order to help enforce unique values within the system.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISynchronousReservationService.Reserve(System.String,System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Attempts to reserve the specified value.
+            </summary>
+            <param name="value">The value to be reserved.</param>
+            <param name="scope">The scope in which the value must be unique.</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="lease">The lease duration, after which the reservation expires.</param>
+            <returns>A task whose result is true if the value has been reserved.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISynchronousReservationService.Confirm(System.String,System.String,System.String)">
+            <summary>
+            Confirms the reservation of a specified value.
+            </summary>
+            <param name="value">The value to be reserved.</param>  
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="scope">The scope in which the value must be unique.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISynchronousReservationService.Cancel(System.String,System.String,System.String)">
+            <summary>
+            Cancels the specified reservation of a specified value.
+            </summary>
+            <param name="value">The reserved value.</param>
+            <param name="scope">The scope in which the reserved value must be unique.</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISynchronousReservationService.ReserveAny(System.String,System.String,System.Nullable{System.TimeSpan},System.String)">
+            <summary>
+            Attempts to reserve the first available value within a certain scope
+            </summary>
+            <param name="scope">The scope in which a set of unique values have been registered</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="lease">The lease duration, after which the reservation expires.</param>
+            <param name="confirmationToken">user specified value that can be used for confirmation of the reservation</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ICommandScheduler`1">
+            <summary>
+            Schedules commands for deferred execution.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommandScheduler`1.Schedule(Microsoft.Its.Domain.IScheduledCommand{`0})">
+            <summary>
+            Schedules the specified command.
+            </summary>
+            <param name="scheduledCommand">The scheduled command.</param>
+            <returns>A task that is complete when the command has been successfully scheduled.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ICommandScheduler`1.Deliver(Microsoft.Its.Domain.IScheduledCommand{`0})">
+            <summary>
+            Delivers the specified scheduled command to the target aggregate.
+            </summary>
+            <param name="scheduledCommand">The scheduled command to be applied to the aggregate.</param>
+            <returns>A task that is complete when the command has been applied.</returns>
+            <remarks>The scheduler will apply the command and save it, potentially triggering additional consequences.</remarks>
+        </member>
+        <member name="T:Microsoft.Its.Domain.CommandScheduler`1">
+            <summary>
+            A basic command scheduler implementation that can be used as the basis for composing command scheduling behaviors.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandScheduler`1.Schedule(Microsoft.Its.Domain.IScheduledCommand{`0})">
+            <summary>
+            Schedules the specified command.
+            </summary>
+            <param name="scheduledCommand">The scheduled command.</param>
+            <returns>
+            A task that is complete when the command has been successfully scheduled.
+            </returns>
+            <exception cref="T:System.NotSupportedException">Non-immediate scheduling is not supported.</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandScheduler`1.Deliver(Microsoft.Its.Domain.IScheduledCommand{`0})">
+            <summary>
+            Delivers the specified scheduled command to the target aggregate.
+            </summary>
+            <param name="scheduledCommand">The scheduled command to be applied to the aggregate.</param>
+            <returns>
+            A task that is complete when the command has been applied.
+            </returns>
+            <remarks>
+            The scheduler will apply the command and save it, potentially triggering additional consequences.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandScheduler`1.VerifyPrecondition(Microsoft.Its.Domain.IScheduledCommand)">
+            <summary>
+            Verifies that the command precondition has been met.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ISnapshotRepository">
+            <summary>
+            Saves and retrieves snapshots of aggregates.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISnapshotRepository.GetSnapshot(System.Guid,System.Nullable{System.Int64},System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Gets the snapshot for the specified aggregate.
+            </summary>
+            <remarks>By default, this gets the most recent snapshot (by version number) but older versions can be accessed by passing <see cref="!:maxVersion"/> or <see cref="!:maxTimestamp"/>.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ISnapshotRepository.SaveSnapshot(Microsoft.Its.Domain.ISnapshot)">
+            <summary>
+            Saves a snapshot.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ISnapshot">
+            <summary>
+            An aggregate snapshot.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IReservationService">
+            <summary>
+            Reserves values in order to help enforce unique values within the system.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IReservationService.Reserve(System.String,System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Attempts to reserve the specified value.
+            </summary>
+            <param name="value">The value to be reserved.</param>
+            <param name="scope">The scope in which the value must be unique.</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="lease">The lease duration, after which the reservation expires.</param>
+            <returns>A task whose result is true if the value has been reserved.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IReservationService.Confirm(System.String,System.String,System.String)">
+            <summary>
+            Confirms the reservation of a specified value.
+            </summary>
+            <param name="value">The value to be reserved.</param>  
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="scope">The scope in which the value must be unique.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IReservationService.Cancel(System.String,System.String,System.String)">
+            <summary>
+            Cancels the specified reservation of a specified value.
+            </summary>
+            <param name="value">The reserved value.</param>
+            <param name="scope">The scope in which the reserved value must be unique.</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IReservationService.ReserveAny(System.String,System.String,System.Nullable{System.TimeSpan},System.String)">
+            <summary>
+            Attempts to reserve the first available value within a certain scope
+            </summary>
+            <param name="scope">The scope in which a set of unique values have been registered</param>
+            <param name="ownerToken">A token indicating the owner of the reservation, which must be provided in order to confirm or cancel the reservation.</param>
+            <param name="lease">The lease duration, after which the reservation expires.</param>
+            <param name="confirmationToken">user specified value that can be used for confirmation of the reservation</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Its.Domain.CommandScheduled`1">
+            <summary>
+            An event that indicates that a command was scheduled.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IScheduledCommand`1">
+            <summary>
+            Represents that a command has been scheduled for future execution against a specific aggregate type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IScheduledCommand">
+            <summary>
+            Represents that a command has been scheduled for future execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IScheduledCommand.DueTime">
+            <summary>
+            Gets the time at which the command is scheduled to be applied.
+            </summary>
+            <remarks>If this value is null, the command should be delivered as soon as possible.</remarks>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IScheduledCommand.DeliveryPrecondition">
+            <summary>
+            Indicates a precondition for the command to be delivered. If the precondition does not exist, then command will fail, and the aggregate can decide whether to reschedule or ignore the command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IScheduledCommand`1.Command">
+            <summary>
+            Gets the command to be applied at a later time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandScheduled`1.DeliveryPrecondition">
+            <summary>
+            Indicates a precondition ETag for a specific aggregate. If no event on the target aggregate exists with this ETag, the command will fail, and the aggregate can decide whether to reschedule or ignore the command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.CommandValidationException">
+            <summary>
+                An exception thrown when a command is invalid due its state or the state of an aggregate to which an attempt was made to apply the command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.CommandValidationException"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandValidationException.#ctor(Its.Validation.ValidationReport)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.CommandValidationException"/> class.
+            </summary>
+            <param name="validationReport">The validation report.</param>
+            <exception cref="T:System.ArgumentNullException">validationReport</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandValidationException.#ctor(System.String,Its.Validation.ValidationReport)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.CommandValidationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="validationReport">The validation report.</param>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandValidationException.ValidationReport">
+            <summary>
+                Gets or sets the validation report containing validation failures that caused the exception to be thrown.
+            </summary>
+            <value>
+                The validation report.
+            </value>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ConcurrencyException">
+            <summary>
+                An exception thrown when an attempt is made to save a stale aggregate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConcurrencyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.ConcurrencyException"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConcurrencyException.#ctor(System.String,Microsoft.Its.Domain.IEvent[],System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.ConcurrencyException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="events">The events rejected due to a concurrency error.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConcurrencyException.ToString">
+            <summary>
+            Creates and returns a string representation of the current exception.
+            </summary>
+            <returns>
+            A string representation of the current exception.
+            </returns>
+            <filterpriority>1</filterpriority><PermissionSet><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*"/></PermissionSet>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ConcurrencyException.Events">
+            <summary>
+            Gets or sets the events that could not be committed due to a concurrency error.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Configuration">
+            <summary>
+            Represents the configuration of the basic services for the domain, such as command scheduling, event aggregation, and dependency resolution.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Configuration.#cctor">
+            <summary>
+            Initializes the <see cref="T:Microsoft.Its.Domain.Configuration"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Configuration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.Configuration"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Configuration.RegisterForDisposal(System.IDisposable)">
+            <summary>
+            Registers an object for disposal when the configuration is disposed.
+            </summary>
+            <param name="disposable">The object to dispose.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Configuration.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Configuration.Current">
+            <summary>
+            Gets the current configuration. This may vary by context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Configuration.ReservationService">
+            <summary>
+            Gets or sets the reservation service, if configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Configuration.EventBus">
+            <summary>
+            Gets the event bus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventBusExtensions.PublishAsync(Microsoft.Its.Domain.IEventBus,Microsoft.Its.Domain.IEvent[])">
+            <summary>
+            Publishes events asynchronously on the specified event bus.
+            </summary>
+            <param name="bus">The event bus.</param>
+            <param name="events">The events to be published.</param>
+            <remarks>No events are actually published until the returned observable is subscribed.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventBusExtensions.Subscribe(Microsoft.Its.Domain.IEventBus,System.Object)">
+            <summary>
+                Subscribes an event handler to events published on the bus.
+            </summary>
+            <param name="bus">The bus to whose events the handler will be subscribed.</param>
+            <param name="handler">The handler to be subscribed to the bus.</param>
+            <returns>
+                A disposable that can be disposed in order to cancel the subscription.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventBusExtensions.Subscribe(Microsoft.Its.Domain.IEventBus,System.Object[])">
+            <summary>
+                 Subscribes an event handler to events published on the bus.
+            </summary>
+            <param name="bus">The bus to whose events the handler will be subscribed.</param>
+            <param name="handlers">The handlers to be subscribed to the bus.</param>
+            <returns>
+                A disposable that can be disposed in order to cancel the subscriptions.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.Actor(Microsoft.Its.Domain.IEvent)">
+            <summary>
+            Returns a string representing the actor who committed the specified event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.AggregateType(Microsoft.Its.Domain.IEvent)">
+            <summary>
+            Returns the type of the aggregate to which an event applies.
+            </summary>
+            <param name="event">The event.</param>
+            <returns>The type of the aggregate, or null if none.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.AggregateTypeForEventType(System.Type)">
+            <summary>
+            Returns the type of the aggregate to which an event applies.
+            </summary>
+            <returns>The type of the aggregate, or null if none.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.AggregateType``1(Microsoft.Its.Domain.IEvent{``0})">
+            <summary>
+            Returns the type of the aggregate to which an event applies.
+            </summary>
+            <param name="event">The event.</param>
+            <returns>The type of the aggregate, or null if none.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.EventName(Microsoft.Its.Domain.IEvent)">
+            <summary>
+            Gets the name used to persist the event in the event store.
+            </summary>
+            <param name="event">The event.</param>
+            <remarks>By default, this is the event class's type name, with no namespace. This name can be specified by adding the EventNameAttribute to the class.</remarks>
+            <returns>A string representing the class's name.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventExtensions.EventName(System.Type)">
+            <summary>
+            Gets the name used to persist the event in the event store.
+            </summary>
+            <remarks>By default, this is the event class's type name, with no namespace. This name can be specified by adding the EventNameAttribute to the class.</remarks>
+            <returns>A string representing the class's name.</returns>
+        </member>
+        <member name="T:Microsoft.Its.Domain.EventHandlingError">
+            <summary>
+            Provides information about an error that occurs while handling an event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.EventSequence">
+            <summary>
+            Coordinates sequence numbers for a sequence of events associated with the same aggregate id. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSequence.#ctor(System.Guid)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSequence"/> class.
+            </summary>
+            <param name="aggregateId">The id of the aggregate that the events belong to.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSequence.Add(Microsoft.Its.Domain.IEvent)">
+            <summary>
+            Adds the specified event to the sequence.
+            </summary>
+            <param name="event">The event.</param>
+            <exception cref="T:System.ArgumentNullException">event</exception>
+            <exception cref="T:System.ArgumentException">Event must have a non-empty AggregateId property or inherit from Event so that it can be set automatically.
+            or
+            Inconsistent aggregate ids. Previous events have aggregate id x but the one being added has aggregate id y.</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSequence.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSequence.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSequence.AddRange(System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Adds a number of events to the sequence.
+            </summary>
+            <param name="eventHistory">The events to add.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="eventHistory"/> is empty.</exception>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSequence.Count">
+            <summary>
+            Gets the count of events in the sequence.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSequence.AggregateId">
+            <summary>
+            Gets the id of the aggregate to which these events belong.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSequence.Version">
+            <summary>
+            Gets the version the sequence is at, which is the SequenceNumber of the last event in the sequence.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.EventSourcedAggregate">
+            <summary>
+                Represents an aggregate whose state can be persisted as a sequence of events.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IEventSourced">
+            <summary>
+                Represents an aggregate whose state can be persisted as a sequence of events.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IAggregateRoot">
+            <summary>
+                Defines the root class of an aggregate.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IAggregateRoot.Id">
+            <summary>
+                Gets the globally unique id for this aggregate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourced.ConfirmSave">
+            <summary>
+            Confirms that a save operation has been successfully completed and that the aggregate should move all pending events to its event history.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEventSourced.PendingEvents">
+            <summary>
+                Gets any events for this aggregate that have not yet been committed to the event store.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.#ctor(System.Nullable{System.Guid})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate"/> class.
+            </summary>
+            <param name="id">The id for the new aggregate. If this is not specified, a new <see cref="T:System.Guid"/> is created.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.#ctor(System.Guid,System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Materializes an instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate"/> class from its event history.
+            </summary>
+            <param name="id">The id of the aggregate.</param>
+            <param name="eventHistory">The aggregate's event history.</param>
+            <exception cref="T:System.ArgumentException">The aggregate's id cannot be <see cref="F:System.Guid.Empty"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">eventHistory</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.#ctor(Microsoft.Its.Domain.ISnapshot,System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate`1"/> class.
+            </summary>
+            <param name="snapshot">A snapshot of the aggregate's built-up state.</param>
+            <param name="eventHistory">The event history.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.AddPendingEvent(Microsoft.Its.Domain.IEvent)">
+            <summary>
+            Adds an event to the pending list.
+            </summary>
+            <param name="e">The event.</param>
+            <remarks>Until <see cref="M:Microsoft.Its.Domain.EventSourcedAggregate.ConfirmSave"/> is called, the event is not moved to event history. <see cref="M:Microsoft.Its.Domain.EventSourcedAggregate.ConfirmSave"/> should be called to indicate that the event has been successfully committed to the store.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.EnactCommand(System.Object)">
+            <summary>
+            Enacts the command once all validations and authorizations have passed.
+            </summary>
+            <param name="command">The command.</param>
+            <exception cref="T:System.NotImplementedException">By default, this exception is thrown if an EnactCommand overload for the specific command type has not been implemented.</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate.ConfirmSave">
+            <summary>
+            Confirms that a save operation has been successfully completed and that the aggregate should move all pending events to its event history.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSourcedAggregate.Id">
+            <summary>
+                Gets the globally unique id for this aggregate.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSourcedAggregate.Version">
+            <summary>
+            Gets the version of the aggregate, which is equivalent to the sequence number of the last event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSourcedAggregate.PendingEvents">
+            <summary>
+                Gets any events for this aggregate that have not yet been committed to the event store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.EventSourcedAggregate.EventHistory">
+            <summary>
+                Gets the complete event history for the aggregate.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.EventSourcedAggregate`1">
+            <summary>
+                Represents an aggregate whose state can be persisted as a sequence of events.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.#ctor(System.Nullable{System.Guid})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate`1"/> class.
+            </summary>
+            <param name="id">The aggregate's unique id.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.#ctor(Microsoft.Its.Domain.ConstructorCommand{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate`1"/> class by applying the specified command.
+            </summary>
+            <param name="createCommand">The create command.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.#ctor(System.Guid,System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate`1"/> class.
+            </summary>
+            <param name="id">The aggregate's unique id.</param>
+            <param name="eventHistory">The event history.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.#ctor(Microsoft.Its.Domain.ISnapshot,System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate`1"/> class.
+            </summary>
+            <param name="snapshot">A snapshot of the aggregate's built-up state.</param>
+            <param name="eventHistory">The event history.</param>
+            <remarks>After building up its internal state from the snapshot, the constructor that calls into this constructor should call <see cref="M:Microsoft.Its.Domain.EventSourcedAggregate`1.BuildUpStateFromEventHistory"/>.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.RecordEvent(Microsoft.Its.Domain.Event{`0})">
+            <summary>
+                Records an event, updating the aggregate's state and adding the event to PendingEvents.
+            </summary>
+            <remarks>It is not necessary to specify the AggregateId or SequenceNumber properties on the recorded event. The <see cref="T:Microsoft.Its.Domain.EventSourcedAggregate"/> class handles this.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.ScheduleCommand``1(``0,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Schedules a command for asynchronous and, optionally, deferred delivery.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <param name="command">The command.</param>
+            <param name="due">The time when the command should be delivered. If this is null, the scheduler will deliver it as soon as possible.</param>
+            <exception cref="T:System.ArgumentNullException">command</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.EventSourcedAggregate`1.ScheduleCommandAsync``1(``0,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Schedules a command for asynchronous and, optionally, deferred delivery.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <param name="command">The command.</param>
+            <param name="due">The time when the command should be delivered. If this is null, the scheduler will deliver it as soon as possible.</param>
+            <exception cref="T:System.ArgumentNullException">command</exception>
+        </member>
+        <member name="T:Microsoft.Its.Domain.AggregateExtensions">
+            <summary>
+            Provides additional functionality for event-sourced aggregates.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.Apply``1(``0,Microsoft.Its.Domain.ICommand{``0})">
+            <summary>
+                Applies a command to an aggregate.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="command">The command.</param>
+            <returns>The same aggregate with the command applied and any applicable updates performed.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.ApplyAsync``1(``0,Microsoft.Its.Domain.ICommand{``0})">
+            <summary>
+                Applies a command to an aggregate.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="command">The command.</param>
+            <returns>The same aggregate with the command applied and any applicable updates performed.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.Events(Microsoft.Its.Domain.EventSourcedAggregate)">
+            <summary>
+            Gets an event sequence containing both the event history and pending events for the specified aggregate.
+            </summary>
+            <param name="aggregate">The aggregate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.IsValidTo``1(``0,Microsoft.Its.Domain.Command{``0})">
+            <summary>
+            Determines whether an aggregate is valid for application of the specified command.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="command">The command.</param>
+            <returns>
+              <c>true</c> if the command can be applied; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.AsOfVersion``1(``0,System.Int64)">
+            <summary>
+            Creates a new instance of the aggregate in memory using its state as of the specified version.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.Update``1(``0,System.Collections.Generic.IEnumerable{Microsoft.Its.Domain.IEvent})">
+            <summary>
+            Updates the specified aggregate with additional events.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">events</exception>
+            <exception cref="T:System.InvalidOperationException">Aggregates having pending events cannot be updated.</exception>
+            <remarks>This method can be used when additional events have been appended to an event stream and you would like to bring an in-memory aggregate up to date with those events. If there are new pending events, the aggregate needs to be reset first, and any commands re-applied.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.Validate``1(``0,Microsoft.Its.Domain.Command{``0})">
+            <summary>
+            Validates the command against the specified aggregate.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="command">The command.</param>
+            <returns>A <see cref="T:Its.Validation.ValidationReport"/> detailing any validation errors.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.Version``1(``0)">
+            <summary>
+            Returns the version number of the aggregate, which is equal to it's latest event's sequence id.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <returns>The aggregate's version.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.AggregateExtensions.HasETag``1(``0,System.String)">
+            <summary>
+            Determines whether the specified ETag already exists in the aggregate's event stream.
+            </summary>
+            <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="etag">The etag.</param>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ConstructorCommand`1">
+            <summary>
+            A command that is used to create new instances of the target type <typeparamref name="T" />.
+            </summary>
+            <typeparam name="T">The aggregate type to which the command applies.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ConstructorCommand`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.ConstructorCommand`1"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ConstructorCommand`1.AggregateId">
+            <summary>
+            Gets or sets the aggregate identifier to be used for the new instance of <typeparamref name="T" />.
+            </summary>
+            <value>
+            The aggregate identifier.
+            </value>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ConstructorCommand`1.AppliesToVersion">
+            <summary>
+            If set, requires that the command be applied to this version of the aggregate; otherwise, <see cref="M:Microsoft.Its.Domain.Command`1.ApplyTo(`0)"/> will throw..
+            </summary>
+            <remarks>For <see cref="T:Microsoft.Its.Domain.ConstructorCommand`1"/>, this value is always 0 and cannot be set to a different value.</remarks>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ScheduledCommandException">
+            <summary>
+            Thrown when a scheduled command fails on delivery due to a concurrency, validation, or authorization exception.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandFailed.Cancel">
+            <summary>
+            Cancels the scheduled command. Further delivery attempts will not be made.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandFailed.Retry(System.TimeSpan)">
+            <summary>
+            Retries the scheduled command after the specified amount of time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.CommandFailed.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandFailed.Exception">
+            <summary>
+            Gets or sets the exception that caused the command to fail.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandFailed.NumberOfPreviousAttempts">
+            <summary>
+            Gets or sets the number of previous attempts that have been made to deliver the scheduled command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.ObjectId`1">
+            <summary>
+            An object identifier applicable to a specific type.
+            </summary>
+            <typeparam name="T">The type of the underlying value.</typeparam>
+            <remarks>This class can help to prevent identifiers for one type from being used for a different type.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.ObjectId`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            true if the specified object  is equal to the current object; otherwise, false.
+            </returns>
+            <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.op_Equality(Microsoft.Its.Domain.ObjectId{`0},System.Object)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.op_Inequality(Microsoft.Its.Domain.ObjectId{`0},System.Object)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type. 
+            </summary>
+            <returns>
+            A hash code for the current <see cref="T:System.Object"/>.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.ObjectId`1.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:Microsoft.Its.Domain.ObjectId`1.Value">
+            <summary>
+            Gets the value of the object id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventBus.PublishAsync(Microsoft.Its.Domain.IEvent[])">
+            <summary>
+                Publishes the specified events.
+            </summary>
+            <param name="events">The events to be published.</param>
+            <returns>
+                An <see cref="T:System.IObservable`1"/> that will be notified once each time the event is handled.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventBus.PublishErrorAsync(Microsoft.Its.Domain.EventHandlingError)">
+            <summary>
+            Publishes information about an error that arose during the handling of an event.
+            </summary>
+            <param name="error">The error</param>
+            <returns>
+                An <see cref="T:System.IObservable`1"/> that will be notified once each time the event is handled.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventBus.Events``1">
+            <summary>
+                Gets an observable of all events of the specified type that are published on the bus.
+            </summary>
+            <typeparam name="T">The type of events to be observed.</typeparam>
+            <returns>An observable sequence of events of the specified type.</returns>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IEventBus.Errors">
+            <summary>
+            Gets an observable sequence containing all errors that occur during handling of events published on the bus.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IEventSourcedRepository`1">
+            <summary>
+            Provides lookup and persistence for event sourced aggregates.
+            </summary>
+            <typeparam name="TAggregate"></typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourcedRepository`1.GetLatest(System.Guid)">
+            <summary>
+                Finds and deserializes an aggregate the specified id, if any. If none exists, returns null.
+            </summary>
+            <param name="aggregateId">The id of the aggregate.</param>
+            <returns>The deserialized aggregate, or null if none exists with the specified id.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourcedRepository`1.GetVersion(System.Guid,System.Int64)">
+            <summary>
+                Finds and deserializes an aggregate the specified id, if any. If none exists, returns null.
+            </summary>
+            <param name="version">The version at which to retrieve the aggregate.</param>
+            <param name="aggregateId">The id of the aggregate.</param>
+            <returns>The deserialized aggregate, or null if none exists with the specified id.</returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourcedRepository`1.GetAsOfDate(System.Guid,System.DateTimeOffset)">
+            <summary>
+            Finds and deserializes an aggregate the specified id, if any. If none exists, returns null.
+            </summary>
+            <param name="aggregateId">The id of the aggregate.</param>
+            <param name="asOfDate">The date at which the aggregate should be sourced.</param>
+            <returns>
+            The deserialized aggregate, or null if none exists with the specified id.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourcedRepository`1.Save(`0)">
+            <summary>
+                Persists the state of the specified aggregate by adding new events to the event store.
+            </summary>
+            <param name="aggregate">The aggregate to persist.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.IEventSourcedRepository`1.Refresh(`0)">
+            <summary>
+            Refreshes an aggregate with the latest events from the event stream.
+            </summary>
+            <param name="aggregate">The aggregate to refresh.</param>
+            <remarks>Events not present in the in-memory aggregate will not be re-fetched from the event store.</remarks>
+        </member>
+        <member name="T:Microsoft.Its.Domain.InProcessEventBus">
+            <summary>
+            An in-process event bus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.#ctor(System.Reactive.Subjects.ISubject{Microsoft.Its.Domain.IEvent},System.Reactive.Subjects.ISubject{Microsoft.Its.Domain.EventHandlingError})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.InProcessEventBus"/> class.
+            </summary>
+            <param name="eventSubject">The subject via which events are published.</param>
+            <param name="errorSubject">The subject via which event handling errors are published.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.PublishAsync(Microsoft.Its.Domain.IEvent[])">
+            <summary>
+                Publishes the specified events.
+            </summary>
+            <param name="events">The events to be published.</param>
+            <returns>
+                An <see cref="T:System.IObservable`1"/> that will be notified once and and then completed upon successful publication.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.PublishErrorAsync(Microsoft.Its.Domain.EventHandlingError)">
+            <summary>
+            Publishes information about an error that arose during the handling of an event.
+            </summary>
+            <param name="error">The error</param>
+            <returns>
+                An <see cref="T:System.IObservable`1"/> that will be notified once each time the event is handled.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.Events``1">
+            <summary>
+                Gets an observable of all events of the specified type that are published on the bus.
+            </summary>
+            <typeparam name="T">The type of events to be observed.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.Subscribe(System.Object)">
+            <summary>
+                Subscribes an event handler to events published on the bus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.InProcessEventBus.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:Microsoft.Its.Domain.InProcessEventBus.Errors">
+            <summary>
+            Gets an observable sequence containing all errors that occur during handling of events published on the bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.InProcessEventBus.Instance">
+            <summary>
+            A single global instance of <see cref="T:Microsoft.Its.Domain.InProcessEventBus"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.IOptional">
+            <summary>
+                Represents a value that can be left unspecified while other properties are being set, including to null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IOptional.IsSet">
+            <summary>
+                Gets a value indicating whether a value has been set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.IOptional.Value">
+            <summary>
+                Gets the value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Optional`1">
+            <summary>
+            Represents a value that may or may not have been set.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <remarks>This class can be used to distinguish whether a value was modified, for example allowing a distinction to be made between null and "not modified". This is useful for command and event definitions, allowing an existing value for a property to be unchanged if not specified. It also aids compatibility with JavaScript/JSON, which includes the notion of undefined which is not present in .NET.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Optional`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.Optional`1"/> struct.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Optional`1.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Optional`1.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Optional`1.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="F:Microsoft.Its.Domain.Optional`1.Unset">
+            <summary>
+                Represents the unset value for this type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Optional`1.Create(`0)">
+            <summary>
+            Creates an <see cref="T:Microsoft.Its.Domain.Optional`1"/> containing the specified value.
+            </summary>
+            <param name="value">The optional value.</param>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Optional`1.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>
+            The value.
+            </value>
+            <exception cref="T:System.InvalidOperationException">Optional has no value. Check whether IsSet returns true before calling Value.</exception>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Optional`1.IsSet">
+            <summary>
+                Gets a value indicating whether a value has been set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Optional`1.Microsoft#Its#Domain#IOptional#Value">
+            <summary>
+                Gets the value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Discover">
+            <summary>
+            Provides methods of discovering types within the application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.ConcreteTypesDerivedFrom(System.Type)">
+            <summary>
+            Gets concrete types derived from from specified type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.ConcreteTypesOfGenericInterfaces(System.Type[])">
+            <summary>
+            Gets concrete types based on the specified generic type definition.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.ConcreteTypesNamed(System.String)">
+            <summary>
+            Gets concrete types whose full name matches the specified type name.
+            </summary>
+            <remarks>The comparison is case insensitive.</remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.EventHandlerTypes">
+            <summary>
+            Gets the known event handler types for the events of all known aggregate types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.Consequenters">
+            <summary>
+            Gets the known consequenter types for the events of all known aggregate types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.IsConsequenterType(System.Type)">
+            <summary>
+            Determines whether the specified type is an implementation of <see cref="T:Microsoft.Its.Domain.IHaveConsequencesWhen`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.ProjectorTypes">
+            <summary>
+            Gets the known projector types for the events of all known aggregate types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.IsProjectorType(System.Type)">
+            <summary>
+            Determines whether the specified type is an implementation of <see cref="T:Microsoft.Its.Domain.IUpdateProjectionWhen`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Discover.Concrete(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Gets concrete types, e.g. types that can be instantiated, not interfaces, abstract types, or generic type definitions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.CommandFailed`1.Command">
+            <summary>
+            Gets or sets the scheduled command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Serialization.CommandConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Writes the JSON representation of the object.
+            </summary>
+            <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter"/> to write to.</param><param name="value">The value.</param><param name="serializer">The calling serializer.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Serialization.CommandConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Reads the JSON representation of the object.
+            </summary>
+            <param name="reader">The <see cref="T:Newtonsoft.Json.JsonReader"/> to read from.</param><param name="objectType">Type of the object.</param><param name="existingValue">The existing value of object being read.</param><param name="serializer">The calling serializer.</param>
+            <returns>
+            The object value.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Serialization.CommandConverter.CanConvert(System.Type)">
+            <summary>
+            Determines whether this instance can convert the specified object type.
+            </summary>
+            <param name="objectType">Type of the object.</param>
+            <returns>
+            <c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Serialization.CommandConverter.CanWrite">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Newtonsoft.Json.JsonConverter"/> can write JSON.
+            </summary>
+            <value>
+            <c>true</c> if this <see cref="T:Newtonsoft.Json.JsonConverter"/> can write JSON; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Microsoft.Its.Domain.Serialization.CommandConverter.CanRead">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Newtonsoft.Json.JsonConverter"/> can read JSON.
+            </summary>
+            <value>
+            <c>true</c> if this <see cref="T:Newtonsoft.Json.JsonConverter"/> can read JSON; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Serialization.OptionalContractResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+            <summary>
+            Creates a <see cref="T:Newtonsoft.Json.Serialization.JsonProperty"/> for the given <see cref="T:System.Reflection.MemberInfo"/>.
+            </summary>
+            <param name="memberSerialization">The member's parent <see cref="T:Newtonsoft.Json.MemberSerialization"/>.</param><param name="member">The member to create a <see cref="T:Newtonsoft.Json.Serialization.JsonProperty"/> for.</param>
+            <returns>
+            A created <see cref="T:Newtonsoft.Json.Serialization.JsonProperty"/> for the given <see cref="T:System.Reflection.MemberInfo"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Serialization.Serializer.DeserializeEvent(System.String,System.String,System.Guid,System.Int64,System.DateTimeOffset,System.String,System.Object,Newtonsoft.Json.JsonSerializerSettings,System.String)">
+            <summary>
+            Deserializes a domain event.
+            </summary>
+            <param name="aggregateName">Name of the aggregate.</param>
+            <param name="eventName">Name of the event type.</param>
+            <param name="aggregateId">The aggregate identifier.</param>
+            <param name="sequenceNumber">The sequence number of the event.</param>
+            <param name="timestamp">The timestamp of the event.</param>
+            <param name="body">The body of the event.</param>
+            <param name="uniqueEventId">The unique event identifier.</param>
+            <param name="serializerSettings">The serializer settings used when deserializing the event body.</param>
+            <param name="etag">The ETag of the event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.SnapshotRepositoryExtensions.SaveSnapshot``1(Microsoft.Its.Domain.ISnapshotRepository,``0)">
+            <summary>
+            Saves a snapshot of the aggregate.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.String`1">
+            <summary>
+                Defines a class that can be used like a string but with additional constraints to enforce specific semantic usages.
+            </summary>
+            <typeparam name="T">The type of the implementing class.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.#cctor">
+            <summary>
+                Initializes the <see cref="T:Microsoft.Its.Domain.String`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.String`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.#ctor(System.String,System.StringComparison)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.String`1"/> class.
+            </summary>
+            <param name="value">The value held by the string instance.</param>
+            <param name="stringComparison">
+                The string comparison to be used to determine equality of two instances of the same <see cref="T:Microsoft.Its.Domain.String`1"/>.
+            </param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.op_Explicit(Microsoft.Its.Domain.String{`0})~System.String">
+            <summary>
+                Performs an explicit conversion from <see cref="T:Microsoft.Its.Domain.String`1"/> to <see cref="T:System.String"/>.
+            </summary>
+            <param name="from">From.</param>
+            <returns>
+                The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.op_Implicit(System.String)~Microsoft.Its.Domain.String{`0}">
+            <summary>
+                Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:Microsoft.Its.Domain.String`1"/>.
+            </summary>
+            <param name="from">From.</param>
+            <returns>
+                The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with this instance.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.Equals(Microsoft.Its.Domain.String{`0})">
+            <summary>
+                Equalses the specified other.
+            </summary>
+            <param name="other">The other.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>
+                A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.op_Equality(Microsoft.Its.Domain.String{`0},System.Object)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.op_Inequality(Microsoft.Its.Domain.String{`0},System.Object)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.String`1.Equals(Microsoft.Its.Domain.String{`0},System.Object)">
+            <summary>
+                Equalses the specified left.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Its.Domain.String`1.Value">
+            <summary>
+                Gets the underlying <see cref="T:System.String"/> value of the instance.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.SystemClock">
+            <summary>
+            Provides access to system time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.SystemClock.Now">
+            <summary>
+            Gets the current time via <see cref="P:System.DateTimeOffset.Now"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Its.Domain.Reservation">
+            <summary>
+            Provides methods for reserving unique values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.Reservation.RequiresReserved``1(``0,System.Func{``0,System.String},System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Attempts to reserve the specified value.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <param name="command">The command.</param>
+            <param name="valueToReserve">A delegate returning the value to be reserved.</param>
+            <param name="scope">The scope in which the reserved value is unique.</param>
+            <param name="ownerToken"></param>
+            <returns>A task whose result is true if the value has been successfully reserved; otherwise, false.</returns>
+            <remarks>The method is repeatable, such that if the same principal sends multiple commands requiring the same reserved value, each will return true unless the reservation has expired. If a diferent principle sends a command attempting to reserve the same value, the result will be false.</remarks>
+        </member>
+        <member name="T:Microsoft.Its.Domain.UnitOfWork`1">
+            <summary>
+                Used to scope a unit of work and share state (the unit of work's subject) across a number of participants.
+            </summary>
+            <typeparam name="T">The type of the subject of the unit of work.</typeparam>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.#cctor">
+            <summary>
+            Initializes the <see cref="T:Microsoft.Its.Domain.UnitOfWork`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.#ctor(System.Object[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.Its.Domain.UnitOfWork`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.RejectDueTo(System.Exception)">
+            <summary>
+            Reports an exception due to which the unit of work must be rejected.
+            </summary>
+            <param name="exception">The exception.</param>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.AddResource``1(``0,System.Boolean)">
+            <summary>
+            Adds a resource to the unit of work which will be accessible to nested units of work and will be disposed when the unit of work is disposed.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+            <param name="resource">The resource.</param>
+            <param name="dispose">if set to <c>true</c> dipose the resource when the unit of work is completed; otherwise, don't dispose it.</param>
+            <returns>
+            The same unit of work.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">resource</exception>
+            <exception cref="T:System.InvalidOperationException">Resources cannot be added to a disposed UnitOfWork.</exception>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.Resource``1">
+            <summary>
+                Gets a resource of the specified type, if availble, or null.
+            </summary>
+            <typeparam name="TResource">The type of the resource.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.Dispose">
+            <summary>
+                Completes the unit of work.
+            </summary>
+            <remarks>
+                By default, if the subject of the unit of work implements <see cref="T:System.IDisposable"/>, then it will disposed when the root unit of work is disposed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.VoteCommit">
+            <summary>
+            Votes that the unit of work should be committed.
+            </summary>
+            <remarks>
+            All participants in the unit of work must vote commit for it to actually be committed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Its.Domain.UnitOfWork`1.ConfigureDefault">
+            <summary>
+                Sets the unit of work for type <typeparamref name="T" /> to its default behavior.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Its.Domain.UnitOfWork`1.Committed">
+            <summary>
+            Occurs when a unit of work is committed.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Its.Domain.UnitOfWork`1.Rejected">
+            <summary>
+            Occurs when a unit of work is rejected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Subject">
+            <summary>
+                Gets the subject of the current unit of work.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Exception">
+            <summary>
+            Gets the exception, if any, that caused the unit of work to be rejected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Create">
+            <summary>
+                Gets or sets a delegate used to instantate the subject and add resources when a new unit of work is started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Commit">
+            <summary>
+                Gets or sets a delegate used to commit a unit of work.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Reject">
+            <summary>
+                Gets or sets a delegate used to reject a unit of work.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Its.Domain.UnitOfWork`1.Current">
+            <summary>
+                Gets the ambient unit of work in progress, if any, in the current context.
+            </summary>
+        </member>
+    </members>
+</doc>

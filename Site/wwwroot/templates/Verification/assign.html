@@ -1,7 +1,0 @@
-﻿<div class="assignment" ng-controller="userChooser">
-    <div>Currently assigned to: {{verification.assignedTo.name}}</div>
-    <ul class="list-unstyled">
-        <li ng-repeat="user in users()" ng-click="select(user)" class="text-primary" ng-class="{'selected': selectedUser == user}">{{user.name}}</li>
-    </ul>
-    <button class="btn" ng-click="assign()">Assign</button>
-</div>
