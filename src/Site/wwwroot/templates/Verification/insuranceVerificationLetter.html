@@ -1,0 +1,96 @@
+﻿<div>
+    <p>Specialty {{provder.specialty}}</p>
+    <p>Provider {{provider.name}}</p>
+    <p>Verification Status {{verification.status}}</p>
+
+</div>
+<p>
+    The patient {{benefits.isCovered ? "is" : "is not"}} covered for In-Network acupuncture services when provided by a Licensed Acupuncturist (L.Ac.)
+</p>
+<p>
+    Are there any Acupuncture Diagnosis Requirements or Restrictions (Procedure Code: 97810)? {{benefits.isPreCertificationRequired ? "yes" : "no"}} - {{benefits.diagnosisRequirement}}
+</p>
+<p>
+    Is a Referral Required? {{benefits.isReferralRequired ? "yes" : "no"}} From Who?  {{benefits.referralSource}}
+</p>
+<p>
+    Are any Pre-certifications or Pre-authorizations required? {{benefits.isPreCertificationRequired ? "yes" : "no"}}   How is it obtained? {{benefits.preCertification}}
+</p>
+<p>
+    Is there an Office Visit Copay? {{benefits.isOfficeVisitCopay ? "yes" : "no"}}  ${{benefits.officeVisitCopay}} per visit.
+</p>
+<p>
+    Is this a calendar year plan? {{benefits.isCalendarYearPlan ? "yes" : "no"}}
+</p>
+<div ng-if="benefits.isCalendarYearPlan">
+    <p>
+        Plan Begin {{benefits.calendarYearPlanBegin}}
+    </p>
+    <p>
+        Plan End {{benefits.calendarYearPlanEnd}}
+    </p>
+</div><p>
+    Comments: {{benefits.calendarYearComments || "No calendar comment"}}
+</p>
+<p>
+    Is there a deductible? {{benefits.isDeductable ? "yes" : "no"}}
+</p>
+<p ng-if="benefits.isDeductable">
+    *Individual Deductible of ${{benefits.individualDeductable}} per calendar year,of which ${{benefits.individualDeductableUsed}} has been met.
+</p>
+<p>
+    *Family Deductible of {{benefits.familyDeductable}} per calendar year, of which ${{benefits.familyDeductableUsed}} has been met.
+</p>
+<p>
+    Once the deductible has been met, insurance will cover the patient at {{benefits.insurancePercentResponsibility}}% of approved charges; Patient's responsibility being {{benefits.patientPercentResponsiblity}}% of all billed services.
+</p>
+<p>
+    Is there an Out-of-Pocket Maximum? {{benefits.isOutOfPocketMaximum ? "yes" : "no"}}
+</p>
+<p ng-if="benefits.isOutOfPocketMaximum">
+    *Individual Out-of-Pocket Maximum is ${{benefits.annualIndividualOutOfPocketMaximum}} per calendar year, of which ${{benefits.annualIndividualOutOfPocketMaximumUsed}} has been met.
+</p>
+<p>
+    *Family Out-of-Pocket Maximum is ${{benefits.annualFamilyOutOfPocketMaximum}} per calendar year, of which ${{benefits.annualFamilyOutOfPocketMaximumUsed}} has been met.
+</p>
+<p ng-if="benefits.isDeductableAppliedTowardOutOfPocket">
+    Once the out-of-pocket maximum has been met, the patient will be covered for acupuncture at 100% of approved charges.
+</p>
+<div ng-if="benefits.hasAnnualVisitLimit">
+    <p>
+        Number of Allowed Visits Per Calendar Year {{benefits.annualVisitLimit}}
+    </p>
+    <p>
+        * How Many Visits Have Already Been Used This Year? {{benefits.annualVisitsUsed}}
+    </p>
+    <p>
+        IMPORTANT: * This patient has {{benefits.annualVisitsRemaining}} remaining covered visits for this calendar year. Please be sure to keep track of this patient's visits to ensure that you do not go over the allowed amount
+    </p>
+</div>
+<p>
+    Are Evaluations Billable? {{benefits.isBillableForCode99203 ? "yes" : "no"}}
+</p>
+<p>
+    Please note, that although the following services/modalities may be billable, they must fall within your particular state's 'Scope of Practice' for acupuncturists in order for you to provide and/or bill for them. In addition, some insurance companies may require a review of your medical notes prior to approving or denying payment of these services regardless of the fact that they report to us that they are billable:
+</p>
+<p>
+    Other limits or provisions with regard to acupuncture services: {{benefits.otherLimits || "None noted"}}
+</p>
+<p>
+    Verified by: {{assignedTo}}
+</p>
+<p>
+    Verification Date: {{approvedTimestamp}}
+</p>
+<p>
+    Service Center Representative: {{serviceCenterRepresentative}}
+</p>
+<p>
+    Call Reference Number: {{callReferenceNumber}}
+</p>
+<p>
+    Call Time: {{callTime}}
+</p>
+<p>
+    Please note that in some cases, insurance companies can "backout" on payments, mis-quote benefits, and even reject claims outright. And, even though we have not found this to be a common occurrence, we cannot, and will not guarantee payment based on benefit eligibility quotes received at the time of benefit verification. We will always do our best to help you determine why a particular claim might have been refused or rejected, and will resubmit claims as necessary, but again, no guarantee of payment can be made by AllAcuServices. Please be advised, that you should make it clear to your patients in advance, that they are responsible for full payment should their insurance company fail to pay for your services.
+</p>

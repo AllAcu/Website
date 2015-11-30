@@ -1,0 +1,23 @@
+﻿<h2>Claims</h2>
+
+<div ng-controller="claimsList">
+    <table st-table="drafts" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Diagnosis</th>
+            <th>Date Of Service</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="draft in drafts">
+            <td><a href="#edit/{{draft.id}}">{{draft.patientName}}</a></td>
+            <td>{{draft.diagnosis}}</td>
+            <td>{{draft.dateOfService}}</td>
+            <td>{{draft.status}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="#create"><input type="button" class="btn" value="New"/></a>
+</div>

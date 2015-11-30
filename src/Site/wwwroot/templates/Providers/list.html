@@ -1,0 +1,19 @@
+﻿<h2>Providers</h2>
+
+<table st-table="users" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Business Name</th>
+        <th>City</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="provider in providers()">
+        <td> <a href='{{link(provider)}}'>{{provider.businessName}}</a></td>
+        <td>{{provider.city}}</td>
+    </tr>
+    </tbody>
+
+</table>
+
+<a href="#provider/create" class="btn btn-default">Create Provider</a>

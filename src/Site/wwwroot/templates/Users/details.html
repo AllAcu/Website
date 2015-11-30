@@ -1,0 +1,27 @@
+﻿<h2>{{user.name}}</h2>
+<div>
+    <display-field label="Email address" ng-model="user.email"></display-field>
+
+    <h3>Organizations</h3>
+    <ul>
+        <li class="list-unstyled" ng-repeat="provider in providers()">
+            <button class="btn" ng-show="hasProvider(provider)" ng-click="leave(provider)">Leave</button>
+            {{provider.businessName}}
+        </li>
+        <li class="list-unstyled" ng-repeat="biller in billers()">
+            <span style="font-weight: bold">{{biller.name}}</span>
+        </li>
+    </ul>
+
+    <h3>Invitations</h3>
+    <ul>
+        <li class="list-unstyled" ng-repeat="invite in providerInvitations()">
+            <button class="btn" ng-click="accept(invite)">Accept</button>
+            {{invite.organization.businessName}} - {{invite.roles.join(",")}}
+        </li>
+        <li class="list-unstyled" ng-repeat="invite in billerInvitations()">
+            <button class="btn" ng-click="accept(invite)">Accept</button>
+            {{invite.organization.name}} - {{invite.roles.join(",")}}
+        </li>
+    </ul>
+</div>
