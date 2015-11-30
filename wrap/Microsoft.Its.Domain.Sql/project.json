@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "bin": {
+        "assembly": "../../src/Domain/bin/Debug/Microsoft.Its.Domain.Sql.dll"
+      },
+      "dependencies": {
+        "EntityFramework": "1.0.0-*",
+        "Microsoft.Its.Domain": "1.0.0-*",
+        "Newtonsoft.Json": "1.0.0-*",
+        "System.Reactive.Core": "1.0.0-*",
+        "System.Reactive.Interfaces": "1.0.0-*",
+        "System.Reactive.Linq": "1.0.0-*"
+      }
+    }
+  }
+}

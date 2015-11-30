@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "bin": {
+        "assembly": "../../src/Domain/bin/Debug/System.Reactive.Linq.dll"
+      },
+      "dependencies": {
+        "System.Reactive.Core": "1.0.0-*",
+        "System.Reactive.Interfaces": "1.0.0-*"
+      }
+    }
+  }
+}
