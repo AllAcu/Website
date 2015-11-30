@@ -156,7 +156,6 @@
     <Compile Include="Verification\Events\Updated.cs" />
     <Compile Include="CareProvider\Gender.cs" />
     <Compile Include="CareProvider\GroupNumber.cs" />
-    <Compile Include="CareProvider\IEventRepository{CareProvider}_Extensions.cs" />
     <Compile Include="CareProvider\InsuranceId.cs" />
     <Compile Include="CareProvider\InsurancePolicy.cs" />
     <Compile Include="Verification\VerificationRequestStatus.cs" />
