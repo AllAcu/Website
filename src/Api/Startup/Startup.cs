@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AllAcu.Authentication;
+using AllAcu.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -9,13 +8,14 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Api.Models;
-using Api.Services;
+using Pocket;
 
-namespace Api
+namespace AllAcu
 {
-    public class Startup
+    public partial class Startup
     {
+        private readonly PocketContainer container = new PocketContainer();
+
         public Startup(IHostingEnvironment env)
         {
             // Set up configuration sources.
@@ -36,16 +36,16 @@ namespace Api
         public IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
+                .AddDbContext<AuthorizationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<AuthorizationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -53,6 +53,17 @@ namespace Api
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            var provider = services.BuildServiceProvider();
+            container.AddStrategy(type =>
+            {
+                var result = provider.GetService(type);
+                return result != null ? (Func<PocketContainer, object>) (_ => result) : null;
+            });
+
+            container.Populate();
+
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +88,7 @@ namespace Api
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                         .CreateScope())
                     {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                        serviceScope.ServiceProvider.GetService<AuthorizationDbContext>()
                              .Database.Migrate();
                     }
                 }
@@ -98,6 +109,8 @@ namespace Api
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            ConfigureCqrs(app, container);
         }
 
         // Entry point for the application.

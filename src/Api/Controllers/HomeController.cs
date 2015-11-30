@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
-namespace Api.Controllers
+namespace AllAcu
 {
     public class HomeController : Controller
     {

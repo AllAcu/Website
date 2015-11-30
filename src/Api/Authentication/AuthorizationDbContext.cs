@@ -1,14 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AllAcu.Authentication;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
-namespace Api.Models
+namespace AllAcu.Authentication
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AuthorizationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public static string ConnectionString;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

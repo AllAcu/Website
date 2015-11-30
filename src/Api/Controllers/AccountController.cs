@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AllAcu.Authentication;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
-using Api.Models;
-using Api.Services;
-using Api.ViewModels.Account;
+using AllAcu.Services;
+using AllAcu.ViewModels.Account;
 
-namespace Api.Controllers
+namespace AllAcu
 {
     [Authorize]
     public class AccountController : Controller

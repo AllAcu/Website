@@ -1,0 +1,5 @@
+﻿{
+    "EventStore": "Server=allacudev2.c11mpnmhrjsz.us-east-1.rds.amazonaws.com;Database=EventStore;User Id=AllAcuSA;Password=U%4p$7.36|Tu;",
+    "AllAcu" : "Server=allacudev2.c11mpnmhrjsz.us-east-1.rds.amazonaws.com;Database=AllAcu;User Id=AllAcuSA;Password=U%4p$7.36|Tu;",
+    "Authentication" : "Server=allacudev2.c11mpnmhrjsz.us-east-1.rds.amazonaws.com;Database=Authorization;User Id=AllAcuSA;Password=U%4p$7.36|Tu;"
+}

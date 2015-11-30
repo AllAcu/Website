@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using AllAcu.Authentication;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using Api.Models;
-using Api.Services;
-using Api.ViewModels.Manage;
+using AllAcu.Services;
+using AllAcu.ViewModels.Manage;
 
-namespace Api.Controllers
+namespace AllAcu
 {
     [Authorize]
     public class ManageController : Controller

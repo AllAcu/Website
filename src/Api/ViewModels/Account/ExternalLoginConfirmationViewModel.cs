@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.ViewModels.Account
+namespace AllAcu.ViewModels.Account
 {
     public class ExternalLoginConfirmationViewModel
     {

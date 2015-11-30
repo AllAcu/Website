@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc.Rendering;
 
-namespace Api.ViewModels.Manage
+namespace AllAcu.ViewModels.Manage
 {
     public class ConfigureTwoFactorViewModel
     {

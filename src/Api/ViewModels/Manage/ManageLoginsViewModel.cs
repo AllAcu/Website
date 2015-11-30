@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Identity;
 
-namespace Api.ViewModels.Manage
+namespace AllAcu.ViewModels.Manage
 {
     public class ManageLoginsViewModel
     {
