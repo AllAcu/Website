@@ -5,30 +5,10 @@
     "DNX,Version=v4.5.2": {
       "Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+        "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
-          "EntityFramework": "6.1.3",
-          "EntityFramework.SqlServer": "1.0.0",
-          "Its.Domain": "0.12.8-beta",
-          "Its.Domain.Sql": "0.12.8-beta",
-          "Its.Validation": "1.4.3",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Microsoft.Its.Domain.Sql": "1.0.0",
-          "Newtonsoft.Json": "7.0.1",
-          "Rx-Core": "2.2.5",
-          "Rx-Interfaces": "2.2.5",
-          "Rx-Linq": "2.2.5",
-          "Rx-Main": "2.2.5",
-          "Rx-PlatformServices": "2.2.5",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0",
-          "System.Reactive.PlatformServices": "1.0.0"
+          "Its.Domain": "0.12.8-beta"
         }
-      },
-      "EntityFramework/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
@@ -153,17 +133,10 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
-      "EntityFramework.SqlServer/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0"
-        }
-      },
-      "Its.Configuration/1.0.4": {
+      "Its.Configuration/1.0.5": {
         "type": "package",
         "dependencies": {
-          "NewtonSoft.Json": "6.0.8"
+          "Newtonsoft.Json": "6.0.8"
         },
         "compile": {
           "lib/net40/Its.Configuration.dll": {}
@@ -186,25 +159,14 @@
           "lib/net451/Microsoft.Its.Domain.dll": {}
         }
       },
-      "Its.Domain.Sql/0.12.8-beta": {
+      "Its.Validation/1.3.0": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework": "6.0.0",
-          "Its.Domain": "[0.12.8-beta, 1.0.0)",
-          "Its.Validation": "[1.1.5, 2.0.0)",
-          "Newtonsoft.Json": "6.0.8",
-          "Rx-Main": "2.2.5"
-        },
         "compile": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         },
         "runtime": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         }
-      },
-      "Its.Validation/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "Ix-Async/1.2.5": {
         "type": "package",
@@ -1872,29 +1834,6 @@
           "lib/net451/Microsoft.Extensions.WebEncoders.Core.dll": {}
         }
       },
-      "Microsoft.Its.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "Its.Validation": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
-      "Microsoft.Its.Domain.Sql/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "Microsoft.Net.Http.Headers/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -1931,11 +1870,7 @@
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
-      "Newtonsoft.Json/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "NewtonSoft.Json/7.0.1": {
+      "Newtonsoft.Json/7.0.1": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -2105,34 +2040,6 @@
           "lib/portable-net45+win8/System.Numerics.Vectors.dll": {}
         }
       },
-      "System.Reactive.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.Interfaces/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "System.Reactive.Linq/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.PlatformServices/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "System.Reflection/4.0.0": {
         "type": "package",
         "compile": {
@@ -2252,30 +2159,10 @@
     "DNX,Version=v4.5.2/win7-x86": {
       "Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+        "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
-          "EntityFramework": "6.1.3",
-          "EntityFramework.SqlServer": "1.0.0",
-          "Its.Domain": "0.12.8-beta",
-          "Its.Domain.Sql": "0.12.8-beta",
-          "Its.Validation": "1.4.3",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Microsoft.Its.Domain.Sql": "1.0.0",
-          "Newtonsoft.Json": "7.0.1",
-          "Rx-Core": "2.2.5",
-          "Rx-Interfaces": "2.2.5",
-          "Rx-Linq": "2.2.5",
-          "Rx-Main": "2.2.5",
-          "Rx-PlatformServices": "2.2.5",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0",
-          "System.Reactive.PlatformServices": "1.0.0"
+          "Its.Domain": "0.12.8-beta"
         }
-      },
-      "EntityFramework/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
@@ -2400,17 +2287,10 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
-      "EntityFramework.SqlServer/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0"
-        }
-      },
-      "Its.Configuration/1.0.4": {
+      "Its.Configuration/1.0.5": {
         "type": "package",
         "dependencies": {
-          "NewtonSoft.Json": "6.0.8"
+          "Newtonsoft.Json": "6.0.8"
         },
         "compile": {
           "lib/net40/Its.Configuration.dll": {}
@@ -2433,25 +2313,14 @@
           "lib/net451/Microsoft.Its.Domain.dll": {}
         }
       },
-      "Its.Domain.Sql/0.12.8-beta": {
+      "Its.Validation/1.3.0": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework": "6.0.0",
-          "Its.Domain": "[0.12.8-beta, 1.0.0)",
-          "Its.Validation": "[1.1.5, 2.0.0)",
-          "Newtonsoft.Json": "6.0.8",
-          "Rx-Main": "2.2.5"
-        },
         "compile": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         },
         "runtime": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         }
-      },
-      "Its.Validation/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "Ix-Async/1.2.5": {
         "type": "package",
@@ -4122,29 +3991,6 @@
           "lib/net451/Microsoft.Extensions.WebEncoders.Core.dll": {}
         }
       },
-      "Microsoft.Its.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "Its.Validation": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
-      "Microsoft.Its.Domain.Sql/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "Microsoft.Net.Http.Headers/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -4181,11 +4027,7 @@
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
-      "Newtonsoft.Json/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "NewtonSoft.Json/7.0.1": {
+      "Newtonsoft.Json/7.0.1": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -4355,34 +4197,6 @@
           "lib/portable-net45+win8/System.Numerics.Vectors.dll": {}
         }
       },
-      "System.Reactive.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.Interfaces/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "System.Reactive.Linq/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.PlatformServices/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "System.Reflection/4.0.0": {
         "type": "package",
         "compile": {
@@ -4502,30 +4316,10 @@
     "DNX,Version=v4.5.2/win7-x64": {
       "Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+        "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
-          "EntityFramework": "6.1.3",
-          "EntityFramework.SqlServer": "1.0.0",
-          "Its.Domain": "0.12.8-beta",
-          "Its.Domain.Sql": "0.12.8-beta",
-          "Its.Validation": "1.4.3",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Microsoft.Its.Domain.Sql": "1.0.0",
-          "Newtonsoft.Json": "7.0.1",
-          "Rx-Core": "2.2.5",
-          "Rx-Interfaces": "2.2.5",
-          "Rx-Linq": "2.2.5",
-          "Rx-Main": "2.2.5",
-          "Rx-PlatformServices": "2.2.5",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0",
-          "System.Reactive.PlatformServices": "1.0.0"
+          "Its.Domain": "0.12.8-beta"
         }
-      },
-      "EntityFramework/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
@@ -4650,17 +4444,10 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
-      "EntityFramework.SqlServer/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0"
-        }
-      },
-      "Its.Configuration/1.0.4": {
+      "Its.Configuration/1.0.5": {
         "type": "package",
         "dependencies": {
-          "NewtonSoft.Json": "6.0.8"
+          "Newtonsoft.Json": "6.0.8"
         },
         "compile": {
           "lib/net40/Its.Configuration.dll": {}
@@ -4683,25 +4470,14 @@
           "lib/net451/Microsoft.Its.Domain.dll": {}
         }
       },
-      "Its.Domain.Sql/0.12.8-beta": {
+      "Its.Validation/1.3.0": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework": "6.0.0",
-          "Its.Domain": "[0.12.8-beta, 1.0.0)",
-          "Its.Validation": "[1.1.5, 2.0.0)",
-          "Newtonsoft.Json": "6.0.8",
-          "Rx-Main": "2.2.5"
-        },
         "compile": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         },
         "runtime": {
-          "lib/net451/Microsoft.Its.Domain.Sql.dll": {}
+          "lib/net45/Its.Validation.dll": {}
         }
-      },
-      "Its.Validation/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
       },
       "Ix-Async/1.2.5": {
         "type": "package",
@@ -6372,29 +6148,6 @@
           "lib/net451/Microsoft.Extensions.WebEncoders.Core.dll": {}
         }
       },
-      "Microsoft.Its.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "Its.Validation": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
-      "Microsoft.Its.Domain.Sql/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "EntityFramework": "1.0.0",
-          "Microsoft.Its.Domain": "1.0.0",
-          "Newtonsoft.Json": "1.0.0",
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "Microsoft.Net.Http.Headers/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -6431,11 +6184,7 @@
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
-      "Newtonsoft.Json/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "NewtonSoft.Json/7.0.1": {
+      "Newtonsoft.Json/7.0.1": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -6605,34 +6354,6 @@
           "lib/portable-net45+win8/System.Numerics.Vectors.dll": {}
         }
       },
-      "System.Reactive.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.Interfaces/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1"
-      },
-      "System.Reactive.Linq/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0"
-        }
-      },
-      "System.Reactive.PlatformServices/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "System.Reactive.Core": "1.0.0",
-          "System.Reactive.Interfaces": "1.0.0",
-          "System.Reactive.Linq": "1.0.0"
-        }
-      },
       "System.Reflection/4.0.0": {
         "type": "package",
         "compile": {
@@ -6753,47 +6474,7 @@
   "libraries": {
     "Domain/1.0.0": {
       "type": "project",
-      "path": "../../wrap/Domain/project.json"
-    },
-    "EntityFramework/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/EntityFramework/project.json"
-    },
-    "EntityFramework.SqlServer/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/EntityFramework.SqlServer/project.json"
-    },
-    "Its.Validation/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/Its.Validation/project.json"
-    },
-    "Microsoft.Its.Domain/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/Microsoft.Its.Domain/project.json"
-    },
-    "Microsoft.Its.Domain.Sql/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/Microsoft.Its.Domain.Sql/project.json"
-    },
-    "Newtonsoft.Json/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/Newtonsoft.Json/project.json"
-    },
-    "System.Reactive.Core/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/System.Reactive.Core/project.json"
-    },
-    "System.Reactive.Interfaces/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/System.Reactive.Interfaces/project.json"
-    },
-    "System.Reactive.Linq/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/System.Reactive.Linq/project.json"
-    },
-    "System.Reactive.PlatformServices/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/System.Reactive.PlatformServices/project.json"
+      "path": "../Domain/project.json"
     },
     "EntityFramework.Commands/7.0.0-rc1-final": {
       "type": "package",
@@ -6890,12 +6571,12 @@
         "lib/netcore50/_._"
       ]
     },
-    "Its.Configuration/1.0.4": {
+    "Its.Configuration/1.0.5": {
       "type": "package",
-      "sha512": "A0ktfXuDc9jCXaLRglqykfrQ6i19L9mtCovfcoZW1rr1qgOHhpkk5KFrfvgzrJHsPieu09TxD6f00kUTIjibRg==",
+      "sha512": "GdPviMolNW7MiHv+V7p1samuCznk3hrZxr9GXYTLS42PQuxtpFGdJun959tPmqkLVoW6KnKZUzGPqSfKJcGpMA==",
       "files": [
-        "Its.Configuration.1.0.4.nupkg",
-        "Its.Configuration.1.0.4.nupkg.sha512",
+        "Its.Configuration.1.0.5.nupkg",
+        "Its.Configuration.1.0.5.nupkg.sha512",
         "Its.Configuration.nuspec",
         "lib/net40/Its.Configuration.dll",
         "lib/net40/Its.Configuration.xml"
@@ -6912,15 +6593,15 @@
         "lib/net451/Microsoft.Its.Domain.xml"
       ]
     },
-    "Its.Domain.Sql/0.12.8-beta": {
+    "Its.Validation/1.3.0": {
       "type": "package",
-      "sha512": "9VTi94LTgL1g69MVa90OQf7CbTXL6T1BNSeQvAUYJ6v7jQ7C6tEVapHfL3/IinRgTlogcjvuVYB5VL5WL6Amnw==",
+      "sha512": "FpKmB8SrWBi6Np1tacRivNlIx4uSs6I1tjpEQFewEtPdCaxFiA42XRQB6+ykixhDFbQgQwK3NmxZuewmiuv3WQ==",
       "files": [
-        "Its.Domain.Sql.0.12.8-beta.nupkg",
-        "Its.Domain.Sql.0.12.8-beta.nupkg.sha512",
-        "Its.Domain.Sql.nuspec",
-        "lib/net451/Microsoft.Its.Domain.Sql.dll",
-        "lib/net451/Microsoft.Its.Domain.Sql.xml"
+        "Its.Validation.1.3.0.nupkg",
+        "Its.Validation.1.3.0.nupkg.sha512",
+        "Its.Validation.nuspec",
+        "lib/net45/Its.Validation.dll",
+        "lib/net45/Its.Validation.xml"
       ]
     },
     "Ix-Async/1.2.5": {
@@ -8254,7 +7935,7 @@
         "Microsoft.VisualStudio.Web.BrowserLink.Loader.nuspec"
       ]
     },
-    "NewtonSoft.Json/7.0.1": {
+    "Newtonsoft.Json/7.0.1": {
       "type": "package",
       "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
       "files": [
@@ -9214,11 +8895,10 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
-      "Its.Configuration >= 1.0.4",
-      "NewtonSoft.Json >= 7.0.1"
-    ],
-    "DNX,Version=v4.5.2": [
+      "Its.Configuration >= 1.0.5",
+      "Newtonsoft.Json >= 7.0.1",
       "Domain >= 1.0.0-*"
-    ]
+    ],
+    "DNX,Version=v4.5.2": []
   }
 }

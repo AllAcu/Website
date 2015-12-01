@@ -1,0 +1,14 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Domain",
+  "authors": [ "Brett Morien" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Its.Domain": "0.12.8-beta",
+  },
+  "frameworks": {
+    "net452": { }
+  }
+}

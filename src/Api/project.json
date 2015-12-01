@@ -27,6 +27,7 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "Its.Configuration": "1.0.5",
     "Newtonsoft.Json": "7.0.1",
+    "Domain": "1.0.0-*",
   },
 
   "commands": {
@@ -37,7 +38,6 @@
   "frameworks": {
     "dnx452": {
       "dependencies": {
-        "Domain": "1.0.0-*"
       }
     }
   },
