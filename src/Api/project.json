@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet5-Api-ad767fbd-ba28-428a-a9b3-03ff7f0f2f6b",
   "version": "1.0.0-*",
   "compilationOptions": {
@@ -25,8 +25,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "Its.Configuration": "1.0.4",
-    "NewtonSoft.Json": "7.0.1"
+    "Its.Configuration": "1.0.5",
+    "Newtonsoft.Json": "7.0.1",
   },
 
   "commands": {
