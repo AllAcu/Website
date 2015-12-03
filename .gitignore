@@ -197,3 +197,4 @@ artifacts/
 # Custom ignores
 Site/wwwroot/lib/
 Site/wwwroot/js/acuApp.js
+*.lock.json
