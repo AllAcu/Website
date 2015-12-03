@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Domain",
   "authors": [ "Brett Morien" ],
@@ -6,7 +6,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Its.Domain": "0.12.8-beta",
+    "Its.Domain": "0.12.9-beta"
   },
   "frameworks": {
     "net452": { }
