@@ -28,6 +28,8 @@
     "Its.Configuration": "1.0.5",
     "Newtonsoft.Json": "7.0.1",
     "Domain": "1.0.0-*",
+    "Its.Domain": "0.12.10-beta",
+    "Its.Domain.Sql": "0.12.10-beta"
   },
 
   "commands": {

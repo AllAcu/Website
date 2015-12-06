@@ -6,7 +6,8 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Its.Domain": "0.12.9-beta"
+    "Its.Domain": "0.12.10-beta",
+    "Its.Domain.Sql": "0.12.10-beta"
   },
   "frameworks": {
     "net452": { }
