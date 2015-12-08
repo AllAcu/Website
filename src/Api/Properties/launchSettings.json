@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:57704/",
+      "applicationUrl": "http://api.allacu.dev",
       "sslPort": 0
     }
   },
@@ -17,6 +17,8 @@
     },
     "web": {
       "commandName": "web",
+      "launchBrowser": true,
+      "launchUrl": "http://api.allacu.dev",
       "environmentVariables": {
         "Hosting:Environment": "Development"
       }

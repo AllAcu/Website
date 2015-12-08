@@ -9,6 +9,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Site.Models;
 using Site.Services;
 
@@ -58,6 +59,10 @@ namespace Site
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            var appBase = app.ApplicationServices.GetService<IApplicationEnvironment>().ApplicationBasePath;
+            Its.Configuration.Settings.SettingsDirectory = System.IO.Path.Combine(appBase, ".config");
+            Its.Configuration.Settings.Precedence = new[] { "local", "defaults" };
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
