@@ -19,7 +19,6 @@
 /// <reference path="js/app/userSession.js" />
 /// <reference path="js/app/verificationRepository.js" />
 /// <reference path="js/app/verifications.js" />
-/// <reference path="js/site.min.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-bootstrap/ui-bootstrap-tpls.js" />
 /// <reference path="lib/angular-route/angular-route.js" />
