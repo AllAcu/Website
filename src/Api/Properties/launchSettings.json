@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://api.allacu.dev",
+      "applicationUrl": "http://www.allacu.dev",
       "sslPort": 0
     }
   },

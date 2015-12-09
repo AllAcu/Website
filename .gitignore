@@ -198,3 +198,4 @@ artifacts/
 Site/wwwroot/lib/
 Site/wwwroot/js/acuApp.js
 *.lock.json
+wwwroot/lib

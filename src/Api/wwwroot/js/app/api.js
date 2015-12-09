@@ -2,7 +2,7 @@
     app.service('$api', [
         '$http', 'authToken', function ($http, authToken) {
 
-            var baseUrl = "http://allacu.dev/api";
+            var baseUrl = "http://www.allacu.dev";
             function url(url) {
                 return baseUrl + url;
             }
