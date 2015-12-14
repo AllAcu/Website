@@ -240,4 +240,4 @@
         }
     ]);
 
-}(angular.module("verificationApp")));
+}(angular.module("app")));

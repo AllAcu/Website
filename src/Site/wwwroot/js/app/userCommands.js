@@ -22,4 +22,4 @@
             }
         }
     }]);
-})(angular.module("allAcuApp"));
+})(angular.module("app"));

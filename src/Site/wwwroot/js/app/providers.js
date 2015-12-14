@@ -72,4 +72,4 @@
             }
         }
     ]);
-}(angular.module("providersApp")));
+}(angular.module("app")));

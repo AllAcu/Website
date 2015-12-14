@@ -18,4 +18,4 @@
 
         return authToken;
     });
-}(angular.module("authApp")));
+}(angular.module("app")));

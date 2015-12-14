@@ -1,24 +1,9 @@
 ﻿(function(exports, angular) {
-    var app = angular.module('allAcuApp', [
+    var app = angular.module('app', [
         'ngRoute',
         'timer',
-        'api',
-        'authApp',
-        'patientsApp',
-        'providersApp',
-        'billerApp',
-        'userApp',
         'ui.bootstrap'
     ]);
-
-    angular.module("api", []);
-    angular.module("authApp", []);
-    angular.module("patientsApp", ["verificationApp"]);
-    angular.module("providersApp", ["api"]);
-    angular.module("billerApp", []);
-    angular.module("userApp", []);
-    angular.module("claimsApp", []);
-    angular.module("verificationApp", []);
 
     app.config([
         '$routeProvider',
@@ -122,7 +107,7 @@
                 });
         }
     ]).run([
-        '$rootScope', '$location', '$http', function($rootScope, $window, $http) {
+        '$rootScope', '$window', '$http', function($rootScope, $window, $http) {
             $rootScope.$on('$routeChangeStart', function(ev, next, curr) {
                 if (next.$$route) {
                     if (next.$$route.anonymous) {
@@ -141,12 +126,12 @@
 
     function userLoggedIn() {
         return true;
-        //var authTokenService = angular.injector(['authApp']);
+        //var authTokenService = angular.injector(['app']);
         //return authTokenService.get('authToken').loggedIn();
     }
 
     function getAuthHeader() {
-        var authToken = angular.injector(['authApp']).get('authToken');
+        var authToken = angular.injector(['app']).get('authToken');
         if (authToken.loggedIn()) {
             return 'Bearer ' + authToken.get();
         }
