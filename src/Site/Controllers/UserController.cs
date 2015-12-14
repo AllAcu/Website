@@ -88,7 +88,7 @@ namespace AllAcu.Controllers
             return Invite(command);
         }
 
-        [Route("{userId}/invites")]
+        [Route("obsolete/{userId}/invites")]
         [AllowAnonymous]
         public ActionResult GetInvites(Guid userId)
         {
@@ -110,7 +110,7 @@ namespace AllAcu.Controllers
             return Ok();
         }
 
-        [Route("register"), HttpPost]
+        [Route("obsolete/register"), HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Register(Domain.User.User.Register command)
         {
@@ -121,7 +121,7 @@ namespace AllAcu.Controllers
                 return HttpNotFound();
             }
 
-            var applicationUser = new ApplicationUser { UserName = confirmation.Email, Email = confirmation.Email, UserId = confirmation.UserId };
+            var applicationUser = new ApplicationUser { UserName = confirmation.Email, Email = confirmation.Email} ;//, UserId = confirmation.UserId };
             var result = await userManager.CreateAsync(applicationUser, command.Password);
 
             if (!result.Succeeded)
@@ -136,7 +136,7 @@ namespace AllAcu.Controllers
             return Ok();
         }
 
-        [Route("confirmations"), HttpGet]
+        [Route("obsolete/confirmations"), HttpGet]
         public async Task<ActionResult> Confirmations()
         {
             return Ok(await dbContext.Confirmations.ToListAsync());

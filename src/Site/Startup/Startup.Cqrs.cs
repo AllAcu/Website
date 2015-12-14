@@ -31,7 +31,7 @@ namespace AllAcu
             var dbConnections = Settings.Get<DatabaseConnections>();
             AllAcuSiteDbContext.ConnectionString = dbConnections.AllAcu;
             EventStoreDbContext.NameOrConnectionString = dbConnections.EventStore;
-            //AuthorizationDbContext.ConnectionString = dbConnections.Authentication;
+            AuthorizationDbContext.ConnectionString = dbConnections.Authentication;
 
             using (var db = new AllAcuSiteDbContext())
             {

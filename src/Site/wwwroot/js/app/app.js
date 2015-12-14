@@ -4,7 +4,6 @@
         'timer',
         'api',
         'authApp',
-        'loginApp',
         'patientsApp',
         'providersApp',
         'billerApp',
@@ -14,7 +13,6 @@
 
     angular.module("api", []);
     angular.module("authApp", []);
-    angular.module("loginApp", []);
     angular.module("patientsApp", ["verificationApp"]);
     angular.module("providersApp", ["api"]);
     angular.module("billerApp", []);
@@ -26,21 +24,6 @@
         '$routeProvider',
         function($routeProvider) {
             $routeProvider
-                .when('/login', {
-                    templateUrl: '/Templates/Users/login.html',
-                    controller: 'loginController',
-                    anonymous: true
-                })
-                .when('/signup', {
-                    controller: 'signupController',
-                    templateUrl: '/Templates/Users/signup.html',
-                    anonymous: true
-                })
-                .when('/register/:token', {
-                    controller: 'registrationController',
-                    templateUrl: '/Templates/Users/register.html',
-                    anonymous: true
-                })
                 .when('/logout', {
                     controller: 'logoutController',
                     template: ''
@@ -139,7 +122,7 @@
                 });
         }
     ]).run([
-        '$rootScope', '$location', '$http', function($rootScope, $location, $http) {
+        '$rootScope', '$location', '$http', function($rootScope, $window, $http) {
             $rootScope.$on('$routeChangeStart', function(ev, next, curr) {
                 if (next.$$route) {
                     if (next.$$route.anonymous) {
@@ -147,7 +130,7 @@
                     }
 
                     if (!userLoggedIn()) {
-                        $location.path('/login');
+                        $window.location.href("/account/login");
                     }
                 }
             });
@@ -157,8 +140,9 @@
     ]);
 
     function userLoggedIn() {
-        var authTokenService = angular.injector(['authApp']);
-        return authTokenService.get('authToken').loggedIn();
+        return true;
+        //var authTokenService = angular.injector(['authApp']);
+        //return authTokenService.get('authToken').loggedIn();
     }
 
     function getAuthHeader() {
@@ -171,8 +155,7 @@
     app.controller('nav', [
         '$scope', 'authToken', function($scope, authToken) {
             var _loginNavItems = [
-                { label: "Login", link: "/#/login" },
-                { label: "Sign up", link: "/#/signup" }
+                { label: "Login", link: "/account/login" }
             ];
             var _navItems = [
                 { label: "Verifications", link: "/#/verifications" },

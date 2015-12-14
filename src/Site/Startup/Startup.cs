@@ -1,8 +1,10 @@
 ﻿using System;
 using AllAcu.Authentication;
 using AllAcu.Services;
+using Its.Configuration;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +45,7 @@ namespace AllAcu
                 .AddSqlServer()
                 .AddDbContext<AuthorizationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+                    //options.UseSqlServer(Settings.Get<DatabaseConnections>().Authentication));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AuthorizationDbContext>()

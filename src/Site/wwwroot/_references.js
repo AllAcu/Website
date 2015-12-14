@@ -9,7 +9,6 @@
 /// <reference path="js/app/claims.js" />
 /// <reference path="js/app/claimsRepository.js" />
 /// <reference path="js/app/directives.js" />
-/// <reference path="js/app/login.js" />
 /// <reference path="js/app/patientCommands.js" />
 /// <reference path="js/app/patientRepository.js" />
 /// <reference path="js/app/patients.js" />
