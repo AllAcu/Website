@@ -85,7 +85,6 @@ namespace AllAcu
             }
 
             var user = dbContext.Users.Find(@event.AggregateId);
-            user.Confirmed = true;
 
             dbContext.SaveChanges();
         }

@@ -19,13 +19,11 @@ namespace AllAcu.Controllers
     {
         private readonly AllAcuSiteDbContext dbContext;
         private readonly IEventSourcedRepository<Domain.User.User> userEventSourcedRepository;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<Domain.User.User> userEventSourcedRepository, UserManager<ApplicationUser> userManager)
+        public UserController(AllAcuSiteDbContext dbContext, IEventSourcedRepository<Domain.User.User> userEventSourcedRepository)
         {
             this.dbContext = dbContext;
             this.userEventSourcedRepository = userEventSourcedRepository;
-            this.userManager = userManager;
         }
 
         [Route("{userId}")]
@@ -37,27 +35,7 @@ namespace AllAcu.Controllers
         [Route("")]
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await dbContext.Users.Where(u => u.Confirmed).ToArrayAsync();
-        }
-
-        [Route("signup"), HttpPost]
-        [AllowAnonymous]
-        public async Task<ActionResult> Signup(Domain.User.User.SignUp command)
-        {
-            if (string.IsNullOrWhiteSpace(command.Email))
-            {
-                return HttpNotFound();
-            }
-            if (await dbContext.Users.AnyAsync(u => command.Email.Equals(u.Email, StringComparison.OrdinalIgnoreCase)))
-            {
-                return Ok();
-            }
-
-            var user = new Domain.User.User();
-            await user.ApplyAsync(command);
-            await userEventSourcedRepository.Save(user);
-
-            return Ok();
+            return await dbContext.Users.ToArrayAsync();
         }
 
         [Route("invite"), HttpPost]
@@ -65,18 +43,18 @@ namespace AllAcu.Controllers
         {
             command.Role = command.Role ?? Domain.CareProvider.CareProvider.Roles.Practitioner;
 
-            var userDetails = dbContext.Users.FirstOrDefault(u => u.Email == command.Email);
-            var user = userDetails == null ?
-                new Domain.User.User(new Domain.User.User.SignUp { Email = command.Email }) :
-                await userEventSourcedRepository.GetLatest(userDetails.UserId);
+            //var userDetails = dbContext.Users.FirstOrDefault(u => u.Email == command.Email);
+            //var user = userDetails == null ?
+            //    new Domain.User.User(new Domain.User.User.SignUp { Email = command.Email }) :
+            //    await userEventSourcedRepository.GetLatest(userDetails.UserId);
 
-            if (user.HasBeenInvited(command.OrganizationId, command.Role))
-            {
-                return Ok();
-            }
+            //if (user.HasBeenInvited(command.OrganizationId, command.Role))
+            //{
+            //    return Ok();
+            //}
 
-            await user.ApplyAsync(command);
-            await userEventSourcedRepository.Save(user);
+            //await user.ApplyAsync(command);
+            //await userEventSourcedRepository.Save(user);
 
             return Ok();
         }
@@ -108,38 +86,6 @@ namespace AllAcu.Controllers
             await userEventSourcedRepository.Save(user);
 
             return Ok();
-        }
-
-        [Route("obsolete/register"), HttpPost]
-        [AllowAnonymous]
-        public async Task<ActionResult> Register(Domain.User.User.Register command)
-        {
-            var confirmation = dbContext.Confirmations.FirstOrDefault(c => c.Token == command.Token);
-
-            if (confirmation == null)
-            {
-                return HttpNotFound();
-            }
-
-            var applicationUser = new ApplicationUser { UserName = confirmation.Email, Email = confirmation.Email} ;//, UserId = confirmation.UserId };
-            var result = await userManager.CreateAsync(applicationUser, command.Password);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            var user = await userEventSourcedRepository.GetLatest(confirmation.UserId);
-            await user.ApplyAsync(command);
-            await userEventSourcedRepository.Save(user);
-
-            return Ok();
-        }
-
-        [Route("obsolete/confirmations"), HttpGet]
-        public async Task<ActionResult> Confirmations()
-        {
-            return Ok(await dbContext.Confirmations.ToListAsync());
         }
 
         private ActionResult GetErrorResult(IdentityResult result)

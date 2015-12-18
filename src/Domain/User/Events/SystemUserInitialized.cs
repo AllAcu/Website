@@ -13,7 +13,6 @@ namespace Domain.User
             {
                 user.Name = Name;
                 user.Email = Email;
-                user.Confirmed = true;
             }
         }
     }

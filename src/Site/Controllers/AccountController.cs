@@ -12,6 +12,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
 using AllAcu.Services;
 using AllAcu.ViewModels.Account;
+using Microsoft.Its.Domain;
 
 namespace AllAcu
 {
@@ -23,6 +24,7 @@ namespace AllAcu
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IEventSourcedRepository<Domain.User.User> userEventSourcedRepository;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -115,6 +117,13 @@ namespace AllAcu
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    var domainUser = new Domain.User.User(new Domain.User.User.Register
+                    {
+                        Email = model.Email
+                    });
+                    await userEventSourcedRepository.Save(domainUser);
+
                     _logger.LogInformation(3, "User created a new account with password.");
                     return Redirect("/");
                 }

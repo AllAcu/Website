@@ -50,11 +50,13 @@ namespace AllAcu
             container.Register(typeof(IEventSourcedRepository<Domain.Biller.Biller>), c => Microsoft.Its.Domain.Configuration.Current.Repository<Domain.Biller.Biller>());
 
             // catch completely up
-            var projectorTypes = Discover.ProjectorTypes();
-            var readModelCatchup = new ReadModelCatchup<AllAcuSiteDbContext>((projectorTypes
-                .Select(container.Resolve).ToArray()));
-            readModelCatchup.Run();
-
+            var projectorTypes = Discover.ProjectorTypes().ToArray();
+            if (projectorTypes.Any())
+            {
+                var readModelCatchup = new ReadModelCatchup<AllAcuSiteDbContext>((projectorTypes
+                    .Select(container.Resolve).ToArray()));
+                readModelCatchup.Run();
+            }
             var immediateSubscriptions = new[]
             {
                 typeof(PatientEventHandler),
@@ -70,13 +72,17 @@ namespace AllAcu
             _eventSubscriptions = Microsoft.Its.Domain.Configuration.Current.EventBus.Subscribe(
                 immediateSubscriptions.Select(container.Resolve).ToArray());
 
-            var catchup = new ReadModelCatchup<AllAcuSiteDbContext>((Discover.ProjectorTypes()
+            var projectors = (Discover.ProjectorTypes()
                 .Where(s => !immediateSubscriptions.Contains(s)))
-                .Select(container.Resolve).ToArray());
+                .Select(container.Resolve).ToArray();
 
-            catchup.Progress.Subscribe(m => Debug.WriteLine(m));
-            container.RegisterSingle(c => catchup);
-            catchup.PollEventStore();
+            if (projectors.Any())
+            {
+                var catchup = new ReadModelCatchup<AllAcuSiteDbContext>(projectors);
+                catchup.Progress.Subscribe(m => Debug.WriteLine(m));
+                container.RegisterSingle(c => catchup);
+                catchup.PollEventStore();
+            }
 
             Command<Domain.CareProvider.CareProvider>.AuthorizeDefault = (provider, command) =>
             {

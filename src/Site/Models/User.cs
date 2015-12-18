@@ -10,7 +10,6 @@ namespace AllAcu
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public bool Confirmed { get; set; }
 
         public virtual IList<ProviderRole> ProviderRoles { get; set; } = new List<ProviderRole>();
         public virtual IList<ProviderInvitation> ProviderInvitations { get; set; } = new List<ProviderInvitation>();
@@ -19,7 +18,7 @@ namespace AllAcu
     }
 
     public class UserEventHandler :
-        IUpdateProjectionWhen<Domain.User.User.SignedUp>,
+        IUpdateProjectionWhen<Domain.User.User.Registered>,
         IUpdateProjectionWhen<Domain.User.User.Updated>,
         IUpdateProjectionWhen<Domain.User.User.BillerSystemUserInitialized>
     {
@@ -30,7 +29,7 @@ namespace AllAcu
             this.dbContext = dbContext;
         }
 
-        public void UpdateProjection(Domain.User.User.SignedUp @event)
+        public void UpdateProjection(Domain.User.User.Registered @event)
         {
             dbContext.Users.Add(new User
             {
@@ -55,8 +54,7 @@ namespace AllAcu
             {
                 UserId = @event.AggregateId,
                 Name = @event.Name,
-                Email = @event.Email,
-                Confirmed = true
+                Email = @event.Email
             });
 
             dbContext.SaveChanges();

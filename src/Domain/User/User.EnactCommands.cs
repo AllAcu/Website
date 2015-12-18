@@ -9,7 +9,6 @@ namespace Domain.User
     {
         public class UserCommandHandler :
             ICommandHandler<User, Update>,
-            ICommandHandler<User, SignUp>,
             ICommandHandler<User, Register>,
             ICommandHandler<User, Invite>,
             ICommandHandler<User, AcceptInvite>,
@@ -32,16 +31,6 @@ namespace Domain.User
                 });
             }
 
-            public async Task EnactCommand(User user, SignUp command)
-            {
-                user.RecordEvent(new SignedUp
-                {
-                    Email = command.Email,
-                    ConfirmationSentDate = DateTime.UtcNow,
-                    Token = SignupToken.GenerateToken()
-                });
-            }
-
             public async Task EnactCommand(User user, CreateSystemUser command)
             {
                 user.RecordEvent(new BillerSystemUserInitialized
@@ -53,10 +42,9 @@ namespace Domain.User
 
             public async Task EnactCommand(User user, Register command)
             {
-                user.RecordEvent(new Registered());
-                user.RecordEvent(new Updated
+                user.RecordEvent(new Registered
                 {
-                    Name = command.Name
+                    Email = command.Email
                 });
             }
 
@@ -93,10 +81,6 @@ namespace Domain.User
             }
 
             public async Task HandleScheduledCommandException(User user, CommandFailed<Update> command)
-            {
-            }
-
-            public async Task HandleScheduledCommandException(User user, CommandFailed<SignUp> command)
             {
             }
 

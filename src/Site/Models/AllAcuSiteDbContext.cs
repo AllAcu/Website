@@ -10,7 +10,6 @@ namespace AllAcu
         public DbSet<Patient> Patients { get; set; }
         public DbSet<InsuranceVerification> Verifications { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<OutstandingConfirmation> Confirmations { get; set; }
         public DbSet<ProviderInvitation> ProviderInvitations { get; set; }
         public DbSet<BillerInvitation> BillerInvitations { get; set; }
         public DbSet<ProviderRole> ProviderRoles { get; set; }
@@ -38,9 +37,6 @@ namespace AllAcu
             modelBuilder.Entity<InsuranceVerification>()
                 .Property(v => v.AssignmentHistory.Serialized)
                 .HasColumnName("AssignmentHistory");
-
-            modelBuilder.Entity<OutstandingConfirmation>()
-                .HasKey(i => i.UserId);
 
             modelBuilder.Entity<User>()
                 .HasKey(u => u.UserId);

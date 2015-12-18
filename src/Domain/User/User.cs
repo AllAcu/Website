@@ -10,7 +10,6 @@ namespace Domain.User
 
         public string Name { get; protected set; }
         public string Email { get; protected set; }
-        public bool Confirmed { get; protected set; }
 
         public IList<Invitation> Invitations { get; protected set; } = new List<Invitation>();
 
