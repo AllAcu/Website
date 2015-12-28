@@ -39,7 +39,7 @@ namespace AllAcu.Controllers
         }
 
         [Route("invite"), HttpPost]
-        public async Task<ActionResult> Invite(Domain.User.User.Invite command)
+        public ActionResult Invite(Domain.User.User.Invite command)
         {
             command.Role = command.Role ?? Domain.CareProvider.CareProvider.Roles.Practitioner;
 
@@ -60,7 +60,7 @@ namespace AllAcu.Controllers
         }
 
         [Route("inviteToBiller"), HttpPost]
-        public Task<ActionResult> InviteToBiller(Domain.User.User.Invite command)
+        public ActionResult InviteToBiller(Domain.User.User.Invite command)
         {
             command.OrganizationId = Domain.Biller.Biller.AllAcuBillerId;
             return Invite(command);

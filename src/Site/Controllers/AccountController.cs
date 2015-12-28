@@ -12,6 +12,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
 using AllAcu.Services;
 using AllAcu.ViewModels.Account;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.Its.Domain;
 
 namespace AllAcu
@@ -31,12 +32,14 @@ namespace AllAcu
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IEventSourcedRepository<Domain.User.User> userEventSourcedRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            this.userEventSourcedRepository = userEventSourcedRepository;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -110,6 +113,12 @@ namespace AllAcu
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var domainUser = new Domain.User.User(new Domain.User.User.Register
+                    {
+                        Email = model.Email
+                    });
+                    await userEventSourcedRepository.Save(domainUser);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -117,12 +126,6 @@ namespace AllAcu
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    var domainUser = new Domain.User.User(new Domain.User.User.Register
-                    {
-                        Email = model.Email
-                    });
-                    await userEventSourcedRepository.Save(domainUser);
 
                     _logger.LogInformation(3, "User created a new account with password.");
                     return Redirect("/");

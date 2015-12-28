@@ -2,6 +2,7 @@
 using AllAcu.Authentication;
 using AllAcu.Services;
 using Its.Configuration;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -45,12 +46,14 @@ namespace AllAcu
                 .AddSqlServer()
                 .AddDbContext<AuthorizationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-                    //options.UseSqlServer(Settings.Get<DatabaseConnections>().Authentication));
+            //options.UseSqlServer(Settings.Get<DatabaseConnections>().Authentication));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AuthorizationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthorization();
+            services.AddAuthentication();
             services.AddMvc();
 
             // Add application services.
@@ -61,7 +64,7 @@ namespace AllAcu
             container.AddStrategy(type =>
             {
                 var result = provider.GetService(type);
-                return result != null ? (Func<PocketContainer, object>) (_ => result) : null;
+                return result != null ? (Func<PocketContainer, object>)(_ => result) : null;
             });
 
             container.Populate();
@@ -98,13 +101,30 @@ namespace AllAcu
                 catch { }
             }
 
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
+            app.UseIISPlatformHandler(options =>
+            {
+                options.AuthenticationDescriptions.Clear();
+                options.AutomaticAuthentication = true;
+            });
+
 
             app.UseStaticFiles();
 
             app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseCookieAuthentication(options =>
+            {
+                options.AutomaticAuthenticate = true;
+                options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.AccessDeniedPath = new PathString("/Account/Denied");
+                options.CookieName = "AllAcuAuth";
+                options.CookieSecure = CookieSecureOption.Always;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+                options.LoginPath = new PathString("/Account/Login");
+                options.LogoutPath = new PathString("/Account/Logout");
+            });
 
             app.UseMvc(routes =>
             {
