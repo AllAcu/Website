@@ -60,16 +60,7 @@ namespace AllAcu
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            var provider = services.BuildServiceProvider();
-            container.AddStrategy(type =>
-            {
-                var result = provider.GetService(type);
-                return result != null ? (Func<PocketContainer, object>)(_ => result) : null;
-            });
-
-            container.Populate();
-
-            return container.Resolve<IServiceProvider>();
+            return container.Populate(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,30 +92,29 @@ namespace AllAcu
                 catch { }
             }
 
-            app.UseIISPlatformHandler(options =>
-            {
-                options.AuthenticationDescriptions.Clear();
-                options.AutomaticAuthentication = true;
-            });
-
+            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             app.UseStaticFiles();
 
             app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseCookieAuthentication(options =>
-            {
-                options.AutomaticAuthenticate = true;
-                options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.AccessDeniedPath = new PathString("/Account/Denied");
-                options.CookieName = "AllAcuAuth";
-                options.CookieSecure = CookieSecureOption.Always;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                options.SlidingExpiration = true;
-                options.LoginPath = new PathString("/Account/Login");
-                options.LogoutPath = new PathString("/Account/Logout");
-            });
+
+
+//            app.UseCookieAuthentication(options =>
+//            {
+//                options.AutomaticAuthenticate = true;
+//                options.AutomaticChallenge = true;
+//                options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//                options.AccessDeniedPath = new PathString("/Account/Denied");
+//                options.CookieName = "AllAcuAuth";
+////                options.CookieSecure = CookieSecureOption.Always;
+//                options.CookieSecure = CookieSecureOption.SameAsRequest;
+//                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+////                options.SlidingExpiration = true;
+//                options.LoginPath = new PathString("/Account/Login");
+//                options.LogoutPath = new PathString("/Account/Logout");
+//            });
 
             app.UseMvc(routes =>
             {
