@@ -153,7 +153,6 @@ namespace AllAcu
             public PocketServiceProvider(PocketContainer container)
             {
                 this.container = container;
-                container.Register<IServiceProvider>(_ => this);
             }
 
             public object GetService(Type serviceType)

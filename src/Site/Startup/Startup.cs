@@ -99,23 +99,6 @@ namespace AllAcu
             app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-
-
-//            app.UseCookieAuthentication(options =>
-//            {
-//                options.AutomaticAuthenticate = true;
-//                options.AutomaticChallenge = true;
-//                options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-//                options.AccessDeniedPath = new PathString("/Account/Denied");
-//                options.CookieName = "AllAcuAuth";
-////                options.CookieSecure = CookieSecureOption.Always;
-//                options.CookieSecure = CookieSecureOption.SameAsRequest;
-//                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-////                options.SlidingExpiration = true;
-//                options.LoginPath = new PathString("/Account/Login");
-//                options.LogoutPath = new PathString("/Account/Logout");
-//            });
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
