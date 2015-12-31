@@ -14,10 +14,10 @@
     ]);
 
     module.controller('claimEdit', [
-        "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
+        "$scope", "$stateParams", "$location", "claimsRepository", function ($scope, $stateParams, $location, $claims) {
 
             $scope.draft = {};
-            $claims.find($routeParams["id"]).success(function (data) {
+            $claims.find($stateParams["id"]).success(function (data) {
                 data.dateOfService = new Date(data.dateOfService);
                 $scope.draft = data;
             });
@@ -37,7 +37,7 @@
     ]);
 
     module.controller('claimCreate', [
-        "$scope", "$routeParams", "$location", "claimsRepository", function ($scope, $routeParams, $location, $claims) {
+        "$scope", "$stateParams", "$location", "claimsRepository", function ($scope, $stateParams, $location, $claims) {
 
             $scope.draft = {};
 

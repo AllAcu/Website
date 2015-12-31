@@ -21,12 +21,12 @@
         }]);
 
     module.controller('providerDetails', [
-        "$scope", "$routeParams", "$location", "$api", "careProviderRepository", function ($scope, $routeParams, $location, $api, $providers) {
+        "$scope", "$stateParams", "$location", "$api", "careProviderRepository", function ($scope, $stateParams, $location, $api, $providers) {
             $scope.provider = {};
             $scope.users = function () { return $scope.provider.users; };
 
             function refresh() {
-                $providers.edit($routeParams["id"])
+                $providers.edit($stateParams["id"])
                     .success(function (data) {
                         $scope.provider = data;
                     });

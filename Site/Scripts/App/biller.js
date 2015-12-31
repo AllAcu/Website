@@ -1,7 +1,7 @@
 ﻿(function (module) {
 
     module.controller('billerDetails', [
-        "$scope", "$routeParams", "$location", "$api", function ($scope, $routeParams, $location, $api) {
+        "$scope", "$stateParams", "$location", "$api", function ($scope, $stateParams, $location, $api) {
             $scope.biller = {};
             $scope.users = function () { return $scope.biller.users; };
 

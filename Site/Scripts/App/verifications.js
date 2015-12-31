@@ -1,8 +1,8 @@
 ﻿(function (module) {
 
     module.controller('verificationRequestCreate', [
-        "$scope", "$routeParams", "$location", "$api", function ($scope, $routeParams, $location, $api) {
-            var patientId = $routeParams["patientId"];
+        "$scope", "$stateParams", "$location", "$api", function ($scope, $stateParams, $location, $api) {
+            var patientId = $stateParams["patientId"];
 
             $scope.save = function () {
                 $api.verifications.start(patientId, $scope.request).success(function (response) {
@@ -19,8 +19,8 @@
     ]);
 
     module.controller('verification', [
-        "$scope", "$routeParams", "$location", "$uibModal", "verificationRepository", "$api", function ($scope, $routeParams, $location, $uibModal, verifications, $api) {
-            var verificationId = $routeParams["verificationId"];
+        "$scope", "$stateParams", "$location", "$uibModal", "verificationRepository", "$api", function ($scope, $stateParams, $location, $uibModal, verifications, $api) {
+            var verificationId = $stateParams["verificationId"];
             var patientId;
 
             verifications.getVerification(verificationId)

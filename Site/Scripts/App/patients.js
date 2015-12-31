@@ -26,10 +26,10 @@
     ]);
 
     module.controller('patientDetails', [
-        "$scope", "$routeParams", "patientRepository", function ($scope, $routeParams, $patients) {
+        "$scope", "$stateParams", "patientRepository", function ($scope, $stateParams, $patients) {
 
             $scope.patient = { };
-            $patients.details($routeParams["id"]).success(function (data) {
+            $patients.details($stateParams["id"]).success(function (data) {
                 $scope.patient = data;
             });
 
@@ -55,10 +55,10 @@
     ]);
 
     module.controller('patientEdit', [
-        "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
+        "$scope", "$stateParams", "$location", "patientRepository", "patientCommands", function ($scope, $stateParams, $location, $patients, $commands) {
 
             $scope.patient = {};
-            $patients.edit($routeParams["id"]).success(function (data) {
+            $patients.edit($stateParams["id"]).success(function (data) {
                 $scope.patient = data;
             });
 
@@ -71,9 +71,9 @@
     ]);
 
     module.controller('patientEditContactInfo', [
-    "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
+    "$scope", "$stateParams", "$location", "patientRepository", "patientCommands", function ($scope, $stateParams, $location, $patients, $commands) {
 
-        var patientId = $routeParams["id"];
+        var patientId = $stateParams["id"];
         $scope.contact = {};
         $patients.edit(patientId).success(function (data) {
             $scope.contact = {
@@ -97,12 +97,12 @@
     ]);
 
     module.controller('patientInsurance', [
-        "$scope", "$routeParams", "$location", "patientRepository", "patientCommands", function ($scope, $routeParams, $location, $patients, $commands) {
+        "$scope", "$stateParams", "$location", "patientRepository", "patientCommands", function ($scope, $stateParams, $location, $patients, $commands) {
 
-            $scope.patientId = $routeParams["id"];
+            $scope.patientId = $stateParams["id"];
             $scope.classification = "medical";
 
-            $patients.edit($routeParams["id"]).success(function (data) {
+            $patients.edit($stateParams["id"]).success(function (data) {
                 $scope.medical = data.medicalInsurance || {};
                 $scope.pip = data.personalInjuryProtection || {};
             });

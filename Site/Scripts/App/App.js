@@ -1,141 +1,176 @@
 ﻿(function (exports, angular) {
     var app = angular.module('app', [
-        'ngRoute',
+        'ui.router',
         'timer',
         'ui.bootstrap',
         'ui.bootstrap.tpls'
     ]);
 
     app.config([
-        '$routeProvider',
-        function ($routeProvider) {
-            $routeProvider
-                .when('/login', {
+        '$stateProvider', '$urlRouterProvider',
+        function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("");
+            $stateProvider
+                .state({
+                    name: 'login',
+                    url: '/login',
                     templateUrl: '/Templates/Users/login.html',
                     controller: 'loginController',
                     anonymous: true
                 })
-                .when('/signup', {
+                .state({
+                    name: 'signup',
+                    url: '/signup',
                     controller: 'signupController',
                     templateUrl: '/Templates/Users/signup.html',
                     anonymous: true
                 })
-                .when('/register/:token', {
+                .state({
+                    name: 'register',
+                    url: '/register/:token',
                     controller: 'registrationController',
                     templateUrl: '/Templates/Users/register.html',
                     anonymous: true
                 })
-                .when('/logout', {
+                .state({
+                    name: 'logout',
+                    url: '/logout',
                     controller: 'logoutController',
                     template: ''
                 });
 
-            $routeProvider
-                .when('/patients', {
+            $stateProvider
+                .state({
+                    name: 'patients',
+                    url: '/patients',
                     templateUrl: '/Templates/Patients/patientList.html',
                     controller: 'patientList',
                     canChangeProviders: true
                 })
-                .when('/patient/intake', {
+                .state({
+                    name: 'intake',
+                    url: '/patient/intake',
                     templateUrl: '/Templates/Patients/intake.html',
                     controller: 'patientIntake'
                 })
-                .when('/patient/:id', {
+                .state({
+                    name: 'patientDetails',
+                    url: '/patient/:id',
                     templateUrl: '/Templates/Patients/details.html',
                     controller: 'patientDetails'
                 })
-                .when('/patient/:id/edit', {
+                .state({
+                    name: 'patientInfoEdit',
+                    url: '/patient/:id/edit',
                     templateUrl: '/Templates/Patients/updateVitalInfo.html',
                     controller: 'patientEdit'
                 })
-                .when('/patient/:id/contact/edit', {
+                .state({
+                    name: 'patientContactEdit',
+                    url: '/patient/:id/contact/edit',
                     templateUrl: '/Templates/Patients/updateContactInfo.html',
                     controller: 'patientEditContactInfo'
                 })
-                .when('/patient/:id/insurance/edit', {
+                .state({
+                    name: 'patientInsuranceEdit',
+                    url: '/patient/:id/insurance/edit',
                     templateUrl: '/Templates/Patients/recordInsurance.html',
                     controller: 'patientInsurance'
                 })
-                .when('/patient/:patientId/insurance/verification/request', {
+                .state({
+                    name: 'verificationRequest',
+                    url: '/patient/:patientId/insurance/verification/request',
                     templateUrl: '/Templates/Verification/verifyInsuranceRequest.html',
                     controller: 'verificationRequestCreate'
                 });
 
-            $routeProvider
-                .when('/providers', {
+            $stateProvider
+                .state({
+                    name: 'providerList',
+                    url: '/providers',
                     templateUrl: '/Templates/Providers/list.html',
                     controller: 'providerList'
                 })
-                .when('/provider/create', {
+                .state({
+                    name: 'providerCreate',
+                    url: '/provider/create',
                     templateUrl: '/Templates/Providers/details.html',
                     controller: 'providerCreate'
                 })
-                .when('/provider/:id', {
+                .state({
+                    name: 'providerDetails',
+                    url: '/provider/:id',
                     templateUrl: '/Templates/Providers/details.html',
                     controller: 'providerDetails'
                 });
 
-            $routeProvider
-                .when('/verifications', {
+            $stateProvider
+                .state({
+                    name: 'verificationList',
+                    url: '/verifications',
                     templateUrl: '/Templates/Verification/list.html',
                     controller: 'insuranceVerificationList',
                     canChangeProviders: true
                 })
-                .when('/verification/:verificationId', {
+                .state({
+                    name: 'verificationEdit',
+                    url: '/verification/:verificationId',
                     templateUrl: '/Templates/Verification/insuranceVerification.html',
                     controller: 'verification'
                 });
 
-            $routeProvider
-                .when('/biller', {
+            $stateProvider
+                .state({
+                    name: 'billerDetails',
+                    url: '/biller',
                     templateUrl: '/Templates/Biller/details.html',
                     controller: 'billerDetails'
                 });
 
-            $routeProvider
-                .when('/users', {
+            $stateProvider
+                .state({
+                    name: 'userList',
+                    url: '/users',
                     templateUrl: '/Templates/Users/list.html',
                     controller: 'userListController'
                 })
-                .when('/user/:id', {
+                .state({
+                    name: 'userDetails',
+                    url: '/user/:id',
                     templateUrl: '/Templates/Users/details.html',
                     controller: 'userDetailsController'
                 });
 
-            $routeProvider
-                .when('/claims', {
+            $stateProvider
+                .state({
+                    name: 'claimList',
+                    url: '/claims',
                     templateUrl: '/Templates/Claims/claimsList.html',
                     controller: 'claimsList',
                     canChangeProviders: true
                 })
-                .when('/claim/edit/:id', {
+                .state({
+                    name: 'claimEdit',
+                    url: '/claim/edit/:id',
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimEdit'
                 })
-                .when('/claim/create', {
+                .state({
+                    name: 'claimCreate',
+                    url: '/claim/create',
                     templateUrl: '/Templates/Claims/claimEdit.html',
                     controller: 'claimCreate'
                 });
-
-            $routeProvider
-                .otherwise({
-                    redirectTo: '/patients'
-                });
         }
-    ]).run(['$rootScope', '$location', '$http', 'authToken', function ($rootScope, $location, $http, authToken) {
-        $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
-            if (next.$$route) {
-                if (next.$$route.anonymous) {
-                    return;
-                }
-
-                if (!authToken.loggedIn()) {
-                    $location.path('/login');
-                }
+    ]).run(['$rootScope', '$state', '$http', 'authToken', function ($rootScope, $state, $http, authToken) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            if (!toState.anonymous && !authToken.loggedIn()) {
+                event.preventDefault();
+                return $state.go('login');
             }
         });
         $rootScope.copyrightYear = new Date().getFullYear();
-        $http.defaults.headers.common.Authorization = function() {
+        $http.defaults.headers.common.Authorization = function () {
             if (authToken.loggedIn()) {
                 return 'Bearer ' + authToken.get();
             }
@@ -153,7 +188,7 @@
                 { label: "Users", link: "/AllAcu/#/users" },
                 { label: "Claims", link: "/AllAcu/#/claims" },
                 { label: "Providers", link: "/AllAcu/#/providers" },
-                { label: "Biller", link: "/AllAcu/#/biller"}
+                { label: "Biller", link: "/AllAcu/#/biller" }
         ];
 
         $scope.navItems = function () {
@@ -169,7 +204,7 @@
         }
     }]);
 
-    app.controller('providerChooser', ['$scope', '$route', 'authToken', 'careProviderRepository', function ($scope, $route, authToken, providers) {
+    app.controller('providerChooser', ['$scope', '$state', 'authToken', 'careProviderRepository', function ($scope, $state, authToken, providers) {
         $scope.providers = function () { return providers.providers() || []; }
         $scope.currentProvider = function (provider) {
             return providers.current(provider);
@@ -184,7 +219,7 @@
         });
 
         $scope.canChoose = function () {
-            return $route.current && $route.current.$$route && $route.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
+            return $state.current && $state.current.$$route && $state.current.$$route.canChangeProviders && authToken.loggedIn() && $scope.providers().length > 1;
         }
 
         $scope.shouldDisplay = function () {

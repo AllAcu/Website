@@ -1,9 +1,9 @@
 ﻿(function (module) {
 
     module.controller('registrationController', [
-        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, commands) {
+        '$scope', '$stateParams', '$location', 'userCommands', function ($scope, $stateParams, $location, commands) {
 
-            var token = $routeParams["token"];
+            var token = $stateParams["token"];
             $scope.registration = {};
 
             $scope.save = function () {
@@ -36,8 +36,8 @@
     ]);
 
     module.controller('userDetailsController', [
-        '$scope', '$routeParams', '$api', "careProviderRepository", function ($scope, $routeParams, $api, providerRepo) {
-            var userId = $routeParams["id"];
+        '$scope', '$stateParams', '$api', "careProviderRepository", function ($scope, $stateParams, $api, providerRepo) {
+            var userId = $stateParams["id"];
             $scope.user = null;
             $scope.providers = function () { return $scope.user ? $scope.user.providerRoles.map(function (r) { return r.provider; }) : []; };
             $scope.billers = function () { return $scope.user ? $scope.user.billerRoles.map(function (r) { return r.biller; }) : []; };
@@ -78,9 +78,9 @@
     ]);
 
     module.controller('inviteController', [
-        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, userCommands) {
+        '$scope', '$stateParams', '$location', 'userCommands', function ($scope, $stateParams, $location, userCommands) {
 
-            var providerId = $routeParams["id"];
+            var providerId = $stateParams["id"];
 
             $scope.invite = function () {
                 userCommands.invite(providerId, $scope.email).success(function () {
@@ -92,7 +92,7 @@
     ]);
 
     module.controller('signupController', [
-        '$scope', '$routeParams', '$location', 'userCommands', function ($scope, $routeParams, $location, userCommands) {
+        '$scope', '$stateParams', '$location', 'userCommands', function ($scope, $stateParams, $location, userCommands) {
             $scope.signup = function () {
                 userCommands.signup($scope.email).success(function () {
                     console.log("signed up " + $scope.email);
@@ -127,7 +127,7 @@
 
 
     module.controller('oustandingInvites', [
-        '$scope', '$routeParams', '$location', '$api', function ($scope, $routeParams, $location, $api) {
+        '$scope', '$stateParams', '$location', '$api', function ($scope, $stateParams, $location, $api) {
 
             $scope.confirmations = [];
             $api.users.getConfirmations().success(function (data) {
