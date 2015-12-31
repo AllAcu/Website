@@ -1,27 +1,10 @@
 ﻿(function (exports, angular) {
-    var app = angular.module('allAcuApp', [
+    var app = angular.module('app', [
         'ngRoute',
         'timer',
         'angular-humanize-duration',
-        'api',
-        'authApp',
-        'loginApp',
-        'patientsApp',
-        'providersApp',
-        'billerApp',
-        'userApp',
         'ui.bootstrap'
     ]);
-
-    angular.module("api", []);
-    angular.module("authApp", []);
-    angular.module("loginApp", []);
-    angular.module("patientsApp", ["verificationApp"]);
-    angular.module("providersApp", ["api"]);
-    angular.module("billerApp", []);
-    angular.module("userApp", []);
-    angular.module("claimsApp", []);
-    angular.module("verificationApp", []);
 
     app.config([
         '$routeProvider',
@@ -139,33 +122,25 @@
                     redirectTo: '/patients'
                 });
         }
-    ]).run(['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
+    ]).run(['$rootScope', '$location', '$http', 'authToken', function ($rootScope, $location, $http, authToken) {
         $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
             if (next.$$route) {
                 if (next.$$route.anonymous) {
                     return;
                 }
 
-                if (!userLoggedIn()) {
+                if (!authToken.loggedIn()) {
                     $location.path('/login');
                 }
             }
         });
         $rootScope.copyrightYear = new Date().getFullYear();
-        $http.defaults.headers.common.Authorization = getAuthHeader;
+        $http.defaults.headers.common.Authorization = function() {
+            if (authToken.loggedIn()) {
+                return 'Bearer ' + authToken.get();
+            }
+        };
     }]);
-
-    function userLoggedIn() {
-        var authTokenService = angular.injector(['authApp']);
-        return authTokenService.get('authToken').loggedIn();
-    }
-
-    function getAuthHeader() {
-        var authToken = angular.injector(['authApp']).get('authToken');
-        if (authToken.loggedIn()) {
-            return 'Bearer ' + authToken.get();
-        }
-    }
 
     app.controller('nav', ['$scope', 'authToken', function ($scope, authToken) {
         var _loginNavItems = [

@@ -21,4 +21,4 @@
         }
     ]);
 
-}(angular.module("loginApp")));
+}(angular.module("app")));

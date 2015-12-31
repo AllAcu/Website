@@ -51,4 +51,4 @@
             }
         }
     ]);
-}(angular.module("billerApp")));
+}(angular.module("app")));

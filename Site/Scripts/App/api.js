@@ -214,4 +214,4 @@
             };
         }
     ]);
-})(angular.module("api"));
+})(angular.module("app"));

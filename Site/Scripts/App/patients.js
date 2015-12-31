@@ -123,4 +123,4 @@
         }
     ]);
 
-}(angular.module("patientsApp")));
+}(angular.module("app")));
