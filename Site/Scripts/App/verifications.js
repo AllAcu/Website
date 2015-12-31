@@ -19,7 +19,7 @@
     ]);
 
     module.controller('verification', [
-        "$scope", "$routeParams", "$location", "$modal", "verificationRepository", "$api", function ($scope, $routeParams, $location, $modal, verifications, $api) {
+        "$scope", "$routeParams", "$location", "$uibModal", "verificationRepository", "$api", function ($scope, $routeParams, $location, $uibModal, verifications, $api) {
             var verificationId = $routeParams["verificationId"];
             var patientId;
 
@@ -111,7 +111,7 @@
             }
 
             function popup(templateUrl) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: '/Templates/Verification/actions.html',
                     controller: 'verificationActions',
@@ -155,7 +155,7 @@
 
     module.controller('verificationActions', [
         "$scope", "$api", "verification", "patientName", "template", function ($scope, $api, verification, patientName, template) {
-            var verificationId = verification.id;
+            var verificationId = verification.verificationId;
             $scope.verification = verification;
             $scope.actionTemplate = template;
             $scope.patientName = patientName;
