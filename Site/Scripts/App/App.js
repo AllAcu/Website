@@ -2,8 +2,8 @@
     var app = angular.module('app', [
         'ngRoute',
         'timer',
-        'angular-humanize-duration',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ui.bootstrap.tpls'
     ]);
 
     app.config([

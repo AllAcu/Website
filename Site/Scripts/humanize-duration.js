@@ -3,91 +3,102 @@
 (function(global) {
   var languages = {
     ar: {
-      y: function(c) { return ((c === 1) ? "سنة" : "سنوات"); },
-      mo: function(c) { return ((c === 1) ? "شهر" : "أشهر"); },
-      w: function(c) { return ((c === 1) ? "أسبوع" : "أسابيع"); },
-      d: function(c) { return ((c === 1) ? "يوم" : "أيام"); },
-      h: function(c) { return ((c === 1) ? "ساعة" : "ساعات"); },
-      m: function(c) { return ((c === 1) ? "دقيقة" : "دقائق"); },
-      s: function(c) { return ((c === 1) ? "ثانية" : "ثواني"); },
-      ms: function(c) { return ((c === 1) ? "جزء من الثانية" : "أجزاء من الثانية"); },
+      y: function(c) { return c === 1 ? "سنة" : "سنوات"; },
+      mo: function(c) { return c === 1 ? "شهر" : "أشهر"; },
+      w: function(c) { return c === 1 ? "أسبوع" : "أسابيع"; },
+      d: function(c) { return c === 1 ? "يوم" : "أيام"; },
+      h: function(c) { return c === 1 ? "ساعة" : "ساعات"; },
+      m: function(c) { return c === 1 ? "دقيقة" : "دقائق"; },
+      s: function(c) { return c === 1 ? "ثانية" : "ثواني"; },
+      ms: function(c) { return c === 1 ? "جزء من الثانية" : "أجزاء من الثانية"; },
       decimal: ","
     },
     ca: {
-      y: function(c) { return "any" + ((c !== 1) ? "s" : ""); },
-      mo: function(c) { return "mes" + ((c !== 1) ? "os" : ""); },
-      w: function(c) { return "setman" + ((c !== 1) ? "es" : "a"); },
-      d: function(c) { return "di" + ((c !== 1) ? "es" : "a"); },
-      h: function(c) { return "hor" + ((c !== 1) ? "es" : "a"); },
-      m: function(c) { return "minut" + ((c !== 1) ? "s" : ""); },
-      s: function(c) { return "segon" + ((c !== 1) ? "s" : ""); },
-      ms: function(c) { return "milisegon" + ((c !== 1) ? "s" : "" ); },
+      y: function(c) { return "any" + (c !== 1 ? "s" : ""); },
+      mo: function(c) { return "mes" + (c !== 1 ? "os" : ""); },
+      w: function(c) { return "setman" + (c !== 1 ? "es" : "a"); },
+      d: function(c) { return "di" + (c !== 1 ? "es" : "a"); },
+      h: function(c) { return "hor" + (c !== 1 ? "es" : "a"); },
+      m: function(c) { return "minut" + (c !== 1 ? "s" : ""); },
+      s: function(c) { return "segon" + (c !== 1 ? "s" : ""); },
+      ms: function(c) { return "milisegon" + (c !== 1 ? "s" : ""); },
+      decimal: ","
+    },
+    cs: {
+      y: function(c) { return ["rok", "roku", "roky", "let"][getCzechForm(c)]; },
+      mo: function(c) { return ["měsíc", "měsíce", "měsíce", "měsíců"][getCzechForm(c)]; },
+      w: function(c) { return ["týden", "týdne", "týdny", "týdnů"][getCzechForm(c)]; },
+      d: function(c) { return ["den", "dne", "dny", "dní"][getCzechForm(c)]; },
+      h: function(c) { return ["hodina", "hodiny", "hodiny", "hodin"][getCzechForm(c)]; },
+      m: function(c) { return ["minuta", "minuty", "minuty", "minut"][getCzechForm(c)]; },
+      s: function(c) { return ["sekunda", "sekundy", "sekundy", "sekund"][getCzechForm(c)]; },
+      ms: function(c) { return ["milisekunda", "milisekundy", "milisekundy", "milisekund"][getCzechForm(c)]; },
       decimal: ","
     },
     da: {
       y: "år",
-      mo: function(c) { return "måned" + ((c !== 1) ? "er" : ""); },
-      w: function(c) { return "uge" + ((c !== 1) ? "r" : ""); },
-      d: function(c) { return "dag" + ((c !== 1) ? "e" : ""); },
-      h: function(c) { return "time" + ((c !== 1) ? "r" : ""); },
-      m: function(c) { return "minut" + ((c !== 1) ? "ter" : ""); },
-      s: function(c) { return "sekund" + ((c !== 1) ? "er" : ""); },
-      ms: function(c) { return "millisekund" + ((c !== 1) ? "er" : ""); },
+      mo: function(c) { return "måned" + (c !== 1 ? "er" : ""); },
+      w: function(c) { return "uge" + (c !== 1 ? "r" : ""); },
+      d: function(c) { return "dag" + (c !== 1 ? "e" : ""); },
+      h: function(c) { return "time" + (c !== 1 ? "r" : ""); },
+      m: function(c) { return "minut" + (c !== 1 ? "ter" : ""); },
+      s: function(c) { return "sekund" + (c !== 1 ? "er" : ""); },
+      ms: function(c) { return "millisekund" + (c !== 1 ? "er" : ""); },
       decimal: ","
     },
     de: {
-      y: function(c) { return "Jahr" + ((c !== 1) ? "e" : ""); },
-      mo: function(c) { return "Monat" + ((c !== 1) ? "e" : ""); },
-      w: function(c) { return "Woche" + ((c !== 1) ? "n" : ""); },
-      d: function(c) { return "Tag" + ((c !== 1) ? "e" : ""); },
-      h: function(c) { return "Stunde" + ((c !== 1) ? "n" : ""); },
-      m: function(c) { return "Minute" + ((c !== 1) ? "n" : ""); },
-      s: function(c) { return "Sekunde" + ((c !== 1) ? "n" : ""); },
-      ms: function(c) { return "Millisekunde" + ((c !== 1) ? "n" : ""); },
+      y: function(c) { return "Jahr" + (c !== 1 ? "e" : ""); },
+      mo: function(c) { return "Monat" + (c !== 1 ? "e" : ""); },
+      w: function(c) { return "Woche" + (c !== 1 ? "n" : ""); },
+      d: function(c) { return "Tag" + (c !== 1 ? "e" : ""); },
+      h: function(c) { return "Stunde" + (c !== 1 ? "n" : ""); },
+      m: function(c) { return "Minute" + (c !== 1 ? "n" : ""); },
+      s: function(c) { return "Sekunde" + (c !== 1 ? "n" : ""); },
+      ms: function(c) { return "Millisekunde" + (c !== 1 ? "n" : ""); },
       decimal: ","
     },
     en: {
-      y: function(c) { return "year" + ((c !== 1) ? "s" : ""); },
-      mo: function(c) { return "month" + ((c !== 1) ? "s" : ""); },
-      w: function(c) { return "week" + ((c !== 1) ? "s" : ""); },
-      d: function(c) { return "day" + ((c !== 1) ? "s" : ""); },
-      h: function(c) { return "hour" + ((c !== 1) ? "s" : ""); },
-      m: function(c) { return "minute" + ((c !== 1) ? "s" : ""); },
-      s: function(c) { return "second" + ((c !== 1) ? "s" : ""); },
-      ms: function(c) { return "millisecond" + ((c !== 1) ? "s" : ""); },
+      y: function(c) { return "year" + (c !== 1 ? "s" : ""); },
+      mo: function(c) { return "month" + (c !== 1 ? "s" : ""); },
+      w: function(c) { return "week" + (c !== 1 ? "s" : ""); },
+      d: function(c) { return "day" + (c !== 1 ? "s" : ""); },
+      h: function(c) { return "hour" + (c !== 1 ? "s" : ""); },
+      m: function(c) { return "minute" + (c !== 1 ? "s" : ""); },
+      s: function(c) { return "second" + (c !== 1 ? "s" : ""); },
+      ms: function(c) { return "millisecond" + (c !== 1 ? "s" : ""); },
       decimal: "."
     },
     es: {
-      y: function(c) { return "año" + ((c !== 1) ? "s" : ""); },
-      mo: function(c) { return "mes" + ((c !== 1) ? "es" : ""); },
-      w: function(c) { return "semana" + ((c !== 1) ? "s" : ""); },
-      d: function(c) { return "día" + ((c !== 1) ? "s" : ""); },
-      h: function(c) { return "hora" + ((c !== 1) ? "s" : ""); },
-      m: function(c) { return "minuto" + ((c !== 1) ? "s" : ""); },
-      s: function(c) { return "segundo" + ((c !== 1) ? "s" : ""); },
-      ms: function(c) { return "milisegundo" + ((c !== 1) ? "s" : "" ); },
+      y: function(c) { return "año" + (c !== 1 ? "s" : ""); },
+      mo: function(c) { return "mes" + (c !== 1 ? "es" : ""); },
+      w: function(c) { return "semana" + (c !== 1 ? "s" : ""); },
+      d: function(c) { return "día" + (c !== 1 ? "s" : ""); },
+      h: function(c) { return "hora" + (c !== 1 ? "s" : ""); },
+      m: function(c) { return "minuto" + (c !== 1 ? "s" : ""); },
+      s: function(c) { return "segundo" + (c !== 1 ? "s" : ""); },
+      ms: function(c) { return "milisegundo" + (c !== 1 ? "s" : ""); },
       decimal: ","
     },
     fr: {
-      y: function(c) { return "an" + ((c !== 1) ? "s" : ""); },
+      y: function(c) { return "an" + (c !== 1 ? "s" : ""); },
       mo: "mois",
-      w: function(c) { return "semaine" + ((c !== 1) ? "s" : ""); },
-      d: function(c) { return "jour" + ((c !== 1) ? "s" : ""); },
-      h: function(c) { return "heure" + ((c !== 1) ? "s" : ""); },
-      m: function(c) { return "minute" + ((c !== 1) ? "s" : ""); },
-      s: function(c) { return "seconde" + ((c !== 1) ? "s" : ""); },
-      ms: function(c) { return "milliseconde" + ((c !== 1) ? "s" : ""); },
+      w: function(c) { return "semaine" + (c !== 1 ? "s" : ""); },
+      d: function(c) { return "jour" + (c !== 1 ? "s" : ""); },
+      h: function(c) { return "heure" + (c !== 1 ? "s" : ""); },
+      m: function(c) { return "minute" + (c !== 1 ? "s" : ""); },
+      s: function(c) { return "seconde" + (c !== 1 ? "s" : ""); },
+      ms: function(c) { return "milliseconde" + (c !== 1 ? "s" : ""); },
       decimal: ","
     },
     gr: {
-      y: function(c) { return ((c === 1) ? "χρόνος" : "χρόνια"); },
-      mo: function(c) { return ((c === 1) ? "μήνας" : "μήνες"); },
-      w: function(c) { return ((c === 1) ? "εβδομάδα" : "εβδομάδες"); },
-      d: function(c) { return ((c === 1) ? "μέρα" : "μέρες"); },
-      h: function(c) { return ((c === 1) ? "ώρα" : "ώρες"); },
-      m: function(c) { return ((c === 1) ? "λεπτό" : "λεπτά"); },
-      s: function(c) { return ((c === 1) ? "δευτερόλεπτο" : "δευτερόλεπτα"); },
-      ms: function(c) { return ((c === 1) ? "χιλιοστό του δευτερολέπτου" : "χιλιοστά του δευτερολέπτου"); },
+      y: function(c) { return c === 1 ? "χρόνος" : "χρόνια"; },
+      mo: function(c) { return c === 1 ? "μήνας" : "μήνες"; },
+      w: function(c) { return c === 1 ? "εβδομάδα" : "εβδομάδες"; },
+      d: function(c) { return c === 1 ? "μέρα" : "μέρες"; },
+      h: function(c) { return c === 1 ? "ώρα" : "ώρες"; },
+      m: function(c) { return c === 1 ? "λεπτό" : "λεπτά"; },
+      s: function(c) { return c === 1 ? "δευτερόλεπτο" : "δευτερόλεπτα"; },
+      ms: function(c) { return c === 1 ? "χιλιοστό του δευτερολέπτου" : "χιλιοστά του δευτερολέπτου"; },
       decimal: ","
     },
     hu: {
@@ -102,14 +113,14 @@
       decimal: ","
     },
     it: {
-      y: function(c) { return "ann" + ((c !== 1) ? "i" : "o"); },
-      mo: function(c) { return "mes" + ((c !== 1) ? "i" : "e"); },
-      w: function(c) { return "settiman" + ((c !== 1) ? "e" : "a"); },
-      d: function(c) { return "giorn" + ((c !== 1) ? "i" : "o"); },
-      h: function(c) { return "or" + ((c !== 1) ? "e" : "a"); },
-      m: function(c) { return "minut" + ((c !== 1) ? "i" : "o"); },
-      s: function(c) { return "second" + ((c !== 1) ? "i" : "o"); },
-      ms: function(c) { return "millisecond" + ((c !== 1) ? "i" : "o" ); },
+      y: function(c) { return "ann" + (c !== 1 ? "i" : "o"); },
+      mo: function(c) { return "mes" + (c !== 1 ? "i" : "e"); },
+      w: function(c) { return "settiman" + (c !== 1 ? "e" : "a"); },
+      d: function(c) { return "giorn" + (c !== 1 ? "i" : "o"); },
+      h: function(c) { return "or" + (c !== 1 ? "e" : "a"); },
+      m: function(c) { return "minut" + (c !== 1 ? "i" : "o"); },
+      s: function(c) { return "second" + (c !== 1 ? "i" : "o"); },
+      ms: function(c) { return "millisecond" + (c !== 1 ? "i" : "o"); },
       decimal: ","
     },
     ja: {
@@ -136,24 +147,24 @@
     },
     nl: {
       y: "jaar",
-      mo: function(c) { return (c === 1) ? "maand" : "maanden"; },
-      w: function(c) { return (c === 1) ? "week" : "weken"; },
-      d: function(c) { return (c === 1) ? "dag" : "dagen"; },
+      mo: function(c) { return c === 1 ? "maand" : "maanden"; },
+      w: function(c) { return c === 1 ? "week" : "weken"; },
+      d: function(c) { return c === 1 ? "dag" : "dagen"; },
       h: "uur",
-      m: function(c) { return (c === 1) ? "minuut" : "minuten"; },
-      s: function(c) { return (c === 1) ? "seconde" : "seconden"; },
-      ms: function(c) { return (c === 1) ? "milliseconde" : "milliseconden"; },
+      m: function(c) { return c === 1 ? "minuut" : "minuten"; },
+      s: function(c) { return c === 1 ? "seconde" : "seconden"; },
+      ms: function(c) { return c === 1 ? "milliseconde" : "milliseconden"; },
       decimal: ","
     },
     no: {
       y: "år",
-      mo: function(c) { return "måned" + ((c !== 1) ? "er" : ""); },
-      w: function(c) { return "uke" + ((c !== 1) ? "r" : ""); },
-      d: function(c) { return "dag" + ((c !== 1) ? "er" : ""); },
-      h: function(c) { return "time" + ((c !== 1) ? "r" : ""); },
-      m: function(c) { return "minutt" + ((c !== 1) ? "er" : ""); },
-      s: function(c) { return "sekund" + ((c !== 1) ? "er" : ""); },
-      ms: function(c) { return "millisekund" + ((c !== 1) ? "er" : ""); },
+      mo: function(c) { return "måned" + (c !== 1 ? "er" : ""); },
+      w: function(c) { return "uke" + (c !== 1 ? "r" : ""); },
+      d: function(c) { return "dag" + (c !== 1 ? "er" : ""); },
+      h: function(c) { return "time" + (c !== 1 ? "r" : ""); },
+      m: function(c) { return "minutt" + (c !== 1 ? "er" : ""); },
+      s: function(c) { return "sekund" + (c !== 1 ? "er" : ""); },
+      ms: function(c) { return "millisekund" + (c !== 1 ? "er" : ""); },
       decimal: ","
     },
     pl: {
@@ -168,14 +179,14 @@
       decimal: ","
     },
     pt: {
-      y: function(c) { return "ano" + ((c !== 1) ? "s" : ""); },
-      mo: function(c) { return (c !== 1) ? "meses" : "mês"; },
-      w: function(c) { return "semana" + ((c !== 1) ? "s" : ""); },
-      d: function(c) { return "dia" + ((c !== 1) ? "s" : ""); },
-      h: function(c) { return "hora" + ((c !== 1) ? "s" : ""); },
-      m: function(c) { return "minuto" + ((c !== 1) ? "s" : ""); },
-      s: function(c) { return "segundo" + ((c !== 1) ? "s" : ""); },
-      ms: function(c) { return "milissegundo" + ((c !== 1) ? "s" : ""); },
+      y: function(c) { return "ano" + (c !== 1 ? "s" : ""); },
+      mo: function(c) { return c !== 1 ? "meses" : "mês"; },
+      w: function(c) { return "semana" + (c !== 1 ? "s" : ""); },
+      d: function(c) { return "dia" + (c !== 1 ? "s" : ""); },
+      h: function(c) { return "hora" + (c !== 1 ? "s" : ""); },
+      m: function(c) { return "minuto" + (c !== 1 ? "s" : ""); },
+      s: function(c) { return "segundo" + (c !== 1 ? "s" : ""); },
+      ms: function(c) { return "milissegundo" + (c !== 1 ? "s" : ""); },
       decimal: ","
     },
     ru: {
@@ -202,13 +213,13 @@
     },
     sv: {
       y: "år",
-      mo: function(c) { return "månad" + ((c !== 1) ? "er" : ""); },
-      w: function(c) { return "veck" + ((c !== 1) ? "or" : "a"); },
-      d: function(c) { return "dag" + ((c !== 1) ? "ar" : ""); },
-      h: function(c) { return "timm" + ((c !== 1) ? "ar" : "e"); },
-      m: function(c) { return "minut" + ((c !== 1) ? "er" : ""); },
-      s: function(c) { return "sekund" + ((c !== 1) ? "er" : ""); },
-      ms: function(c) { return "millisekund" + ((c !== 1) ? "er" : ""); },
+      mo: function(c) { return "månad" + (c !== 1 ? "er" : ""); },
+      w: function(c) { return "veck" + (c !== 1 ? "or" : "a"); },
+      d: function(c) { return "dag" + (c !== 1 ? "ar" : ""); },
+      h: function(c) { return "timm" + (c !== 1 ? "ar" : "e"); },
+      m: function(c) { return "minut" + (c !== 1 ? "er" : ""); },
+      s: function(c) { return "sekund" + (c !== 1 ? "er" : ""); },
+      ms: function(c) { return "millisekund" + (c !== 1 ? "er" : ""); },
       decimal: ","
     },
     tr: {
@@ -302,7 +313,7 @@
       unitMS = options.unitMeasures[unitName];
 
       // What's the number of full units we can fit?
-      if ((i + 1) === len) {
+      if (i + 1 === len) {
         unitCount = ms / unitMS;
         if (options.round) {
           unitCount = Math.round(unitCount);
@@ -317,7 +328,7 @@
       }
 
       // Do we have enough units?
-      if (options.largest && (options.largest <= result.length)) {
+      if (options.largest && options.largest <= result.length) {
         break;
       }
 
@@ -368,6 +379,19 @@
     return destination;
   }
 
+  // Internal helper function for Czech language.
+  function getCzechForm(c) {
+    if (c === 1) {
+      return 0;
+    } else if (Math.floor(c) !== c) {
+      return 1;
+    } else if (c % 10 >= 2 && c % 10 <= 4 && c % 100 < 10) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
   // Internal helper function for Polish language.
   function getPolishForm(c) {
     if (c === 1) {
@@ -385,9 +409,9 @@
   function getSlavicForm(c) {
     if (Math.floor(c) !== c) {
       return 2;
-    } else if (c === 0 || (c >= 5 && c <= 20) || (c % 10 >= 5 && c % 10 <= 9) || (c % 10 === 0)) {
+    } else if ((c >= 5 && c <= 20) || (c % 10 >= 5 && c % 10 <= 9) || c % 10 === 0) {
       return 0;
-    } else if (c === 1 || c % 10 === 1) {
+    } else if (c % 10 === 1) {
       return 1;
     } else if (c > 1) {
       return 2;
@@ -418,5 +442,4 @@
   } else {
     global.humanizeDuration = humanizeDuration;
   }
-
 })(this);

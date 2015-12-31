@@ -10,18 +10,10 @@ namespace AllAcu
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/libs")
-                .Include("~/Scripts/moment.js")
-                .Include("~/Scripts/humanize-duration.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/angular")
-                .Include("~/Scripts/angular/angular.js")
-                .IncludeDirectory("~/Scripts/angular", "*.js", false));
+                bundles.Add(new ScriptBundle("~/bundles/libs")
+                .Include("~/Scripts/angular.js")
+                .IncludeDirectory("~/Scripts/angular-ui", "*.js")
+                .IncludeDirectory("~/Scripts", "*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                 .IncludeDirectory("~/Content", "*.css", true));
