@@ -10,7 +10,7 @@
                 });
             }
             $scope.submit = function () {
-                $api.verification.submitNewRequest(patientId, $scope.request)
+                $api.verifications.submitNewRequest(patientId, $scope.request)
                     .success(function () {
                         $location.path("/patient/" + patientId);
                     });
