@@ -30,13 +30,12 @@
                 });
 
             $scope.verificationTemplate = function () {
-
                 switch ($scope.verification && $scope.verification.status) {
                     case "Draft":
                     case "Rejected":
                         return "/Templates/Verification/verifyInsuranceRequest.html";
                     case "Submitted":
-                        return "/Templates/Verification/verifyInsurance.html";
+                        return "/Templates/Verification/displayRequest.html";
                     case "Assigned":
                         return "/Templates/Verification/displayRequest.html";
                     case "In Progress":
@@ -60,23 +59,19 @@
                 reject: { name: "Reject", handler: "dummy" }
             }
 
+            var availableActions = {
+                "Draft": [actions.saveDraft],
+                "Rejected": [actions.saveDraft],
+                "Submitted": [actions.assign],
+                "Assigned": [actions.startCall, actions.assign],
+                "In Progress": [actions.save, actions.endCall],
+                "PendingApproval": [actions.approve, actions.reject],
+                "Verified": []
+            }
+
             $scope.availableActions = function () {
-                switch ($scope.verification && $scope.verification.status) {
-                    case "Draft":
-                    case "Rejected":
-                        return [actions.saveDraft];
-                    case "Submitted":
-                        return [actions.assign];
-                    case "Assigned":
-                        return [actions.startCall, actions.assign];
-                    case "In Progress":
-                        return [actions.save, actions.endCall];
-                    case "PendingApproval":
-                        return [actions.approve, actions.reject];
-                    case "Verified":
-                        return [];
-                }
-                return [];
+                return $scope.verification ?
+                    availableActions[$scope.verification.status] : [];
             }
 
             $scope.dummy = function () {
@@ -85,6 +80,10 @@
 
             $scope.handleClick = function (method) {
                 $scope[method]();
+            }
+
+            $scope.save = function () {
+                $api.verifications.update(verificationId, $scope.verification);
             }
 
             $scope.saveDraft = function () {
@@ -114,13 +113,13 @@
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: '/Templates/Verification/actions.html',
-                    controller: 'verificationActions',
+                    controller: 'verification.actions',
                     size: 'lg',
                     resolve: {
                         verification: function () {
                             return $scope.verification;
                         },
-                        template: function () {
+                        actionTemplate: function () {
                             return templateUrl;
                         },
                         patientName: function () {
@@ -153,32 +152,52 @@
         }
     ]);
 
-    module.controller('verificationActions', [
-        "$scope", "$api", "verification", "patientName", "template", function ($scope, $api, verification, patientName, template) {
-            var verificationId = verification.verificationId;
+    module.controller('verification.actions', [
+        "$scope", "$api", "verification", "patientName", "actionTemplate", function ($scope, $api, verification, patientName, actionTemplate) {
             $scope.verification = verification;
-            $scope.actionTemplate = template;
+            $scope.actionTemplate = actionTemplate;
             $scope.patientName = patientName;
+        }]);
 
+    module.controller('verification.complete', [
+        '$scope', '$api', function ($scope, $api) {
             $scope.complete = function () {
                 $api.verifications.complete(verificationId, $scope.verification).success(function () {
                     $location.path("/verifications");
                 });
             }
+        }
+    ]);
 
-            $scope.select = function (user) {
-                $scope.selectedUser = user;
-            };
-
+    module.controller('verification.reject', [
+        '$scope', '$api', function ($scope, $api) {
             $scope.reject = function () {
                 $api.verifications.reject(verificationId, $scope.verification).success(function () {
                     $location.path("/patient/" + patientId);
                 });
             }
+        }
+    ]);
+
+    module.controller('verification.assignUser', [
+        '$scope', '$api', function ($scope, $api) {
+            $scope.verification = $scope.$parent.verification;
+            var verificationId = $scope.$parent.verification.verificationId;
+
+            $scope.select = function (user) {
+                $scope.selectedUser = user;
+            };
 
             $scope.assign = function () {
                 $api.verifications.delegate(verificationId, $scope.selectedUser.userId);
             }
+
+            var users = [];
+            $scope.users = function () { return users; };
+
+            $api.users.getAll().success(function (data) {
+                users = data;
+            });
         }
     ]);
 
@@ -226,17 +245,6 @@
                     callReferenceNumber: $scope.callReferenceNumber
                 });
             }
-
-        }]);
-
-    module.controller('userChooser', [
-        '$scope', '$api', function ($scope, $api) {
-            var users = [];
-            $scope.users = function () { return users; };
-
-            $api.users.getAll().success(function (data) {
-                users = data;
-            });
         }
     ]);
 

@@ -9,7 +9,7 @@
     app.config([
         '$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("");
+            $urlRouterProvider.otherwise("/patients");
             $stateProvider
                 .state({
                     name: 'login',

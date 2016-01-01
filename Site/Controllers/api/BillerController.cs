@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Domain.Biller;
@@ -22,9 +23,16 @@ namespace AllAcu.Controllers.api
         }
 
         [Route(""), HttpGet]
-        public Task<Biller> GetBiller()
+        public async Task<object> GetBiller()
         {
-            return dbContext.Billers.FindAsync(AllAcuBillerId);
+            var biller = await dbContext.Billers.FindAsync(AllAcuBillerId);
+
+            return new
+            {
+                Id = biller.Id,
+                Name = biller.Name,
+                Users = biller.Users.ToArray()
+            };
         }
 
         [Route("grant")]
