@@ -110,7 +110,7 @@
             }
 
             function popup(templateUrl) {
-                var modalInstance = $uibModal.open({
+                var modal = $uibModal.open({
                     animation: true,
                     templateUrl: '/Templates/Verification/actions.html',
                     controller: 'verification.actions',
@@ -128,11 +128,13 @@
                     }
                 });
 
-                modalInstance.result.then(function (result) {
+                modal.result.then(function (result) {
                     console.dir(result);
                 }, function () {
                     console.info('Modal dismissed at: ' + new Date());
                 });
+
+                return modal;
             }
         }
     ]);
@@ -153,16 +155,18 @@
     ]);
 
     module.controller('verification.actions', [
-        "$scope", "$api", "verification", "patientName", "actionTemplate", function ($scope, $api, verification, patientName, actionTemplate) {
+        "$scope", "$api", "$uibModalInstance", "verification", "patientName", "actionTemplate", function ($scope, $api, $uibModalInstance, verification, patientName, actionTemplate) {
             $scope.verification = verification;
             $scope.actionTemplate = actionTemplate;
             $scope.patientName = patientName;
+            $scope.modal = $uibModalInstance;
         }]);
 
     module.controller('verification.complete', [
         '$scope', '$api', function ($scope, $api) {
             $scope.complete = function () {
                 $api.verifications.complete(verificationId, $scope.verification).success(function () {
+                    $scope.modal.close();
                     $location.path("/verifications");
                 });
             }
@@ -173,6 +177,7 @@
         '$scope', '$api', function ($scope, $api) {
             $scope.reject = function () {
                 $api.verifications.reject(verificationId, $scope.verification).success(function () {
+                    $scope.modal.close();
                     $location.path("/patient/" + patientId);
                 });
             }
@@ -189,7 +194,9 @@
             };
 
             $scope.assign = function () {
-                $api.verifications.delegate(verificationId, $scope.selectedUser.userId);
+                $api.verifications.delegate(verificationId, $scope.selectedUser.userId).success(function() {
+                    $scope.modal.close();
+                });
             }
 
             var users = [];
@@ -203,14 +210,13 @@
 
     module.controller('verification.startCall', [
         "$scope", "$location", "$api", function ($scope, $location, $api) {
-            var verificationId = $scope.$parent.verification.verificationId;
+            $scope.verification = $scope.$parent.verification;
+            var verificationId = $scope.verification.verificationId;
             $scope.startCall = function () {
-
-                console.log("starting call: " + verificationId);
-
                 $api.verifications.startCall(verificationId, {
                     serviceCenterRepresentative: $scope.serviceCenterRepresentative
                 }).success(function () {
+                    $scope.modal.close();
                     $location.path("/verification/" + verificationId);
                 });
             }
@@ -227,7 +233,7 @@
 
             $scope.save = function () {
                 $api.verifications.update(verificationId, $scope.verification).success(function () {
-                    console.log("saved " + verificationId);
+                    $scope.modal.close();
                 });
             }
         }
@@ -243,6 +249,8 @@
                 $api.verifications.endCall(verificationId, {
                     serviceCenterRepresentative: $scope.serviceCenterRepresentative,
                     callReferenceNumber: $scope.callReferenceNumber
+                }).success(function () {
+                    $scope.modal.close();
                 });
             }
         }
