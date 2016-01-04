@@ -1,25 +1,25 @@
 ﻿(function (module) {
 
     module.controller('verificationRequestCreate', [
-        "$scope", "$stateParams", "$location", "$api", function ($scope, $stateParams, $location, $api) {
+        "$scope", "$stateParams", "$state", "$api", function ($scope, $stateParams, $state, $api) {
             var patientId = $stateParams["patientId"];
 
             $scope.save = function () {
                 $api.verifications.start(patientId, $scope.request).success(function (response) {
-                    $location.path("/verification/" + response);
+                    $state.go("verificationList", { verificationId: response });
                 });
             }
             $scope.submit = function () {
                 $api.verifications.submitNewRequest(patientId, $scope.request)
                     .success(function () {
-                        $location.path("/patient/" + patientId);
+                        $state.go("patientDetails", { patientId: patientId });
                     });
             };
         }
     ]);
 
     module.controller('verification', [
-        "$scope", "$stateParams", "$location", "$uibModal", "verificationRepository", "$api", function ($scope, $stateParams, $location, $uibModal, verifications, $api) {
+        "$scope", "$stateParams", "$state", "$uibModal", "verificationRepository", "$api", function ($scope, $stateParams, $state, $uibModal, verifications, $api) {
             var verificationId = $stateParams["verificationId"];
             var patientId;
 
@@ -93,7 +93,7 @@
             $scope.submit = function () {
                 $api.verifications.submitRequest(verificationId, $scope.request)
                     .success(function () {
-                        $location.path("/patient/" + patientId);
+                        $state.go("patientDetails", { patientId: patientId });
                     });
             };
 
@@ -163,22 +163,22 @@
         }]);
 
     module.controller('verification.complete', [
-        '$scope', '$api', function ($scope, $api) {
+        '$scope', '$api', '$state', function ($scope, $api, $state) {
             $scope.complete = function () {
                 $api.verifications.complete(verificationId, $scope.verification).success(function () {
                     $scope.modal.close();
-                    $location.path("/verifications");
+                    $state.go("verificationList");
                 });
             }
         }
     ]);
 
     module.controller('verification.reject', [
-        '$scope', '$api', function ($scope, $api) {
+        '$scope', '$api', '$state', function ($scope, $api, $state) {
             $scope.reject = function () {
                 $api.verifications.reject(verificationId, $scope.verification).success(function () {
                     $scope.modal.close();
-                    $location.path("/patient/" + patientId);
+                    $state.go("verificationList");
                 });
             }
         }
@@ -209,7 +209,7 @@
     ]);
 
     module.controller('verification.startCall', [
-        "$scope", "$location", "$api", function ($scope, $location, $api) {
+        "$scope", "$api", function ($scope, $api) {
             $scope.verification = $scope.$parent.verification;
             var verificationId = $scope.verification.verificationId;
             $scope.startCall = function () {
@@ -217,7 +217,6 @@
                     serviceCenterRepresentative: $scope.serviceCenterRepresentative
                 }).success(function () {
                     $scope.modal.close();
-                    $location.path("/verification/" + verificationId);
                 });
             }
         }
